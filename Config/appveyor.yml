@@ -1,0 +1,18 @@
+# See http://www.appveyor.com/docs/appveyor-yml for many more options
+version: 1.0.0.{build}
+
+environment:
+  NugetApiKey:
+    secure: 3sC7bUSY534F4WnpYXlP7XyikulxbSpfLZgC3y37gA2OAeMp35la0zplVjiliOFn
+  access_token:
+    secure: eBkkiWtTuwTfnTN2G4n0RegBV+MImV3BoKYm2pGmi/0Lu3VGb4m07m5FJWq+29sD
+
+os: WMF 5
+
+skip_commits:
+  message: /updated readme.*|update readme.*s/
+
+build: false
+
+test_script:
+  - ps: . .BuildTools\build.ps1
