@@ -83,8 +83,8 @@ Task Build -Depends UnitTests {
     
     "Populating AliasesToExport and FunctionsToExport"
     # Load the module, read the exported functions and aliases, update the psd1
-    $FunctionFiles = Get-ChildItem "$ModuleFolder\Public\*.ps1" |
-        Where-Object{ $_.name -notmatch 'Tests' }
+    $FunctionFiles = Get-ChildItem "$ModuleFolder\Public\" -Filter '*.ps1' -Recurse |
+        Where-Object { $_.Name -notmatch '\.tests{0,1}\.ps1' }
     $ExportFunctions = @()
     $ExportAliases = @()
     foreach ($FunctionFile in $FunctionFiles) {
@@ -112,9 +112,11 @@ Task Build -Depends UnitTests {
     # I prefer to populate this instead of dot sourcing from the .psm1
     $Parameters = @{
         Path = @(
-            "$ModuleFolder\Public\*.ps1"
-            "$ModuleFolder\Private\*.ps1"
+            "$ModuleFolder\Public\"
+            "$ModuleFolder\Private\"
         )
+        Filter = '*.ps1'
+        Recurse = $true
         ErrorAction = 'SilentlyContinue'
     }
     $ExportModules = Get-ChildItem @Parameters |
