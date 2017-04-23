@@ -1,4 +1,4 @@
-﻿<#	
+<#	
 	===========================================================================
 	 Created with: 	SAPIEN Technologies, Inc., PowerShell Studio 2017 v5.4.139
 	 Created on:   	4/23/2017 9:22 AM
@@ -19,7 +19,7 @@
 	ModuleToProcess = 'PSRAW.psm1'
 	
 	# Version number of this module.
-	ModuleVersion = '1.0.0.0'
+	ModuleVersion = '1.0.1.9'
 	
 	# ID used to uniquely identify this module
 	GUID = '92c8f916-4890-45eb-a3e7-592f5b5b3f24'
