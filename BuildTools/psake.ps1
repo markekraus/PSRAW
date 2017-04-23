@@ -128,7 +128,10 @@ Task Build -Depends UnitTests {
     $ExportModules = Get-ChildItem @Parameters |
         Where-Object { $_.Name -notmatch '\.tests{0,1}\.ps1' } |
         ForEach-Object { $_.fullname.replace("$ModuleFolder\", "") }
-    Update-Metadata -Path $env:BHPSModuleManifest -PropertyName NestedModules -Value $ExportModules
+    if($ExportModules){
+        Update-Metadata -Path $env:BHPSModuleManifest -PropertyName NestedModules -Value $ExportModules
+    }
+    
     
     # Bump the module version
     Update-Metadata -Path $env:BHPSModuleManifest -PropertyName ModuleVersion -Value $BuildVersion
