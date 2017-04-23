@@ -20,6 +20,8 @@ Properties {
         $ProjectRoot = (Resolve-Path ..\).Path
     }
     $ModuleFolder = Split-Path -Path $ENV:BHPSModuleManifest -Parent
+    # Configured in appveyor.yml
+    $ModuleName = $ENV:ModuleName
     $PSVersion = $PSVersionTable.PSVersion.Major
     $TestFile = "TestResults_PS$PSVersion`_$TimeStamp.xml"
     $lines = '----------------------------------------------------------------------'
@@ -29,7 +31,7 @@ Properties {
     }
     $CurrentVersion = [version](Get-Metadata -Path $env:BHPSModuleManifest)
     $StepVersion = [version] (Step-Version $CurrentVersion)
-    $GalleryVersion = Get-NextPSGalleryVersion -Name $env:BHProjectName
+    $GalleryVersion = Get-NextPSGalleryVersion -Name $ModuleName
     $BuildVersion = $StepVersion
     If ($GalleryVersion -gt $StepVersion) {
         $BuildVersion = $GalleryVersion
@@ -201,9 +203,13 @@ Task Test -Depends Build  {
 
 Task BuildDocs -depends Test {
     $lines
-    
+    $ModuleFunctions = get-Metadata -Path $env:BHPSModuleManifest -PropertyName FunctionsToExport
+    if(-not $ModuleFunctions){
+        "Module '$ModuleName' has not functions to document"
+        return
+    }
     "Loading Module from $ENV:BHPSModuleManifest"
-    Remove-Module $ENV:BHProjectName -Force -ea SilentlyContinue
+    Remove-Module $ModuleName -Force -ea SilentlyContinue
     # platyPS + AppVeyor requires the module to be loaded in Global scope
     Import-Module $ENV:BHPSModuleManifest -force -Global
     
@@ -238,7 +244,7 @@ Task BuildDocs -depends Test {
     }
     $null = New-Item @Params
     $Params = @{
-        Module = $ENV:BHProjectName
+        Module = $ModuleName
         Force = $true
         OutputFolder = "$ProjectRoot\docs\functions"
         NoMetadata = $true
@@ -289,7 +295,7 @@ Task PostDeploy -depends Deploy {
         Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
         
         "git config --global user.email"
-        cmd /c "git config --global user.email ""$($ENV:BHProjectName)-$($ENV:BHBranchName)-$($ENV:BHBuildSystem)@markekraus.com"" 2>&1"
+        cmd /c "git config --global user.email ""$($ModuleName)-$($ENV:BHBranchName)-$($ENV:BHBuildSystem)@markekraus.com"" 2>&1"
         
         "git config --global user.name"
         cmd /c "git config --global user.name ""AppVeyor"" 2>&1"
