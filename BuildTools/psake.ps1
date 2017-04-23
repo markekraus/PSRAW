@@ -38,7 +38,7 @@ Properties {
     $BuildDate = Get-Date -uFormat '%Y-%m-%d'
     $ReleaseNotes = "$ProjectRoot\RELEASE.md"
     $ChangeLog = "$ProjectRoot\docs\ChangeLog.md"
-    $MkdcosYmlHeader =  "$ProjectRoot\header-mkdocs.yml"
+    $MkdcosYmlHeader =  "$ProjectRoot\Config\header-mkdocs.yml"
 }
 
 Task Default -Depends PostDeploy
