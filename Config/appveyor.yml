@@ -15,4 +15,4 @@ skip_commits:
 build: false
 
 test_script:
-  - ps: . .BuildTools\build.ps1
+  - ps: . .\BuildTools\build.ps1
