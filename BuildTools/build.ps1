@@ -19,8 +19,7 @@ Install-Module Psake, PSDeploy, BuildHelpers, platyPS, PSScriptAnalyzer -force
 Install-Module Pester -Force -SkipPublisherCheck
 Import-Module Psake, BuildHelpers, platyPS, PSScriptAnalyzer
 
-$ProjectPath = (Resolve-Path ..\).Path
-Set-BuildEnvironment -Path $ProjectPath
+Set-BuildEnvironment 
 
-Invoke-psake -buildFile .\psake.ps1 -taskList $Task -nologo
+Invoke-psake -buildFile .\BuildTools\psake.ps1 -taskList $Task -nologo
 exit ([int](-not $psake.build_success))
