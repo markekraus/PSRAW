@@ -131,6 +131,9 @@ Task Build -Depends UnitTests {
     if($ExportModules){
         Update-Metadata -Path $env:BHPSModuleManifest -PropertyName NestedModules -Value $ExportModules
     }
+    else{
+        "No modules found to add to NestedModules"
+    }
     
     
     # Bump the module version
