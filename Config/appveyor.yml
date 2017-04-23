@@ -6,6 +6,7 @@ environment:
     secure: 3sC7bUSY534F4WnpYXlP7XyikulxbSpfLZgC3y37gA2OAeMp35la0zplVjiliOFn
   access_token:
     secure: eBkkiWtTuwTfnTN2G4n0RegBV+MImV3BoKYm2pGmi/0Lu3VGb4m07m5FJWq+29sD
+  ModuleName: PSRAW
 
 os: WMF 5
 
