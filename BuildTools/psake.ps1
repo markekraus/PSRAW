@@ -81,31 +81,37 @@ Task UnitTests -Depends Init {
 Task Build -Depends UnitTests {
     $lines
     
-    "Populating AliasesToExport and FunctionsToExport"
-    # Load the module, read the exported functions and aliases, update the psd1
-    $FunctionFiles = Get-ChildItem "$ModuleFolder\Public\" -Filter '*.ps1' -Recurse |
-        Where-Object { $_.Name -notmatch '\.tests{0,1}\.ps1' }
-    $ExportFunctions = @()
-    $ExportAliases = @()
-    foreach ($FunctionFile in $FunctionFiles) {
-        $AST = [System.Management.Automation.Language.Parser]::ParseFile($FunctionFile.FullName, [ref]$null, [ref]$null)        
-        $Functions = $AST.FindAll({
-                $args[0] -is [System.Management.Automation.Language.FunctionDefinitionAst]
-            }, $true)
-        if ($Functions.Name) {
-            $ExportFunctions += $Functions.Name
+    if(Test-Path "$ModuleFolder\Public\"){
+        "Populating AliasesToExport and FunctionsToExport"
+        # Load the module, read the exported functions and aliases, update the psd1
+        $FunctionFiles = Get-ChildItem "$ModuleFolder\Public\" -Filter '*.ps1' -Recurse |
+            Where-Object { $_.Name -notmatch '\.tests{0,1}\.ps1' }
+        $ExportFunctions = @()
+        $ExportAliases = @()
+        foreach ($FunctionFile in $FunctionFiles) {
+            $AST = [System.Management.Automation.Language.Parser]::ParseFile($FunctionFile.FullName, [ref]$null, [ref]$null)        
+            $Functions = $AST.FindAll({
+                    $args[0] -is [System.Management.Automation.Language.FunctionDefinitionAst]
+                }, $true)
+            if ($Functions.Name) {
+                $ExportFunctions += $Functions.Name
+            }
+            $Aliases = $AST.FindAll({
+                    $args[0] -is [System.Management.Automation.Language.AttributeAst] -and
+                    $args[0].parent -is [System.Management.Automation.Language.ParamBlockAst] -and
+                    $args[0].TypeName.FullName -eq 'alias'
+                }, $true)
+            if ($Aliases.PositionalArguments.value) {
+                $ExportAliases += $Aliases.PositionalArguments.value
+            }        
         }
-        $Aliases = $AST.FindAll({
-                $args[0] -is [System.Management.Automation.Language.AttributeAst] -and
-                $args[0].parent -is [System.Management.Automation.Language.ParamBlockAst] -and
-                $args[0].TypeName.FullName -eq 'alias'
-            }, $true)
-        if ($Aliases.PositionalArguments.value) {
-            $ExportAliases += $Aliases.PositionalArguments.value
-        }        
+        Set-ModuleFunctions -Name $env:BHPSModuleManifest -FunctionsToExport $ExportFunctions
+        Update-Metadata -Path $env:BHPSModuleManifest -PropertyName AliasesToExport -Value $ExportAliases
     }
-    Set-ModuleFunctions -Name $env:BHPSModuleManifest -FunctionsToExport $ExportFunctions
-    Update-Metadata -Path $env:BHPSModuleManifest -PropertyName AliasesToExport -Value $ExportAliases
+    Else {
+        "$ModuleFolder\Public\ not found. No public functions to import"
+    }
+    
     
     "Populating NestedModules"
     # Scan the Public and Private folders and add all Files to NestedModules
