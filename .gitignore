@@ -1,0 +1,23 @@
+# PowerShell Studio Build Files
+*.psproj
+*.psprojs
+*.psbuild
+*.preview.ps1
+*.run.ps1
+*.temppoint.*
+*.RestorePoint.*
+
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
