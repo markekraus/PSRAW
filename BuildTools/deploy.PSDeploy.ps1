@@ -11,10 +11,10 @@
 	.DESCRIPTION
 		PSDeploy for PowerShell Gallery Module Deployment
 #>
-if ($ENV:BHProjectName -and $ENV:BHProjectName.Count -eq 1) {
+if ($ENV:ModuleName -and $ENV:ModuleName.Count -eq 1) {
     Deploy Module {
         By PSGalleryModule {
-            FromSource $ENV:BHProjectName
+            FromSource $ENV:ModuleName
             To PSGallery
             WithOptions @{
                 ApiKey = $ENV:NugetApiKey
