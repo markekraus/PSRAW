@@ -38,6 +38,7 @@ Properties {
     $BuildDate = Get-Date -uFormat '%Y-%m-%d'
     $ReleaseNotes = "$ProjectRoot\RELEASE.md"
     $ChangeLog = "$ProjectRoot\docs\ChangeLog.md"
+    $MkdcosYmlHeader =  "$ProjectRoot\header-mkdocs.yml"
 }
 
 Task Default -Depends PostDeploy
@@ -193,7 +194,7 @@ Task BuildDocs -depends Test {
     Import-Module $ENV:BHPSModuleManifest -force -Global
     
     #Build YAMLText starting with the header
-    $YMLtext = (Get-Content "$ProjectRoot\header-mkdocs.yml") -join "`n"
+    $YMLtext = (Get-Content $MkdcosYmlHeader) -join "`n"
     $YMLtext = "$YMLtext`n"
     $parameters = @{
         Path = $ReleaseNotes
