@@ -116,10 +116,11 @@ Task Build -Depends UnitTests {
     
     
     "Populating NestedModules"
-    # Scan the Public and Private folders and add all Files to NestedModules
+    # Scan the Public, Private, and Classes folders and add all Files to NestedModules
     # I prefer to populate this instead of dot sourcing from the .psm1
     $Parameters = @{
         Path = @(
+            "$ModuleFolder\Classes\"
             "$ModuleFolder\Public\"
             "$ModuleFolder\Private\"
         )
