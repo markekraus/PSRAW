@@ -124,7 +124,7 @@ Task Build -Depends UnitTests {
             "$ModuleFolder\Public\"
             "$ModuleFolder\Private\"
         )
-        Filter = '*.ps1'
+        Filter = '*.ps*1'
         Recurse = $true
         ErrorAction = 'SilentlyContinue'
     }
