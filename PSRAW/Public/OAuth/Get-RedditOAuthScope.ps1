@@ -11,13 +11,17 @@
 	.DESCRIPTION
 		Get-RedditOAuthScope Function
 #>
+
+#Import RedditScope Class
 Using module '..\..\Classes\RedditScope.psm1'
+
 <#
     .SYNOPSIS
         Retireve valid Reddit OAuth Scopes.
     
     .DESCRIPTION
-        Retrive valid OAuth scope IDs, Names, and Descriptions from Reddit.
+        Retrive valid OAuth scope IDs, Names, and Descriptions from Reddit. The Scope ID's
+        are required for requesting OAuth Authorzation codes
     
     .PARAMETER ScopeURL
         Optional. URL for the Reddit App Scope definitions.
@@ -60,20 +64,13 @@ function Get-RedditOAuthScope {
     param
     (
         [Parameter(Mandatory = $false)]
-        [ValidateScript({
-                [system.uri]::IsWellFormedUriString(
-                    $_, [System.UriKind]::Absolute
-                )
-            })]
-        [string]$ScopeURL = 'https://www.reddit.com/api/v1/scopes'
+        [string]$ApiEndpointUri = [RedditScope]::GetApiEndpointUri()
     )
     
     Write-Verbose "Retrieving Scopes from '$ScopeURL'"
-    $ScopesObj = Invoke-WebRequest -Uri $ScopeURL |
-        Select-Object -ExpandProperty Content |
-        ConvertFrom-Json
+    $ScopesObj = Invoke-RestMethod -Uri $ScopeURL
 
-    Write-Verbose "Looping through each scope and return ID, Name, and Description properties."
+    Write-Verbose "Looping through each scope and creating [RedditScope] Objects"
     foreach ($Property in $ScopesObj.psobject.Properties.Name) {
         Write-Verbose "Processing '$Property'"
         [RedditScope]::New(
