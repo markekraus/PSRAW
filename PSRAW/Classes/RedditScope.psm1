@@ -17,6 +17,12 @@ Class RedditScope {
     [String]$Name    
     [String]$Description
 
+    Static [String]$ApiEndpointUri = 'https://www.reddit.com/api/v1/scopes'
+
+    Static [String] GetApiEndpointUri (){
+        return [RedditScope]::ApiEndpointUri
+    }
+
     RedditScope () {
         $This._init('','','','')
     }
