@@ -23,7 +23,7 @@ Using module '..\..\Classes\RedditScope.psm1'
         Retrive valid OAuth scope IDs, Names, and Descriptions from Reddit. The Scope ID's
         are required for requesting OAuth Authorzation codes
     
-    .PARAMETER ScopeURL
+    .PARAMETER ApiEndpointUri
         Optional. URL for the Reddit App Scope definitions.
         Default:
 
