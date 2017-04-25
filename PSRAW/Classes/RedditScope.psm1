@@ -27,6 +27,10 @@ Class RedditScope {
         $This._init('','','','')
     }
     
+    RedditScope ([String]$Scope) {
+        $This._init($Scope,$Scope,$Scope,$Scope)
+    }
+
     RedditScope ([String]$Scope, [String]$Id, [String]$Name, [String]$Description){
         $This._init($Scope, $Id, $Name, $Description)
     }
