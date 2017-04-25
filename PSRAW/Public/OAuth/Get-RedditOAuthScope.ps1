@@ -73,11 +73,11 @@ function Get-RedditOAuthScope {
     Write-Verbose "Looping through each scope and creating [RedditScope] Objects"
     foreach ($Property in $ResultObj.psobject.Properties.Name) {
         Write-Verbose "Processing '$Property'"
-        [RedditScope]::New(
-            <# Scope:       #> $Property,
-            <# Id:          #> $ResultObj.$Property.id,
-            <# Name:        #> $ResultObj.$Property.Name,
-            <# Decsription: #> $ResultObj.$Property.Description
-        )
+        [RedditScope]@{
+            Scope = $Property
+            Id = $ResultObj.$Property.id
+            Name = $ResultObj.$Property.Name
+            Description = $ResultObj.$Property.Description
+        }
     }
 }
