@@ -67,17 +67,17 @@ function Get-RedditOAuthScope {
         [string]$ApiEndpointUri = [RedditScope]::GetApiEndpointUri()
     )
     
-    Write-Verbose "Retrieving Scopes from '$ScopeURL'"
-    $ScopesObj = Invoke-RestMethod -Uri $ScopeURL
+    Write-Verbose "Retrieving Scopes from '$ApiEndpointUri'"
+    $ResultObj = Invoke-RestMethod -Uri $ApiEndpointUri
 
     Write-Verbose "Looping through each scope and creating [RedditScope] Objects"
-    foreach ($Property in $ScopesObj.psobject.Properties.Name) {
+    foreach ($Property in $ResultObj.psobject.Properties.Name) {
         Write-Verbose "Processing '$Property'"
         [RedditScope]::New(
             <# Scope:       #> $Property,
-            <# Id:          #> $ScopesObj.$Property.id,
-            <# Name:        #> $ScopesObj.$Property.Name,
-            <# Decsription: #> $ScopesObj.$Property.Description
+            <# Id:          #> $ResultObj.$Property.id,
+            <# Name:        #> $ResultObj.$Property.Name,
+            <# Decsription: #> $ResultObj.$Property.Description
         )
     }
 }
