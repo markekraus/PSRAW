@@ -6,13 +6,11 @@ Retireve valid Reddit OAuth Scopes.
 ## SYNTAX
 
 ```
-Get-RedditOAuthScope [[-ApiEndpointUri] <String>]
+Get-RedditOAuthScope [[-ScopeURL] <String>]
 ```
 
 ## DESCRIPTION
 Retrive valid OAuth scope IDs, Names, and Descriptions from Reddit.
-The Scope ID's
-are required for requesting OAuth Authorzation codes
 
 ## EXAMPLES
 
@@ -23,7 +21,7 @@ $RedditScopes = Get-RedditOAuthScope
 
 ## PARAMETERS
 
-### -ApiEndpointUri
+### -ScopeURL
 Optional.
 URL for the Reddit App Scope definitions.
 Default:
@@ -37,7 +35,7 @@ Aliases:
 
 Required: False
 Position: 1
-Default value: [RedditScope]::GetApiEndpointUri()
+Default value: Https://www.reddit.com/api/v1/scopes
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
