@@ -1,15 +1,15 @@
 <#	
-	.NOTES
-	===========================================================================
-	 Created with:  VSCode
-	 Created on:    4/26/2017 04:40 AM
-	 Edited on:     4/28/2017
-	 Created by:    Mark Kraus
-	 Organization: 	
-	 Filename:      New-RedditApplication.ps1
-	===========================================================================
-	.DESCRIPTION
-		New-RedditApplication Function
+    .NOTES
+    ===========================================================================
+     Created with:  VSCode
+     Created on:    4/26/2017 04:40 AM
+     Edited on:     4/28/2017
+     Created by:    Mark Kraus
+     Organization: 	
+     Filename:      New-RedditApplication.ps1
+    ===========================================================================
+    .DESCRIPTION
+        New-RedditApplication Function
 #>
 Using Module '..\..\Enums\RedditApplicationType.psm1'
 Using Module '..\..\Classes\RedditScope.psm1'
