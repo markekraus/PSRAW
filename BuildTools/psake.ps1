@@ -183,6 +183,7 @@ Task Test -Depends Build  {
         PassThru = $true
         OutputFormat = 'NUnitXml'
         OutputFile = "$ProjectRoot\$TestFile"
+        Tag = 'Build'
     }    
     $TestResults = Invoke-Pester @parameters 
     
