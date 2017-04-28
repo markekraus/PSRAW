@@ -7,4 +7,5 @@ pages:
   - Home: index.md
   - Functions:
     - Get-RedditOAuthScope: functions/Get-RedditOAuthScope.md
+    - New-RedditApplication: functions/New-RedditApplication.md
 
