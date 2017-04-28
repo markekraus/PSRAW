@@ -68,10 +68,10 @@ Class RedditApplication {
     hidden [void] _init ([System.Collections.Hashtable]$InitHash){
         if(-not (
                 $InitHash.Type.toString() -and $InitHash.ClientCredential -and 
-                $InitHash.RedirectUri -and $InitHash.UserAgent
+                $InitHash.RedirectUri -and $InitHash.UserAgent -and $InitHash.Scope
             )){
             throw [System.ArgumentException]::New(
-                "'Type', 'ClientCredential', 'UserAgent', and 'RedirectUri' are required."
+                "'Type', 'ClientCredential', 'UserAgent', 'Scope', and 'RedirectUri' are required."
             )
         }
         if($InitHash.Type -like 'Script' -and -not $InitHash.UserCredential){
