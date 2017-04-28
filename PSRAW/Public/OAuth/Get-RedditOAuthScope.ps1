@@ -1,15 +1,15 @@
 ﻿<#	
-	.NOTES
-	===========================================================================
-	 Created with: 	VSCode
-	 Created on:   	4/23/2017 1:42 PM
+    .NOTES
+    ===========================================================================
+     Created with: 	VSCode
+     Created on:   	4/23/2017 1:42 PM
      Editied on:    4/25/2017
-	 Created by:   	Mark Kraus
-	 Organization: 	
-	 Filename:     	Get-RedditOAuthScope.ps1
-	===========================================================================
-	.DESCRIPTION
-		Get-RedditOAuthScope Function
+     Created by:   	Mark Kraus
+     Organization: 	
+     Filename:     	Get-RedditOAuthScope.ps1
+    ===========================================================================
+    .DESCRIPTION
+        Get-RedditOAuthScope Function
 #>
 
 #Import RedditScope Class
