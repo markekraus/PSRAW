@@ -53,54 +53,9 @@ $TestHashes = @(
         }
     }
 )
-$TestArrays = @(
-    @{
-        Name = 'WebApp'
-        Array = 
-            'TestApplication',
-            'This is only a test',
-            'https://localhost/',
-            'windows:PSRAW-Unit-Tests:v1.0.0.0',
-            'WebApp',
-            [guid]::NewGuid(),
-            'c:\RedditApplication.xml',
-            'read',
-            $ClientCredential,
-            $EmptyCred
-    }
-    @{
-        Name = 'Script'
-        Array = @(
-            'TestApplication'
-            'This is only a test'
-            'https://localhost/'
-            'windows:PSRAW-Unit-Tests:v1.0.0.0'
-            'Script'
-            [guid]::NewGuid()
-            'c:\RedditApplication.xml'
-            'read'
-            $ClientCredential
-            $UserCredential
-        )
-    }
-    @{
-        Name = 'Installed'
-        Array = @(
-            'TestApplication'
-            'This is only a test'
-            'https://localhost/'
-            'windows:PSRAW-Unit-Tests:v1.0.0.0'
-            'Installed'
-            [guid]::NewGuid()
-            'c:\RedditApplication.xml'
-            'read'
-            $ClientCredential
-            $EmptyCred
-        )
-    }
-)
 
-Describe "$Classs Class Tests" -Tag Unit, Build {
+
+Describe "[$Class] Tests" -Tag Unit, Build {
     foreach($TestHash in $TestHashes){
         It "Converts the '$($TestHash.Name)' hash"{
             {[RedditApplication]$TestHash.Hash} | should not throw
@@ -140,5 +95,73 @@ Describe "$Classs Class Tests" -Tag Unit, Build {
     }
     It "Throws an exception with the default constructor" {
         {[RedditApplication]::new()} | Should throw "The method or operation is not implemented."
+    }
+    It "Throws an exception with the default constructor" {
+        {[RedditApplication]::new()} | Should throw "The method or operation is not implemented."
+    }
+    It "Requires a Type" {
+        {
+            [RedditApplication]@{
+                Name = 'TestApplication'
+                Description = 'This is only a test'
+                RedirectUri = 'https://localhost/'
+                UserAgent = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
+                Scope = 'read'
+                ClientCredential = $ClientCredential
+                UserCredential = $UserCredential
+            }
+        } | Should Throw 
+    }
+    It "Requires a ClientCredential" {
+        {
+            [RedditApplication]@{
+                Name = 'TestApplication'
+                Description = 'This is only a test'
+                RedirectUri = 'https://localhost/'
+                UserAgent = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
+                Scope = 'read'
+                Type = 'Script'
+                UserCredential = $UserCredential
+            }
+        } | Should Throw 
+    }
+    It "Requires a UserAgent" {
+        {
+            [RedditApplication]@{
+                Name = 'TestApplication'
+                Description = 'This is only a test'
+                RedirectUri = 'https://localhost/'
+                Scope = 'read'
+                Type = 'Script'
+                ClientCredential = $ClientCredential
+                UserCredential = $UserCredential
+            }
+        } | Should Throw 
+    }
+    It "Requires a RedirectUri" {
+        {
+            [RedditApplication]@{
+                Name = 'TestApplication'
+                Description = 'This is only a test'
+                UserAgent = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
+                Scope = 'read'
+                Type = 'Script'
+                ClientCredential = $ClientCredential
+                UserCredential = $UserCredential
+            }
+        } | Should Throw 
+    }
+    It "Requires a Scope" {
+        {
+            [RedditApplication]@{
+                Name = 'TestApplication'
+                Description = 'This is only a test'                
+                RedirectUri = 'https://localhost/'
+                UserAgent = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
+                Type = 'Script'
+                ClientCredential = $ClientCredential
+                UserCredential = $UserCredential
+            }
+        } | Should Throw 
     }
 }
