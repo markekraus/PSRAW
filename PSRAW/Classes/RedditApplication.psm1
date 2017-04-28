@@ -39,6 +39,32 @@ Class RedditApplication {
         $This._init($InitHash)
     }
 
+    RedditApplication (
+        [String]$Name,
+        [String]$Description,
+        [uri]$RedirectUri,
+        [String]$UserAgent,
+        [RedditApplicationType]$Type,
+        [guid]$GUID,
+        [string]$ExportPath,
+        [RedditScope[]]$Scope,
+        [System.Management.Automation.PSCredential]$ClientCredential,
+        [System.Management.Automation.PSCredential]$UserCredential
+    ) {
+        $This._init(@{
+            Name = $Name
+            Description = $Description
+            RedirectUri = $RedirectUri
+            UserAgent = $UserAgent
+            Type = $Type
+            GUID = $GUID
+            ExportPath = $ExportPath
+            Scope = $Scope
+            ClientCredential = $ClientCredential
+            UserCredential = $UserAgent
+        })
+    }
+
     hidden [void] _init ([System.Collections.Hashtable]$InitHash){
         if(-not (
                 $InitHash.Type.toString() -and $InitHash.ClientCredential -and 
