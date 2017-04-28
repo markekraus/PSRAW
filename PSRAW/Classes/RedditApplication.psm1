@@ -61,7 +61,7 @@ Class RedditApplication {
             ExportPath = $ExportPath
             Scope = $Scope
             ClientCredential = $ClientCredential
-            UserCredential = $UserAgent
+            UserCredential = $UserCredential
         })
     }
 
