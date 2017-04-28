@@ -90,4 +90,13 @@ Class RedditApplication {
             $This.ScriptUser = $This.ClientID
         }
     }
+
+    [string] GetClientSecret () {
+        Return $This.ClientCredential.GetNetworkCredential().Password
+    }
+
+    [string] GetUserPassword () {
+        Return $This.UserCredential.GetNetworkCredential().Password
+    }
+
 }
