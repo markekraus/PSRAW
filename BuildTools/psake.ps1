@@ -40,7 +40,7 @@ Properties {
     if($ENV:BHBranchName -eq "master"){
         $GalleryVersion = Get-NextPSGalleryVersion -Name $ModuleName
         $BuildVersion = [version]::New($CurrentVersion.Major, ($CurrentVersion.Minor + 1), 0, 0)
-        If ($GalleryVersion -gt $StepVersion) {
+        If ($GalleryVersion -gt $BuildVersion) {
             $BuildVersion = $GalleryVersion
         }
     }
