@@ -208,7 +208,7 @@ Task BuildDocs -depends Test {
     $lines
     $ModuleFunctions = get-Metadata -Path $env:BHPSModuleManifest -PropertyName FunctionsToExport
     if(-not $ModuleFunctions){
-        "Module '$ModuleName' has not functions to document"
+        "Module '$ModuleName' has no functions to document"
         return
     }
     "Loading Module from $ENV:BHPSModuleManifest"
@@ -216,9 +216,10 @@ Task BuildDocs -depends Test {
     # platyPS + AppVeyor requires the module to be loaded in Global scope
     Import-Module $ENV:BHPSModuleManifest -force -Global
     
-    #Build YAMLText starting with the header
+    "Initializing YAML text..."
     $YMLtext = (Get-Content $MkdcosYmlHeader) -join "`n"
     $YMLtext = "$YMLtext`n"
+    "Populating Release Notes"
     $parameters = @{
         Path = $ReleaseNotes
         ErrorAction = 'SilentlyContinue'
@@ -228,40 +229,82 @@ Task BuildDocs -depends Test {
         $ReleaseText | Set-Content "$ProjectRoot\docs\RELEASE.md"
         $YMLText = "$YMLtext  - Realse Notes: RELEASE.md`n"
     }
+    "Populating Change Log..."
     if ((Test-Path -Path $ChangeLog)) {
         $YMLText = "$YMLtext  - Change Log: ChangeLog.md`n"
     }
-    $YMLText = "$YMLtext  - Functions:`n"
-    # Drain the swamp
-    $parameters = @{
-        Recurse = $true
-        Force = $true
-        Path = "$ProjectRoot\docs\functions"
-        ErrorAction = 'SilentlyContinue'
+    $YMLText = "$YMLtext  - Module Help:`n"
+    If( -not (Test-Path "$ProjectRoot\docs\Module")){
+        "Initialize Module Help folder.."
+        $Params = @{
+            Module = $ModuleName
+            OutputFolder = "$ProjectRoot\docs\Module"
+            WithModulePage = $true
+            Force = $true
+        }
+        New-MarkdownHelp @Params 
     }
-    $null = Remove-Item @parameters
+    "Updateing Module Help documentation..."
     $Params = @{
-        Path = "$ProjectRoot\docs\functions"
-        type = 'directory'
-        ErrorAction = 'SilentlyContinue'
+        AlphabeticParamsOrder = $true
+        Path = "$ProjectRoot\docs\Module"
     }
-    $null = New-Item @Params
-    $Params = @{
-        Module = $ModuleName
-        Force = $true
-        OutputFolder = "$ProjectRoot\docs\functions"
-        NoMetadata = $true
-    }
-    New-MarkdownHelp @Params | foreach-object {
-        $Function = $_.Name -replace '\.md', ''
-        $Part = "    - {0}: functions/{1}" -f $Function, $_.Name
-        $YMLText = "{0}{1}`n" -f $YMLText, $Part
-        $Part
-    }
+    Update-MarkdownHelpModule @Params
+    "Adding Index..." 
+    $Index = Get-Item "$ProjectRoot\docs\Module\$ModuleName.md"
+    $Part = "    - {0}: Module/{1}" -f $ModuleName, $Index.Name
+    $YMLText = "{0}{1}`n" -f $YMLText, $Part
+    "Populating YAML.."
+    Get-ChildItem "$ProjectRoot\docs\Module" | 
+        Where-Object {$_.Name -notlike "$ModuleName.md"} |
+        Sort-Object -Property 'Name' |
+        foreach-object {
+            $Function = $_.Name -replace '\.md', ''
+            $Part = "    - {0}: Module/{1}" -f $Function, $_.Name
+            $YMLText = "{0}{1}`n" -f $YMLText, $Part
+            $Part
+        }
+    "Setting $ProjectRoot\mkdocs.yml..."
     $YMLtext | Set-Content -Path "$ProjectRoot\mkdocs.yml"
+    $ModuleFolder
+    $Params = @{
+        Path = "$ProjectRoot\docs\Module" 
+        OutputPath = "$ModuleFolder\en-US" 
+        Force = $true
+    }
+    New-ExternalHelp @Params
 }
 
-Task Deploy -Depends BuildDocs {
+Task TestDocs -Depends BuildDocs {
+    $lines
+    if($ENV:BHBranchName -like 'develop'){
+        'Skipping develop branch'
+        return
+    }
+    "Running Documentation tests`n"
+    $Timestamp = Get-date -uformat "%Y%m%d-%H%M%S"
+    $TestFile = "TestResults_PS$PSVersion`_$TimeStamp.xml"
+    $Parameters = @{
+        Script = "$ProjectRoot\Tests"
+        PassThru = $true
+        Tag = 'Documentation'
+        OutputFormat = 'NUnitXml'
+        OutputFile = "$ProjectRoot\$TestFile"
+    }
+    $TestResults =Invoke-Pester @Parameters
+    if ($TestResults.FailedCount -gt 0) {
+        Write-Error "Failed '$($TestResults.FailedCount)' tests, build failed"
+    }
+    "`n"
+    If ($ENV:BHBuildSystem -eq 'AppVeyor') {
+        "Uploading $ProjectRoot\$TestFile to AppVeyor"
+        "JobID: $env:APPVEYOR_JOB_ID"
+        (New-Object 'System.Net.WebClient').UploadFile("https://ci.appveyor.com/api/testresults/nunit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path "$ProjectRoot\$TestFile"))
+    }
+    Remove-Item "$ProjectRoot\$TestFile" -Force -ErrorAction SilentlyContinue
+}
+
+Task Deploy -Depends TestDocs {
     $lines
     
     # Gate deployment

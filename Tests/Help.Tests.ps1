@@ -4,7 +4,7 @@ $moduleName = Split-Path $moduleRoot -Leaf
 
 Import-Module (Join-Path $moduleRoot "$moduleName.psd1") -force
 
-Describe "Help tests for $moduleName" -Tags Build {
+Describe "Help tests for $moduleName" -Tags Documentation {
     
     $functions = Get-Command -Module $moduleName -CommandType Function
     foreach($Function in $Functions){
