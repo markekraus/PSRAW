@@ -17,8 +17,8 @@ LONG DESCRIPTION
     Get-RedditOAuthScope
     .
     The RedditScope class is imported from a nested module located at
-    moduleroot\Classes\RedditScope.psm1. This means you can import the class
-    either from the PSRAW module or directly from the nested module.
+    PSRAW\Classes\RedditScope.psm1. This means you can import the class either
+    from the PSRAW module or directly from the nested module.
 
 Constructors
     REDDITSCOPE()
