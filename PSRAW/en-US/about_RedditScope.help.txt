@@ -20,18 +20,33 @@ LONG DESCRIPTION
     moduleroot\Classes\RedditScope.psm1. This means you can import the class
     either from the PSRAW module or directly from the nested module.
 
-Members
+Constructors
+    REDDITSCOPE()
+    Initializes an empty RedditScope.
+
+    [RedditScope]::New()
+
+    REDDITSCOPE([STRING]$SCOPE)
+    Initializes a RedditScope where all members match the provided string.
+
+    [RedditScope]::New([String]$Scope)
+
+    REDDITSCOPE([STRING]$SCOPE, [STRING]$ID, [STRING]$NAME, [STRING]$DESCRIPTION)
+    Initializes a RedditScope with all the properties.
+
+    [RedditScope]::New([String]$Scope, [String]$Id, [String]$Name, [String]$Description)
+
+Properties
     SCOPE
     Redit's API reuturns a JSON hobject that contains an array of hashes. The
-    Scope member preprsents the name of the scope hash. In most cases this
+    Scope property preprsents the name of the scope hash. In most cases this
     matches the Id.
 
     Data Type: String
     Name: Scope
     Default value: None
-    Access Modifer: Public
+    Access: Public
     Scope: Instance
-    Example: creddits
 
     ID
     This is the ID of the Scope that is used in OAuth Authorization Code
@@ -40,9 +55,8 @@ Members
     Data Type: String
     Name: Id
     Default value: None
-    Access Modifer: Public
+    Access: Public
     Scope: Instance
-    Example: creddits
 
     NAME
     A short descriptive name of the scope
@@ -50,9 +64,8 @@ Members
     Data Type: String
     Name: Name
     Default value: None
-    Access Modifer: Public
+    Access: Public
     Scope: Instance
-    Example: Spend reddit gold creddits
 
     DESCRIPTION
     Longer description of the scope.
@@ -60,9 +73,8 @@ Members
     Data Type: String
     Name: Name
     Default value: None
-    Access Modifer: Public
+    Access: Public
     Scope: Instance
-    Example: Spend my reddit gold creddits on giving gold to other users.
 
     APIENDPOINTURI
     The ApiEndpointUri static member is included on all API generated objects.
@@ -73,47 +85,31 @@ Members
     Data Type: String
     Name: ApiEndpointUri
     Value: 'https://www.reddit.com/api/v1/scopes'
-    Access Modifer: Public
+    Access: Public
     Scope: Static
 
 Methods
-    _INIT
+    _INIT([STRING]$SCOPE, [STRING]$ID, [STRING]$NAME, [STRING]$DESCRIPTION)
     The _init hidden method is used by the constructors to initialize the class.
     This way class initialization code can be maintained in a single methods
     instead of each constructor.
 
     Data Type: Void
     Name: _init
-    Access Modifer: Hidden
+    Access: Hidden
     Scope: Instance
-    Definition: void _init(string Scope, string Id, string Name, string Description)
+    Definition: hidden void _init(string Scope, string Id, string Name, string Description)
 
-    GETAPIENDPOINTURI
+    GETAPIENDPOINTURI()
     The GetApiEndpointUri static method is included on all API generated
     objects. It returns a formatted string for the API End Point that is used to
     query objects of this class.
 
     Data Type: String
     Name: GetApiEndpointUri
-    Access Modifer: Public
+    Access: Public
     Scope: Static
     Definition: static string GetApiEndpointUri()
-
-Constructors
-    DEFAULT
-    Initializes an empty RedditScope.
-
-    [RedditScope]::New()
-
-    ($SCOPE)
-    Initializes a RedditScope where all members match the provided string.
-
-    [RedditScope]::New([String]$Scope)
-
-    ($SCOPE, $ID, $NAME, $DESCRIPTION)
-    Initializes a RedditScope with all the properties.
-
-    [RedditScope]::New([String]$Scope, [String]$Id, [String]$Name, [String]$Description)
 
 EXAMPLES
 Using the RedditScope.psm1
