@@ -5,63 +5,26 @@ SHORT DESCRIPTION
     Describes the RedditScope Class
 
 LONG DESCRIPTION
-    The
-
-    
-
-    Class is used to define OAuth Scopes for reddit's API. All OAuth bearer
-    tokens are limited in what functions they may perform. Scopes for an
-    application define what the application can and cannot do on the API. When
-    creating a new
-
-    
-
-    class, one or more
-
-    
-
-    's are required ro be set on the
-
-    
-
-    property. When a request is made for an OAuth Authorization Code, the scopes
-    will be provided and the resulting Access Token will only be valid for those
-    scopes.
-
-    
-
-    's can be created manually or you can retrieve all valid scopes with
+    The ReditScope Class is used to define OAuth Scopes for reddit's API. All
+    OAuth bearer tokens are limited in what functions they may perform. Scopes
+    for an application define what the application can and cannot do on the API.
+    When creating a new RedditApplication class, one or more RedditScope's are
+    required ro be set on the Scope property. When a request is made for an
+    OAuth Authorization Code, the scopes will be provided and the resulting
+    Access Token will only be valid for those scopes.
+    ReditScope's can be created manually or you can retrieve all valid scopes
+    with
     Get-RedditOAuthScope
     .
-The
-
-    
-
-    class is imported from a nested module located at
-
-    <moduleroot>\Classes\RedditScope.psm1
-
-    . This means you can import the module with either
-
-    module PSRAW
-
-    or
-
-    module '<moduleroot>\Classes\RedditScope.psm1'
-
-    .
+    The RedditScope class is imported from a nested module located at
+    moduleroot\Classes\RedditScope.psm1. This means you can import the class
+    either from the PSRAW module or directly from the nested module.
 
 Members
     SCOPE
     Redit's API reuturns a JSON hobject that contains an array of hashes. The
-
-    
-
-    member preprsents the name of the scope hash. In most cases this matches the
-
-    
-
-    .
+    Scope member preprsents the name of the scope hash. In most cases this
+    matches the Id.
 
     Data Type: String
     Name: Scope
@@ -102,17 +65,10 @@ Members
     Example: Spend my reddit gold creddits on giving gold to other users.
 
     APIENDPOINTURI
-    The
-
-    
-
-    static member is included on all API generated objects. It is a template
-    string for the API End Point to access objects of that class. To get a
-    formatted string to make API calls, use the
-
-    ()
-
-    static method(s).
+    The ApiEndpointUri static member is included on all API generated objects.
+    It is a template string for the API End Point to access objects of that
+    class. To get a formatted string to make API calls, use the
+    GetApiEndpointUri() static method(s).
 
     Data Type: String
     Name: ApiEndpointUri
@@ -121,14 +77,10 @@ Members
     Scope: Static
 
 Methods
-    ```_INIT()```
-    The
-
-    ()
-
-    hidden method is used by the constructors to initialize the class. This way
-    class initialization code can be maintained in a single methods instead of
-    each constructor.
+    _INIT
+    The _init hidden method is used by the constructors to initialize the class.
+    This way class initialization code can be maintained in a single methods
+    instead of each constructor.
 
     Data Type: Void
     Name: _init
@@ -136,14 +88,10 @@ Methods
     Scope: Instance
     Definition: void _init(string Scope, string Id, string Name, string Description)
 
-    ```GETAPIENDPOINTURI()```
-    The
-
-    ()
-
-    static method is included on all API generated objects. It returns a
-    formatted string for the API End Point that is used to query objects of this
-    class.
+    GETAPIENDPOINTURI
+    The GetApiEndpointUri static method is included on all API generated
+    objects. It returns a formatted string for the API End Point that is used to
+    query objects of this class.
 
     Data Type: String
     Name: GetApiEndpointUri
@@ -152,34 +100,18 @@ Methods
     Definition: static string GetApiEndpointUri()
 
 Constructors
-    DEFAULT ```()```
-    Initializes an empty
-
-    [RedditScope]
-
-    .
+    DEFAULT
+    Initializes an empty RedditScope.
 
     [RedditScope]::New()
 
-    ```($SCOPE)```
-    Initializes a
-
-    [RedditScope]
-
-    where all members match the provided
-
-    $Scope
-
-    string.
+    ($SCOPE)
+    Initializes a RedditScope where all members match the provided string.
 
     [RedditScope]::New([String]$Scope)
 
-    ```($SCOPE, $ID, $NAME, $DESCRIPTION)```
-    Initializes a
-
-    [RedditScope]
-
-    with all the properties.
+    ($SCOPE, $ID, $NAME, $DESCRIPTION)
+    Initializes a RedditScope with all the properties.
 
     [RedditScope]::New([String]$Scope, [String]$Id, [String]$Name, [String]$Description)
 
