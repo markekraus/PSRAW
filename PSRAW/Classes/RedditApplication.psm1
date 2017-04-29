@@ -34,8 +34,17 @@ Class RedditApplication {
         throw [System.NotImplementedException]::New()
     }
 
-    #Hijack Hashtable Coverter
+    #Hashtable Coverter
     RedditApplication ([System.Collections.Hashtable]$InitHash) {
+        $This._init($InitHash)
+    }
+
+    #PSObject Converter
+    RedditApplication ([PSObject] $PSObject){
+        $InitHash = @{}
+        Foreach($Property in $PSObject.PSObject.properties.Name){
+            $InitHash[$Property] = $PSObject.$Property
+        }
         $This._init($InitHash)
     }
 
@@ -98,5 +107,4 @@ Class RedditApplication {
     [string] GetUserPassword () {
         Return $This.UserCredential.GetNetworkCredential().Password
     }
-
 }
