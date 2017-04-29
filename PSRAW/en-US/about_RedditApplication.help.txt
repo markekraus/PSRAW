@@ -53,7 +53,7 @@ RedditApplication ([PSObject]$PSObject)
     [RedditApplicaion]::new([PSObject]$PSObject)
 
 RedditApplication([String]$Name,[String]$Description,[uri]$RedirectUri,[String]$UserAgent,[RedditApplicationType]$Type,[guid]$GUID,[string]$ExportPath,[RedditScope[]]$Scope,[System.Management.Automation.PSCredential]$ClientCredential,[System.Management.Automation.PSCredential]$UserCredential)
-    This constructor converts the arguments to a HasTable and pass them to the
+    This constructor converts the arguments to a HashTable and pass them to the
     _int([System.Collections.Hashtable]$InitHash) method.
 
     [RedditApplicaion]::new(
@@ -294,7 +294,7 @@ Create Installed RedditApplication
 
 SEE ALSO
     New-RedditApplication
-    Get-RedditScope
+    Get-RedditOAuthScope
     about_RedditAplicationType
     about_RedditScope
     https://github.com/reddit/reddit/wiki/API
