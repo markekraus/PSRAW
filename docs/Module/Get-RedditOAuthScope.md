@@ -1,6 +1,6 @@
 ---
 external help file: PSRAW-help.xml
-online version: https://psraw.readthedocs.io/en/latest/functions/Get-RedditOAuthScope
+online version: https://psraw.readthedocs.io/en/latest/Module/Get-RedditOAuthScope
 schema: 2.0.0
 ---
 
@@ -16,14 +16,12 @@ Get-RedditOAuthScope [[-ApiEndpointUri] <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Retrive valid OAuth scope IDs, Names, and Descriptions from Reddit.
-The Scope ID's
-are required for requesting OAuth Authorzation codes
+Retrive valid OAuth scope IDs, Names, and Descriptions from Reddit. The Scope ID's are required for requesting OAuth Authorzation codes
 
 ## EXAMPLES
 
 ### -------------------------- EXAMPLE 1 --------------------------
-```
+```powershell
 $RedditScopes = Get-RedditOAuthScope
 ```
 
@@ -59,14 +57,15 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 For more information about registering Reddit Apps, Reddit's API, or Reddit OAuth see:
-    https://github.com/reddit/reddit/wiki/API
-    https://github.com/reddit/reddit/wiki/OAuth2
-    https://www.reddit.com/prefs/apps
-    https://www.reddit.com/wiki/api
+
+* https://github.com/reddit/reddit/wiki/API
+* https://github.com/reddit/reddit/wiki/OAuth2
+* https://www.reddit.com/prefs/apps
+* https://www.reddit.com/wiki/api
 
 ## RELATED LINKS
 
-[https://psraw.readthedocs.io/en/latest/functions/Get-RedditOAuthScope](https://psraw.readthedocs.io/en/latest/functions/Get-RedditOAuthScope)
+[Get-RedditOAuthScope](https://psraw.readthedocs.io/en/latest/Module/Get-RedditOAuthScope)
 
 [https://github.com/reddit/reddit/wiki/API](https://github.com/reddit/reddit/wiki/API)
 
