@@ -30,13 +30,20 @@ Properties {
         $Verbose = @{ Verbose = $True }
     }
     $CurrentVersion = [version](Get-Metadata -Path $env:BHPSModuleManifest)
-    $StepVersion = [version] (Step-Version $CurrentVersion)
-    $GalleryVersion = Get-NextPSGalleryVersion -Name $ModuleName
-    $BuildVersion = $StepVersion
-    If ($GalleryVersion -gt $StepVersion) {
-        $BuildVersion = $GalleryVersion
+    switch ($ENV:BHBranchName) {
+        {$_ -match 'develop'} {$BuildNumber = 1; break}
+        {$_ -match 'document'} {$BuildNumber = 2; break}
+        {$_ -match 'staging'} {$BuildNumber = 3; break}
+        Default {$BuildNumber = 20; break}
     }
-    $BuildVersion = [version]::New($BuildVersion.Major, $BuildVersion.Minor, $BuildVersion.Build, $env:BHBuildNumber)
+    $BuildVersion = [version]::New($CurrentVersion.Major, $CurrentVersion.Minor, $BuildNumber, ($CurrentVersion.Revision +1))
+    if($ENV:BHBranchName -eq "master"){
+        $GalleryVersion = Get-NextPSGalleryVersion -Name $ModuleName
+        $BuildVersion = [version]::New($CurrentVersion.Major, ($CurrentVersion.Minor + 1), 0, 0)
+        If ($GalleryVersion -gt $StepVersion) {
+            $BuildVersion = $GalleryVersion
+        }
+    }
     $BuildDate = Get-Date -uFormat '%Y-%m-%d'
     $ReleaseNotes = "$ProjectRoot\RELEASE.md"
     $ChangeLog = "$ProjectRoot\docs\ChangeLog.md"
