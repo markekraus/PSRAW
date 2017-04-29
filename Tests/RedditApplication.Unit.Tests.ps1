@@ -1,3 +1,16 @@
+<#	
+    .NOTES
+    ===========================================================================
+     Created with:  VSCode
+     Created on:    4/28/2017 04:40 AM
+     Edited on:     4/29/2017
+     Created by:    Mark Kraus
+     Organization: 	
+     Filename:     RedditApplication.Unit.Tests.ps1
+    ===========================================================================
+    .DESCRIPTION
+        Unit Tests for RedditApplication Class
+#>
 Using module '..\PSRAW\Classes\RedditApplication.psm1'
 
 $Class = 'RedditApplication'
@@ -163,5 +176,19 @@ Describe "[$Class] Tests" -Tag Unit, Build {
                 UserCredential = $UserCredential
             }
         } | Should Throw 
+    }
+    It "Converts a [PSObject] to [$Class]" {
+        {
+            [RedditApplication][pscustomobject]@{
+                Name = 'TestApplication'
+                Description = 'This is only a test'
+                RedirectUri = 'https://localhost/'
+                UserAgent = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
+                Scope = 'read'
+                ClientCredential = $ClientCredential
+                UserCredential = $UserCredential
+                Type = 'Script'
+            }
+        } | Should Not Throw
     }
 }
