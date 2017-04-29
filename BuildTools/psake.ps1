@@ -30,14 +30,11 @@ Properties {
         $Verbose = @{ Verbose = $True }
     }
     $CurrentVersion = [version](Get-Metadata -Path $env:BHPSModuleManifest)
-    switch ($ENV:BHBranchName) {
-        {$_ -match 'develop'} {$BuildNumber = 1; break}
-        {$_ -match 'document'} {$BuildNumber = 2; break}
-        {$_ -match 'staging'} {$BuildNumber = 3; break}
-        Default {$BuildNumber = 20; break}
-    }
-    $BuildVersion = [version]::New($CurrentVersion.Major, $CurrentVersion.Minor, $BuildNumber, ($CurrentVersion.Revision +1))
+    $BuildVersion = [version]::New($CurrentVersion.Major, $CurrentVersion.Minor, $CurrentVersion.Build, ($CurrentVersion.Revision +1))
     if($ENV:BHBranchName -eq "master"){
+        $BuildVersion = [version]::New($CurrentVersion.Major, $CurrentVersion.Minor, ($CurrentVersion.Build + 1), 0)
+    }
+    If($ENV:BHBranchName -eq "master" -and $ENV:BHCommitMessage -match '!deploy'){
         $GalleryVersion = Get-NextPSGalleryVersion -Name $ModuleName
         $BuildVersion = [version]::New($CurrentVersion.Major, ($CurrentVersion.Minor + 1), 0, 0)
         If ($GalleryVersion -gt $BuildVersion) {
