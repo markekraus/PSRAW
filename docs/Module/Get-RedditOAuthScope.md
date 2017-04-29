@@ -67,6 +67,8 @@ For more information about registering Reddit Apps, Reddit's API, or Reddit OAut
 
 [Get-RedditOAuthScope](https://psraw.readthedocs.io/en/latest/Module/Get-RedditOAuthScope)
 
+[about_RedditScope](https://psraw.readthedocs.io/en/latest/Module/about_RedditScope)
+
 [https://github.com/reddit/reddit/wiki/API](https://github.com/reddit/reddit/wiki/API)
 
 [https://github.com/reddit/reddit/wiki/OAuth2](https://github.com/reddit/reddit/wiki/OAuth2)
