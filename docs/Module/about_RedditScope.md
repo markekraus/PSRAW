@@ -9,7 +9,7 @@ The ReditScope Class is used to define OAuth Scopes for reddit's API. All OAuth 
 
 ReditScope's can be created manually or you can retrieve all valid scopes with [Get-RedditOAuthScope](https://psraw.readthedocs.io/en/latest/Module/Get-RedditOAuthScope).
 
-The RedditScope class is imported from a nested module located at moduleroot\Classes\RedditScope.psm1. This means you can import the class either from the PSRAW module or directly from the nested module.
+The RedditScope class is imported from a nested module located at PSRAW\Classes\RedditScope.psm1. This means you can import the class either from the PSRAW module or directly from the nested module.
 
 
 ## Constructors
