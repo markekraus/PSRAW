@@ -1,3 +1,9 @@
+---
+external help file: PSRAW-help.xml
+online version: https://psraw.readthedocs.io/en/latest/Module/New-RedditApplication
+schema: 2.0.0
+---
+
 # New-RedditApplication
 
 ## SYNOPSIS
@@ -9,36 +15,32 @@ Creates a RedditApplication object
 ```
 New-RedditApplication [-WebApp] -Name <String> -ClientCredential <PSCredential> -RedirectUri <Uri>
  -UserAgent <String> -Scope <RedditScope[]> [-Description <String>] [-UserCredential <PSCredential>]
- [-GUID <Guid>]
+ [-GUID <Guid>] [<CommonParameters>]
 ```
 
 ### Script
 ```
 New-RedditApplication [-Script] -Name <String> -ClientCredential <PSCredential> -RedirectUri <Uri>
  -UserAgent <String> -Scope <RedditScope[]> [-Description <String>] -UserCredential <PSCredential>
- [-GUID <Guid>]
+ [-GUID <Guid>] [<CommonParameters>]
 ```
 
 ### Installed
 ```
 New-RedditApplication [-Installed] -Name <String> -ClientCredential <PSCredential> -RedirectUri <Uri>
- -UserAgent <String> -Scope <RedditScope[]> [-Description <String>] [-GUID <Guid>]
+ -UserAgent <String> -Scope <RedditScope[]> [-Description <String>] [-GUID <Guid>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Creates a RedditApplication object containing data used by various cmdltes to define the parameters 
-of the App registered on Reddit.
-This does not make any calls to Reddit or perform any online lookups.
+Creates a RedditApplication object containing data used by various cmdltes to define the parameters of the App registered on Reddit. This does not make any calls to Reddit or perform any online lookups.
 
 ## EXAMPLES
 
 ### -------------------------- EXAMPLE 1 --------------------------
 ```
 $ClientCredential = Get-Credential
-```
-
-PS C:\\\> $Scope = Get-RedditOAuthScope | Where-Object {$_.Scope -like '*wiki*'} 
-PS C:\\\> $Params = @{
+$Scope = Get-RedditOAuthScope | Where-Object {$_.Scope -like '*wiki*'} 
+$Params = @{
     WebApp = $True
     Name = 'Connect-Reddit'
     Description = 'My Reddit Bot!'
@@ -47,16 +49,15 @@ PS C:\\\> $Params = @{
     UserAgent = 'windows:connect-reddit:v0.0.0.1 (by /u/makrkeraus)'
     Scope = $Scope
 }
-PS C:\\\> $RedditApp = New-RedditApplication @Params
+$RedditApp = New-RedditApplication @Params
+```
 
 ### -------------------------- EXAMPLE 2 --------------------------
 ```
 $ClientCredential = Get-Credential
-```
-
-PS C:\\\> $UserCredential = Get-Credential
-PS C:\\\> $Scope = Get-RedditOAuthScope | Where-Object {$_.Scope -like '*wiki*'} 
-PS C:\\\> $Params = @{
+$UserCredential = Get-Credential
+$Scope = Get-RedditOAuthScope | Where-Object {$_.Scope -like '*wiki*'} 
+$Params = @{
     Script = $True
     Name = 'Connect-Reddit'
     Description = 'My Reddit Bot!'
@@ -66,15 +67,14 @@ PS C:\\\> $Params = @{
     UserAgent = 'windows:connect-reddit:v0.0.0.1 (by /u/makrkeraus)'
     Scope = $Scope
 }
-PS C:\\\> $RedditApp = New-RedditApplication @Params
+$RedditApp = New-RedditApplication @Params
+```
 
 ### -------------------------- EXAMPLE 3 --------------------------
 ```
 $ClientCredential = Get-Credential
-```
-
-PS C:\\\> $Scope = Get-RedditOAuthScope | Where-Object {$_.Scope -like '*wiki*'} 
-PS C:\\\> $Params = @{
+$Scope = Get-RedditOAuthScope | Where-Object {$_.Scope -like '*wiki*'} 
+$Params = @{
     Installed = $True
     Name = 'Connect-Reddit'
     Description = 'My Reddit Bot!'
@@ -83,36 +83,52 @@ PS C:\\\> $Params = @{
     UserAgent = 'windows:connect-reddit:v0.0.0.1 (by /u/makrkeraus)'
     Scope = $Scope
 }
-PS C:\\\> $RedditApp = New-RedditApplication @Params
+$RedditApp = New-RedditApplication @Params
+```
 
 ## PARAMETERS
 
-### -Script
-Use if the Reddit App is registered as a Script.
+### -ClientCredential
+A PScredential object containging the Client ID as the Username and the Client Secret as the password. For 'Installed' Apps which have no Client Secret, the password will be ignored.
 
 ```yaml
-Type: SwitchParameter
-Parameter Sets: Script
-Aliases: 
+Type: PSCredential
+Parameter Sets: (All)
+Aliases: ClientInfo
 
 Required: True
 Position: Named
-Default value: False
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -WebApp
-Use if the Reddit App is registered as a WebApp
+### -Description
+Description of the Reddit App. This is not required or used for anything. It is provided for convenient identification and documentation purposes only.
 
 ```yaml
-Type: SwitchParameter
-Parameter Sets: WebApp
+Type: String
+Parameter Sets: (All)
 Aliases: 
 
-Required: True
+Required: False
 Position: Named
-Default value: False
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -GUID
+A GUID to identify the application. If one is not perovided, a new GUID will be generated.
+
+```yaml
+Type: Guid
+Parameter Sets: (All)
+Aliases: 
+
+Required: False
+Position: Named
+Default value: [guid]::NewGuid()
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -133,10 +149,7 @@ Accept wildcard characters: False
 ```
 
 ### -Name
-Name of the Reddit App.
-This does not need to match the name registered on Reddit.
-It is used for 
-convenient identification and ducomentation purposes only.
+Name of the Reddit App. This does not need to match the name registered on Reddit. It is used for convenient identification and ducomentation purposes only.
 
 ```yaml
 Type: String
@@ -150,26 +163,8 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ClientCredential
-A PScredential object containging the Client ID as the Username and the Client Secret as the password. 
-For 'Installed' Apps which have no Client Secret, the password will be ignored.
-
-```yaml
-Type: PSCredential
-Parameter Sets: (All)
-Aliases: ClientInfo
-
-Required: True
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -RedirectUri
-Redirect URI as registered on Reddit for the App.
-This must match exactly as entered in the App definition 
-or authentication will fail.
+Redirect URI as registered on Reddit for the App. This must match exactly as entered in the App definition or authentication will fail.
 
 ```yaml
 Type: Uri
@@ -183,31 +178,8 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -UserAgent
-The User-Agent header that will be used for all Calls to Reddit.
-This should be in the following format:
-
-\<platform\>:\<app ID\>:\<version string\> (by /u/\<reddit username\>)
-
-Example:
-
-windows:PSRAW:v0.0.0.1 (by /u/makrkeraus)
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases: 
-
-Required: True
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -Scope
-Array of ReditScopes that this Reddit App requires.
-You can see the available scopes with Get-ReddOauthScope
+Array of ReditScopes that this Reddit App requires. You can see the available scopes with Get-ReddOauthScope
 
 ```yaml
 Type: RedditScope[]
@@ -221,18 +193,36 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Description
-Description of the Reddit App.
-This is not required or used for anything.
-It is provided for convenient 
-identification and documentation purposes only.
+### -Script
+Use if the Reddit App is registered as a Script.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: Script
+Aliases: 
+
+Required: True
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -UserAgent
+The User-Agent header that will be used for all Calls to Reddit. This should be in the following format:
+
+\<platform\>:\<app ID\>:\<version string\> (by /u/\<reddit username\>)
+
+Example:
+
+windows:PSRAW:v0.0.0.1 (by /u/makrkeraus)
 
 ```yaml
 Type: String
 Parameter Sets: (All)
 Aliases: 
 
-Required: False
+Required: True
 Position: Named
 Default value: None
 Accept pipeline input: False
@@ -266,21 +256,23 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -GUID
-A GUID to identify the application.
-If one is not perovided, a new GUID will be generated.
+### -WebApp
+Use if the Reddit App is registered as a WebApp
 
 ```yaml
-Type: Guid
-Parameter Sets: (All)
+Type: SwitchParameter
+Parameter Sets: WebApp
 Aliases: 
 
-Required: False
+Required: True
 Position: Named
-Default value: [guid]::NewGuid()
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
+
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
@@ -290,16 +282,17 @@ Accept wildcard characters: False
 
 ## NOTES
 For more information about registering Reddit Apps, Reddit's API, or Reddit OAuth see:
-    https://github.com/reddit/reddit/wiki/API
-    https://github.com/reddit/reddit/wiki/OAuth2
-    https://www.reddit.com/prefs/apps
-    https://www.reddit.com/wiki/api
+
+* https://github.com/reddit/reddit/wiki/API
+* https://github.com/reddit/reddit/wiki/OAuth2
+* https://www.reddit.com/prefs/apps
+* https://www.reddit.com/wiki/api
 
 ## RELATED LINKS
 
-[https://psraw.readthedocs.io/en/latest/functions/New-RedditApplication](https://psraw.readthedocs.io/en/latest/functions/New-RedditApplication)
+[New-RedditApplication](https://psraw.readthedocs.io/en/latest/Module/New-RedditApplication)
 
-[https://psraw.readthedocs.io/en/latest/functions/Get-ReddOauthScope](https://psraw.readthedocs.io/en/latest/functions/Get-ReddOauthScope)
+[Get-ReddOauthScope](https://psraw.readthedocs.io/en/latest/Module/Get-ReddOauthScope)
 
 [https://github.com/reddit/reddit/wiki/API](https://github.com/reddit/reddit/wiki/API)
 

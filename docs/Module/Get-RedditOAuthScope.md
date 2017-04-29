@@ -1,3 +1,9 @@
+---
+external help file: PSRAW-help.xml
+online version: https://psraw.readthedocs.io/en/latest/Module/Get-RedditOAuthScope
+schema: 2.0.0
+---
+
 # Get-RedditOAuthScope
 
 ## SYNOPSIS
@@ -6,13 +12,11 @@ Retireve valid Reddit OAuth Scopes.
 ## SYNTAX
 
 ```
-Get-RedditOAuthScope [[-ApiEndpointUri] <String>]
+Get-RedditOAuthScope [[-ApiEndpointUri] <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Retrive valid OAuth scope IDs, Names, and Descriptions from Reddit.
-The Scope ID's
-are required for requesting OAuth Authorzation codes
+Retrive valid OAuth scope IDs, Names, and Descriptions from Reddit. The Scope ID's are required for requesting OAuth Authorzation codes
 
 ## EXAMPLES
 
@@ -42,6 +46,9 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+
 ## INPUTS
 
 ## OUTPUTS
@@ -50,14 +57,17 @@ Accept wildcard characters: False
 
 ## NOTES
 For more information about registering Reddit Apps, Reddit's API, or Reddit OAuth see:
-    https://github.com/reddit/reddit/wiki/API
-    https://github.com/reddit/reddit/wiki/OAuth2
-    https://www.reddit.com/prefs/apps
-    https://www.reddit.com/wiki/api
+
+* https://github.com/reddit/reddit/wiki/API
+* https://github.com/reddit/reddit/wiki/OAuth2
+* https://www.reddit.com/prefs/apps
+* https://www.reddit.com/wiki/api
 
 ## RELATED LINKS
 
-[https://psraw.readthedocs.io/en/latest/functions/Get-RedditOAuthScope](https://psraw.readthedocs.io/en/latest/functions/Get-RedditOAuthScope)
+[Get-RedditOAuthScope](https://psraw.readthedocs.io/en/latest/Module/Get-RedditOAuthScope)
+
+[about_RedditScope](https://psraw.readthedocs.io/en/latest/Module/about_RedditScope)
 
 [https://github.com/reddit/reddit/wiki/API](https://github.com/reddit/reddit/wiki/API)
 
