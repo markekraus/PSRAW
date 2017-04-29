@@ -1,4 +1,4 @@
-﻿# RedditApplication
+﻿# RedditApplication Class
 ## about_RedditApplication           
 
 # SHORT DESCRIPTION
@@ -39,7 +39,7 @@ This constructor converts the provided PSObject to a hashtable and passes it to 
 ```
 
 ## RedditApplication([String]$Name,[String]$Description,[uri]$RedirectUri,[String]$UserAgent,[RedditApplicationType]$Type,[guid]$GUID,[string]$ExportPath,[RedditScope[]]$Scope,[System.Management.Automation.PSCredential]$ClientCredential,[System.Management.Automation.PSCredential]$UserCredential)
-This constructor converts the arguments to a HasTable and pass them to the _int([System.Collections.Hashtable]$InitHash) method. 
+This constructor converts the arguments to a HashTable and pass them to the _int([System.Collections.Hashtable]$InitHash) method. 
 
 ```powershell
 [RedditApplicaion]::new(
@@ -171,7 +171,7 @@ Scope: Instance
 ```
 
 ### Scope
-The Scope property is an array of [RedditScope](https://psraw.readthedocs.io/en/latest/Module/about_RedditScope) objects which list the scopes for which the Application will request access to. To get all valid scopes use [Get-RedditScope](https://psraw.readthedocs.io/en/latest/Module/Get-RedditScope).
+The Scope property is an array of [RedditScope](https://psraw.readthedocs.io/en/latest/Module/about_RedditScope) objects which list the scopes for which the Application will request access to. To get all valid scopes use [Get-RedditOAuthScope](https://psraw.readthedocs.io/en/latest/Module/Get-RedditOAuthScope).
 
 ```yaml
 Data Type: RedditScope[]
@@ -290,7 +290,7 @@ $App = [RedditApplication]@{
 # SEE ALSO
 [New-RedditApplication](https://psraw.readthedocs.io/en/latest/Module/New-RedditApplication)
 
-[Get-RedditScope](https://psraw.readthedocs.io/en/latest/Module/Get-RedditScope)
+[Get-RedditOAuthScope](https://psraw.readthedocs.io/en/latest/Module/Get-RedditOAuthScope)
 
 [about_RedditAplicationType](https://psraw.readthedocs.io/en/latest/Module/about_RedditAplicationType)
 
