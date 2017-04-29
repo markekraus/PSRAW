@@ -21,7 +21,7 @@ Retrive valid OAuth scope IDs, Names, and Descriptions from Reddit. The Scope ID
 ## EXAMPLES
 
 ### -------------------------- EXAMPLE 1 --------------------------
-```powershell
+```
 $RedditScopes = Get-RedditOAuthScope
 ```
 

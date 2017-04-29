@@ -19,7 +19,7 @@
 	ModuleToProcess = 'PSRAW.psm1'
 	
 	# Version number of this module.
-	ModuleVersion = '1.0.7.56'
+	ModuleVersion = '1.0.8.57'
 	
 	# ID used to uniquely identify this module
 	GUID = '92c8f916-4890-45eb-a3e7-592f5b5b3f24'

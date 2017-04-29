@@ -46,7 +46,15 @@
 </maml:description>
 </command:returnValue>
 </command:returnValues>
-<maml:alertSet><maml:alert><maml:para>For more information about registering Reddit Apps, Reddit's API, or Reddit OAuth see:     https://github.com/reddit/reddit/wiki/API     https://github.com/reddit/reddit/wiki/OAuth2     https://www.reddit.com/prefs/apps     https://www.reddit.com/wiki/api
+<maml:alertSet><maml:alert><maml:para>For more information about registering Reddit Apps, Reddit's API, or Reddit OAuth see:
+</maml:para>
+<maml:para>* https://github.com/reddit/reddit/wiki/API
+</maml:para>
+<maml:para>* https://github.com/reddit/reddit/wiki/OAuth2
+</maml:para>
+<maml:para>* https://www.reddit.com/prefs/apps
+</maml:para>
+<maml:para>* https://www.reddit.com/wiki/api
 </maml:para>
 </maml:alert>
 </maml:alertSet>
@@ -57,8 +65,11 @@
 </dev:remarks>
 </command:example>
 </command:examples>
-<command:relatedLinks><maml:navigationLink><maml:linkText>https://psraw.readthedocs.io/en/latest/functions/Get-RedditOAuthScope</maml:linkText>
-<maml:uri>https://psraw.readthedocs.io/en/latest/functions/Get-RedditOAuthScope</maml:uri>
+<command:relatedLinks><maml:navigationLink><maml:linkText>Get-RedditOAuthScope</maml:linkText>
+<maml:uri>https://psraw.readthedocs.io/en/latest/Module/Get-RedditOAuthScope</maml:uri>
+</maml:navigationLink>
+<maml:navigationLink><maml:linkText>about_RedditScope</maml:linkText>
+<maml:uri>https://psraw.readthedocs.io/en/latest/Module/about_RedditScope</maml:uri>
 </maml:navigationLink>
 <maml:navigationLink><maml:linkText>https://github.com/reddit/reddit/wiki/API</maml:linkText>
 <maml:uri>https://github.com/reddit/reddit/wiki/API</maml:uri>
@@ -82,12 +93,12 @@
 </maml:para>
 </maml:description>
 </command:details>
-<maml:description><maml:para>Creates a RedditApplication object containing data used by various cmdltes to define the parameters  of the App registered on Reddit. This does not make any calls to Reddit or perform any online lookups.
+<maml:description><maml:para>Creates a RedditApplication object containing data used by various cmdltes to define the parameters of the App registered on Reddit. This does not make any calls to Reddit or perform any online lookups.
 </maml:para>
 </maml:description>
 <command:syntax><command:syntaxItem><maml:name>New-RedditApplication</maml:name>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="ClientInfo"><maml:name>ClientCredential</maml:name>
-<maml:Description><maml:para>A PScredential object containging the Client ID as the Username and the Client Secret as the password.  For 'Installed' Apps which have no Client Secret, the password will be ignored.
+<maml:Description><maml:para>A PScredential object containging the Client ID as the Username and the Client Secret as the password. For 'Installed' Apps which have no Client Secret, the password will be ignored.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
@@ -96,7 +107,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Description</maml:name>
-<maml:Description><maml:para>Description of the Reddit App. This is not required or used for anything. It is provided for convenient  identification and documentation purposes only.
+<maml:Description><maml:para>Description of the Reddit App. This is not required or used for anything. It is provided for convenient identification and documentation purposes only.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -122,7 +133,7 @@
 <dev:defaultValue>False</dev:defaultValue>
 </command:parameter>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="AppName"><maml:name>Name</maml:name>
-<maml:Description><maml:para>Name of the Reddit App. This does not need to match the name registered on Reddit. It is used for  convenient identification and ducomentation purposes only.
+<maml:Description><maml:para>Name of the Reddit App. This does not need to match the name registered on Reddit. It is used for convenient identification and ducomentation purposes only.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -131,7 +142,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>RedirectUri</maml:name>
-<maml:Description><maml:para>Redirect URI as registered on Reddit for the App. This must match exactly as entered in the App definition  or authentication will fail.
+<maml:Description><maml:para>Redirect URI as registered on Reddit for the App. This must match exactly as entered in the App definition or authentication will fail.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">Uri</command:parameterValue>
@@ -166,7 +177,7 @@
 </command:syntaxItem>
 <command:syntaxItem><maml:name>New-RedditApplication</maml:name>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="ClientInfo"><maml:name>ClientCredential</maml:name>
-<maml:Description><maml:para>A PScredential object containging the Client ID as the Username and the Client Secret as the password.  For 'Installed' Apps which have no Client Secret, the password will be ignored.
+<maml:Description><maml:para>A PScredential object containging the Client ID as the Username and the Client Secret as the password. For 'Installed' Apps which have no Client Secret, the password will be ignored.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
@@ -175,7 +186,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Description</maml:name>
-<maml:Description><maml:para>Description of the Reddit App. This is not required or used for anything. It is provided for convenient  identification and documentation purposes only.
+<maml:Description><maml:para>Description of the Reddit App. This is not required or used for anything. It is provided for convenient identification and documentation purposes only.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -193,7 +204,7 @@
 <dev:defaultValue>[guid]::NewGuid()</dev:defaultValue>
 </command:parameter>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="AppName"><maml:name>Name</maml:name>
-<maml:Description><maml:para>Name of the Reddit App. This does not need to match the name registered on Reddit. It is used for  convenient identification and ducomentation purposes only.
+<maml:Description><maml:para>Name of the Reddit App. This does not need to match the name registered on Reddit. It is used for convenient identification and ducomentation purposes only.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -202,7 +213,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>RedirectUri</maml:name>
-<maml:Description><maml:para>Redirect URI as registered on Reddit for the App. This must match exactly as entered in the App definition  or authentication will fail.
+<maml:Description><maml:para>Redirect URI as registered on Reddit for the App. This must match exactly as entered in the App definition or authentication will fail.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">Uri</command:parameterValue>
@@ -254,7 +265,7 @@
 </command:syntaxItem>
 <command:syntaxItem><maml:name>New-RedditApplication</maml:name>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="ClientInfo"><maml:name>ClientCredential</maml:name>
-<maml:Description><maml:para>A PScredential object containging the Client ID as the Username and the Client Secret as the password.  For 'Installed' Apps which have no Client Secret, the password will be ignored.
+<maml:Description><maml:para>A PScredential object containging the Client ID as the Username and the Client Secret as the password. For 'Installed' Apps which have no Client Secret, the password will be ignored.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
@@ -263,7 +274,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Description</maml:name>
-<maml:Description><maml:para>Description of the Reddit App. This is not required or used for anything. It is provided for convenient  identification and documentation purposes only.
+<maml:Description><maml:para>Description of the Reddit App. This is not required or used for anything. It is provided for convenient identification and documentation purposes only.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -281,7 +292,7 @@
 <dev:defaultValue>[guid]::NewGuid()</dev:defaultValue>
 </command:parameter>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="AppName"><maml:name>Name</maml:name>
-<maml:Description><maml:para>Name of the Reddit App. This does not need to match the name registered on Reddit. It is used for  convenient identification and ducomentation purposes only.
+<maml:Description><maml:para>Name of the Reddit App. This does not need to match the name registered on Reddit. It is used for convenient identification and ducomentation purposes only.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -290,7 +301,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>RedirectUri</maml:name>
-<maml:Description><maml:para>Redirect URI as registered on Reddit for the App. This must match exactly as entered in the App definition  or authentication will fail.
+<maml:Description><maml:para>Redirect URI as registered on Reddit for the App. This must match exactly as entered in the App definition or authentication will fail.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">Uri</command:parameterValue>
@@ -342,7 +353,7 @@
 </command:syntaxItem>
 </command:syntax>
 <command:parameters><command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="ClientInfo"><maml:name>ClientCredential</maml:name>
-<maml:Description><maml:para>A PScredential object containging the Client ID as the Username and the Client Secret as the password.  For 'Installed' Apps which have no Client Secret, the password will be ignored.
+<maml:Description><maml:para>A PScredential object containging the Client ID as the Username and the Client Secret as the password. For 'Installed' Apps which have no Client Secret, the password will be ignored.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
@@ -351,7 +362,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Description</maml:name>
-<maml:Description><maml:para>Description of the Reddit App. This is not required or used for anything. It is provided for convenient  identification and documentation purposes only.
+<maml:Description><maml:para>Description of the Reddit App. This is not required or used for anything. It is provided for convenient identification and documentation purposes only.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -378,7 +389,7 @@
 <dev:defaultValue>False</dev:defaultValue>
 </command:parameter>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="AppName"><maml:name>Name</maml:name>
-<maml:Description><maml:para>Name of the Reddit App. This does not need to match the name registered on Reddit. It is used for  convenient identification and ducomentation purposes only.
+<maml:Description><maml:para>Name of the Reddit App. This does not need to match the name registered on Reddit. It is used for convenient identification and ducomentation purposes only.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -387,7 +398,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>RedirectUri</maml:name>
-<maml:Description><maml:para>Redirect URI as registered on Reddit for the App. This must match exactly as entered in the App definition  or authentication will fail.
+<maml:Description><maml:para>Redirect URI as registered on Reddit for the App. This must match exactly as entered in the App definition or authentication will fail.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">Uri</command:parameterValue>
@@ -455,34 +466,77 @@
 </maml:description>
 </command:returnValue>
 </command:returnValues>
-<maml:alertSet><maml:alert><maml:para>For more information about registering Reddit Apps, Reddit's API, or Reddit OAuth see:     https://github.com/reddit/reddit/wiki/API     https://github.com/reddit/reddit/wiki/OAuth2     https://www.reddit.com/prefs/apps     https://www.reddit.com/wiki/api
+<maml:alertSet><maml:alert><maml:para>For more information about registering Reddit Apps, Reddit's API, or Reddit OAuth see:
+</maml:para>
+<maml:para>* https://github.com/reddit/reddit/wiki/API
+</maml:para>
+<maml:para>* https://github.com/reddit/reddit/wiki/OAuth2
+</maml:para>
+<maml:para>* https://www.reddit.com/prefs/apps
+</maml:para>
+<maml:para>* https://www.reddit.com/wiki/api
 </maml:para>
 </maml:alert>
 </maml:alertSet>
 <command:examples><command:example><maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-<dev:code>$ClientCredential = Get-Credential</dev:code>
-<dev:remarks><maml:para>PS C:\&gt; $Scope = Get-RedditOAuthScope | Where-Object {$_.Scope -like ' wiki '}  PS C:\&gt; $Params = @{     WebApp = $True     Name = 'Connect-Reddit'     Description = 'My Reddit Bot!'     ClientCredential = $ClientCredential     RedirectUri = 'https://adataum/ouath?'     UserAgent = 'windows:connect-reddit:v0.0.0.1 (by /u/makrkeraus)'     Scope = $Scope } PS C:\&gt; $RedditApp = New-RedditApplication @Params
+<dev:code>$ClientCredential = Get-Credential
+$Scope = Get-RedditOAuthScope | Where-Object {$_.Scope -like '*wiki*'} 
+$Params = @{
+    WebApp = $True
+    Name = 'Connect-Reddit'
+    Description = 'My Reddit Bot!'
+    ClientCredential = $ClientCredential
+    RedirectUri = 'https://adataum/ouath?'
+    UserAgent = 'windows:connect-reddit:v0.0.0.1 (by /u/makrkeraus)'
+    Scope = $Scope
+}
+$RedditApp = New-RedditApplication @Params</dev:code>
+<dev:remarks><maml:para>
 </maml:para>
 </dev:remarks>
 </command:example>
 <command:example><maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
-<dev:code>$ClientCredential = Get-Credential</dev:code>
-<dev:remarks><maml:para>PS C:\&gt; $UserCredential = Get-Credential PS C:\&gt; $Scope = Get-RedditOAuthScope | Where-Object {$_.Scope -like ' wiki '}  PS C:\&gt; $Params = @{     Script = $True     Name = 'Connect-Reddit'     Description = 'My Reddit Bot!'     ClientCredential = $ClientCredential     UserCredential = $UserCredential     RedirectUri = 'https://adataum/ouath?'     UserAgent = 'windows:connect-reddit:v0.0.0.1 (by /u/makrkeraus)'     Scope = $Scope } PS C:\&gt; $RedditApp = New-RedditApplication @Params
+<dev:code>$ClientCredential = Get-Credential
+$UserCredential = Get-Credential
+$Scope = Get-RedditOAuthScope | Where-Object {$_.Scope -like '*wiki*'} 
+$Params = @{
+    Script = $True
+    Name = 'Connect-Reddit'
+    Description = 'My Reddit Bot!'
+    ClientCredential = $ClientCredential
+    UserCredential = $UserCredential
+    RedirectUri = 'https://adataum/ouath?'
+    UserAgent = 'windows:connect-reddit:v0.0.0.1 (by /u/makrkeraus)'
+    Scope = $Scope
+}
+$RedditApp = New-RedditApplication @Params</dev:code>
+<dev:remarks><maml:para>
 </maml:para>
 </dev:remarks>
 </command:example>
 <command:example><maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
-<dev:code>$ClientCredential = Get-Credential</dev:code>
-<dev:remarks><maml:para>PS C:\&gt; $Scope = Get-RedditOAuthScope | Where-Object {$_.Scope -like ' wiki '}  PS C:\&gt; $Params = @{     Installed = $True     Name = 'Connect-Reddit'     Description = 'My Reddit Bot!'     ClientCredential = $ClientCredential     RedirectUri = 'https://adataum/ouath?'     UserAgent = 'windows:connect-reddit:v0.0.0.1 (by /u/makrkeraus)'     Scope = $Scope } PS C:\&gt; $RedditApp = New-RedditApplication @Params
+<dev:code>$ClientCredential = Get-Credential
+$Scope = Get-RedditOAuthScope | Where-Object {$_.Scope -like '*wiki*'} 
+$Params = @{
+    Installed = $True
+    Name = 'Connect-Reddit'
+    Description = 'My Reddit Bot!'
+    ClientCredential = $ClientCredential
+    RedirectUri = 'https://adataum/ouath?'
+    UserAgent = 'windows:connect-reddit:v0.0.0.1 (by /u/makrkeraus)'
+    Scope = $Scope
+}
+$RedditApp = New-RedditApplication @Params</dev:code>
+<dev:remarks><maml:para>
 </maml:para>
 </dev:remarks>
 </command:example>
 </command:examples>
-<command:relatedLinks><maml:navigationLink><maml:linkText>https://psraw.readthedocs.io/en/latest/functions/New-RedditApplication</maml:linkText>
-<maml:uri>https://psraw.readthedocs.io/en/latest/functions/New-RedditApplication</maml:uri>
+<command:relatedLinks><maml:navigationLink><maml:linkText>New-RedditApplication</maml:linkText>
+<maml:uri>https://psraw.readthedocs.io/en/latest/Module/New-RedditApplication</maml:uri>
 </maml:navigationLink>
-<maml:navigationLink><maml:linkText>https://psraw.readthedocs.io/en/latest/functions/Get-ReddOauthScope</maml:linkText>
-<maml:uri>https://psraw.readthedocs.io/en/latest/functions/Get-ReddOauthScope</maml:uri>
+<maml:navigationLink><maml:linkText>Get-ReddOauthScope</maml:linkText>
+<maml:uri>https://psraw.readthedocs.io/en/latest/Module/Get-ReddOauthScope</maml:uri>
 </maml:navigationLink>
 <maml:navigationLink><maml:linkText>https://github.com/reddit/reddit/wiki/API</maml:linkText>
 <maml:uri>https://github.com/reddit/reddit/wiki/API</maml:uri>

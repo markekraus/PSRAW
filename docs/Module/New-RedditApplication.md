@@ -37,7 +37,7 @@ Creates a RedditApplication object containing data used by various cmdltes to de
 ## EXAMPLES
 
 ### -------------------------- EXAMPLE 1 --------------------------
-```powershell
+```
 $ClientCredential = Get-Credential
 $Scope = Get-RedditOAuthScope | Where-Object {$_.Scope -like '*wiki*'} 
 $Params = @{
@@ -53,7 +53,7 @@ $RedditApp = New-RedditApplication @Params
 ```
 
 ### -------------------------- EXAMPLE 2 --------------------------
-```powershell
+```
 $ClientCredential = Get-Credential
 $UserCredential = Get-Credential
 $Scope = Get-RedditOAuthScope | Where-Object {$_.Scope -like '*wiki*'} 
@@ -71,7 +71,7 @@ $RedditApp = New-RedditApplication @Params
 ```
 
 ### -------------------------- EXAMPLE 3 --------------------------
-```powershell
+```
 $ClientCredential = Get-Credential
 $Scope = Get-RedditOAuthScope | Where-Object {$_.Scope -like '*wiki*'} 
 $Params = @{
