@@ -7,7 +7,7 @@ schema: 2.0.0
 # Export-RedditApplication
 
 ## SYNOPSIS
-Exports a [RedditApplication](https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication) to an XML file.
+Exports a RedditApplication object to an XML file.
 
 ## SYNTAX
 
@@ -30,42 +30,42 @@ Export-RedditApplication -LiteralPath <String> [-Encoding <String>] -Application
 ```
 
 ## DESCRIPTION
-Allows you to export a [RedditApplication](https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication) object to am XML file so that you can later import the object via [Import-RedditApplication](https://psraw.readthedocs.io/en/latest/Module/Import-RedditApplication). This allows you to share the same Reddit application between multiple scripts. This function is a wraper for [Export-Clixml](http://go.microsoft.com/fwlink/?LinkID=113297). 
+Allows you to export a RedditApplication object to am XML file so that you can later import the object via Import-RedditApplication. This allows you to share the same Reddit application between multiple scripts. This function is a wraper for Export-Clixml. 
 
-User Passwords and Client Secrets stored in the [RedditApplication](https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication) object are stored as secure strings and are not visible as plaintext in the export file. This also means that [RedditApplication](https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication) objects exported by one user cannot be imported by another user on the same computer nor can it be imported by the same user on a different computer. It can only be imported by the same user on the same computer.
+User Passwords and Client Secrets stored in the RedditApplication object are stored as secure strings and are not visible as plaintext in the export file. This also means that RedditApplication objects exported by one user cannot be imported by another user on the same computer nor can it be imported by the same user on a different computer. It can only be imported by the same user on the same computer.
 
-The maximum depth will be set on [Export-Clixml](http://go.microsoft.com/fwlink/?LinkID=113297).
+The maximum depth will be set on Export-Clixml.
 
-New [RedditApplication](https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication) objects can be created manually or with [New-RedditApplication](https://psraw.readthedocs.io/en/latest/Module/New-RedditApplication).
+New RedditApplication objects can be created manually or with New-RedditApplication.
 
 ## EXAMPLES
 
-### Example 1
+### -------------------------- EXAMPLE 1 --------------------------
 ```
 $Application.ExportPath = 'c:\PSRAW\RedditApplication.xml'
 $Application | Export-RedditApplication
 ```
 
-This example uses the ExportPath property on the [RedditApplication](https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication) object to determine where to export the application. When a [RedditApplication](https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication) object is imported with [Import-RedditApplication](https://psraw.readthedocs.io/en/latest/Module/Import-RedditApplication), the ExportPath of the object will be set with the path to the file it was imported from. This amkes it easy to import, make changes, and then re-export the application. The ExportPath property is treated as a LiteralPath.
+This example uses the ExportPath property on the RedditApplication object to determine where to export the application. When a RedditApplication object is imported with Import-RedditApplication, the ExportPath of the object will be set with the path to the file it was imported from. This amkes it easy to import, make changes, and then re-export the application. The ExportPath property is treated as a LiteralPath.
 
-### Example 2
+### -------------------------- EXAMPLE 2 --------------------------
 ```
 $Application | Export-RedditApplication -Path 'c:\PSRAW\RedditApplication.xml'
 ```
 
-This example uses the Path parameter to either override the ExportPath property on the [RedditApplication](https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication) object or to set export location with an ExportPath is not present.
+This example uses the Path parameter to either override the ExportPath property on the RedditApplication object or to set export location with an ExportPath is not present.
 
-### Example 3
+### -------------------------- EXAMPLE 3 --------------------------
 ```
 $Application | Export-RedditApplication -LiteralPath 'c:\PSRAW\RedditApplication[1].xml'
 ```
 
-This example uses the LiteralPath parameter to either override the ExportPath property on the [RedditApplication](https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication) object or to set export location with an ExportPath is not present. LiteralPath does not translate the special characters and instead translates them literally.
+This example uses the LiteralPath parameter to either override the ExportPath property on the RedditApplication object or to set export location with an ExportPath is not present. LiteralPath does not translate the special characters and instead translates them literally.
 
 ## PARAMETERS
 
 ### -Application
-The [RedditApplication](https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication) object to be exported. This will be sent as the InputObject paramter to [Export-Clixml](http://go.microsoft.com/fwlink/?LinkID=113297).
+The RedditApplication object to be exported. This will be sent as the InputObject paramter to Export-Clixml.
 
 ```yaml
 Type: RedditApplication
@@ -107,7 +107,7 @@ Accept wildcard characters: False
 ```
 
 ### -LiteralPath
-Specifies the path to the file where the XML representation of the [RedditApplication](https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication) object will be stored. Unlike Path , the value of the LiteralPath parameter is used exactly as it is typed. No characters are interpreted as wildcards. If the path includes escape characters, enclose it in single quotation marks. Single quotation marks tell Windows PowerShell not to interpret any characters as escape sequences.
+Specifies the path to the file where the XML representation of the RedditApplication object will be stored. Unlike Path , the value of the LiteralPath parameter is used exactly as it is typed. No characters are interpreted as wildcards. If the path includes escape characters, enclose it in single quotation marks. Single quotation marks tell Windows PowerShell not to interpret any characters as escape sequences.
 
 ```yaml
 Type: String
@@ -122,7 +122,7 @@ Accept wildcard characters: False
 ```
 
 ### -Path
-Specifies the path to the file where the XML representation of the [RedditApplication](https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication) object will be stored.
+Specifies the path to the file where the XML representation of the RedditApplication object will be stored.
 
 ```yaml
 Type: String
