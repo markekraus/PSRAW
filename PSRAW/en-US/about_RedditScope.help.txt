@@ -8,10 +8,11 @@ LONG DESCRIPTION
     The ReditScope Class is used to define OAuth Scopes for reddit's API. All
     OAuth bearer tokens are limited in what functions they may perform. Scopes
     for an application define what the application can and cannot do on the API.
-    When creating a new RedditApplication class, one or more RedditScope's are
-    required ro be set on the Scope property. When a request is made for an
-    OAuth Authorization Code, the scopes will be provided and the resulting
-    Access Token will only be valid for those scopes.
+    When creating a new
+    RedditApplication
+    class, one or more RedditScope's are required to be set on the Scope
+    property. When a request is made for an OAuth Authorization Code, the scopes
+    will be provided and the resulting Access Token will only be valid for those scopes.
     ReditScope's can be created manually or you can retrieve all valid scopes
     with
     Get-RedditOAuthScope
@@ -38,7 +39,7 @@ Constructors
 
 Properties
     SCOPE
-    Redit's API reuturns a JSON hobject that contains an array of hashes. The
+    Redit's API reuturns a JSON object that contains an array of hashes. The
     Scope property preprsents the name of the scope hash. In most cases this
     matches the Id.
 
@@ -91,7 +92,7 @@ Properties
 Methods
     _INIT([STRING]$SCOPE, [STRING]$ID, [STRING]$NAME, [STRING]$DESCRIPTION)
     The _init hidden method is used by the constructors to initialize the class.
-    This way class initialization code can be maintained in a single methods
+    This way class initialization code can be maintained in a single method
     instead of each constructor.
 
     Data Type: Void
