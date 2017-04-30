@@ -89,11 +89,11 @@
 <command:details><command:name>New-RedditApplication</command:name>
 <command:verb>New</command:verb>
 <command:noun>RedditApplication</command:noun>
-<maml:description><maml:para>Creates a RedditApplication object
+<maml:description><maml:para>Creates a RedditApplication (https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication)object
 </maml:para>
 </maml:description>
 </command:details>
-<maml:description><maml:para>Creates a RedditApplication object containing data used by various cmdltes to define the parameters of the App registered on Reddit. This does not make any calls to Reddit or perform any online lookups.
+<maml:description><maml:para>Creates a RedditApplication (https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication)object containing data used by various cmdltes to define the parameters of the App registered on Reddit. This does not make any calls to Reddit or perform any online lookups.
 </maml:para>
 </maml:description>
 <command:syntax><command:syntaxItem><maml:name>New-RedditApplication</maml:name>
@@ -151,7 +151,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Scope</maml:name>
-<maml:Description><maml:para>Array of ReditScopes that this Reddit App requires. You can see the available scopes with Get-ReddOauthScope
+<maml:Description><maml:para>Array of RedditScope (https://psraw.readthedocs.io/en/latest/Module/about_RedditScope)'s that this Reddit App requires. You can see the available scopes with [Get-RedditOAuthScope](https://psraw.readthedocs.io/en/latest/Module/Get-RedditOAuthScope).
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">RedditScope[]</command:parameterValue>
@@ -222,7 +222,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Scope</maml:name>
-<maml:Description><maml:para>Array of ReditScopes that this Reddit App requires. You can see the available scopes with Get-ReddOauthScope
+<maml:Description><maml:para>Array of RedditScope (https://psraw.readthedocs.io/en/latest/Module/about_RedditScope)'s that this Reddit App requires. You can see the available scopes with [Get-RedditOAuthScope](https://psraw.readthedocs.io/en/latest/Module/Get-RedditOAuthScope).
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">RedditScope[]</command:parameterValue>
@@ -310,7 +310,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Scope</maml:name>
-<maml:Description><maml:para>Array of ReditScopes that this Reddit App requires. You can see the available scopes with Get-ReddOauthScope
+<maml:Description><maml:para>Array of RedditScope (https://psraw.readthedocs.io/en/latest/Module/about_RedditScope)'s that this Reddit App requires. You can see the available scopes with [Get-RedditOAuthScope](https://psraw.readthedocs.io/en/latest/Module/Get-RedditOAuthScope).
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">RedditScope[]</command:parameterValue>
@@ -407,7 +407,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Scope</maml:name>
-<maml:Description><maml:para>Array of ReditScopes that this Reddit App requires. You can see the available scopes with Get-ReddOauthScope
+<maml:Description><maml:para>Array of RedditScope (https://psraw.readthedocs.io/en/latest/Module/about_RedditScope)'s that this Reddit App requires. You can see the available scopes with [Get-RedditOAuthScope](https://psraw.readthedocs.io/en/latest/Module/Get-RedditOAuthScope).
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">RedditScope[]</command:parameterValue>
@@ -468,13 +468,7 @@
 </command:returnValues>
 <maml:alertSet><maml:alert><maml:para>For more information about registering Reddit Apps, Reddit's API, or Reddit OAuth see:
 </maml:para>
-<maml:para>* https://github.com/reddit/reddit/wiki/API
-</maml:para>
-<maml:para>* https://github.com/reddit/reddit/wiki/OAuth2
-</maml:para>
-<maml:para>* https://www.reddit.com/prefs/apps
-</maml:para>
-<maml:para>* https://www.reddit.com/wiki/api
+<maml:para>* https://github.com/reddit/reddit/wiki/API (https://github.com/reddit/reddit/wiki/API)* https://github.com/reddit/reddit/wiki/OAuth2 (https://github.com/reddit/reddit/wiki/OAuth2)* https://www.reddit.com/prefs/apps (https://www.reddit.com/prefs/apps)* https://www.reddit.com/wiki/api (https://www.reddit.com/wiki/api)
 </maml:para>
 </maml:alert>
 </maml:alertSet>
@@ -535,8 +529,14 @@ $RedditApp = New-RedditApplication @Params</dev:code>
 <command:relatedLinks><maml:navigationLink><maml:linkText>New-RedditApplication</maml:linkText>
 <maml:uri>https://psraw.readthedocs.io/en/latest/Module/New-RedditApplication</maml:uri>
 </maml:navigationLink>
-<maml:navigationLink><maml:linkText>Get-ReddOauthScope</maml:linkText>
-<maml:uri>https://psraw.readthedocs.io/en/latest/Module/Get-ReddOauthScope</maml:uri>
+<maml:navigationLink><maml:linkText>about_RedditApplication</maml:linkText>
+<maml:uri>https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication</maml:uri>
+</maml:navigationLink>
+<maml:navigationLink><maml:linkText>Get-RedditOAuthScope</maml:linkText>
+<maml:uri>https://psraw.readthedocs.io/en/latest/Module/Get-RedditOAuthScope</maml:uri>
+</maml:navigationLink>
+<maml:navigationLink><maml:linkText>about_RedditScope</maml:linkText>
+<maml:uri>https://psraw.readthedocs.io/en/latest/Module/about_RedditScope</maml:uri>
 </maml:navigationLink>
 <maml:navigationLink><maml:linkText>https://github.com/reddit/reddit/wiki/API</maml:linkText>
 <maml:uri>https://github.com/reddit/reddit/wiki/API</maml:uri>
