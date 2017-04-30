@@ -5,7 +5,8 @@
 Describes the RedditScope Class
 
 # LONG DESCRIPTION
-The ReditScope Class is used to define OAuth Scopes for reddit's API. All OAuth bearer tokens are limited in what functions they may perform. Scopes for an application define what the application can and cannot do on the API. When creating a new RedditApplication class, one or more RedditScope's are required ro be set on the Scope property. When a request is made for an OAuth Authorization Code, the scopes will be provided and the resulting Access Token will only be valid for those scopes.
+The ReditScope Class is used to define OAuth Scopes for reddit's API. All OAuth bearer tokens are limited in what functions they may perform. Scopes for an application define what the application can and cannot do on the API. When creating a new [RedditApplication](https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication)
+ class, one or more RedditScope's are required to be set on the Scope property. When a request is made for an OAuth Authorization Code, the scopes will be provided and the resulting Access Token will only be valid for those scopes.
 
 ReditScope's can be created manually or you can retrieve all valid scopes with [Get-RedditOAuthScope](https://psraw.readthedocs.io/en/latest/Module/Get-RedditOAuthScope).
 
@@ -38,7 +39,7 @@ Initializes a RedditScope with all the properties.
 ## Properties
 
 ### Scope
-Redit's API reuturns a JSON hobject that contains an array of hashes. The Scope property preprsents the name of the scope hash. In most cases this matches the Id.
+Redit's API reuturns a JSON object that contains an array of hashes. The Scope property preprsents the name of the scope hash. In most cases this matches the Id.
 
 ```yaml
 Data Type: String
@@ -95,7 +96,7 @@ Scope: Static
 ## Methods
 
 ### _init([String]$Scope, [String]$Id, [String]$Name, [String]$Description)
-The _init hidden method is used by the constructors to initialize the class. This way class initialization code can be maintained in a single methods instead of each constructor.
+The _init hidden method is used by the constructors to initialize the class. This way class initialization code can be maintained in a single method instead of each constructor.
 
 ```yaml
 Data Type: Void
