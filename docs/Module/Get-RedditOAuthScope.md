@@ -56,12 +56,14 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### RedditScope
 
 ## NOTES
+For complete documentation visit [https://psraw.readthedocs.io/](https://psraw.readthedocs.io/)
+
 For more information about registering Reddit Apps, Reddit's API, or Reddit OAuth see:
 
-* https://github.com/reddit/reddit/wiki/API
-* https://github.com/reddit/reddit/wiki/OAuth2
-* https://www.reddit.com/prefs/apps
-* https://www.reddit.com/wiki/api
+* [https://github.com/reddit/reddit/wiki/API](https://github.com/reddit/reddit/wiki/API)
+* [https://github.com/reddit/reddit/wiki/OAuth2](https://github.com/reddit/reddit/wiki/OAuth2)
+* [https://www.reddit.com/prefs/apps](https://www.reddit.com/prefs/apps)
+* [https://www.reddit.com/wiki/api](https://www.reddit.com/wiki/api)
 
 ## RELATED LINKS
 
@@ -77,3 +79,4 @@ For more information about registering Reddit Apps, Reddit's API, or Reddit OAut
 
 [https://www.reddit.com/wiki/api](https://www.reddit.com/wiki/api)
 
+[https://psraw.readthedocs.io/](https://psraw.readthedocs.io/)
