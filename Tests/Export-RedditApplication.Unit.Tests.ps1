@@ -77,6 +77,11 @@ function MyTest {
             { & $Command @LocalParams -ErrorAction Stop } | Should not throw
         }
     }
+    It "Exports a valid XML file." {
+        Test-Path -Path $ExportFile | Should Be $True
+        $xml = New-Object System.Xml.XmlDocument
+        {$xml.Load($ExportFile)} | should not throw
+    }
     It "Does not store secrets in plaintext"{
         $Params = @{
             Path = $ExportFile
