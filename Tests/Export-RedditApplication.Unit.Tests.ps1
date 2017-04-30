@@ -80,7 +80,8 @@ function MyTest {
     It "Does not store secrets in plaintext"{
         $Params = @{
             Path = $ExportFile
-            SimpleMatch = '12345'
+            SimpleMatch = $true
+            Pattern = '12345'
         }
         Select-String @Params | should be $null
     }
