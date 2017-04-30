@@ -5,16 +5,22 @@
 <command:details><command:name>Export-RedditApplication</command:name>
 <command:verb>Export</command:verb>
 <command:noun>RedditApplication</command:noun>
-<maml:description><maml:para>{{Fill in the Synopsis}}
+<maml:description><maml:para>Exports a RedditApplication (https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication)to an XML file.
 </maml:para>
 </maml:description>
 </command:details>
-<maml:description><maml:para>{{Fill in the Description}}
+<maml:description><maml:para>Allows you to export a RedditApplication (https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication) object to am XML file so that you can later import the object via [Import-RedditApplication](https://psraw.readthedocs.io/en/latest/Module/Import-RedditApplication). This allows you to share the same Reddit application between multiple scripts. This function is a wraper for [Export-Clixml](http://go.microsoft.com/fwlink/?LinkID=113297). 
+</maml:para>
+<maml:para>User Passwords and Client Secrets stored in the RedditApplication (https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication) object are stored as secure strings and are not visible as plaintext in the export file. This also means that [RedditApplication](https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication)objects exported by one user cannot be imported by another user on the same computer nor can it be imported by the same user on a different computer. It can only be imported by the same user on the same computer.
+</maml:para>
+<maml:para>The maximum depth will be set on Export-Clixml (http://go.microsoft.com/fwlink/?LinkID=113297).
+</maml:para>
+<maml:para>New RedditApplication (https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication) objects can be created manually or with [New-RedditApplication](https://psraw.readthedocs.io/en/latest/Module/New-RedditApplication).
 </maml:para>
 </maml:description>
 <command:syntax><command:syntaxItem><maml:name>Export-RedditApplication</maml:name>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="named" aliases="App, RedditApplication"><maml:name>Application</maml:name>
-<maml:Description><maml:para>{{Fill Application Description}}
+<maml:Description><maml:para>The RedditApplication (https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication) object to be exported. This will be sent as the InputObject paramter to [Export-Clixml](http://go.microsoft.com/fwlink/?LinkID=113297).
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">RedditApplication</command:parameterValue>
@@ -23,7 +29,26 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="named" aliases="none"><maml:name>Encoding</maml:name>
-<maml:Description><maml:para>{{Fill Encoding Description}}
+<maml:Description><maml:para>Specifies the type of encoding for the target file. The acceptable values for this parameter are:
+- ASCII
+</maml:para>
+<maml:para>- UTF8
+</maml:para>
+<maml:para>- UTF7
+</maml:para>
+<maml:para>- UTF32
+</maml:para>
+<maml:para>- Unicode
+</maml:para>
+<maml:para>- BigEndianUnicode
+</maml:para>
+<maml:para>- Default
+</maml:para>
+<maml:para>- OEM
+</maml:para>
+<maml:para>
+</maml:para>
+<maml:para>The default value is Unicode.
 </maml:para>
 </maml:Description>
 <command:parameterValueGroup><command:parameterValue required="false" variableLength="false">ASCII</command:parameterValue>
@@ -41,7 +66,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>LiteralPath</maml:name>
-<maml:Description><maml:para>{{Fill LiteralPath Description}}
+<maml:Description><maml:para>Specifies the path to the file where the XML representation of the RedditApplication (https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication)object will be stored. Unlike Path , the value of the LiteralPath parameter is used exactly as it is typed. No characters are interpreted as wildcards. If the path includes escape characters, enclose it in single quotation marks. Single quotation marks tell Windows PowerShell not to interpret any characters as escape sequences.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -68,7 +93,7 @@
 </command:syntaxItem>
 <command:syntaxItem><maml:name>Export-RedditApplication</maml:name>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="named" aliases="App, RedditApplication"><maml:name>Application</maml:name>
-<maml:Description><maml:para>{{Fill Application Description}}
+<maml:Description><maml:para>The RedditApplication (https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication) object to be exported. This will be sent as the InputObject paramter to [Export-Clixml](http://go.microsoft.com/fwlink/?LinkID=113297).
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">RedditApplication</command:parameterValue>
@@ -77,7 +102,26 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="named" aliases="none"><maml:name>Encoding</maml:name>
-<maml:Description><maml:para>{{Fill Encoding Description}}
+<maml:Description><maml:para>Specifies the type of encoding for the target file. The acceptable values for this parameter are:
+- ASCII
+</maml:para>
+<maml:para>- UTF8
+</maml:para>
+<maml:para>- UTF7
+</maml:para>
+<maml:para>- UTF32
+</maml:para>
+<maml:para>- Unicode
+</maml:para>
+<maml:para>- BigEndianUnicode
+</maml:para>
+<maml:para>- Default
+</maml:para>
+<maml:para>- OEM
+</maml:para>
+<maml:para>
+</maml:para>
+<maml:para>The default value is Unicode.
 </maml:para>
 </maml:Description>
 <command:parameterValueGroup><command:parameterValue required="false" variableLength="false">ASCII</command:parameterValue>
@@ -95,7 +139,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="named" aliases="none"><maml:name>Path</maml:name>
-<maml:Description><maml:para>{{Fill Path Description}}
+<maml:Description><maml:para>Specifies the path to the file where the XML representation of the RedditApplication (https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication)object will be stored.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -122,7 +166,7 @@
 </command:syntaxItem>
 </command:syntax>
 <command:parameters><command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="named" aliases="App, RedditApplication"><maml:name>Application</maml:name>
-<maml:Description><maml:para>{{Fill Application Description}}
+<maml:Description><maml:para>The RedditApplication (https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication) object to be exported. This will be sent as the InputObject paramter to [Export-Clixml](http://go.microsoft.com/fwlink/?LinkID=113297).
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">RedditApplication</command:parameterValue>
@@ -131,7 +175,26 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="named" aliases="none"><maml:name>Encoding</maml:name>
-<maml:Description><maml:para>{{Fill Encoding Description}}
+<maml:Description><maml:para>Specifies the type of encoding for the target file. The acceptable values for this parameter are:
+- ASCII
+</maml:para>
+<maml:para>- UTF8
+</maml:para>
+<maml:para>- UTF7
+</maml:para>
+<maml:para>- UTF32
+</maml:para>
+<maml:para>- Unicode
+</maml:para>
+<maml:para>- BigEndianUnicode
+</maml:para>
+<maml:para>- Default
+</maml:para>
+<maml:para>- OEM
+</maml:para>
+<maml:para>
+</maml:para>
+<maml:para>The default value is Unicode.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -140,7 +203,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>LiteralPath</maml:name>
-<maml:Description><maml:para>{{Fill LiteralPath Description}}
+<maml:Description><maml:para>Specifies the path to the file where the XML representation of the RedditApplication (https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication)object will be stored. Unlike Path , the value of the LiteralPath parameter is used exactly as it is typed. No characters are interpreted as wildcards. If the path includes escape characters, enclose it in single quotation marks. Single quotation marks tell Windows PowerShell not to interpret any characters as escape sequences.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -149,7 +212,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="named" aliases="none"><maml:name>Path</maml:name>
-<maml:Description><maml:para>{{Fill Path Description}}
+<maml:Description><maml:para>Specifies the path to the file where the XML representation of the RedditApplication (https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication)object will be stored.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -176,9 +239,9 @@
 <dev:defaultValue>False</dev:defaultValue>
 </command:parameter>
 </command:parameters>
-<command:inputTypes><command:inputType><dev:type><maml:name>System.String</maml:name>
+<command:inputTypes><command:inputType><dev:type><maml:name>RedditApplication</maml:name>
 </dev:type>
-<maml:description><maml:para>RedditApplication
+<maml:description><maml:para>
 </maml:para>
 </maml:description>
 </command:inputType>
@@ -190,19 +253,49 @@
 </maml:description>
 </command:returnValue>
 </command:returnValues>
-<maml:alertSet><maml:alert><maml:para>
+<maml:alertSet><maml:alert><maml:para>For complete documentation visit https://psraw.readthedocs.io/ (https://psraw.readthedocs.io/)For more information about registering Reddit Apps, Reddit's API, or Reddit OAuth see:
+</maml:para>
+<maml:para>* https://github.com/reddit/reddit/wiki/API (https://github.com/reddit/reddit/wiki/API)* https://github.com/reddit/reddit/wiki/OAuth2 (https://github.com/reddit/reddit/wiki/OAuth2)* https://www.reddit.com/prefs/apps (https://www.reddit.com/prefs/apps)* https://www.reddit.com/wiki/api (https://www.reddit.com/wiki/api)
 </maml:para>
 </maml:alert>
 </maml:alertSet>
 <command:examples><command:example><maml:title>Example 1</maml:title>
-<dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
-<dev:remarks><maml:para>{{ Add example description here }}
+<dev:code>$Application.ExportPath = 'c:\PSRAW\RedditApplication.xml'
+$Application | Export-RedditApplication</dev:code>
+<dev:remarks><maml:para>This example uses the ExportPath property on the RedditApplication (https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication) object to determine where to export the application. When a [RedditApplication](https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication) object is imported with [Import-RedditApplication](https://psraw.readthedocs.io/en/latest/Module/Import-RedditApplication), the ExportPath of the object will be set with the path to the file it was imported from. This amkes it easy to import, make changes, and then re-export the application. The ExportPath property is treated as a LiteralPath.
+</maml:para>
+</dev:remarks>
+</command:example>
+<command:example><maml:title>Example 2</maml:title>
+<dev:code>$Application | Export-RedditApplication -Path 'c:\PSRAW\RedditApplication.xml'</dev:code>
+<dev:remarks><maml:para>This example uses the Path parameter to either override the ExportPath property on the RedditApplication (https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication)object or to set export location with an ExportPath is not present.
+</maml:para>
+</dev:remarks>
+</command:example>
+<command:example><maml:title>Example 3</maml:title>
+<dev:code>$Application | Export-RedditApplication -LiteralPath 'c:\PSRAW\RedditApplication[1].xml'</dev:code>
+<dev:remarks><maml:para>This example uses the LiteralPath parameter to either override the ExportPath property on the RedditApplication (https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication)object or to set export location with an ExportPath is not present. LiteralPath does not translate the special characters and instead translates them literally.
 </maml:para>
 </dev:remarks>
 </command:example>
 </command:examples>
-<command:relatedLinks><maml:navigationLink><maml:linkText>https://github.com/markekraus/ConnectReddit/wiki/Export%E2%80%90RedditApplication</maml:linkText>
-<maml:uri>https://github.com/markekraus/ConnectReddit/wiki/Export%E2%80%90RedditApplication</maml:uri>
+<command:relatedLinks><maml:navigationLink><maml:linkText>https://psraw.readthedocs.io/en/latest/Module/Export-RedditApplication</maml:linkText>
+<maml:uri>https://psraw.readthedocs.io/en/latest/Module/Export-RedditApplication</maml:uri>
+</maml:navigationLink>
+<maml:navigationLink><maml:linkText>about_RedditApplication</maml:linkText>
+<maml:uri>https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication</maml:uri>
+</maml:navigationLink>
+<maml:navigationLink><maml:linkText>Import-RedditApplication</maml:linkText>
+<maml:uri>https://psraw.readthedocs.io/en/latest/Module/Import-RedditApplication</maml:uri>
+</maml:navigationLink>
+<maml:navigationLink><maml:linkText>New-RedditApplication</maml:linkText>
+<maml:uri>https://psraw.readthedocs.io/en/latest/Module/New-RedditApplication</maml:uri>
+</maml:navigationLink>
+<maml:navigationLink><maml:linkText>Export-Clixml</maml:linkText>
+<maml:uri>http://go.microsoft.com/fwlink/?LinkID=113297</maml:uri>
+</maml:navigationLink>
+<maml:navigationLink><maml:linkText>https://psraw.readthedocs.io/</maml:linkText>
+<maml:uri>https://psraw.readthedocs.io/</maml:uri>
 </maml:navigationLink>
 </command:relatedLinks>
 </command:command>
@@ -251,15 +344,9 @@
 </maml:description>
 </command:returnValue>
 </command:returnValues>
-<maml:alertSet><maml:alert><maml:para>For more information about registering Reddit Apps, Reddit's API, or Reddit OAuth see:
+<maml:alertSet><maml:alert><maml:para>For complete documentation visit https://psraw.readthedocs.io/ (https://psraw.readthedocs.io/)For more information about registering Reddit Apps, Reddit's API, or Reddit OAuth see:
 </maml:para>
-<maml:para>* https://github.com/reddit/reddit/wiki/API
-</maml:para>
-<maml:para>* https://github.com/reddit/reddit/wiki/OAuth2
-</maml:para>
-<maml:para>* https://www.reddit.com/prefs/apps
-</maml:para>
-<maml:para>* https://www.reddit.com/wiki/api
+<maml:para>* https://github.com/reddit/reddit/wiki/API (https://github.com/reddit/reddit/wiki/API)* https://github.com/reddit/reddit/wiki/OAuth2 (https://github.com/reddit/reddit/wiki/OAuth2)* https://www.reddit.com/prefs/apps (https://www.reddit.com/prefs/apps)* https://www.reddit.com/wiki/api (https://www.reddit.com/wiki/api)
 </maml:para>
 </maml:alert>
 </maml:alertSet>
@@ -287,6 +374,9 @@
 </maml:navigationLink>
 <maml:navigationLink><maml:linkText>https://www.reddit.com/wiki/api</maml:linkText>
 <maml:uri>https://www.reddit.com/wiki/api</maml:uri>
+</maml:navigationLink>
+<maml:navigationLink><maml:linkText>https://psraw.readthedocs.io/</maml:linkText>
+<maml:uri>https://psraw.readthedocs.io/</maml:uri>
 </maml:navigationLink>
 </command:relatedLinks>
 </command:command>
@@ -671,7 +761,7 @@
 </maml:description>
 </command:returnValue>
 </command:returnValues>
-<maml:alertSet><maml:alert><maml:para>For more information about registering Reddit Apps, Reddit's API, or Reddit OAuth see:
+<maml:alertSet><maml:alert><maml:para>For complete documentation visit https://psraw.readthedocs.io/ (https://psraw.readthedocs.io/)For more information about registering Reddit Apps, Reddit's API, or Reddit OAuth see:
 </maml:para>
 <maml:para>* https://github.com/reddit/reddit/wiki/API (https://github.com/reddit/reddit/wiki/API)* https://github.com/reddit/reddit/wiki/OAuth2 (https://github.com/reddit/reddit/wiki/OAuth2)* https://www.reddit.com/prefs/apps (https://www.reddit.com/prefs/apps)* https://www.reddit.com/wiki/api (https://www.reddit.com/wiki/api)
 </maml:para>
@@ -754,6 +844,9 @@ $RedditApp = New-RedditApplication @Params</dev:code>
 </maml:navigationLink>
 <maml:navigationLink><maml:linkText>https://www.reddit.com/wiki/api</maml:linkText>
 <maml:uri>https://www.reddit.com/wiki/api</maml:uri>
+</maml:navigationLink>
+<maml:navigationLink><maml:linkText>https://psraw.readthedocs.io/</maml:linkText>
+<maml:uri>https://psraw.readthedocs.io/</maml:uri>
 </maml:navigationLink>
 </command:relatedLinks>
 </command:command>

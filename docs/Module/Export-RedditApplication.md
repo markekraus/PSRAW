@@ -14,18 +14,19 @@ Exports a [RedditApplication](https://psraw.readthedocs.io/en/latest/Module/abou
 ### ExportPath (Default)
 ```
 Export-RedditApplication [-Encoding <String>] -Application <RedditApplication> [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ### Path
 ```
 Export-RedditApplication -Path <String> [-Encoding <String>] -Application <RedditApplication> [-WhatIf]
- [-Confirm]
+ [-Confirm] [<CommonParameters>]
 ```
 
 ### LiteralPath
 ```
 Export-RedditApplication -LiteralPath <String> [-Encoding <String>] -Application <RedditApplication> [-WhatIf]
- [-Confirm]
+ [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -40,23 +41,22 @@ New [RedditApplication](https://psraw.readthedocs.io/en/latest/Module/about_Redd
 ## EXAMPLES
 
 ### Example 1
-```powershell
+```
 $Application.ExportPath = 'c:\PSRAW\RedditApplication.xml'
 $Application | Export-RedditApplication
 ```
 
 This example uses the ExportPath property on the [RedditApplication](https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication) object to determine where to export the application. When a [RedditApplication](https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication) object is imported with [Import-RedditApplication](https://psraw.readthedocs.io/en/latest/Module/Import-RedditApplication), the ExportPath of the object will be set with the path to the file it was imported from. This amkes it easy to import, make changes, and then re-export the application. The ExportPath property is treated as a LiteralPath.
 
-
 ### Example 2
-```powershell
+```
 $Application | Export-RedditApplication -Path 'c:\PSRAW\RedditApplication.xml'
 ```
 
 This example uses the Path parameter to either override the ExportPath property on the [RedditApplication](https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication) object or to set export location with an ExportPath is not present.
 
 ### Example 3
-```powershell
+```
 $Application | Export-RedditApplication -LiteralPath 'c:\PSRAW\RedditApplication[1].xml'
 ```
 
