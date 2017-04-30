@@ -19,7 +19,7 @@ Using Module '..\..\Classes\RedditApplication.psm1'
 function Export-RedditApplication {
     [CmdletBinding(DefaultParameterSetName = 'ExportPath',
                    ConfirmImpact = 'Low',
-                   HelpUri = 'https://github.com/markekraus/ConnectReddit/wiki/Export%E2%80%90RedditApplication',
+                   HelpUri = 'https://psraw.readthedocs.io/en/latest/Module/Export-RedditApplication',
                    SupportsShouldProcess = $true)]
     [OutputType([System.IO.FileInfo])]
     param
