@@ -77,7 +77,7 @@ function Export-RedditApplication {
                 break
             }
             'LiteralPath' {
-                $Params['LiteralPath'] = $LiterlPath
+                $Params['LiteralPath'] = $LiteralPath
                 $Target = $LiteralPath
                 break
             }
