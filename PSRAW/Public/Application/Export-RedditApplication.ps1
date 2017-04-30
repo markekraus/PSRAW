@@ -34,7 +34,7 @@ function Export-RedditApplication {
                    Mandatory = $true,
                    ValueFromRemainingArguments = $true)]
         [ValidateNotNullOrEmpty()]
-        [string]$LiterlPath,
+        [string]$LiteralPath,
         
         [Parameter(ParameterSetName = 'LiteralPath',
                    Mandatory = $false,
