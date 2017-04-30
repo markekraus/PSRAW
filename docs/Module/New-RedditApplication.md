@@ -7,7 +7,7 @@ schema: 2.0.0
 # New-RedditApplication
 
 ## SYNOPSIS
-Creates a RedditApplication object
+Creates a [RedditApplication](https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication) object
 
 ## SYNTAX
 
@@ -32,7 +32,7 @@ New-RedditApplication [-Installed] -Name <String> -ClientCredential <PSCredentia
 ```
 
 ## DESCRIPTION
-Creates a RedditApplication object containing data used by various cmdltes to define the parameters of the App registered on Reddit. This does not make any calls to Reddit or perform any online lookups.
+Creates a [RedditApplication](https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication) object containing data used by various cmdltes to define the parameters of the App registered on Reddit. This does not make any calls to Reddit or perform any online lookups.
 
 ## EXAMPLES
 
@@ -179,7 +179,7 @@ Accept wildcard characters: False
 ```
 
 ### -Scope
-Array of ReditScopes that this Reddit App requires. You can see the available scopes with Get-ReddOauthScope
+Array of [RedditScope](https://psraw.readthedocs.io/en/latest/Module/about_RedditScope)'s that this Reddit App requires. You can see the available scopes with [Get-RedditOAuthScope](https://psraw.readthedocs.io/en/latest/Module/Get-RedditOAuthScope).
 
 ```yaml
 Type: RedditScope[]
@@ -283,16 +283,20 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## NOTES
 For more information about registering Reddit Apps, Reddit's API, or Reddit OAuth see:
 
-* https://github.com/reddit/reddit/wiki/API
-* https://github.com/reddit/reddit/wiki/OAuth2
-* https://www.reddit.com/prefs/apps
-* https://www.reddit.com/wiki/api
+* [https://github.com/reddit/reddit/wiki/API](https://github.com/reddit/reddit/wiki/API)
+* [https://github.com/reddit/reddit/wiki/OAuth2](https://github.com/reddit/reddit/wiki/OAuth2)
+* [https://www.reddit.com/prefs/apps](https://www.reddit.com/prefs/apps)
+* [https://www.reddit.com/wiki/api](https://www.reddit.com/wiki/api)
 
 ## RELATED LINKS
 
 [New-RedditApplication](https://psraw.readthedocs.io/en/latest/Module/New-RedditApplication)
 
-[Get-ReddOauthScope](https://psraw.readthedocs.io/en/latest/Module/Get-ReddOauthScope)
+[about_RedditApplication](https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication)
+
+[Get-RedditOAuthScope](https://psraw.readthedocs.io/en/latest/Module/Get-RedditOAuthScope)
+
+[about_RedditScope](https://psraw.readthedocs.io/en/latest/Module/about_RedditScope)
 
 [https://github.com/reddit/reddit/wiki/API](https://github.com/reddit/reddit/wiki/API)
 

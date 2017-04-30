@@ -7,6 +7,8 @@ pages:
   - Home: index.md
   - Module Help:
     - PSRAW: Module/PSRAW.md
+    - about_RedditApplication: Module/about_RedditApplication.md
+    - about_RedditApplicationType: Module/about_RedditApplicationType.md
     - about_RedditScope: Module/about_RedditScope.md
     - Get-RedditOAuthScope: Module/Get-RedditOAuthScope.md
     - New-RedditApplication: Module/New-RedditApplication.md
