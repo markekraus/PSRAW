@@ -5,22 +5,22 @@
 <command:details><command:name>Export-RedditApplication</command:name>
 <command:verb>Export</command:verb>
 <command:noun>RedditApplication</command:noun>
-<maml:description><maml:para>Exports a RedditApplication (https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication)to an XML file.
+<maml:description><maml:para>Exports a RedditApplication object to an XML file.
 </maml:para>
 </maml:description>
 </command:details>
-<maml:description><maml:para>Allows you to export a RedditApplication (https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication) object to am XML file so that you can later import the object via [Import-RedditApplication](https://psraw.readthedocs.io/en/latest/Module/Import-RedditApplication). This allows you to share the same Reddit application between multiple scripts. This function is a wraper for [Export-Clixml](http://go.microsoft.com/fwlink/?LinkID=113297). 
+<maml:description><maml:para>Allows you to export a RedditApplication object to am XML file so that you can later import the object via Import-RedditApplication. This allows you to share the same Reddit application between multiple scripts. This function is a wraper for Export-Clixml. 
 </maml:para>
-<maml:para>User Passwords and Client Secrets stored in the RedditApplication (https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication) object are stored as secure strings and are not visible as plaintext in the export file. This also means that [RedditApplication](https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication)objects exported by one user cannot be imported by another user on the same computer nor can it be imported by the same user on a different computer. It can only be imported by the same user on the same computer.
+<maml:para>User Passwords and Client Secrets stored in the RedditApplication object are stored as secure strings and are not visible as plaintext in the export file. This also means that RedditApplication objects exported by one user cannot be imported by another user on the same computer nor can it be imported by the same user on a different computer. It can only be imported by the same user on the same computer.
 </maml:para>
-<maml:para>The maximum depth will be set on Export-Clixml (http://go.microsoft.com/fwlink/?LinkID=113297).
+<maml:para>The maximum depth will be set on Export-Clixml.
 </maml:para>
-<maml:para>New RedditApplication (https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication) objects can be created manually or with [New-RedditApplication](https://psraw.readthedocs.io/en/latest/Module/New-RedditApplication).
+<maml:para>New RedditApplication objects can be created manually or with New-RedditApplication.
 </maml:para>
 </maml:description>
 <command:syntax><command:syntaxItem><maml:name>Export-RedditApplication</maml:name>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="named" aliases="App, RedditApplication"><maml:name>Application</maml:name>
-<maml:Description><maml:para>The RedditApplication (https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication) object to be exported. This will be sent as the InputObject paramter to [Export-Clixml](http://go.microsoft.com/fwlink/?LinkID=113297).
+<maml:Description><maml:para>The RedditApplication object to be exported. This will be sent as the InputObject paramter to Export-Clixml.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">RedditApplication</command:parameterValue>
@@ -66,7 +66,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>LiteralPath</maml:name>
-<maml:Description><maml:para>Specifies the path to the file where the XML representation of the RedditApplication (https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication)object will be stored. Unlike Path , the value of the LiteralPath parameter is used exactly as it is typed. No characters are interpreted as wildcards. If the path includes escape characters, enclose it in single quotation marks. Single quotation marks tell Windows PowerShell not to interpret any characters as escape sequences.
+<maml:Description><maml:para>Specifies the path to the file where the XML representation of the RedditApplication object will be stored. Unlike Path , the value of the LiteralPath parameter is used exactly as it is typed. No characters are interpreted as wildcards. If the path includes escape characters, enclose it in single quotation marks. Single quotation marks tell Windows PowerShell not to interpret any characters as escape sequences.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -93,7 +93,7 @@
 </command:syntaxItem>
 <command:syntaxItem><maml:name>Export-RedditApplication</maml:name>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="named" aliases="App, RedditApplication"><maml:name>Application</maml:name>
-<maml:Description><maml:para>The RedditApplication (https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication) object to be exported. This will be sent as the InputObject paramter to [Export-Clixml](http://go.microsoft.com/fwlink/?LinkID=113297).
+<maml:Description><maml:para>The RedditApplication object to be exported. This will be sent as the InputObject paramter to Export-Clixml.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">RedditApplication</command:parameterValue>
@@ -139,7 +139,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="named" aliases="none"><maml:name>Path</maml:name>
-<maml:Description><maml:para>Specifies the path to the file where the XML representation of the RedditApplication (https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication)object will be stored.
+<maml:Description><maml:para>Specifies the path to the file where the XML representation of the RedditApplication object will be stored.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -166,7 +166,7 @@
 </command:syntaxItem>
 </command:syntax>
 <command:parameters><command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="named" aliases="App, RedditApplication"><maml:name>Application</maml:name>
-<maml:Description><maml:para>The RedditApplication (https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication) object to be exported. This will be sent as the InputObject paramter to [Export-Clixml](http://go.microsoft.com/fwlink/?LinkID=113297).
+<maml:Description><maml:para>The RedditApplication object to be exported. This will be sent as the InputObject paramter to Export-Clixml.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">RedditApplication</command:parameterValue>
@@ -203,7 +203,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>LiteralPath</maml:name>
-<maml:Description><maml:para>Specifies the path to the file where the XML representation of the RedditApplication (https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication)object will be stored. Unlike Path , the value of the LiteralPath parameter is used exactly as it is typed. No characters are interpreted as wildcards. If the path includes escape characters, enclose it in single quotation marks. Single quotation marks tell Windows PowerShell not to interpret any characters as escape sequences.
+<maml:Description><maml:para>Specifies the path to the file where the XML representation of the RedditApplication object will be stored. Unlike Path , the value of the LiteralPath parameter is used exactly as it is typed. No characters are interpreted as wildcards. If the path includes escape characters, enclose it in single quotation marks. Single quotation marks tell Windows PowerShell not to interpret any characters as escape sequences.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -212,7 +212,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="named" aliases="none"><maml:name>Path</maml:name>
-<maml:Description><maml:para>Specifies the path to the file where the XML representation of the RedditApplication (https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication)object will be stored.
+<maml:Description><maml:para>Specifies the path to the file where the XML representation of the RedditApplication object will be stored.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -259,22 +259,22 @@
 </maml:para>
 </maml:alert>
 </maml:alertSet>
-<command:examples><command:example><maml:title>Example 1</maml:title>
+<command:examples><command:example><maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
 <dev:code>$Application.ExportPath = 'c:\PSRAW\RedditApplication.xml'
 $Application | Export-RedditApplication</dev:code>
-<dev:remarks><maml:para>This example uses the ExportPath property on the RedditApplication (https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication) object to determine where to export the application. When a [RedditApplication](https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication) object is imported with [Import-RedditApplication](https://psraw.readthedocs.io/en/latest/Module/Import-RedditApplication), the ExportPath of the object will be set with the path to the file it was imported from. This amkes it easy to import, make changes, and then re-export the application. The ExportPath property is treated as a LiteralPath.
+<dev:remarks><maml:para>This example uses the ExportPath property on the RedditApplication object to determine where to export the application. When a RedditApplication object is imported with Import-RedditApplication, the ExportPath of the object will be set with the path to the file it was imported from. This amkes it easy to import, make changes, and then re-export the application. The ExportPath property is treated as a LiteralPath.
 </maml:para>
 </dev:remarks>
 </command:example>
-<command:example><maml:title>Example 2</maml:title>
+<command:example><maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
 <dev:code>$Application | Export-RedditApplication -Path 'c:\PSRAW\RedditApplication.xml'</dev:code>
-<dev:remarks><maml:para>This example uses the Path parameter to either override the ExportPath property on the RedditApplication (https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication)object or to set export location with an ExportPath is not present.
+<dev:remarks><maml:para>This example uses the Path parameter to either override the ExportPath property on the RedditApplication object or to set export location with an ExportPath is not present.
 </maml:para>
 </dev:remarks>
 </command:example>
-<command:example><maml:title>Example 3</maml:title>
+<command:example><maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
 <dev:code>$Application | Export-RedditApplication -LiteralPath 'c:\PSRAW\RedditApplication[1].xml'</dev:code>
-<dev:remarks><maml:para>This example uses the LiteralPath parameter to either override the ExportPath property on the RedditApplication (https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication)object or to set export location with an ExportPath is not present. LiteralPath does not translate the special characters and instead translates them literally.
+<dev:remarks><maml:para>This example uses the LiteralPath parameter to either override the ExportPath property on the RedditApplication object or to set export location with an ExportPath is not present. LiteralPath does not translate the special characters and instead translates them literally.
 </maml:para>
 </dev:remarks>
 </command:example>
