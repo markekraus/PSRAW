@@ -1,6 +1,6 @@
 site_name: PSRAW - PowerShell Reddit API Wrapper Module
-repo_url: https://github.com/markekraus/PSRAW
-edit_uri: edit/master/docs/
+site_author: Mark Kraus
+repo_url: https://github.com/markekraus/PSRAW/
 theme: readthedocs
 copyright: "PSMSGraph is licensed under the <a href='https://github.com/markekraus/PSRAW/raw/master/LICENSE'>MIT license"
 pages:
@@ -10,6 +10,7 @@ pages:
     - about_RedditApplication: Module/about_RedditApplication.md
     - about_RedditApplicationType: Module/about_RedditApplicationType.md
     - about_RedditScope: Module/about_RedditScope.md
+    - Export-RedditApplication: Module/Export-RedditApplication.md
     - Get-RedditOAuthScope: Module/Get-RedditOAuthScope.md
     - New-RedditApplication: Module/New-RedditApplication.md
 

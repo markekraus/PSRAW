@@ -19,7 +19,7 @@
 	ModuleToProcess = 'PSRAW.psm1'
 	
 	# Version number of this module.
-	ModuleVersion = '1.0.12.0'
+	ModuleVersion = '1.0.12.3'
 	
 	# ID used to uniquely identify this module
 	GUID = '92c8f916-4890-45eb-a3e7-592f5b5b3f24'
@@ -73,10 +73,10 @@
 	
 	# Modules to import as nested modules of the module specified in
 	# ModuleToProcess
-	NestedModules = @('Enums\RedditApplicationType.psm1','Classes\RedditApplication.psm1','Classes\RedditScope.psm1','Public\Application\New-RedditApplication.ps1','Public\OAuth\Get-RedditOAuthScope.ps1')
+	NestedModules = @('Enums\RedditApplicationType.psm1','Classes\RedditApplication.psm1','Classes\RedditScope.psm1','Public\Application\Export-RedditApplication.ps1','Public\Application\New-RedditApplication.ps1','Public\OAuth\Get-RedditOAuthScope.ps1')
 	
 	# Functions to export from this module
-	FunctionsToExport = @('New-RedditApplication','Get-RedditOAuthScope')
+	FunctionsToExport = @('Export-RedditApplication','New-RedditApplication','Get-RedditOAuthScope')
 	
 	# Cmdlets to export from this module
 	CmdletsToExport = @()
