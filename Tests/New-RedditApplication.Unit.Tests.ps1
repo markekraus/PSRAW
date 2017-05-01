@@ -20,13 +20,6 @@ Import-Module (Join-Path $moduleRoot "$moduleName.psd1") -force
 
 $Command = 'New-RedditApplication'
 $TypeName = 'RedditApplication'
-$RequiredParams = @(
-    'ClientCredential'
-    'UserCredential'
-    'ReditectUri'
-    'UserAgent'
-    'Scope'
-)
 
 $ClientId = '54321'
 $ClientSceret = '12345'
