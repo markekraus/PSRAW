@@ -55,14 +55,12 @@ $ParamterSets = @(
         Name = 'Path'
         Params =@{
             Path = $ExportFile
-            ErrorAction = 'Stop'
         }
     }
     @{
         Name = 'LiteralPath'
         Params =@{
             LiteralPath = $ExportFile
-            ErrorAction = 'Stop'
         }
     }
 )
