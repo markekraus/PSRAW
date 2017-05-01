@@ -30,7 +30,7 @@ Export-RedditApplication -LiteralPath <String> [-Encoding <String>] -Application
 ```
 
 ## DESCRIPTION
-Allows you to export a RedditApplication object to am XML file so that you can later import the object via Import-RedditApplication. This allows you to share the same Reddit application between multiple scripts. This function is a wraper for Export-Clixml. 
+Allows you to export a RedditApplication object to an XML file so that you can later import the object via Import-RedditApplication. This allows you to share the same Reddit application between multiple scripts. This function is a wraper for Export-Clixml. 
 
 User Passwords and Client Secrets stored in the RedditApplication object are stored as secure strings and are not visible as plaintext in the export file. This also means that RedditApplication objects exported by one user cannot be imported by another user on the same computer nor can it be imported by the same user on a different computer. It can only be imported by the same user on the same computer.
 
