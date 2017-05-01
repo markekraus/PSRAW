@@ -13,12 +13,12 @@ Imports a RedditApplication object from an XML file.
 
 ### Path (Default)
 ```
-Import-RedditApplication -Path <String[]> [-WhatIf] [-Confirm]
+Import-RedditApplication -Path <String[]> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### LiteralPath
 ```
-Import-RedditApplication -LiteralPath <String[]> [-WhatIf] [-Confirm]
+Import-RedditApplication -LiteralPath <String[]> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -110,11 +110,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ### System.String[]
 
-
 ## OUTPUTS
 
 ### RedditApplication
-
 
 ## NOTES
 For complete documentation visit [https://psraw.readthedocs.io/](https://psraw.readthedocs.io/)
@@ -125,7 +123,6 @@ For more information about registering Reddit Apps, Reddit's API, or Reddit OAut
 * [https://github.com/reddit/reddit/wiki/OAuth2](https://github.com/reddit/reddit/wiki/OAuth2)
 * [https://www.reddit.com/prefs/apps](https://www.reddit.com/prefs/apps)
 * [https://www.reddit.com/wiki/api](https://www.reddit.com/wiki/api)
-
 
 ## RELATED LINKS
 
