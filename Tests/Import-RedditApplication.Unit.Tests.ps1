@@ -1,16 +1,19 @@
-﻿<#	
+<#	
     .NOTES
     ===========================================================================
      Created with:  VSCode
-     Created on:    4/26/2017 04:40 AM
-     Edited on:     4/28/2017
+     Created on:    05/01/2017 4:43 PM
+     Edited on:     05/01/2017
      Created by:    Mark Kraus
      Organization: 	
-     Filename:      New-RedditApplication.Unit.Tests.ps1
+     Filename:      Import-RedditApplication.Unit.Tests.ps1
     ===========================================================================
     .DESCRIPTION
-        Unit Tests for New-RedditApplication
+        Import-RedditApplication Function unit tests
 #>
+Using Module '..\PSRAW\Enums\RedditApplicationType.psm1'
+Using Module '..\PSRAW\Classes\RedditScope.psm1'
+Using Module '..\PSRAW\Classes\RedditApplication.psm1'
 
 $projectRoot = Resolve-Path "$PSScriptRoot\.."
 $moduleRoot = Split-Path (Resolve-Path "$projectRoot\*\*.psd1")
@@ -18,7 +21,7 @@ $moduleName = Split-Path $moduleRoot -Leaf
 Remove-Module -Force $moduleName  -ErrorAction SilentlyContinue
 Import-Module (Join-Path $moduleRoot "$moduleName.psd1") -force
 
-$Command = 'New-RedditApplication'
+$Command = 'Import-RedditApplication'
 $TypeName = 'RedditApplication'
 
 $ClientId = '54321'
@@ -27,54 +30,43 @@ $SecClientSecret = $ClientSceret | ConvertTo-SecureString -AsPlainText -Force
 $ClientCredential = [pscredential]::new($ClientId,$SecClientSecret)
 
 $UserId = 'reddituser'
-$UserSceret = 'password'
+$UserSceret = 'password12345'
 $SecUserSecret = $UserSceret | ConvertTo-SecureString -AsPlainText -Force 
 $UserCredential = [pscredential]::new($UserId,$SecUserSecret)
 
+$ExportFile = '{0}\ReditApplicationExport-{1}.xml' -f $env:TEMP, [guid]::NewGuid().toString()
+
+$Application = [RedditApplication]@{
+    Name = 'TestApplication'
+    Description = 'This is only a test'
+    RedirectUri = 'https://localhost/'
+    UserAgent = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
+    Scope = 'read'
+    ClientCredential = $ClientCredential
+    UserCredential = $UserCredential
+    Type = 'Script'
+    ExportPath = $ExportFile 
+}
+
+$Application | Export-RedditApplication
+
 $ParamterSets = @(
     @{
-        Name = 'WebApp'
+        Name = 'Path'
         Params =@{
-            Name = 'TestApplication'
-            Description = 'This is only a test'
-            RedirectUri = 'https://localhost/'
-            UserAgent = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
-            Scope = 'read'
-            ClientCredential = $ClientCredential
-            WebApp = $True
+            Path = $ExportFile
         }
     }
     @{
-        Name = 'Script'
+        Name = 'LiteralPath'
         Params =@{
-            Name = 'TestApplication'
-            Description = 'This is only a test'
-            RedirectUri = 'https://localhost/'
-            UserAgent = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
-            Scope = 'read'
-            ClientCredential = $ClientCredential
-            UserCredential = $UserCredential
-            Script = $True
-        }
-    }
-    @{
-        Name = 'Installed'
-        Params =@{
-            Name = 'TestApplication'
-            Description = 'This is only a test'
-            RedirectUri = 'https://localhost/'
-            UserAgent = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
-            Scope = 'read'
-            ClientCredential = $ClientCredential
-            Installed = $True
+            LiteralPath = $ExportFile
         }
     }
 )
 
-
 function MyTest {
     foreach($ParamterSet in $ParamterSets){
-
         It "'$($ParamterSet.Name)' Parameter set does not have errors" {
             $LocalParams = $ParamterSet.Params
             { & $Command @LocalParams -ErrorAction Stop } | Should not throw
@@ -102,3 +94,5 @@ Describe "$command Unit" -Tags Unit {
 Describe "$command Build" -Tags Build {
     MyTest
 }
+
+Remove-Item -Force -Path $ExportFile -ErrorAction SilentlyContinue
