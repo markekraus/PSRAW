@@ -12,5 +12,6 @@ pages:
     - about_RedditScope: Module/about_RedditScope.md
     - Export-RedditApplication: Module/Export-RedditApplication.md
     - Get-RedditOAuthScope: Module/Get-RedditOAuthScope.md
+    - Import-RedditApplication: Module/Import-RedditApplication.md
     - New-RedditApplication: Module/New-RedditApplication.md
 

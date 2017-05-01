@@ -9,7 +9,7 @@
 </maml:para>
 </maml:description>
 </command:details>
-<maml:description><maml:para>Allows you to export a RedditApplication object to am XML file so that you can later import the object via Import-RedditApplication. This allows you to share the same Reddit application between multiple scripts. This function is a wraper for Export-Clixml. 
+<maml:description><maml:para>Allows you to export a RedditApplication object to an XML file so that you can later import the object via Import-RedditApplication. This allows you to share the same Reddit application between multiple scripts. This function is a wraper for Export-Clixml. 
 </maml:para>
 <maml:para>User Passwords and Client Secrets stored in the RedditApplication object are stored as secure strings and are not visible as plaintext in the export file. This also means that RedditApplication objects exported by one user cannot be imported by another user on the same computer nor can it be imported by the same user on a different computer. It can only be imported by the same user on the same computer.
 </maml:para>
@@ -374,6 +374,166 @@ $Application | Export-RedditApplication</dev:code>
 </maml:navigationLink>
 <maml:navigationLink><maml:linkText>https://www.reddit.com/wiki/api</maml:linkText>
 <maml:uri>https://www.reddit.com/wiki/api</maml:uri>
+</maml:navigationLink>
+<maml:navigationLink><maml:linkText>https://psraw.readthedocs.io/</maml:linkText>
+<maml:uri>https://psraw.readthedocs.io/</maml:uri>
+</maml:navigationLink>
+</command:relatedLinks>
+</command:command>
+<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+<command:details><command:name>Import-RedditApplication</command:name>
+<command:verb>Import</command:verb>
+<command:noun>RedditApplication</command:noun>
+<maml:description><maml:para>Imports a RedditApplication object from an XML file.
+</maml:para>
+</maml:description>
+</command:details>
+<maml:description><maml:para>Allows you to import a RedditApplication object from an XML file that was previously exported via Export-RedditApplication. This allows you to share the same Reddit application between multiple scripts. This function is a wraper for Import-Clixml. 
+</maml:para>
+<maml:para>User Passwords and Client Secrets stored in the RedditApplication object are stored as secure strings and are not visible as plaintext in the export file. This also means that RedditApplication objects exported by one user cannot be imported by another user on the same computer nor can it be imported by the same user on a different computer. It can only be imported by the same user on the same computer.
+</maml:para>
+<maml:para>New RedditApplication objects can be created manually or with New-RedditApplication.
+</maml:para>
+</maml:description>
+<command:syntax><command:syntaxItem><maml:name>Import-RedditApplication</maml:name>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>LiteralPath</maml:name>
+<maml:Description><maml:para>Specifies the XML files. Unlike Path , the value of the LiteralPath parameter is used exactly as it is typed. No characters are interpreted as wildcards. If the path includes escape characters, enclose it in single quotation marks. Single quotation marks tell Windows PowerShell not to interpret any characters as escape sequences.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+<dev:type><maml:name>String[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>None</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf"><maml:name>Confirm</maml:name>
+<maml:Description><maml:para>Prompts you for confirmation before running the cmdlet.
+</maml:para>
+</maml:Description>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi"><maml:name>WhatIf</maml:name>
+<maml:Description><maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.
+</maml:para>
+</maml:Description>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+</command:syntaxItem>
+<command:syntaxItem><maml:name>Import-RedditApplication</maml:name>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="named" aliases="none"><maml:name>Path</maml:name>
+<maml:Description><maml:para>Specifies the XML files.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+<dev:type><maml:name>String[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>None</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf"><maml:name>Confirm</maml:name>
+<maml:Description><maml:para>Prompts you for confirmation before running the cmdlet.
+</maml:para>
+</maml:Description>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi"><maml:name>WhatIf</maml:name>
+<maml:Description><maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.
+</maml:para>
+</maml:Description>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+</command:syntaxItem>
+</command:syntax>
+<command:parameters><command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>LiteralPath</maml:name>
+<maml:Description><maml:para>Specifies the XML files. Unlike Path , the value of the LiteralPath parameter is used exactly as it is typed. No characters are interpreted as wildcards. If the path includes escape characters, enclose it in single quotation marks. Single quotation marks tell Windows PowerShell not to interpret any characters as escape sequences.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+<dev:type><maml:name>String[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>None</dev:defaultValue>
+</command:parameter>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="named" aliases="none"><maml:name>Path</maml:name>
+<maml:Description><maml:para>Specifies the XML files.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+<dev:type><maml:name>String[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>None</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf"><maml:name>Confirm</maml:name>
+<maml:Description><maml:para>Prompts you for confirmation before running the cmdlet.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi"><maml:name>WhatIf</maml:name>
+<maml:Description><maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+</command:parameters>
+<command:inputTypes><command:inputType><dev:type><maml:name>System.String[]</maml:name>
+</dev:type>
+<maml:description><maml:para>
+</maml:para>
+</maml:description>
+</command:inputType>
+</command:inputTypes>
+<command:returnValues><command:returnValue><dev:type><maml:name>RedditApplication</maml:name>
+</dev:type>
+<maml:description><maml:para>
+</maml:para>
+</maml:description>
+</command:returnValue>
+</command:returnValues>
+<maml:alertSet><maml:alert><maml:para>For complete documentation visit https://psraw.readthedocs.io/ (https://psraw.readthedocs.io/)For more information about registering Reddit Apps, Reddit's API, or Reddit OAuth see:
+</maml:para>
+<maml:para>* https://github.com/reddit/reddit/wiki/API (https://github.com/reddit/reddit/wiki/API)* https://github.com/reddit/reddit/wiki/OAuth2 (https://github.com/reddit/reddit/wiki/OAuth2)* https://www.reddit.com/prefs/apps (https://www.reddit.com/prefs/apps)* https://www.reddit.com/wiki/api (https://www.reddit.com/wiki/api)
+</maml:para>
+</maml:alert>
+</maml:alertSet>
+<command:examples><command:example><maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
+<dev:code>$Application = Import-RedditApplication -Path 'c:\PSRAW\RedditApplication.xml'</dev:code>
+<dev:remarks><maml:para>
+</maml:para>
+</dev:remarks>
+</command:example>
+<command:example><maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
+<dev:code>$Application = Import-RedditApplication -LiteralPath 'c:\PSRAW\RedditApplication[1].xml'</dev:code>
+<dev:remarks><maml:para>
+</maml:para>
+</dev:remarks>
+</command:example>
+</command:examples>
+<command:relatedLinks><maml:navigationLink><maml:linkText>https://psraw.readthedocs.io/en/latest/Module/Import-RedditApplication</maml:linkText>
+<maml:uri>https://psraw.readthedocs.io/en/latest/Module/Import-RedditApplication</maml:uri>
+</maml:navigationLink>
+<maml:navigationLink><maml:linkText>about_RedditApplication</maml:linkText>
+<maml:uri>https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication</maml:uri>
+</maml:navigationLink>
+<maml:navigationLink><maml:linkText>Export-RedditApplication</maml:linkText>
+<maml:uri>https://psraw.readthedocs.io/en/latest/Module/Export-RedditApplication</maml:uri>
+</maml:navigationLink>
+<maml:navigationLink><maml:linkText>New-RedditApplication</maml:linkText>
+<maml:uri>https://psraw.readthedocs.io/en/latest/Module/New-RedditApplication</maml:uri>
+</maml:navigationLink>
+<maml:navigationLink><maml:linkText>Import-Clixml</maml:linkText>
+<maml:uri>http://go.microsoft.com/fwlink/?LinkID=113340</maml:uri>
 </maml:navigationLink>
 <maml:navigationLink><maml:linkText>https://psraw.readthedocs.io/</maml:linkText>
 <maml:uri>https://psraw.readthedocs.io/</maml:uri>
