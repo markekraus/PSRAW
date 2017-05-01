@@ -7,7 +7,7 @@ schema: 2.0.0
 # Import-RedditApplication
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Imports a RedditApplication object from an XML file.
 
 ## SYNTAX
 
@@ -22,21 +22,28 @@ Import-RedditApplication -LiteralPath <String[]> [-WhatIf] [-Confirm]
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+Allows you to import a RedditApplication object from an XML file that was previously exported via Export-RedditApplication. This allows you to share the same Reddit application between multiple scripts. This function is a wraper for Import-Clixml. 
+
+User Passwords and Client Secrets stored in the RedditApplication object are stored as secure strings and are not visible as plaintext in the export file. This also means that RedditApplication objects exported by one user cannot be imported by another user on the same computer nor can it be imported by the same user on a different computer. It can only be imported by the same user on the same computer.
+
+New RedditApplication objects can be created manually or with New-RedditApplication.
 
 ## EXAMPLES
 
-### Example 1
+### -------------------------- EXAMPLE 1 --------------------------
 ```
-PS C:\> {{ Add example code here }}
+$Application = Import-RedditApplication -Path 'c:\PSRAW\RedditApplication.xml'
 ```
 
-{{ Add example description here }}
+### -------------------------- EXAMPLE 3 --------------------------
+```
+$Application = Import-RedditApplication -LiteralPath 'c:\PSRAW\RedditApplication[1].xml'
+```
 
 ## PARAMETERS
 
 ### -LiteralPath
-{{Fill LiteralPath Description}}
+Specifies the XML files. Unlike Path , the value of the LiteralPath parameter is used exactly as it is typed. No characters are interpreted as wildcards. If the path includes escape characters, enclose it in single quotation marks. Single quotation marks tell Windows PowerShell not to interpret any characters as escape sequences.
 
 ```yaml
 Type: String[]
@@ -51,7 +58,7 @@ Accept wildcard characters: False
 ```
 
 ### -Path
-{{Fill Path Description}}
+Specifies the XML files.
 
 ```yaml
 Type: String[]
@@ -96,6 +103,9 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+
 ## INPUTS
 
 ### System.String[]
@@ -107,8 +117,26 @@ Accept wildcard characters: False
 
 
 ## NOTES
+For complete documentation visit [https://psraw.readthedocs.io/](https://psraw.readthedocs.io/)
+
+For more information about registering Reddit Apps, Reddit's API, or Reddit OAuth see:
+
+* [https://github.com/reddit/reddit/wiki/API](https://github.com/reddit/reddit/wiki/API)
+* [https://github.com/reddit/reddit/wiki/OAuth2](https://github.com/reddit/reddit/wiki/OAuth2)
+* [https://www.reddit.com/prefs/apps](https://www.reddit.com/prefs/apps)
+* [https://www.reddit.com/wiki/api](https://www.reddit.com/wiki/api)
+
 
 ## RELATED LINKS
 
 [https://psraw.readthedocs.io/en/latest/Module/Import-RedditApplication](https://psraw.readthedocs.io/en/latest/Module/Import-RedditApplication)
 
+[about_RedditApplication](https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication)
+
+[Export-RedditApplication](https://psraw.readthedocs.io/en/latest/Module/Export-RedditApplication)
+
+[New-RedditApplication](https://psraw.readthedocs.io/en/latest/Module/New-RedditApplication)
+
+[Import-Clixml](http://go.microsoft.com/fwlink/?LinkID=113340)
+
+[https://psraw.readthedocs.io/](https://psraw.readthedocs.io/)
