@@ -1,19 +1,16 @@
 <#	
     .NOTES
-    ===========================================================================
+    
      Created with:  VSCode
      Created on:    4/26/2017 3:37 PM
-     Edited on:     4/28/2017
+     Edited on:     5/10/2017
      Created by:    Mark Kraus
      Organization: 	
-     Filename:      RedditApplication.ps1
-    ===========================================================================
+     Filename:      002-RedditApplication.ps1
+    
     .DESCRIPTION
         RedditApplication Class
 #>
-# Import RedditApplicationType Enum
-Using module '..\Enums\RedditApplicationType.psm1'
-Using module '..\Classes\RedditScope.psm1'
 
 Class RedditApplication {
     [String]$Name
@@ -25,9 +22,10 @@ Class RedditApplication {
     [guid]$GUID = [guid]::NewGuid()
     [string]$ExportPath
     [String]$ScriptUser
-    [RedditScope[]]$Scope
+    [RedditOAuthScope[]]$Scope
     hidden [System.Management.Automation.PSCredential]$ClientCredential
     hidden [System.Management.Automation.PSCredential]$UserCredential
+    static [string]$AuthBaseURL = 'https://www.reddit.com/api/v1/authorize.compact'
     
     #Default constructor provided for compatibility only
     RedditApplication () {
@@ -48,6 +46,14 @@ Class RedditApplication {
         $This._init($InitHash)
     }
 
+    RedditApplication ([Object] $Object){
+        $InitHash = @{}
+        Foreach($Property in $Object.PSObject.properties.Name){
+            $InitHash[$Property] = $Object.$Property
+        }
+        $This._init($InitHash)
+    }
+
     RedditApplication (
         [String]$Name,
         [String]$Description,
@@ -56,7 +62,7 @@ Class RedditApplication {
         [RedditApplicationType]$Type,
         [guid]$GUID,
         [string]$ExportPath,
-        [RedditScope[]]$Scope,
+        [RedditOAuthScope[]]$Scope,
         [System.Management.Automation.PSCredential]$ClientCredential,
         [System.Management.Automation.PSCredential]$UserCredential
     ) {
@@ -106,5 +112,78 @@ Class RedditApplication {
 
     [string] GetUserPassword () {
         Return $This.UserCredential.GetNetworkCredential().Password
+    }
+
+    [string] GetAuthorzationUrl(){
+        Return $This._GetAuthorzationUrl(
+            [RedditOAuthResponseType]::Code,
+            [RedditOAuthDuration]::Permanent,
+            [guid]::NewGuid().toString(),
+            [RedditApplication]::AuthBaseURL
+        )
+    }
+
+    [string] GetAuthorzationUrl(
+        [RedditOAuthResponseType]$ResponseType, 
+        [RedditOAuthDuration]$Duration
+    ){
+        Return $This._GetAuthorzationUrl(
+            $ResponseType,
+            $Duration,
+            [guid]::NewGuid().toString(),
+            [RedditApplication]::AuthBaseURL
+        )
+    }
+
+    [string] GetAuthorzationUrl(
+        [RedditOAuthResponseType]$ResponseType, 
+        [RedditOAuthDuration]$Duration,
+        [String]$State
+    ){
+            Return $This._GetAuthorzationUrl(
+                $ResponseType,
+                $Duration,
+                $State,
+                [RedditApplication]::AuthBaseURL
+            )
+    }
+
+    [string] GetAuthorzationUrl(
+        [RedditOAuthResponseType]$ResponseType, 
+        [RedditOAuthDuration]$Duration,
+        [String]$State,
+        [String]$AuthBaseURL
+    ){
+            Return $This._GetAuthorzationUrl(
+                $ResponseType,
+                $Duration,
+                $State,
+                $AuthBaseURL
+            )
+    }
+
+    hidden [string] _GetAuthorzationUrl(
+        [RedditOAuthResponseType]$ResponseType, 
+        [RedditOAuthDuration]$Duration, 
+        [string]$State, 
+        [string]$AuthBaseUrl
+    ){
+        $Query = [System.Web.HttpUtility]::ParseQueryString([String]::Empty)
+        $Query['client_id'] = $This.ClientId
+        $Query['response_type'] = $ResponseType.ToString().ToLower()
+        $Query['state'] = $State
+        $Query['redirect_uri'] = $This.RedirectUri
+        $Query['duration'] = $Duration.ToString().ToLower()
+        $Query['scope'] = $This.Scope.Scope -Join ','
+        $UrlObj = [System.Uri]$AuthBaseUrl
+        $URLBuilder = New-Object -TypeName System.UriBuilder
+        $UrlBuilder.Host = $UrlObj.Host
+        $UrlBuilder.Scheme = $UrlObj.Scheme
+        $UrlBuilder.Port = $UrlObj.Port
+        $UrlBuilder.UserName = $($UrlObj.UserInfo -split ':')[0]
+        $UrlBuilder.Password = $($UrlObj.UserInfo -split ':')[1]
+        $UrlBuilder.Path = $UrlObj.AbsolutePath
+        $URLBuilder.Query = $Query.ToString()
+        Return $URLBuilder.ToString()
     }
 }

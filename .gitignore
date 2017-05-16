@@ -21,3 +21,5 @@ $RECYCLE.BIN/
 Thumbs.db
 ehthumbs.db
 
+# VS Code
+.vscode

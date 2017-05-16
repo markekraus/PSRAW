@@ -1,5 +1,5 @@
 <#	
-	===========================================================================
+	
 	 Created with: 	SAPIEN Technologies, Inc., PowerShell Studio 2017 v5.4.139
 	 Created on:   	4/23/2017 9:22 AM
 	 Created by:   	Mark Kraus
@@ -9,115 +9,123 @@
 	 Module Manifest
 	-------------------------------------------------------------------------
 	 Module Name: PSRAW
-	===========================================================================
+	
 #>
 
 
 @{
 	
-	# Script module or binary module file associated with this manifest
-	ModuleToProcess = 'PSRAW.psm1'
+    # Script module or binary module file associated with this manifest
+    ModuleToProcess        = 'PSRAW.psm1'
 	
-	# Version number of this module.
-	ModuleVersion = '1.0.12.7'
+    # Version number of this module.
+    ModuleVersion          = '1.0.12.40'
 	
-	# ID used to uniquely identify this module
-	GUID = '92c8f916-4890-45eb-a3e7-592f5b5b3f24'
+    # ID used to uniquely identify this module
+    GUID                   = '92c8f916-4890-45eb-a3e7-592f5b5b3f24'
 	
-	# Author of this module
-	Author = 'Mark Kraus'
+    # Author of this module
+    Author                 = 'Mark Kraus'
 	
-	# Company or vendor of this module
-	CompanyName = ''
+    # Company or vendor of this module
+    CompanyName            = ''
 	
-	# Copyright statement for this module
-	Copyright = '(c) 2017. All rights reserved.'
+    # Copyright statement for this module
+    Copyright              = '(c) 2017. All rights reserved.'
 	
-	# Description of the functionality provided by this module
-	Description = 'Module description'
+    # Description of the functionality provided by this module
+    Description            = 'PowerShell Reddit API Wrapper'
 	
-	# Minimum version of the Windows PowerShell engine required by this module
-	PowerShellVersion = '2.0'
+    # Minimum version of the Windows PowerShell engine required by this module
+    PowerShellVersion      = '5.0'
 	
-	# Name of the Windows PowerShell host required by this module
-	PowerShellHostName = ''
+    # Name of the Windows PowerShell host required by this module
+    PowerShellHostName     = ''
 	
-	# Minimum version of the Windows PowerShell host required by this module
-	PowerShellHostVersion = ''
+    # Minimum version of the Windows PowerShell host required by this module
+    PowerShellHostVersion  = ''
 	
-	# Minimum version of the .NET Framework required by this module
-	DotNetFrameworkVersion = '2.0'
+    # Minimum version of the .NET Framework required by this module
+    DotNetFrameworkVersion = '2.0'
 	
-	# Minimum version of the common language runtime (CLR) required by this module
-	CLRVersion = '2.0.50727'
+    # Minimum version of the common language runtime (CLR) required by this module
+    CLRVersion             = '2.0.50727'
 	
-	# Processor architecture (None, X86, Amd64, IA64) required by this module
-	ProcessorArchitecture = 'None'
+    # Processor architecture (None, X86, Amd64, IA64) required by this module
+    ProcessorArchitecture  = 'None'
 	
-	# Modules that must be imported into the global environment prior to importing
-	# this module
-	RequiredModules = @()
+    # Modules that must be imported into the global environment prior to importing
+    # this module
+    RequiredModules        = @()
 	
-	# Assemblies that must be loaded prior to importing this module
-	RequiredAssemblies = @()
+    # Assemblies that must be loaded prior to importing this module
+    RequiredAssemblies     = @('System.Web', 'System.Windows.Forms')
 	
-	# Script files (.ps1) that are run in the caller's environment prior to
-	# importing this module
-	ScriptsToProcess = @()
+    # Script files (.ps1) that are run in the caller's environment prior to
+    # importing this module
+    ScriptsToProcess       = @('Enums\RedditApplicationType.ps1','Enums\RedditOAuthDuration.ps1','Enums\RedditOAuthGrantType.ps1','Enums\RedditOAuthResponseType.ps1','Classes\001-RedditOAuthScope.ps1','Classes\002-RedditApplication.ps1','Classes\003-RedditOAuthCode.ps1','Classes\004-RedditOAuthToken.ps1')
 	
-	# Type files (.ps1xml) to be loaded when importing this module
-	TypesToProcess = @()
+    # Type files (.ps1xml) to be loaded when importing this module
+    TypesToProcess         = @()
 	
-	# Format files (.ps1xml) to be loaded when importing this module
-	FormatsToProcess = @()
+    # Format files (.ps1xml) to be loaded when importing this module
+    FormatsToProcess       = @()
 	
-	# Modules to import as nested modules of the module specified in
-	# ModuleToProcess
-	NestedModules = @('Enums\RedditApplicationType.psm1','Classes\RedditApplication.psm1','Classes\RedditScope.psm1','Public\Application\Export-RedditApplication.ps1','Public\Application\Import-RedditApplication.ps1','Public\Application\New-RedditApplication.ps1','Public\OAuth\Get-RedditOAuthScope.ps1')
+    # Modules to import as nested modules of the module specified in
+    # ModuleToProcess
+    NestedModules          = @()
 	
-	# Functions to export from this module
-	FunctionsToExport = @('Export-RedditApplication','Import-RedditApplication','New-RedditApplication','Get-RedditOAuthScope')
+    # Functions to export from this module
+    FunctionsToExport      = @('Export-RedditApplication','Import-RedditApplication','New-RedditApplication','Export-RedditOAuthToken','Get-RedditOAuthScope','Import-RedditOAuthToken','Request-RedditOAuthToken')
 	
-	# Cmdlets to export from this module
-	CmdletsToExport = @()
+    # Cmdlets to export from this module
+    CmdletsToExport        = @()
 	
-	# Variables to export from this module
-	VariablesToExport = @()
+    # Variables to export from this module
+    VariablesToExport      = @()
 	
-	# Aliases to export from this module
-	AliasesToExport = @() 
+    # Aliases to export from this module
+    AliasesToExport        = @() 
 	
-	# List of all modules packaged with this module
-	ModuleList = @()
+    # List of all modules packaged with this module
+    ModuleList             = @()
 	
-	# List of all files packaged with this module
-	FileList = @()
+    # List of all files packaged with this module
+    FileList               = @()
 	
-	# Private data to pass to the module specified in ModuleToProcess. This may also contain a PSData hashtable with additional module metadata used by PowerShell.
-	PrivateData = @{
+    # Private data to pass to the module specified in ModuleToProcess. This may also contain a PSData hashtable with additional module metadata used by PowerShell.
+    PrivateData            = @{
 		
-		#Support for PowerShellGet galleries.
-		PSData = @{
+        #Support for PowerShellGet galleries.
+        PSData = @{
 			
-			# Tags applied to this module. These help with module discovery in online galleries.
-			# Tags = @()
+            # Tags applied to this module. These help with module discovery in online galleries.
+            Tags         = @('Reddit', 'API', 'OAuth', 'REST', 'Social Media', "Forum", 'Messaging', 'Module')
 			
-			# A URL to the license for this module.
-			# LicenseUri = ''
+            # A URL to the license for this module.
+            LicenseUri   = 'https://github.com/markekraus/PSRAW/blob/master/LICENSE'
 			
-			# A URL to the main website for this project.
-			# ProjectUri = ''
+            # A URL to the main website for this project.
+            ProjectUri   = 'https://github.com/markekraus/PSRAW/'
 			
-			# A URL to an icon representing this module.
-			# IconUri = ''
+            # A URL to an icon representing this module.
+            # IconUri = ''
 			
-			# ReleaseNotes of this module
-			# ReleaseNotes = ''
+            # ReleaseNotes of this module
+            ReleaseNotes = ''
 			
-		} # End of PSData hashtable
+        } # End of PSData hashtable
 		
-	} # End of PrivateData hashtable
+    } # End of PrivateData hashtable
 }
+
+
+
+
+
+
+
+
 
 
 

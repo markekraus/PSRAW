@@ -1,20 +1,16 @@
 <#	
     .NOTES
-    ===========================================================================
+    
      Created with:  VSCode
      Created on:    4/30/2017 1:22 PM
-     Edited on:     4/30/2017
+     Edited on:     5/10/2017
      Created by:    Mark Kraus
      Organization: 	
      Filename:      Export-RedditApplication.Unit.Tests.ps1
-    ===========================================================================
+    
     .DESCRIPTION
         Export-RedditApplication Function unit tests
 #>
-Using Module '..\PSRAW\Enums\RedditApplicationType.psm1'
-Using Module '..\PSRAW\Classes\RedditScope.psm1'
-Using Module '..\PSRAW\Classes\RedditApplication.psm1'
-
 $projectRoot = Resolve-Path "$PSScriptRoot\.."
 $moduleRoot = Split-Path (Resolve-Path "$projectRoot\*\*.psd1")
 $moduleName = Split-Path $moduleRoot -Leaf
@@ -33,7 +29,7 @@ $UserSceret = 'password12345'
 $SecUserSecret = $UserSceret | ConvertTo-SecureString -AsPlainText -Force 
 $UserCredential = [pscredential]::new($UserId,$SecUserSecret)
 
-$ExportFile = '{0}\ReditApplicationExport-{1}.xml' -f $env:TEMP, [guid]::NewGuid().toString()
+$ExportFile = '{0}\RedditApplicationExport-{1}.xml' -f $env:TEMP, [guid]::NewGuid().toString()
 
 $Application = [RedditApplication]@{
     Name = 'TestApplication'
@@ -47,7 +43,7 @@ $Application = [RedditApplication]@{
     ExportPath = $ExportFile 
 }
 
-$ParamterSets = @(
+$ParameterSets = @(
     @{
         Name = 'Path'
         Params =@{
@@ -71,9 +67,9 @@ $ParamterSets = @(
 )
 
 function MyTest {
-    foreach($ParamterSet in $ParamterSets){
-        It "'$($ParamterSet.Name)' Parameter set does not have errors" {
-            $LocalParams = $ParamterSet.Params
+    foreach($ParameterSet in $ParameterSets){
+        It "'$($ParameterSet.Name)' Parameter set does not have errors" {
+            $LocalParams = $ParameterSet.Params
             { & $Command @LocalParams -ErrorAction Stop } | Should not throw
         }
     }

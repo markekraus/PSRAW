@@ -1,13 +1,13 @@
 ﻿<#	
     .NOTES
-    ===========================================================================
+    
      Created with: 	VSCode
      Created on:   	4/23/2017 04:40 AM
      Edited on:     4/23/2017
      Created by:   	Mark Kraus
      Organization: 	
      Filename:     	Get-RedditOAuthScope.Unit.Tests.ps1
-    ===========================================================================
+    
     .DESCRIPTION
         Unit Tests for Get-RedditOAuthScope
 #>
@@ -19,8 +19,7 @@ Remove-Module -Force $moduleName  -ErrorAction SilentlyContinue
 Import-Module (Join-Path $moduleRoot "$moduleName.psd1") -force
 
 $Command = 'Get-RedditOAuthScope'
-$TypeName = 'RedditScope'
-$RequiredParams = @()
+$TypeName = 'RedditOAuthScope'
 
 $Params = @{}
 
@@ -173,13 +172,6 @@ function MyTest {
     It 'Does not have errors when passed required parameters' {
         $LocalParams = $Params.psobject.Copy()
         { & $Command @LocalParams -ErrorAction Stop } | Should not throw
-    }
-    Foreach ($RequiredParam in $RequiredParams) {
-        It "Requires the $RequiredParam parameter" {
-            ((Get-Command $Command).Parameters[$RequiredParam].Attributes |
-                Where-Object { $_ -is [parameter] }).Mandatory |
-            Should be $true
-        }
     }
     It "Emits a $TypeName Object" {
         (Get-Command $Command).OutputType.Name.where({ $_ -eq $TypeName }) | Should be $TypeName

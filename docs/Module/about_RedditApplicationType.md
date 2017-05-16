@@ -1,50 +1,55 @@
-﻿# RedditApplicationType Enumerator
+# RedditApplicationType
 ## about_RedditApplicationType
 
-
 # SHORT DESCRIPTION
-Describes the RedditApplicationType Enumerator
+Describes the RedditApplicationType Enum
 
 # LONG DESCRIPTION
-The RedditApplicationType enumerator represents the available option for applications registered in Reddit. To register an application go to [https://ssl.reddit.com/prefs/apps](https://ssl.reddit.com/prefs/apps). RedditApplicationType is used by the Type property of the [RedditApplication](https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication) class. 
+The `RedditApplicationType` enumerator represents the available option for applications registered in Reddit. To register an application go to https://ssl.reddit.com/prefs/apps . `RedditApplicationType` is used by the Type property of the `RedditApplication` class. 
 
-The RedditApplicationType Enumerator is imported from a nested module located at PSRAW\Enums\RedditApplicationType.psm1. This means you can import the enumerator either from the PSRAW module or directly from the nested module.
+For more information on Reddit OAuth App Types see https://github.com/reddit/reddit/wiki/OAuth2-App-Types
 
-# Members
+The `RedditApplicationType` Enumerator is imported automatically when you import the PSRAW module.
 
-## WebApp
-A web based application
+
+# Fields
+## Installed
+An app intended for installation, such as on a mobile phone.
 
 ## Script
-Script for personal use. Will only have access to the developers accounts
+Script for personal use. Will only be able to act on behalf of the developer who registered the application.
 
-## Installed
-An app intended for installation, such as on a mobile phone
+## WebApp
+A Web base application. Can also be used in scripts to act on behalf of other users.
 
 # EXAMPLES
 
 ## WebApp
 ```powershell
-Using module '.PSRAW\Enums\RedditApplicationType.psm1'
+Import-Module PSRAW
 $WebApp = [RedditApplicationType]::WebApp
 ```
 
 ## Script
 ```powershell
-Using module PSRAW
-$Script = [PSRAW.RedditApplicationType]::Script
+Import-Module PSRAW
+$Script = [RedditApplicationType]::Script
 ```
 
 ## installed
 ```powershell
-Using module PSRAW
-$Installed= [PSRAW.RedditApplicationType]::Installed
+Import-Module PSRAW
+$Installed= [RedditApplicationType]::Installed
 ```
 
 # SEE ALSO
 [about_RedditApplication](https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication)
 
+[New-RedditApplication](https://psraw.readthedocs.io/en/latest/Module/New-RedditApplication)
+
 [https://ssl.reddit.com/prefs/apps](https://ssl.reddit.com/prefs/apps)
+
+[https://github.com/reddit/reddit/wiki/OAuth2-App-Types](https://github.com/reddit/reddit/wiki/OAuth2-App-Types)
 
 [https://github.com/reddit/reddit/wiki/API](https://github.com/reddit/reddit/wiki/API)
 

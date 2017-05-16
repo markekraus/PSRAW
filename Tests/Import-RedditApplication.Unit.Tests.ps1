@@ -1,19 +1,16 @@
 <#	
     .NOTES
-    ===========================================================================
+    
      Created with:  VSCode
      Created on:    05/01/2017 4:43 PM
-     Edited on:     05/01/2017
+     Edited on:     05/10/2017
      Created by:    Mark Kraus
      Organization: 	
      Filename:      Import-RedditApplication.Unit.Tests.ps1
-    ===========================================================================
+    
     .DESCRIPTION
         Import-RedditApplication Function unit tests
 #>
-Using Module '..\PSRAW\Enums\RedditApplicationType.psm1'
-Using Module '..\PSRAW\Classes\RedditScope.psm1'
-Using Module '..\PSRAW\Classes\RedditApplication.psm1'
 
 $projectRoot = Resolve-Path "$PSScriptRoot\.."
 $moduleRoot = Split-Path (Resolve-Path "$projectRoot\*\*.psd1")
@@ -34,7 +31,7 @@ $UserSceret = 'password12345'
 $SecUserSecret = $UserSceret | ConvertTo-SecureString -AsPlainText -Force 
 $UserCredential = [pscredential]::new($UserId,$SecUserSecret)
 
-$ExportFile = '{0}\ReditApplicationExport-{1}.xml' -f $env:TEMP, [guid]::NewGuid().toString()
+$ExportFile = '{0}\RedditApplicationExport-{1}.xml' -f $env:TEMP, [guid]::NewGuid().toString()
 
 $Application = [RedditApplication]@{
     Name = 'TestApplication'
@@ -48,9 +45,9 @@ $Application = [RedditApplication]@{
     ExportPath = $ExportFile 
 }
 
-$Application | Export-RedditApplication
+$Application | Export-Clixml -Path $ExportFile 
 
-$ParamterSets = @(
+$ParameterSets = @(
     @{
         Name = 'Path'
         Params =@{
@@ -66,9 +63,9 @@ $ParamterSets = @(
 )
 
 function MyTest {
-    foreach($ParamterSet in $ParamterSets){
-        It "'$($ParamterSet.Name)' Parameter set does not have errors" {
-            $LocalParams = $ParamterSet.Params
+    foreach($ParameterSet in $ParameterSets){
+        It "'$($ParameterSet.Name)' Parameter set does not have errors" {
+            $LocalParams = $ParameterSet.Params
             { & $Command @LocalParams -ErrorAction Stop } | Should not throw
         }
     }
@@ -76,7 +73,7 @@ function MyTest {
         (Get-Command $Command).OutputType.Name.where({ $_ -eq $TypeName }) | Should be $TypeName
     }
     It "Returns a $TypeName Object" {
-        $LocalParams = $ParamterSets[0].Params.psobject.Copy()
+        $LocalParams = $ParameterSets[0].Params.psobject.Copy()
         $Object = & $Command @LocalParams | Select-Object -First 1
         $Object.psobject.typenames.where({ $_ -eq $TypeName }) | Should be $TypeName
     }
