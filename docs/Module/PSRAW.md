@@ -1,19 +1,34 @@
 ---
 Module Name: PSRAW
 Module Guid: 92c8f916-4890-45eb-a3e7-592f5b5b3f24
-Download Help Link: https://psraw.readthedocs.io/en/latest/Module
-Help Version: 1.0.0.1
+Download Help Link: 
+Help Version: 0.0.1.0
 Locale: en-US
 ---
 
 # PSRAW Module
 ## Description
-PowerShell Reddit API Wrapper Module
+PSRAW is a PowerShell Reddit API Wrapper Module providing full access to the Reddit API via PowerShell.
 
 ## PSRAW Cmdlets
+### [Export-RedditApplication](Export-RedditApplication.md)
+Exports a `RedditApplication` object to an XML file.
+
+### [Export-RedditOAuthToken](Export-RedditOAuthToken.md)
+Exports a `RedditOAuthToken` object to an XML file.
+
 ### [Get-RedditOAuthScope](Get-RedditOAuthScope.md)
-Retrive valid OAuth scope IDs, Names, and Descriptions from Reddit. The Scope ID's are required for requesting OAuth Authorzation codes
+Retireve valid Reddit OAuth Scopes.
+
+### [Import-RedditApplication](Import-RedditApplication.md)
+Imports a `RedditApplication` object from an XML file.
+
+### [Import-RedditOAuthToken](Import-RedditOAuthToken.md)
+Imports a `RedditOAuthToken` object from an XML file.
 
 ### [New-RedditApplication](New-RedditApplication.md)
-Creates a RedditApplication object containing data used by various cmdltes to define the parameters of the App registered on Reddit. This does not make any calls to Reddit or perform any online lookups.
+Creates a `RedditApplication` object
+
+### [Request-RedditOAuthToken](Request-RedditOAuthToken.md)
+Requests a OAuth Access Token from Reddit
 

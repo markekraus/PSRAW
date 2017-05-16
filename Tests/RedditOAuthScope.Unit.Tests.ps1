@@ -1,19 +1,23 @@
 <#	
     .NOTES
-    ===========================================================================
+    
      Created with:  VSCode
      Created on:    4/30/2017 10:15 AM
-     Edited on:     4/30/2017
+     Edited on:     5/10/2017
      Created by:    Mark Kraus
      Organization: 	
-     Filename:     RedditScope.Unit.Tests.ps1
-    ===========================================================================
+     Filename:     RedditOAuthScope.Unit.Tests.ps1
+    
     .DESCRIPTION
-        Unit Tests for RedditScope Class
+        Unit Tests for RedditOAuthScope Class
 #>
-Using module '..\PSRAW\Classes\RedditScope.psm1'
+$projectRoot = Resolve-Path "$PSScriptRoot\.."
+$moduleRoot = Split-Path (Resolve-Path "$projectRoot\*\*.psd1")
+$moduleName = Split-Path $moduleRoot -Leaf
+Remove-Module -Force $moduleName  -ErrorAction SilentlyContinue
+Import-Module (Join-Path $moduleRoot "$moduleName.psd1") -force
 
-$Class = 'RedditScope'
+$Class = 'RedditOAuthScope'
 
 
 $TestHashes = @(
@@ -32,12 +36,12 @@ $TestHashes = @(
 Describe "[$Class] Tests" -Tag Unit, Build {
     foreach($TestHash in $TestHashes){
         It "Converts the '$($TestHash.Name)' hash"{
-            {[RedditScope]$TestHash.Hash} | should not throw
+            {[RedditOAuthScope]$TestHash.Hash} | should not throw
         }
     }
      It "Has a working Uber Constructor." {
         {
-            [RedditScope]::new(
+            [RedditOAuthScope]::new(
                 <#Scope       #> 'creddits',
                 <#Id          #> 'creddits',
                 <#Name        #> 'Spend reddit gold creddits',
@@ -46,22 +50,22 @@ Describe "[$Class] Tests" -Tag Unit, Build {
         } | should not throw
     }
     It "Has a working GetApiEndpointUri() static method" {
-        [RedditScope]::GetApiEndpointUri() | should be 'https://www.reddit.com/api/v1/scopes'
+        [RedditOAuthScope]::GetApiEndpointUri() | should be 'https://www.reddit.com/api/v1/scopes'
     }
     It "Has a working ApiEndpointUri static property" {
-        [RedditScope]::ApiEndpointUri | should be 'https://www.reddit.com/api/v1/scopes'
+        [RedditOAuthScope]::ApiEndpointUri | should be 'https://www.reddit.com/api/v1/scopes'
     }
     It "Has a working default constructor" {
-        {[RedditScope]::new()} | Should not throw
-        $EmptyScope = [RedditScope]::new()
+        {[RedditOAuthScope]::new()} | Should not throw
+        $EmptyScope = [RedditOAuthScope]::new()
         $EmptyScope.Id | should be ''
         $EmptyScope.Description | Should be ''
         $EmptyScope.Scope | should be ''
         $EmptyScope.Name | should be ''
     }
     It "Converts a [String] to a [$Class]" {
-        {[RedditScope]'read'} | should not throw
-        $ReadScope = [RedditScope]'read'
+        {[RedditOAuthScope]'read'} | should not throw
+        $ReadScope = [RedditOAuthScope]'read'
         $ReadScope.Id | should be 'read'
         $ReadScope.Description | Should be 'read'
         $ReadScope.Scope | should be 'read'

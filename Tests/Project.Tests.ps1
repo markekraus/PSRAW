@@ -1,3 +1,17 @@
+<#	
+    .NOTES
+    
+     Created with:  VSCode
+     Created on:    04/23/2017 12:06 PM
+     Edited on:     05/10/2017
+     Created by:    Mark Kraus
+     Organization: 	
+     Filename:     Project.Tests.ps1
+    
+    .DESCRIPTION
+        General Pester Tests for the project
+#>
+
 $projectRoot = Resolve-Path "$PSScriptRoot\.."
 $moduleRoot = Split-Path (Resolve-Path "$projectRoot\*\*.psd1")
 $moduleName = Split-Path $moduleRoot -Leaf

@@ -1,13 +1,13 @@
 ﻿<#	
     .NOTES
-    ===========================================================================
+    
      Created with:  VSCode
      Created on:    4/26/2017 04:40 AM
-     Edited on:     4/28/2017
+     Edited on:     5/10/2017
      Created by:    Mark Kraus
      Organization: 	
      Filename:      New-RedditApplication.Unit.Tests.ps1
-    ===========================================================================
+    
     .DESCRIPTION
         Unit Tests for New-RedditApplication
 #>
@@ -31,7 +31,7 @@ $UserSceret = 'password'
 $SecUserSecret = $UserSceret | ConvertTo-SecureString -AsPlainText -Force 
 $UserCredential = [pscredential]::new($UserId,$SecUserSecret)
 
-$ParamterSets = @(
+$ParameterSets = @(
     @{
         Name = 'WebApp'
         Params =@{
@@ -73,10 +73,10 @@ $ParamterSets = @(
 
 
 function MyTest {
-    foreach($ParamterSet in $ParamterSets){
+    foreach($ParameterSet in $ParameterSets){
 
-        It "'$($ParamterSet.Name)' Parameter set does not have errors" {
-            $LocalParams = $ParamterSet.Params
+        It "'$($ParameterSet.Name)' Parameter set does not have errors" {
+            $LocalParams = $ParameterSet.Params
             { & $Command @LocalParams -ErrorAction Stop } | Should not throw
         }
     }
@@ -84,7 +84,7 @@ function MyTest {
         (Get-Command $Command).OutputType.Name.where({ $_ -eq $TypeName }) | Should be $TypeName
     }
     It "Returns a $TypeName Object" {
-        $LocalParams = $ParamterSets[0].Params.psobject.Copy()
+        $LocalParams = $ParameterSets[0].Params.psobject.Copy()
         $Object = & $Command @LocalParams | Select-Object -First 1
         $Object.psobject.typenames.where({ $_ -eq $TypeName }) | Should be $TypeName
     }

@@ -7,7 +7,7 @@ schema: 2.0.0
 # Import-RedditApplication
 
 ## SYNOPSIS
-Imports a RedditApplication object from an XML file.
+Imports a `RedditApplication` object from an XML file.
 
 ## SYNTAX
 
@@ -22,11 +22,13 @@ Import-RedditApplication -LiteralPath <String[]> [-WhatIf] [-Confirm] [<CommonPa
 ```
 
 ## DESCRIPTION
-Allows you to import a RedditApplication object from an XML file that was previously exported via Export-RedditApplication. This allows you to share the same Reddit application between multiple scripts. This function is a wraper for Import-Clixml. 
+Allows you to import a `RedditApplication` object from an XML file that was previously exported via `Export-RedditApplication`. This allows you to share the same Reddit application between multiple scripts. This function is a wraper for `Import-Clixml`. 
 
-User Passwords and Client Secrets stored in the RedditApplication object are stored as secure strings and are not visible as plaintext in the export file. This also means that RedditApplication objects exported by one user cannot be imported by another user on the same computer nor can it be imported by the same user on a different computer. It can only be imported by the same user on the same computer.
+User Passwords and Client Secrets stored in the `RedditApplication` object are stored as secure strings and are not visible as plaintext in the export file. This also means that a `RedditApplication` object exported by one user cannot be imported by another user on the same computer nor can it be imported by the same user on a different computer. It can only be imported by the same user on the same computer.
 
-New RedditApplication objects can be created manually or with New-RedditApplication.
+The maximum depth will be set on `Export-Clixml`.
+
+New `RedditApplication` objects can be created manually or with `New-RedditApplication`.
 
 ## EXAMPLES
 
@@ -43,7 +45,7 @@ $Application = Import-RedditApplication -LiteralPath 'c:\PSRAW\RedditApplication
 ## PARAMETERS
 
 ### -LiteralPath
-Specifies the XML files. Unlike Path , the value of the LiteralPath parameter is used exactly as it is typed. No characters are interpreted as wildcards. If the path includes escape characters, enclose it in single quotation marks. Single quotation marks tell Windows PowerShell not to interpret any characters as escape sequences.
+Specifies the XML files. Unlike `Path`, the value of the `LiteralPath` parameter is used exactly as it is typed. No characters are interpreted as wildcards. If the path includes escape characters, enclose it in single quotation marks. Single quotation marks tell Windows PowerShell not to interpret any characters as escape sequences.
 
 ```yaml
 Type: String[]

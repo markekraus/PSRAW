@@ -1,38 +1,37 @@
 <#	
     .NOTES
-    ===========================================================================
+    
      Created with:  VSCode
      Created on:    5/01/2017 4:39 AM
-     Edited on:     5/01/2017
+     Edited on:     5/11/2017
      Created by:    Mark Kraus
      Organization: 	
      Filename:      Import-RedditApplication.ps1
-    ===========================================================================
+    
     .DESCRIPTION
         Import-RedditApplication Function
 #>
-Using Module '..\..\Enums\RedditApplicationType.psm1'
-Using Module '..\..\Classes\RedditScope.psm1'
-Using Module '..\..\Classes\RedditApplication.psm1'
+[CmdletBinding()]
+param()
 
 function Import-RedditApplication {
     [CmdletBinding(DefaultParameterSetName = 'Path',
-                   ConfirmImpact = 'Low',
-                   HelpUri = 'https://psraw.readthedocs.io/en/latest/Module/Import-RedditApplication',
-                   SupportsShouldProcess = $true)]
+        ConfirmImpact = 'Low',
+        HelpUri = 'https://psraw.readthedocs.io/en/latest/Module/Import-RedditApplication',
+        SupportsShouldProcess = $true)]
     [OutputType([RedditApplication])]
     param
     (
         [Parameter(ParameterSetName = 'Path',
-                   Mandatory = $true,
-                   ValueFromPipeline = $true,
-                   ValueFromPipelineByPropertyName = $true)]
+            Mandatory = $true,
+            ValueFromPipeline = $true,
+            ValueFromPipelineByPropertyName = $true)]
         [ValidateNotNullOrEmpty()]
         [string[]]$Path,
         
         [Parameter(ParameterSetName = 'LiteralPath',
-                   Mandatory = $true,
-                   ValueFromRemainingArguments = $true)]
+            Mandatory = $true,
+            ValueFromRemainingArguments = $true)]
         [ValidateNotNullOrEmpty()]
         [string[]]$LiteralPath
     )

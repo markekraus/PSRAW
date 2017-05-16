@@ -5,22 +5,22 @@
 <command:details><command:name>Export-RedditApplication</command:name>
 <command:verb>Export</command:verb>
 <command:noun>RedditApplication</command:noun>
-<maml:description><maml:para>Exports a RedditApplication object to an XML file.
+<maml:description><maml:para>Exports a `RedditApplication` object to an XML file.
 </maml:para>
 </maml:description>
 </command:details>
-<maml:description><maml:para>Allows you to export a RedditApplication object to an XML file so that you can later import the object via Import-RedditApplication. This allows you to share the same Reddit application between multiple scripts. This function is a wraper for Export-Clixml. 
+<maml:description><maml:para>Allows you to export a `RedditApplication` object to an XML file so that you can later import the object via `Import-RedditApplication`. This allows you to share the same Reddit application between multiple scripts. This function is a wraper for `Export-Clixml`. 
 </maml:para>
-<maml:para>User Passwords and Client Secrets stored in the RedditApplication object are stored as secure strings and are not visible as plaintext in the export file. This also means that RedditApplication objects exported by one user cannot be imported by another user on the same computer nor can it be imported by the same user on a different computer. It can only be imported by the same user on the same computer.
+<maml:para>User Passwords and Client Secrets stored in the `RedditApplication` object are stored as secure strings and are not visible as plaintext in the export file. This also means that a `RedditApplication` object exported by one user cannot be imported by another user on the same computer nor can it be imported by the same user on a different computer. It can only be imported by the same user on the same computer.
 </maml:para>
-<maml:para>The maximum depth will be set on Export-Clixml.
+<maml:para>The maximum depth will be set on `Export-Clixml`.
 </maml:para>
-<maml:para>New RedditApplication objects can be created manually or with New-RedditApplication.
+<maml:para>New `RedditApplication` objects can be created manually or with `New-RedditApplication`.
 </maml:para>
 </maml:description>
 <command:syntax><command:syntaxItem><maml:name>Export-RedditApplication</maml:name>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="named" aliases="App, RedditApplication"><maml:name>Application</maml:name>
-<maml:Description><maml:para>The RedditApplication object to be exported. This will be sent as the InputObject paramter to Export-Clixml.
+<maml:Description><maml:para>The `RedditApplication` object to be exported. This will be sent as the `InputObject` parameter to `Export-Clixml`.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">RedditApplication</command:parameterValue>
@@ -48,25 +48,16 @@
 </maml:para>
 <maml:para>
 </maml:para>
-<maml:para>The default value is Unicode.
+<maml:para>The default value is `Unicode`.
 </maml:para>
 </maml:Description>
-<command:parameterValueGroup><command:parameterValue required="false" variableLength="false">ASCII</command:parameterValue>
-<command:parameterValue required="false" variableLength="false">UTF8</command:parameterValue>
-<command:parameterValue required="false" variableLength="false">UTF7</command:parameterValue>
-<command:parameterValue required="false" variableLength="false">UTF32</command:parameterValue>
-<command:parameterValue required="false" variableLength="false">Unicode</command:parameterValue>
-<command:parameterValue required="false" variableLength="false">BigEndianUnicode</command:parameterValue>
-<command:parameterValue required="false" variableLength="false">Default</command:parameterValue>
-<command:parameterValue required="false" variableLength="false">OEM</command:parameterValue>
-</command:parameterValueGroup>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
 <dev:type><maml:name>String</maml:name>
 <maml:uri /></dev:type>
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>LiteralPath</maml:name>
-<maml:Description><maml:para>Specifies the path to the file where the XML representation of the RedditApplication object will be stored. Unlike Path , the value of the LiteralPath parameter is used exactly as it is typed. No characters are interpreted as wildcards. If the path includes escape characters, enclose it in single quotation marks. Single quotation marks tell Windows PowerShell not to interpret any characters as escape sequences.
+<maml:Description><maml:para>Specifies the path to the file where the XML representation of the `RedditApplication` object will be stored. Unlike `Path`, the value of the `LiteralPath` parameter is used exactly as it is typed. No characters are interpreted as wildcards. If the path includes escape characters, enclose it in single quotation marks. Single quotation marks tell PowerShell not to interpret any characters as escape sequences.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -93,7 +84,7 @@
 </command:syntaxItem>
 <command:syntaxItem><maml:name>Export-RedditApplication</maml:name>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="named" aliases="App, RedditApplication"><maml:name>Application</maml:name>
-<maml:Description><maml:para>The RedditApplication object to be exported. This will be sent as the InputObject paramter to Export-Clixml.
+<maml:Description><maml:para>The `RedditApplication` object to be exported. This will be sent as the `InputObject` parameter to `Export-Clixml`.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">RedditApplication</command:parameterValue>
@@ -121,25 +112,16 @@
 </maml:para>
 <maml:para>
 </maml:para>
-<maml:para>The default value is Unicode.
+<maml:para>The default value is `Unicode`.
 </maml:para>
 </maml:Description>
-<command:parameterValueGroup><command:parameterValue required="false" variableLength="false">ASCII</command:parameterValue>
-<command:parameterValue required="false" variableLength="false">UTF8</command:parameterValue>
-<command:parameterValue required="false" variableLength="false">UTF7</command:parameterValue>
-<command:parameterValue required="false" variableLength="false">UTF32</command:parameterValue>
-<command:parameterValue required="false" variableLength="false">Unicode</command:parameterValue>
-<command:parameterValue required="false" variableLength="false">BigEndianUnicode</command:parameterValue>
-<command:parameterValue required="false" variableLength="false">Default</command:parameterValue>
-<command:parameterValue required="false" variableLength="false">OEM</command:parameterValue>
-</command:parameterValueGroup>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
 <dev:type><maml:name>String</maml:name>
 <maml:uri /></dev:type>
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="named" aliases="none"><maml:name>Path</maml:name>
-<maml:Description><maml:para>Specifies the path to the file where the XML representation of the RedditApplication object will be stored.
+<maml:Description><maml:para>Specifies the path to the file where the XML representation of the `RedditApplication` object will be stored.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -166,7 +148,7 @@
 </command:syntaxItem>
 </command:syntax>
 <command:parameters><command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="named" aliases="App, RedditApplication"><maml:name>Application</maml:name>
-<maml:Description><maml:para>The RedditApplication object to be exported. This will be sent as the InputObject paramter to Export-Clixml.
+<maml:Description><maml:para>The `RedditApplication` object to be exported. This will be sent as the `InputObject` parameter to `Export-Clixml`.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">RedditApplication</command:parameterValue>
@@ -194,7 +176,7 @@
 </maml:para>
 <maml:para>
 </maml:para>
-<maml:para>The default value is Unicode.
+<maml:para>The default value is `Unicode`.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -203,7 +185,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>LiteralPath</maml:name>
-<maml:Description><maml:para>Specifies the path to the file where the XML representation of the RedditApplication object will be stored. Unlike Path , the value of the LiteralPath parameter is used exactly as it is typed. No characters are interpreted as wildcards. If the path includes escape characters, enclose it in single quotation marks. Single quotation marks tell Windows PowerShell not to interpret any characters as escape sequences.
+<maml:Description><maml:para>Specifies the path to the file where the XML representation of the `RedditApplication` object will be stored. Unlike `Path`, the value of the `LiteralPath` parameter is used exactly as it is typed. No characters are interpreted as wildcards. If the path includes escape characters, enclose it in single quotation marks. Single quotation marks tell PowerShell not to interpret any characters as escape sequences.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -212,7 +194,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="named" aliases="none"><maml:name>Path</maml:name>
-<maml:Description><maml:para>Specifies the path to the file where the XML representation of the RedditApplication object will be stored.
+<maml:Description><maml:para>Specifies the path to the file where the XML representation of the `RedditApplication` object will be stored.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -262,19 +244,19 @@
 <command:examples><command:example><maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
 <dev:code>$Application.ExportPath = 'c:\PSRAW\RedditApplication.xml'
 $Application | Export-RedditApplication</dev:code>
-<dev:remarks><maml:para>This example uses the ExportPath property on the RedditApplication object to determine where to export the application. When a RedditApplication object is imported with Import-RedditApplication, the ExportPath of the object will be set with the path to the file it was imported from. This amkes it easy to import, make changes, and then re-export the application. The ExportPath property is treated as a LiteralPath.
+<dev:remarks><maml:para>This example uses the `ExportPath` property on the `RedditApplication` object to determine where to export the application. When a `RedditApplication` object is imported with `Import-RedditApplication`, the `ExportPath` of the object will be set with the path to the file it was imported from. This amkes it easy to import, make changes, and then re-export the application. The `ExportPath` property is treated as a `LiteralPath`.
 </maml:para>
 </dev:remarks>
 </command:example>
 <command:example><maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
 <dev:code>$Application | Export-RedditApplication -Path 'c:\PSRAW\RedditApplication.xml'</dev:code>
-<dev:remarks><maml:para>This example uses the Path parameter to either override the ExportPath property on the RedditApplication object or to set export location with an ExportPath is not present.
+<dev:remarks><maml:para>This example uses the `Path` parameter to either override the `ExportPath` property on the `RedditApplication` object or to set export location when an `ExportPath` is not present.
 </maml:para>
 </dev:remarks>
 </command:example>
 <command:example><maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
 <dev:code>$Application | Export-RedditApplication -LiteralPath 'c:\PSRAW\RedditApplication[1].xml'</dev:code>
-<dev:remarks><maml:para>This example uses the LiteralPath parameter to either override the ExportPath property on the RedditApplication object or to set export location with an ExportPath is not present. LiteralPath does not translate the special characters and instead translates them literally.
+<dev:remarks><maml:para>This example uses the `LiteralPath` parameter to either override the `ExportPath` property on the `RedditApplication` object or to set export location with an `ExportPath` is not present. `LiteralPath` does not translate the special characters and instead translates them literally.
 </maml:para>
 </dev:remarks>
 </command:example>
@@ -290,6 +272,286 @@ $Application | Export-RedditApplication</dev:code>
 </maml:navigationLink>
 <maml:navigationLink><maml:linkText>New-RedditApplication</maml:linkText>
 <maml:uri>https://psraw.readthedocs.io/en/latest/Module/New-RedditApplication</maml:uri>
+</maml:navigationLink>
+<maml:navigationLink><maml:linkText>Export-Clixml</maml:linkText>
+<maml:uri>http://go.microsoft.com/fwlink/?LinkID=113297</maml:uri>
+</maml:navigationLink>
+<maml:navigationLink><maml:linkText>https://psraw.readthedocs.io/</maml:linkText>
+<maml:uri>https://psraw.readthedocs.io/</maml:uri>
+</maml:navigationLink>
+</command:relatedLinks>
+</command:command>
+<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+<command:details><command:name>Export-RedditOAuthToken</command:name>
+<command:verb>Export</command:verb>
+<command:noun>RedditOAuthToken</command:noun>
+<maml:description><maml:para>Exports a `RedditOAuthToken` object to an XML file.
+</maml:para>
+</maml:description>
+</command:details>
+<maml:description><maml:para>Allows you to export a `RedditOAuthToken` object to an XML file so that you can later import the object via `Import-RedditOAuthToken`. This allows you to share the same Reddit application between multiple scripts. This function is a wraper for `Export-Clixml`. 
+</maml:para>
+<maml:para>User Password, Client Secret, Access Token, and Refresh Token stored in the `RedditOAuthToken` object are stored as secure strings and are not visible as plaintext in the export file. This also means that a `RedditOAuthToken` object exported by one user cannot be imported by another user on the same computer nor can it be imported by the same user on a different computer. It can only be imported by the same user on the same computer.
+</maml:para>
+<maml:para>The maximum depth will be set on `Export-Clixml`.
+</maml:para>
+<maml:para>New `RedditOAuthToken` objects can be created manually or with `Request-RedditOAuthToken`.
+</maml:para>
+</maml:description>
+<command:syntax><command:syntaxItem><maml:name>Export-RedditOAuthToken</maml:name>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="named" aliases="Token"><maml:name>AccessToken</maml:name>
+<maml:Description><maml:para>The `RedditOAuthToken` object to be exported. This will be sent as the `InputObject` parameter to `Export-Clixml`.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">RedditOAuthToken</command:parameterValue>
+<dev:type><maml:name>RedditOAuthToken</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>None</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="named" aliases="none"><maml:name>Encoding</maml:name>
+<maml:Description><maml:para>Specifies the type of encoding for the target file. The acceptable values for this parameter are:
+- ASCII
+</maml:para>
+<maml:para>- UTF8
+</maml:para>
+<maml:para>- UTF7
+</maml:para>
+<maml:para>- UTF32
+</maml:para>
+<maml:para>- Unicode
+</maml:para>
+<maml:para>- BigEndianUnicode
+</maml:para>
+<maml:para>- Default
+</maml:para>
+<maml:para>- OEM
+</maml:para>
+<maml:para>
+</maml:para>
+<maml:para>The default value is `Unicode`.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>Unicode</dev:defaultValue>
+</command:parameter>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>LiteralPath</maml:name>
+<maml:Description><maml:para>Specifies the path to the file where the XML representation of the `RedditOAuthToken` object will be stored. Unlike `Path`, the value of the `LiteralPath` parameter is used exactly as it is typed. No characters are interpreted as wildcards. If the path includes escape characters, enclose it in single quotation marks. Single quotation marks tell PowerShell not to interpret any characters as escape sequences.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>None</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf"><maml:name>Confirm</maml:name>
+<maml:Description><maml:para>Prompts you for confirmation before running the cmdlet.
+</maml:para>
+</maml:Description>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi"><maml:name>WhatIf</maml:name>
+<maml:Description><maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.
+</maml:para>
+</maml:Description>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+</command:syntaxItem>
+<command:syntaxItem><maml:name>Export-RedditOAuthToken</maml:name>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="named" aliases="Token"><maml:name>AccessToken</maml:name>
+<maml:Description><maml:para>The `RedditOAuthToken` object to be exported. This will be sent as the `InputObject` parameter to `Export-Clixml`.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">RedditOAuthToken</command:parameterValue>
+<dev:type><maml:name>RedditOAuthToken</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>None</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="named" aliases="none"><maml:name>Encoding</maml:name>
+<maml:Description><maml:para>Specifies the type of encoding for the target file. The acceptable values for this parameter are:
+- ASCII
+</maml:para>
+<maml:para>- UTF8
+</maml:para>
+<maml:para>- UTF7
+</maml:para>
+<maml:para>- UTF32
+</maml:para>
+<maml:para>- Unicode
+</maml:para>
+<maml:para>- BigEndianUnicode
+</maml:para>
+<maml:para>- Default
+</maml:para>
+<maml:para>- OEM
+</maml:para>
+<maml:para>
+</maml:para>
+<maml:para>The default value is `Unicode`.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>Unicode</dev:defaultValue>
+</command:parameter>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="named" aliases="none"><maml:name>Path</maml:name>
+<maml:Description><maml:para>Specifies the path to the file where the XML representation of the `RedditOAuthToken` object will be stored.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>None</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf"><maml:name>Confirm</maml:name>
+<maml:Description><maml:para>Prompts you for confirmation before running the cmdlet.
+</maml:para>
+</maml:Description>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi"><maml:name>WhatIf</maml:name>
+<maml:Description><maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.
+</maml:para>
+</maml:Description>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+</command:syntaxItem>
+</command:syntax>
+<command:parameters><command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="named" aliases="Token"><maml:name>AccessToken</maml:name>
+<maml:Description><maml:para>The `RedditOAuthToken` object to be exported. This will be sent as the `InputObject` parameter to `Export-Clixml`.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">RedditOAuthToken</command:parameterValue>
+<dev:type><maml:name>RedditOAuthToken</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>None</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="named" aliases="none"><maml:name>Encoding</maml:name>
+<maml:Description><maml:para>Specifies the type of encoding for the target file. The acceptable values for this parameter are:
+- ASCII
+</maml:para>
+<maml:para>- UTF8
+</maml:para>
+<maml:para>- UTF7
+</maml:para>
+<maml:para>- UTF32
+</maml:para>
+<maml:para>- Unicode
+</maml:para>
+<maml:para>- BigEndianUnicode
+</maml:para>
+<maml:para>- Default
+</maml:para>
+<maml:para>- OEM
+</maml:para>
+<maml:para>
+</maml:para>
+<maml:para>The default value is `Unicode`.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>Unicode</dev:defaultValue>
+</command:parameter>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>LiteralPath</maml:name>
+<maml:Description><maml:para>Specifies the path to the file where the XML representation of the `RedditOAuthToken` object will be stored. Unlike `Path`, the value of the `LiteralPath` parameter is used exactly as it is typed. No characters are interpreted as wildcards. If the path includes escape characters, enclose it in single quotation marks. Single quotation marks tell PowerShell not to interpret any characters as escape sequences.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>None</dev:defaultValue>
+</command:parameter>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="named" aliases="none"><maml:name>Path</maml:name>
+<maml:Description><maml:para>Specifies the path to the file where the XML representation of the `RedditOAuthToken` object will be stored.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>None</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf"><maml:name>Confirm</maml:name>
+<maml:Description><maml:para>Prompts you for confirmation before running the cmdlet.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi"><maml:name>WhatIf</maml:name>
+<maml:Description><maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+</command:parameters>
+<command:inputTypes><command:inputType><dev:type><maml:name>RedditOAuthToken</maml:name>
+</dev:type>
+<maml:description><maml:para>
+</maml:para>
+</maml:description>
+</command:inputType>
+</command:inputTypes>
+<command:returnValues><command:returnValue><dev:type><maml:name>System.IO.FileInfo</maml:name>
+</dev:type>
+<maml:description><maml:para>
+</maml:para>
+</maml:description>
+</command:returnValue>
+</command:returnValues>
+<maml:alertSet><maml:alert><maml:para>For complete documentation visit https://psraw.readthedocs.io/ (https://psraw.readthedocs.io/)For more information about registering Reddit Apps, Reddit's API, or Reddit OAuth see:
+</maml:para>
+<maml:para>* https://github.com/reddit/reddit/wiki/API (https://github.com/reddit/reddit/wiki/API)* https://github.com/reddit/reddit/wiki/OAuth2 (https://github.com/reddit/reddit/wiki/OAuth2)* https://www.reddit.com/prefs/apps (https://www.reddit.com/prefs/apps)* https://www.reddit.com/wiki/api (https://www.reddit.com/wiki/api)
+</maml:para>
+</maml:alert>
+</maml:alertSet>
+<command:examples><command:example><maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
+<dev:code>$Token.ExportPath = 'c:\PSRAW\RedditOAuthToken.xml'
+$Token | Export-RedditOAuthToken</dev:code>
+<dev:remarks><maml:para>This example uses the `ExportPath` property on the `RedditOAuthToken` object to determine where to export the application. When a `RedditOAuthToken` object is imported with `Import-RedditOAuthToken`, the `ExportPath` of the object will be set with the path to the file it was imported from. This amkes it easy to import, make changes, and then re-export the application. The `ExportPath` property is treated as a `LiteralPath`.
+</maml:para>
+</dev:remarks>
+</command:example>
+<command:example><maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
+<dev:code>$Token | Export-RedditOAuthToken -Path 'c:\PSRAW\RedditOAuthToken.xml'</dev:code>
+<dev:remarks><maml:para>This example uses the `Path` parameter to either override the `ExportPath` property on the `RedditOAuthToken` object or to set export location when an `ExportPath` is not present.
+</maml:para>
+</dev:remarks>
+</command:example>
+<command:example><maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
+<dev:code>$Token | Export-RedditOAuthToken -LiteralPath 'c:\PSRAW\RedditOAuthToken[1].xml'</dev:code>
+<dev:remarks><maml:para>This example uses the `LiteralPath` parameter to either override the `ExportPath` property on the `RedditOAuthToken` object or to set export location with an `ExportPath` is not present. `LiteralPath` does not translate the special characters and instead translates them literally.
+</maml:para>
+</dev:remarks>
+</command:example>
+</command:examples>
+<command:relatedLinks><maml:navigationLink><maml:linkText>https://psraw.readthedocs.io/en/latest/Module/Export-RedditOAuthToken</maml:linkText>
+<maml:uri>https://psraw.readthedocs.io/en/latest/Module/Export-RedditOAuthToken</maml:uri>
+</maml:navigationLink>
+<maml:navigationLink><maml:linkText>about_RedditOAuthToken</maml:linkText>
+<maml:uri>https://psraw.readthedocs.io/en/latest/Module/about_RedditOAuthToken</maml:uri>
+</maml:navigationLink>
+<maml:navigationLink><maml:linkText>Import-RedditOAuthToken</maml:linkText>
+<maml:uri>https://psraw.readthedocs.io/en/latest/Module/Import-RedditOAuthToken</maml:uri>
+</maml:navigationLink>
+<maml:navigationLink><maml:linkText>Request-RedditOAuthToken</maml:linkText>
+<maml:uri>https://psraw.readthedocs.io/en/latest/Module/Request-RedditOAuthToken</maml:uri>
 </maml:navigationLink>
 <maml:navigationLink><maml:linkText>Export-Clixml</maml:linkText>
 <maml:uri>http://go.microsoft.com/fwlink/?LinkID=113297</maml:uri>
@@ -320,7 +582,7 @@ $Application | Export-RedditApplication</dev:code>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
 <dev:type><maml:name>String</maml:name>
 <maml:uri /></dev:type>
-<dev:defaultValue>[RedditScope]::GetApiEndpointUri()</dev:defaultValue>
+<dev:defaultValue>[RedditOAuthScope]::GetApiEndpointUri()</dev:defaultValue>
 </command:parameter>
 </command:syntaxItem>
 </command:syntax>
@@ -333,11 +595,11 @@ $Application | Export-RedditApplication</dev:code>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
 <dev:type><maml:name>String</maml:name>
 <maml:uri /></dev:type>
-<dev:defaultValue>[RedditScope]::GetApiEndpointUri()</dev:defaultValue>
+<dev:defaultValue>[RedditOAuthScope]::GetApiEndpointUri()</dev:defaultValue>
 </command:parameter>
 </command:parameters>
 <command:inputTypes></command:inputTypes>
-<command:returnValues><command:returnValue><dev:type><maml:name>RedditScope</maml:name>
+<command:returnValues><command:returnValue><dev:type><maml:name>RedditOAuthScope</maml:name>
 </dev:type>
 <maml:description><maml:para>
 </maml:para>
@@ -351,7 +613,7 @@ $Application | Export-RedditApplication</dev:code>
 </maml:alert>
 </maml:alertSet>
 <command:examples><command:example><maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-<dev:code>$RedditScopes = Get-RedditOAuthScope</dev:code>
+<dev:code>$RedditOAuthScopes = Get-RedditOAuthScope</dev:code>
 <dev:remarks><maml:para>
 </maml:para>
 </dev:remarks>
@@ -360,8 +622,8 @@ $Application | Export-RedditApplication</dev:code>
 <command:relatedLinks><maml:navigationLink><maml:linkText>Get-RedditOAuthScope</maml:linkText>
 <maml:uri>https://psraw.readthedocs.io/en/latest/Module/Get-RedditOAuthScope</maml:uri>
 </maml:navigationLink>
-<maml:navigationLink><maml:linkText>about_RedditScope</maml:linkText>
-<maml:uri>https://psraw.readthedocs.io/en/latest/Module/about_RedditScope</maml:uri>
+<maml:navigationLink><maml:linkText>about_RedditOAuthScope</maml:linkText>
+<maml:uri>https://psraw.readthedocs.io/en/latest/Module/about_RedditOAuthScope</maml:uri>
 </maml:navigationLink>
 <maml:navigationLink><maml:linkText>https://github.com/reddit/reddit/wiki/API</maml:linkText>
 <maml:uri>https://github.com/reddit/reddit/wiki/API</maml:uri>
@@ -384,20 +646,22 @@ $Application | Export-RedditApplication</dev:code>
 <command:details><command:name>Import-RedditApplication</command:name>
 <command:verb>Import</command:verb>
 <command:noun>RedditApplication</command:noun>
-<maml:description><maml:para>Imports a RedditApplication object from an XML file.
+<maml:description><maml:para>Imports a `RedditApplication` object from an XML file.
 </maml:para>
 </maml:description>
 </command:details>
-<maml:description><maml:para>Allows you to import a RedditApplication object from an XML file that was previously exported via Export-RedditApplication. This allows you to share the same Reddit application between multiple scripts. This function is a wraper for Import-Clixml. 
+<maml:description><maml:para>Allows you to import a `RedditApplication` object from an XML file that was previously exported via `Export-RedditApplication`. This allows you to share the same Reddit application between multiple scripts. This function is a wraper for `Import-Clixml`. 
 </maml:para>
-<maml:para>User Passwords and Client Secrets stored in the RedditApplication object are stored as secure strings and are not visible as plaintext in the export file. This also means that RedditApplication objects exported by one user cannot be imported by another user on the same computer nor can it be imported by the same user on a different computer. It can only be imported by the same user on the same computer.
+<maml:para>User Passwords and Client Secrets stored in the `RedditApplication` object are stored as secure strings and are not visible as plaintext in the export file. This also means that a `RedditApplication` object exported by one user cannot be imported by another user on the same computer nor can it be imported by the same user on a different computer. It can only be imported by the same user on the same computer.
 </maml:para>
-<maml:para>New RedditApplication objects can be created manually or with New-RedditApplication.
+<maml:para>The maximum depth will be set on `Export-Clixml`.
+</maml:para>
+<maml:para>New `RedditApplication` objects can be created manually or with `New-RedditApplication`.
 </maml:para>
 </maml:description>
 <command:syntax><command:syntaxItem><maml:name>Import-RedditApplication</maml:name>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>LiteralPath</maml:name>
-<maml:Description><maml:para>Specifies the XML files. Unlike Path , the value of the LiteralPath parameter is used exactly as it is typed. No characters are interpreted as wildcards. If the path includes escape characters, enclose it in single quotation marks. Single quotation marks tell Windows PowerShell not to interpret any characters as escape sequences.
+<maml:Description><maml:para>Specifies the XML files. Unlike `Path`, the value of the `LiteralPath` parameter is used exactly as it is typed. No characters are interpreted as wildcards. If the path includes escape characters, enclose it in single quotation marks. Single quotation marks tell Windows PowerShell not to interpret any characters as escape sequences.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
@@ -451,7 +715,7 @@ $Application | Export-RedditApplication</dev:code>
 </command:syntaxItem>
 </command:syntax>
 <command:parameters><command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>LiteralPath</maml:name>
-<maml:Description><maml:para>Specifies the XML files. Unlike Path , the value of the LiteralPath parameter is used exactly as it is typed. No characters are interpreted as wildcards. If the path includes escape characters, enclose it in single quotation marks. Single quotation marks tell Windows PowerShell not to interpret any characters as escape sequences.
+<maml:Description><maml:para>Specifies the XML files. Unlike `Path`, the value of the `LiteralPath` parameter is used exactly as it is typed. No characters are interpreted as wildcards. If the path includes escape characters, enclose it in single quotation marks. Single quotation marks tell Windows PowerShell not to interpret any characters as escape sequences.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
@@ -541,10 +805,172 @@ $Application | Export-RedditApplication</dev:code>
 </command:relatedLinks>
 </command:command>
 <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+<command:details><command:name>Import-RedditOAuthToken</command:name>
+<command:verb>Import</command:verb>
+<command:noun>RedditOAuthToken</command:noun>
+<maml:description><maml:para>Imports a `RedditOAuthToken` object from an XML file.
+</maml:para>
+</maml:description>
+</command:details>
+<maml:description><maml:para>Allows you to import a `RedditOAuthToken` object from an XML file that was previously exported via `Export-RedditOAuthToken`. This allows you to share the same Reddit application between multiple scripts. This function is a wraper for `Import-Clixml`. 
+</maml:para>
+<maml:para>User Password, Client Secret, Access Token, and Refresh Token stored in the `RedditOAuthToken` object are stored as secure strings and are not visible as plaintext in the export file. This also means that a `RedditOAuthToken` object exported by one user cannot be imported by another user on the same computer nor can it be imported by the same user on a different computer. It can only be imported by the same user on the same computer.
+</maml:para>
+<maml:para>The maximum depth will be set on `Export-Clixml`.
+</maml:para>
+<maml:para>New `RedditOAuthToken` objects can be created manually or with `Request-RedditOAuthToken`.
+</maml:para>
+</maml:description>
+<command:syntax><command:syntaxItem><maml:name>Import-RedditOAuthToken</maml:name>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>LiteralPath</maml:name>
+<maml:Description><maml:para>Specifies the XML files. Unlike `Path`, the value of the `LiteralPath` parameter is used exactly as it is typed. No characters are interpreted as wildcards. If the path includes escape characters, enclose it in single quotation marks. Single quotation marks tell Windows PowerShell not to interpret any characters as escape sequences.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+<dev:type><maml:name>String[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>None</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf"><maml:name>Confirm</maml:name>
+<maml:Description><maml:para>Prompts you for confirmation before running the cmdlet.
+</maml:para>
+</maml:Description>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi"><maml:name>WhatIf</maml:name>
+<maml:Description><maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.
+</maml:para>
+</maml:Description>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+</command:syntaxItem>
+<command:syntaxItem><maml:name>Import-RedditOAuthToken</maml:name>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="named" aliases="none"><maml:name>Path</maml:name>
+<maml:Description><maml:para>Specifies the XML files.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+<dev:type><maml:name>String[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>None</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf"><maml:name>Confirm</maml:name>
+<maml:Description><maml:para>Prompts you for confirmation before running the cmdlet.
+</maml:para>
+</maml:Description>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi"><maml:name>WhatIf</maml:name>
+<maml:Description><maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.
+</maml:para>
+</maml:Description>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+</command:syntaxItem>
+</command:syntax>
+<command:parameters><command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>LiteralPath</maml:name>
+<maml:Description><maml:para>Specifies the XML files. Unlike `Path`, the value of the `LiteralPath` parameter is used exactly as it is typed. No characters are interpreted as wildcards. If the path includes escape characters, enclose it in single quotation marks. Single quotation marks tell Windows PowerShell not to interpret any characters as escape sequences.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+<dev:type><maml:name>String[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>None</dev:defaultValue>
+</command:parameter>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="named" aliases="none"><maml:name>Path</maml:name>
+<maml:Description><maml:para>Specifies the XML files.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+<dev:type><maml:name>String[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>None</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf"><maml:name>Confirm</maml:name>
+<maml:Description><maml:para>Prompts you for confirmation before running the cmdlet.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi"><maml:name>WhatIf</maml:name>
+<maml:Description><maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+</command:parameters>
+<command:inputTypes><command:inputType><dev:type><maml:name>System.String[]</maml:name>
+</dev:type>
+<maml:description><maml:para>
+</maml:para>
+</maml:description>
+</command:inputType>
+</command:inputTypes>
+<command:returnValues><command:returnValue><dev:type><maml:name>RedditOAuthToken</maml:name>
+</dev:type>
+<maml:description><maml:para>
+</maml:para>
+</maml:description>
+</command:returnValue>
+</command:returnValues>
+<maml:alertSet><maml:alert><maml:para>For complete documentation visit https://psraw.readthedocs.io/ (https://psraw.readthedocs.io/)For more information about registering Reddit Apps, Reddit's API, or Reddit OAuth see:
+</maml:para>
+<maml:para>* https://github.com/reddit/reddit/wiki/API (https://github.com/reddit/reddit/wiki/API)* https://github.com/reddit/reddit/wiki/OAuth2 (https://github.com/reddit/reddit/wiki/OAuth2)* https://www.reddit.com/prefs/apps (https://www.reddit.com/prefs/apps)* https://www.reddit.com/wiki/api (https://www.reddit.com/wiki/api)
+</maml:para>
+</maml:alert>
+</maml:alertSet>
+<command:examples><command:example><maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
+<dev:code>$Token = Import-RedditOAuthToken -Path 'c:\PSRAW\RedditOAuthToken.xml'</dev:code>
+<dev:remarks><maml:para>
+</maml:para>
+</dev:remarks>
+</command:example>
+<command:example><maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
+<dev:code>$Token = Import-RedditOAuthToken -LiteralPath 'c:\PSRAW\RedditOAuthToken[1].xml'</dev:code>
+<dev:remarks><maml:para>
+</maml:para>
+</dev:remarks>
+</command:example>
+</command:examples>
+<command:relatedLinks><maml:navigationLink><maml:linkText>https://psraw.readthedocs.io/en/latest/Module/Import-RedditOAuthToken</maml:linkText>
+<maml:uri>https://psraw.readthedocs.io/en/latest/Module/Import-RedditOAuthToken</maml:uri>
+</maml:navigationLink>
+<maml:navigationLink><maml:linkText>about_RedditOAuthToken</maml:linkText>
+<maml:uri>https://psraw.readthedocs.io/en/latest/Module/about_RedditOAuthToken</maml:uri>
+</maml:navigationLink>
+<maml:navigationLink><maml:linkText>Export-RedditOAuthToken</maml:linkText>
+<maml:uri>https://psraw.readthedocs.io/en/latest/Module/Export-RedditOAuthToken</maml:uri>
+</maml:navigationLink>
+<maml:navigationLink><maml:linkText>Request-RedditOAuthToken</maml:linkText>
+<maml:uri>https://psraw.readthedocs.io/en/latest/Module/Request-RedditOAuthToken</maml:uri>
+</maml:navigationLink>
+<maml:navigationLink><maml:linkText>Import-Clixml</maml:linkText>
+<maml:uri>http://go.microsoft.com/fwlink/?LinkID=113340</maml:uri>
+</maml:navigationLink>
+<maml:navigationLink><maml:linkText>https://psraw.readthedocs.io/</maml:linkText>
+<maml:uri>https://psraw.readthedocs.io/</maml:uri>
+</maml:navigationLink>
+</command:relatedLinks>
+</command:command>
+<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
 <command:details><command:name>New-RedditApplication</command:name>
 <command:verb>New</command:verb>
 <command:noun>RedditApplication</command:noun>
-<maml:description><maml:para>Creates a RedditApplication (https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication)object
+<maml:description><maml:para>Creates a `RedditApplication` object
 </maml:para>
 </maml:description>
 </command:details>
@@ -606,11 +1032,11 @@ $Application | Export-RedditApplication</dev:code>
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Scope</maml:name>
-<maml:Description><maml:para>Array of RedditScope (https://psraw.readthedocs.io/en/latest/Module/about_RedditScope)'s that this Reddit App requires. You can see the available scopes with [Get-RedditOAuthScope](https://psraw.readthedocs.io/en/latest/Module/Get-RedditOAuthScope).
+<maml:Description><maml:para>Array of RedditOAuthScope (https://psraw.readthedocs.io/en/latest/Module/about_RedditOAuthScope)'s that this Reddit App requires. You can see the available scopes with [Get-RedditOAuthScope](https://psraw.readthedocs.io/en/latest/Module/Get-RedditOAuthScope).
 </maml:para>
 </maml:Description>
-<command:parameterValue required="true" variableLength="false">RedditScope[]</command:parameterValue>
-<dev:type><maml:name>RedditScope[]</maml:name>
+<command:parameterValue required="true" variableLength="false">RedditOAuthScope[]</command:parameterValue>
+<dev:type><maml:name>RedditOAuthScope[]</maml:name>
 <maml:uri /></dev:type>
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
@@ -677,11 +1103,11 @@ $Application | Export-RedditApplication</dev:code>
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Scope</maml:name>
-<maml:Description><maml:para>Array of RedditScope (https://psraw.readthedocs.io/en/latest/Module/about_RedditScope)'s that this Reddit App requires. You can see the available scopes with [Get-RedditOAuthScope](https://psraw.readthedocs.io/en/latest/Module/Get-RedditOAuthScope).
+<maml:Description><maml:para>Array of RedditOAuthScope (https://psraw.readthedocs.io/en/latest/Module/about_RedditOAuthScope)'s that this Reddit App requires. You can see the available scopes with [Get-RedditOAuthScope](https://psraw.readthedocs.io/en/latest/Module/Get-RedditOAuthScope).
 </maml:para>
 </maml:Description>
-<command:parameterValue required="true" variableLength="false">RedditScope[]</command:parameterValue>
-<dev:type><maml:name>RedditScope[]</maml:name>
+<command:parameterValue required="true" variableLength="false">RedditOAuthScope[]</command:parameterValue>
+<dev:type><maml:name>RedditOAuthScope[]</maml:name>
 <maml:uri /></dev:type>
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
@@ -765,11 +1191,11 @@ $Application | Export-RedditApplication</dev:code>
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Scope</maml:name>
-<maml:Description><maml:para>Array of RedditScope (https://psraw.readthedocs.io/en/latest/Module/about_RedditScope)'s that this Reddit App requires. You can see the available scopes with [Get-RedditOAuthScope](https://psraw.readthedocs.io/en/latest/Module/Get-RedditOAuthScope).
+<maml:Description><maml:para>Array of RedditOAuthScope (https://psraw.readthedocs.io/en/latest/Module/about_RedditOAuthScope)'s that this Reddit App requires. You can see the available scopes with [Get-RedditOAuthScope](https://psraw.readthedocs.io/en/latest/Module/Get-RedditOAuthScope).
 </maml:para>
 </maml:Description>
-<command:parameterValue required="true" variableLength="false">RedditScope[]</command:parameterValue>
-<dev:type><maml:name>RedditScope[]</maml:name>
+<command:parameterValue required="true" variableLength="false">RedditOAuthScope[]</command:parameterValue>
+<dev:type><maml:name>RedditOAuthScope[]</maml:name>
 <maml:uri /></dev:type>
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
@@ -862,11 +1288,11 @@ $Application | Export-RedditApplication</dev:code>
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Scope</maml:name>
-<maml:Description><maml:para>Array of RedditScope (https://psraw.readthedocs.io/en/latest/Module/about_RedditScope)'s that this Reddit App requires. You can see the available scopes with [Get-RedditOAuthScope](https://psraw.readthedocs.io/en/latest/Module/Get-RedditOAuthScope).
+<maml:Description><maml:para>Array of RedditOAuthScope (https://psraw.readthedocs.io/en/latest/Module/about_RedditOAuthScope)'s that this Reddit App requires. You can see the available scopes with [Get-RedditOAuthScope](https://psraw.readthedocs.io/en/latest/Module/Get-RedditOAuthScope).
 </maml:para>
 </maml:Description>
-<command:parameterValue required="true" variableLength="false">RedditScope[]</command:parameterValue>
-<dev:type><maml:name>RedditScope[]</maml:name>
+<command:parameterValue required="true" variableLength="false">RedditOAuthScope[]</command:parameterValue>
+<dev:type><maml:name>RedditOAuthScope[]</maml:name>
 <maml:uri /></dev:type>
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
@@ -990,8 +1416,417 @@ $RedditApp = New-RedditApplication @Params</dev:code>
 <maml:navigationLink><maml:linkText>Get-RedditOAuthScope</maml:linkText>
 <maml:uri>https://psraw.readthedocs.io/en/latest/Module/Get-RedditOAuthScope</maml:uri>
 </maml:navigationLink>
-<maml:navigationLink><maml:linkText>about_RedditScope</maml:linkText>
-<maml:uri>https://psraw.readthedocs.io/en/latest/Module/about_RedditScope</maml:uri>
+<maml:navigationLink><maml:linkText>about_RedditOAuthScope</maml:linkText>
+<maml:uri>https://psraw.readthedocs.io/en/latest/Module/about_RedditOAuthScope</maml:uri>
+</maml:navigationLink>
+<maml:navigationLink><maml:linkText>https://github.com/reddit/reddit/wiki/API</maml:linkText>
+<maml:uri>https://github.com/reddit/reddit/wiki/API</maml:uri>
+</maml:navigationLink>
+<maml:navigationLink><maml:linkText>https://github.com/reddit/reddit/wiki/OAuth2</maml:linkText>
+<maml:uri>https://github.com/reddit/reddit/wiki/OAuth2</maml:uri>
+</maml:navigationLink>
+<maml:navigationLink><maml:linkText>https://www.reddit.com/prefs/apps</maml:linkText>
+<maml:uri>https://www.reddit.com/prefs/apps</maml:uri>
+</maml:navigationLink>
+<maml:navigationLink><maml:linkText>https://www.reddit.com/wiki/api</maml:linkText>
+<maml:uri>https://www.reddit.com/wiki/api</maml:uri>
+</maml:navigationLink>
+<maml:navigationLink><maml:linkText>https://psraw.readthedocs.io/</maml:linkText>
+<maml:uri>https://psraw.readthedocs.io/</maml:uri>
+</maml:navigationLink>
+</command:relatedLinks>
+</command:command>
+<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+<command:details><command:name>Request-RedditOAuthToken</command:name>
+<command:verb>Request</command:verb>
+<command:noun>RedditOAuthToken</command:noun>
+<maml:description><maml:para>Requests a OAuth Access Token from Reddit
+</maml:para>
+</maml:description>
+</command:details>
+<maml:description><maml:para>Requests an OAuth Access Token from Reddit and returns a `RedditOAuthToken` object for the given `RedditApplication`. The OAuth Access Token is used by other functions in this module to make authenticated calls tot he Reddit API. For more information on Reddit's OAuth impliementation, see https://github.com/reddit/reddit/wiki/OAuth2
+</maml:para>
+<maml:para>A `RedditApplication` object is required to request a `RedditOAutToken`. Once the token has been issued the `RedditApplication` will be added to the `RedditOAuthToken` object as the `Application` property. for mor information see the `about_RedditOAuthToken` help topic.
+</maml:para>
+<maml:para>Reddit provides several different methods for obtaining Access Tokens depending on your needs and required level of access to the API. For more information on each, see the `Client`,`Code`, `Implicit`, `Installed` and `Script` parameter descriptions. For most uses, either `Code` or `Script` will provide the most benefit.
+</maml:para>
+<maml:para>`Code` and `Implicit` methods cannot be run in non-interactive sessions as they require logging into reddit through a GUI (provided by thsi module). For `Code` Access Tokens this only needs to be pereformed once for more info see the `Code` parameter description. For `Implicit` Access Tokens, this must be done at least once an hour.
+</maml:para>
+<maml:para>All `RedditOAuthToken` types will automatically refresh when they expire when consumed by functions in this module. `Implicit` tokens will prompt for credentials through a GUI on every renewal. You can also manually refresh them using `Update-RedditOauthToken`.
+</maml:para>
+<maml:para>&gt; PowerShell ISE Compatibility Issue &gt;  &gt; There is currently a bug in some versions of PowerShell ISE that result in the ISE becoming unresponsive when `WinForms` elements are used. This is an upstream bug and cannot be fixed within this module. To work around this, run this command from the PowerShell Console only and not from the ISE when using any of the grant methods which require and intercative session.
+</maml:para>
+</maml:description>
+<command:syntax><command:syntaxItem><maml:name>Request-RedditOAuthToken</maml:name>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="1" aliases="none"><maml:name>Application</maml:name>
+<maml:Description><maml:para>`RedditApplication` object created with either `New-RedditApplication` or `Import-RedditApplication`.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">RedditApplication</command:parameterValue>
+<dev:type><maml:name>RedditApplication</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>None</dev:defaultValue>
+</command:parameter>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Client</maml:name>
+<maml:Description><maml:para>Best Used for: Anonymous API access for `WebApp` and `Script` applications
+</maml:para>
+<maml:para>The `Client` switch will initiate a `Client_Credentials` grant flow. This Grant type uses only the application's Client ID and Client Secret to request an OAuth Token. This will enable the use of OAuth Based APIs, but since the OAuth Token will not be associated with any user context it will only have "anonymous" access. This is similar to browsing reddit without having a login. You will not be able to send user messages, post comments or sumissions, or do anything else that would require an active login session on the web site.
+</maml:para>
+<maml:para>`Client` access tokens expire after 60 minutes. When they are "renewed" a new token is requested from scratch. This can be used in automation as it does not require user input. A new token will automatically be requested on the next API call made by functions in this module after the token has expired.
+</maml:para>
+<maml:para>`Client` OAuth Access Tokens can only be issued to `Script` and `WebApp` applications as it requires Client Secret.
+</maml:para>
+<maml:para>For more information on Reddit's OAuth impliementation, see https://github.com/reddit/reddit/wiki/OAuth2#application-only-oauth
+</maml:para>
+</maml:Description>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+</command:syntaxItem>
+<command:syntaxItem><maml:name>Request-RedditOAuthToken</maml:name>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="1" aliases="none"><maml:name>Application</maml:name>
+<maml:Description><maml:para>`RedditApplication` object created with either `New-RedditApplication` or `Import-RedditApplication`.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">RedditApplication</command:parameterValue>
+<dev:type><maml:name>RedditApplication</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>None</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="2" aliases="none"><maml:name>State</maml:name>
+<maml:Description><maml:para>The `State` parameter is used by the `Code` and `Implicit` methods for validation. It is optional as the module will varify the state. The default will create a new GUID.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>[guid]::NewGuid().toString()</dev:defaultValue>
+</command:parameter>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Code</maml:name>
+<maml:Description><maml:para>Best used for: Automation, bots and long running unattended process when a single application may act on behalf of one or more users or when you do not wish to store or continually transmit reddit user crednetials. 
+</maml:para>
+<maml:para>Offers the best security and flexibility.
+</maml:para>
+<maml:para>The `Code` switch will initiate a `Authorization_Code` grant flow. This grant type uses the Client ID and Redirect URI to direct a user to log in on reddit and authorize the application via GUI web browser. Once the user has logged in and authorized the application, reddit will return an authorization code to the Redirct URI. The GUI browser will close and the  authorization code is then used along with the client ID and Client Secret to request an Access Token and Refresh Token. The Access Token is valid for 60 minutes and is used to authenticate with the Reddit API. Once the Access Token expires the Refresh Token, Client ID, and Client Secret are used to request a new Access Token. The Refresh Token is valid until the user or application revokes it.
+</maml:para>
+<maml:para>This process requires a interactive powershell session. It only needs to be done once. For automation purposes, the initial `Request-RedditOAuthToken` needs to be done from a normal PowerShell console. Once the token has been issued, export it with `Export-RedditOAuthAToken`. The exported token can then be imported in other scripts with `Import-RedditOAuthToken`. The token will automatically update on the next call the API made by functions in this module.
+</maml:para>
+<maml:para>`Code` OAuth Access Tokens can only be issued to `Script` and `WebApp` applications as it requires Client Secret.
+</maml:para>
+<maml:para>For more information see https://github.com/reddit/reddit/wiki/OAuth2#authorization
+</maml:para>
+<maml:para>&gt; REQUIRES INTERACTIVE SESSION
+</maml:para>
+</maml:Description>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+</command:syntaxItem>
+<command:syntaxItem><maml:name>Request-RedditOAuthToken</maml:name>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="1" aliases="none"><maml:name>Application</maml:name>
+<maml:Description><maml:para>`RedditApplication` object created with either `New-RedditApplication` or `Import-RedditApplication`.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">RedditApplication</command:parameterValue>
+<dev:type><maml:name>RedditApplication</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>None</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="2" aliases="none"><maml:name>DeviceID</maml:name>
+<maml:Description><maml:para>DeviceID is an optional parameter for `Installed` token requests. This is intended to be an semi-permanent ID for the device that is requesting a token. When this is not supplied, a new GUID will be generated. Fore more information see the `Installed` parameter description and  https://github.com/reddit/reddit/wiki/OAuth2#application-only-oauth
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>[guid]::NewGuid().toString()</dev:defaultValue>
+</command:parameter>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Installed</maml:name>
+<maml:Description><maml:para>Best Used for: Anonymous API access for `Installed` applications.
+</maml:para>
+<maml:para>The `Installed` option will initiate a `installed_client` grant flow. This will enable the use of OAuth Based APIs, but since the OAuth Token will not be associated with any user context it will only have "anonymous" access. This is similar to browsing reddit without having a login. You will not be able to send user messages, post comments or sumissions, or do anything else that would require an active login session on the web site.
+</maml:para>
+<maml:para>The token will only be valid for 1 hour and then a new token will be requested. This can be placed in automation as it does not require the user to log in. A new token will automatically be requested on the next API call made by functions in this module after the token has expired.
+</maml:para>
+<maml:para>The `Installed` grant flow requires that a Device ID be sent. The `DeviceID` parameter can be used to supply one. the defualt is to generate a new GUID. That Device ID used should be unique to the device and should be used for all subsequent Access Token requests via the `Installed` method on the same device. This will be set on the `DeviceID` of the returned `RedditOAuthToken` object.
+</maml:para>
+<maml:para>For more information see https://github.com/reddit/reddit/wiki/OAuth2#application-only-oauth
+</maml:para>
+</maml:Description>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+</command:syntaxItem>
+<command:syntaxItem><maml:name>Request-RedditOAuthToken</maml:name>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="1" aliases="none"><maml:name>Application</maml:name>
+<maml:Description><maml:para>`RedditApplication` object created with either `New-RedditApplication` or `Import-RedditApplication`.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">RedditApplication</command:parameterValue>
+<dev:type><maml:name>RedditApplication</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>None</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="2" aliases="none"><maml:name>State</maml:name>
+<maml:Description><maml:para>The `State` parameter is used by the `Code` and `Implicit` methods for validation. It is optional as the module will varify the state. The default will create a new GUID.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>[guid]::NewGuid().toString()</dev:defaultValue>
+</command:parameter>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Implicit</maml:name>
+<maml:Description><maml:para>Best used for: `Installed` applicatiosn that need to act on behalf of the user.
+</maml:para>
+<maml:para>The `Implicit` grant flow provides `Installled` applications the ability act in a user context. `Installed` applications do not have Client Secrets so this method allows for requesting an access token from a device that is not under the develoepr's direct control. The token will be valid for 1 hour and then a new token will need to be authorized.
+</maml:para>
+<maml:para>This grant flow requires an Interactive session and cannot be run in non-interactive scripts. The user will be provided a GUI Web Browser to log in to Reddit and authorize the application. The user will need to authorize the application on the next request made to the API after the token expires.
+</maml:para>
+<maml:para>The method is provided in the module for completeness, it is not recommended unless you are prepakaging an application that needs to access the Reddit API as a logged in user and the other methods are unavailable.
+</maml:para>
+<maml:para>For more information see https://github.com/reddit/reddit/wiki/OAuth2#authorization-implicit-grant-flow
+</maml:para>
+<maml:para>&gt; REQUIRES INTERACTIVE SESSION
+</maml:para>
+</maml:Description>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+</command:syntaxItem>
+<command:syntaxItem><maml:name>Request-RedditOAuthToken</maml:name>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="1" aliases="none"><maml:name>Application</maml:name>
+<maml:Description><maml:para>`RedditApplication` object created with either `New-RedditApplication` or `Import-RedditApplication`.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">RedditApplication</command:parameterValue>
+<dev:type><maml:name>RedditApplication</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>None</dev:defaultValue>
+</command:parameter>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Script</maml:name>
+<maml:Description><maml:para>Best used for: Automation, bots and long running unattended process when a single application may act on behalf of one or more users or when the Application will only act on behalf of the Application Developer and not on behalf of others.
+</maml:para>
+<maml:para>The `Script` method can only be used by `Script` applications and can only act on behalf of the Reddit user who registered the application. This method will initiate a `password` grant flow. The user's crednetials along with the Client ID and Client Secret are used to request an Access token. The token is valid for 1 hour and then a new token will need to be requested. A new token will automatically be requested on the next API call made by functions in this module after the token has expired.
+</maml:para>
+<maml:para>The `Script` method can be used in automation, but, it requires that the reddit username and password be stored in the `RedditApplication` object. The user password is stored in a secure string and when a `RedditApplication` or `RedditOAuthToken` is exported, the assword is stored in encryoted form that can only be retrieved by te sam user on the same computer where the objectw as exported.
+</maml:para>
+<maml:para>In contrast to the `Code` method, the `Script` method does not reauire an interactive session at any point provided you have a way to import a `PSCrwedential` object. The down side is that the developers Client ID, Client Secret, Username, and Password all need to be used and stored.
+</maml:para>
+<maml:para>For more information see https://github.com/reddit/reddit/wiki/OAuth2#retrieving-the-access-token
+</maml:para>
+</maml:Description>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+</command:syntaxItem>
+</command:syntax>
+<command:parameters><command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="1" aliases="none"><maml:name>Application</maml:name>
+<maml:Description><maml:para>`RedditApplication` object created with either `New-RedditApplication` or `Import-RedditApplication`.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">RedditApplication</command:parameterValue>
+<dev:type><maml:name>RedditApplication</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>None</dev:defaultValue>
+</command:parameter>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Client</maml:name>
+<maml:Description><maml:para>Best Used for: Anonymous API access for `WebApp` and `Script` applications
+</maml:para>
+<maml:para>The `Client` switch will initiate a `Client_Credentials` grant flow. This Grant type uses only the application's Client ID and Client Secret to request an OAuth Token. This will enable the use of OAuth Based APIs, but since the OAuth Token will not be associated with any user context it will only have "anonymous" access. This is similar to browsing reddit without having a login. You will not be able to send user messages, post comments or sumissions, or do anything else that would require an active login session on the web site.
+</maml:para>
+<maml:para>`Client` access tokens expire after 60 minutes. When they are "renewed" a new token is requested from scratch. This can be used in automation as it does not require user input. A new token will automatically be requested on the next API call made by functions in this module after the token has expired.
+</maml:para>
+<maml:para>`Client` OAuth Access Tokens can only be issued to `Script` and `WebApp` applications as it requires Client Secret.
+</maml:para>
+<maml:para>For more information on Reddit's OAuth impliementation, see https://github.com/reddit/reddit/wiki/OAuth2#application-only-oauth
+</maml:para>
+</maml:Description>
+<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Code</maml:name>
+<maml:Description><maml:para>Best used for: Automation, bots and long running unattended process when a single application may act on behalf of one or more users or when you do not wish to store or continually transmit reddit user crednetials. 
+</maml:para>
+<maml:para>Offers the best security and flexibility.
+</maml:para>
+<maml:para>The `Code` switch will initiate a `Authorization_Code` grant flow. This grant type uses the Client ID and Redirect URI to direct a user to log in on reddit and authorize the application via GUI web browser. Once the user has logged in and authorized the application, reddit will return an authorization code to the Redirct URI. The GUI browser will close and the  authorization code is then used along with the client ID and Client Secret to request an Access Token and Refresh Token. The Access Token is valid for 60 minutes and is used to authenticate with the Reddit API. Once the Access Token expires the Refresh Token, Client ID, and Client Secret are used to request a new Access Token. The Refresh Token is valid until the user or application revokes it.
+</maml:para>
+<maml:para>This process requires a interactive powershell session. It only needs to be done once. For automation purposes, the initial `Request-RedditOAuthToken` needs to be done from a normal PowerShell console. Once the token has been issued, export it with `Export-RedditOAuthAToken`. The exported token can then be imported in other scripts with `Import-RedditOAuthToken`. The token will automatically update on the next call the API made by functions in this module.
+</maml:para>
+<maml:para>`Code` OAuth Access Tokens can only be issued to `Script` and `WebApp` applications as it requires Client Secret.
+</maml:para>
+<maml:para>For more information see https://github.com/reddit/reddit/wiki/OAuth2#authorization
+</maml:para>
+<maml:para>&gt; REQUIRES INTERACTIVE SESSION
+</maml:para>
+</maml:Description>
+<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="2" aliases="none"><maml:name>DeviceID</maml:name>
+<maml:Description><maml:para>DeviceID is an optional parameter for `Installed` token requests. This is intended to be an semi-permanent ID for the device that is requesting a token. When this is not supplied, a new GUID will be generated. Fore more information see the `Installed` parameter description and  https://github.com/reddit/reddit/wiki/OAuth2#application-only-oauth
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>[guid]::NewGuid().toString()</dev:defaultValue>
+</command:parameter>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Implicit</maml:name>
+<maml:Description><maml:para>Best used for: `Installed` applicatiosn that need to act on behalf of the user.
+</maml:para>
+<maml:para>The `Implicit` grant flow provides `Installled` applications the ability act in a user context. `Installed` applications do not have Client Secrets so this method allows for requesting an access token from a device that is not under the develoepr's direct control. The token will be valid for 1 hour and then a new token will need to be authorized.
+</maml:para>
+<maml:para>This grant flow requires an Interactive session and cannot be run in non-interactive scripts. The user will be provided a GUI Web Browser to log in to Reddit and authorize the application. The user will need to authorize the application on the next request made to the API after the token expires.
+</maml:para>
+<maml:para>The method is provided in the module for completeness, it is not recommended unless you are prepakaging an application that needs to access the Reddit API as a logged in user and the other methods are unavailable.
+</maml:para>
+<maml:para>For more information see https://github.com/reddit/reddit/wiki/OAuth2#authorization-implicit-grant-flow
+</maml:para>
+<maml:para>&gt; REQUIRES INTERACTIVE SESSION
+</maml:para>
+</maml:Description>
+<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Installed</maml:name>
+<maml:Description><maml:para>Best Used for: Anonymous API access for `Installed` applications.
+</maml:para>
+<maml:para>The `Installed` option will initiate a `installed_client` grant flow. This will enable the use of OAuth Based APIs, but since the OAuth Token will not be associated with any user context it will only have "anonymous" access. This is similar to browsing reddit without having a login. You will not be able to send user messages, post comments or sumissions, or do anything else that would require an active login session on the web site.
+</maml:para>
+<maml:para>The token will only be valid for 1 hour and then a new token will be requested. This can be placed in automation as it does not require the user to log in. A new token will automatically be requested on the next API call made by functions in this module after the token has expired.
+</maml:para>
+<maml:para>The `Installed` grant flow requires that a Device ID be sent. The `DeviceID` parameter can be used to supply one. the defualt is to generate a new GUID. That Device ID used should be unique to the device and should be used for all subsequent Access Token requests via the `Installed` method on the same device. This will be set on the `DeviceID` of the returned `RedditOAuthToken` object.
+</maml:para>
+<maml:para>For more information see https://github.com/reddit/reddit/wiki/OAuth2#application-only-oauth
+</maml:para>
+</maml:Description>
+<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Script</maml:name>
+<maml:Description><maml:para>Best used for: Automation, bots and long running unattended process when a single application may act on behalf of one or more users or when the Application will only act on behalf of the Application Developer and not on behalf of others.
+</maml:para>
+<maml:para>The `Script` method can only be used by `Script` applications and can only act on behalf of the Reddit user who registered the application. This method will initiate a `password` grant flow. The user's crednetials along with the Client ID and Client Secret are used to request an Access token. The token is valid for 1 hour and then a new token will need to be requested. A new token will automatically be requested on the next API call made by functions in this module after the token has expired.
+</maml:para>
+<maml:para>The `Script` method can be used in automation, but, it requires that the reddit username and password be stored in the `RedditApplication` object. The user password is stored in a secure string and when a `RedditApplication` or `RedditOAuthToken` is exported, the assword is stored in encryoted form that can only be retrieved by te sam user on the same computer where the objectw as exported.
+</maml:para>
+<maml:para>In contrast to the `Code` method, the `Script` method does not reauire an interactive session at any point provided you have a way to import a `PSCrwedential` object. The down side is that the developers Client ID, Client Secret, Username, and Password all need to be used and stored.
+</maml:para>
+<maml:para>For more information see https://github.com/reddit/reddit/wiki/OAuth2#retrieving-the-access-token
+</maml:para>
+</maml:Description>
+<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+<dev:type><maml:name>SwitchParameter</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>False</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="2" aliases="none"><maml:name>State</maml:name>
+<maml:Description><maml:para>The `State` parameter is used by the `Code` and `Implicit` methods for validation. It is optional as the module will varify the state. The default will create a new GUID.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>[guid]::NewGuid().toString()</dev:defaultValue>
+</command:parameter>
+</command:parameters>
+<command:inputTypes><command:inputType><dev:type><maml:name>RedditApplication</maml:name>
+</dev:type>
+<maml:description><maml:para>
+</maml:para>
+</maml:description>
+</command:inputType>
+</command:inputTypes>
+<command:returnValues><command:returnValue><dev:type><maml:name>RedditOAuthToken</maml:name>
+</dev:type>
+<maml:description><maml:para>
+</maml:para>
+</maml:description>
+</command:returnValue>
+</command:returnValues>
+<maml:alertSet><maml:alert><maml:para>There is currently a bug in some versions of PowerShell ISE that result in the ISE becoming unresponsive when `WinForms` elements are used. This is an upstream bug and cannot be fixed within this module. To work around this, run this command from the PowerShell Console only and not from the ISE when using any of the grant methods which require and intercative session.
+</maml:para>
+<maml:para>For complete documentation visit https://psraw.readthedocs.io/ (https://psraw.readthedocs.io/)For more information about registering Reddit Apps, Reddit's API, or Reddit OAuth see:
+</maml:para>
+<maml:para>* https://github.com/reddit/reddit/wiki/API (https://github.com/reddit/reddit/wiki/API)* https://github.com/reddit/reddit/wiki/OAuth2 (https://github.com/reddit/reddit/wiki/OAuth2)* https://www.reddit.com/prefs/apps (https://www.reddit.com/prefs/apps)* https://www.reddit.com/wiki/api (https://www.reddit.com/wiki/api)
+</maml:para>
+</maml:alert>
+</maml:alertSet>
+<command:examples><command:example><maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
+<dev:code>PS C:\&gt; $Token = $RedditApp | Request-RedditOAuthToken -Script</dev:code>
+<dev:remarks><maml:para>
+</maml:para>
+</dev:remarks>
+</command:example>
+<command:example><maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
+<dev:code>PS C:\&gt; $Token = $RedditApp | Request-RedditOAuthToken -Code</dev:code>
+<dev:remarks><maml:para>
+</maml:para>
+</dev:remarks>
+</command:example>
+<command:example><maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
+<dev:code>PS C:\&gt; $Token = $RedditApp | Request-RedditOAuthToken -Installed -DeviceId 'db470a80-da50-4ae1-9bba-24a1a3454392'</dev:code>
+<dev:remarks><maml:para>
+</maml:para>
+</dev:remarks>
+</command:example>
+<command:example><maml:title>-------------------------- EXAMPLE 4 --------------------------</maml:title>
+<dev:code>PS C:\&gt; $Token = $RedditApp | Request-RedditOAuthToken -Client</dev:code>
+<dev:remarks><maml:para>
+</maml:para>
+</dev:remarks>
+</command:example>
+<command:example><maml:title>-------------------------- EXAMPLE 5 --------------------------</maml:title>
+<dev:code>PS C:\&gt; $Token = $RedditApp | Request-RedditOAuthToken -Implicit</dev:code>
+<dev:remarks><maml:para>
+</maml:para>
+</dev:remarks>
+</command:example>
+<command:example><maml:title>-------------------------- EXAMPLE 6 --------------------------</maml:title>
+<dev:code>$ClientCredential = Get-Credential
+$Scope = Get-RedditOAuthScope | Where-Object {$_.Scope -like '*wiki*'} 
+$Params = @{
+    WebApp = $True
+    Name = 'Connect-Reddit'
+    Description = 'My Reddit Bot!'
+    ClientCredential = $ClientCredential
+    RedirectUri = 'https://adataum/ouath?'
+    UserAgent = 'windows:connect-reddit:v0.0.0.1 (by /u/makrkeraus)'
+    Scope = $Scope
+    OutVariable = 'RedditApp'
+}
+$Token = New-RedditApplication @Params | Request-RedditOAuthToken -Code</dev:code>
+<dev:remarks><maml:para>This example demonstrates how to create a `RedditApplication` with `New-RedditApplication` and pass it to `Request-RedditOAuthToken` to obtain a `RedditOAuthToken`. The token will be stored in `$Token` and the application will be stored in `RedditApp`.
+</maml:para>
+</dev:remarks>
+</command:example>
+</command:examples>
+<command:relatedLinks><maml:navigationLink><maml:linkText>https://psraw.readthedocs.io/en/latest/Module/Request-RedditOAuthToken</maml:linkText>
+<maml:uri>https://psraw.readthedocs.io/en/latest/Module/Request-RedditOAuthToken</maml:uri>
+</maml:navigationLink>
+<maml:navigationLink><maml:linkText>New-RedditApplication</maml:linkText>
+<maml:uri>https://psraw.readthedocs.io/en/latest/Module/New-RedditApplication</maml:uri>
+</maml:navigationLink>
+<maml:navigationLink><maml:linkText>about_RedditOAuthToken</maml:linkText>
+<maml:uri>https://psraw.readthedocs.io/en/latest/Module/about_RedditOAuthToken</maml:uri>
+</maml:navigationLink>
+<maml:navigationLink><maml:linkText>about_RedditApplication</maml:linkText>
+<maml:uri>https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication</maml:uri>
 </maml:navigationLink>
 <maml:navigationLink><maml:linkText>https://github.com/reddit/reddit/wiki/API</maml:linkText>
 <maml:uri>https://github.com/reddit/reddit/wiki/API</maml:uri>

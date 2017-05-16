@@ -1,17 +1,22 @@
 <#	
     .NOTES
-    ===========================================================================
+    
      Created with:  VSCode
      Created on:    4/28/2017 04:40 AM
-     Edited on:     4/29/2017
+     Edited on:     5/10/2017
      Created by:    Mark Kraus
      Organization: 	
      Filename:     RedditApplication.Unit.Tests.ps1
-    ===========================================================================
+    
     .DESCRIPTION
         Unit Tests for RedditApplication Class
 #>
-Using module '..\PSRAW\Classes\RedditApplication.psm1'
+
+$projectRoot = Resolve-Path "$PSScriptRoot\.."
+$moduleRoot = Split-Path (Resolve-Path "$projectRoot\*\*.psd1")
+$moduleName = Split-Path $moduleRoot -Leaf
+Remove-Module -Force $moduleName  -ErrorAction SilentlyContinue
+Import-Module (Join-Path $moduleRoot "$moduleName.psd1") -force
 
 $Class = 'RedditApplication'
 
@@ -105,6 +110,44 @@ Describe "[$Class] Tests" -Tag Unit, Build {
     }
     It "Has a working GetClientSecret() method" {
         $Application.GetUserPassword() | should be $UserSceret
+    }
+    It "Has a working GetAuthorzationUrl() method" {
+        $url = $Application.GetAuthorzationUrl()
+        $url | should match 'client_id=54321'
+        $url | should match 'response_type=Code'
+        $url | should match 'redirect_uri=https%3a%2f%2flocalhost%2f'
+        $url | should match 'duration=Permanent'
+        $url | should match 'https://www.reddit.com:443/api/v1/authorize'
+    }
+    It "Has a working GetAuthorzationUrl(ResponseType, Duration) method" {
+        $url = $Application.GetAuthorzationUrl('code','permanent')
+        $url | should match 'client_id=54321'
+        $url | should match 'response_type=Code'
+        $url | should match 'redirect_uri=https%3a%2f%2flocalhost%2f'
+        $url | should match 'duration=Permanent'
+        $url | should match 'https://www.reddit.com:443/api/v1/authorize'
+    }
+    It "Has a working GetAuthorzationUrl(ResponseType, Duration, State) method" {
+        $url = $Application.GetAuthorzationUrl('code','permanent','myteststate')
+        $url | should match 'client_id=54321'
+        $url | should match 'response_type=Code'
+        $url | should match 'redirect_uri=https%3a%2f%2flocalhost%2f'
+        $url | should match 'duration=Permanent'
+        $url | should match 'https://www.reddit.com:443/api/v1/authorize'
+        $url | should match 'state=myteststate'
+    }
+    It "Has a working GetAuthorzationUrl(ResponseType, Duration, State, AuthBaseUrl) method" {
+        $url = $Application.GetAuthorzationUrl('code','permanent','myteststate','https://google.com/')
+        $url | should match 'client_id=54321'
+        $url | should match 'response_type=Code'
+        $url | should match 'redirect_uri=https%3a%2f%2flocalhost%2f'
+        $url | should match 'duration=Permanent'
+        $url | should match 'https://google.com'
+        $url | should match 'state=myteststate'
+    }
+    It "Has a AuthBaseURL static property" {
+        {[RedditApplication]::AuthBaseURL} | should not throw
+        [RedditApplication]::AuthBaseURL | should not BeNullOrEmpty
     }
     It "Throws an exception with the default constructor" {
         {[RedditApplication]::new()} | Should throw "The method or operation is not implemented."
