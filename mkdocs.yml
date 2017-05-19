@@ -22,6 +22,7 @@ pages:
     - Import-RedditOAuthToken: Module/Import-RedditOAuthToken.md
     - New-RedditApplication: Module/New-RedditApplication.md
     - Request-RedditOAuthToken: Module/Request-RedditOAuthToken.md
+    - Update-RedditOAuthToken: Module/Update-RedditOAuthToken.md
   - Private Functions:
     - Get-AuthorizationHeader: PrivateFunctions/Get-AuthorizationHeader.md
     - Request-RedditOAuthCode: PrivateFunctions/Request-RedditOAuthCode.md
@@ -30,5 +31,6 @@ pages:
     - Request-RedditOAuthTokenImplicit: PrivateFunctions/Request-RedditOAuthTokenImplicit.md
     - Request-RedditOAuthTokeninstalled: PrivateFunctions/Request-RedditOAuthTokeninstalled.md
     - Request-RedditOAuthTokenPassword: PrivateFunctions/Request-RedditOAuthTokenPassword.md
+    - Request-RedditOAuthTokenRefresh: PrivateFunctions/Request-RedditOAuthTokenRefresh.md
     - Show-RedditOAuthWindow: PrivateFunctions/Show-RedditOAuthWindow.md
 

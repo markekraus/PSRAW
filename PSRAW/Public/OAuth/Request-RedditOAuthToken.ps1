@@ -140,7 +140,6 @@ function Request-RedditOAuthToken {
                     Application = $Application
                 }  
                 $Result = Request-RedditOAuthTokenPassword @Params
-                [RedditOAUthToken]::New($GrantType, $AuthCode.Application, $Result)
                 Break
             }
             'Client' { 
