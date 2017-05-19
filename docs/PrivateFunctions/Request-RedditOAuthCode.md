@@ -186,4 +186,6 @@ This function calls
 
 [Show-RedditOAuthWindow](https://psraw.readthedocs.io/en/latest/PrivateFunctions/Show-RedditOAuthWindow)
 
+[Invoke-WebRequest](https://go.microsoft.com/fwlink/?LinkID=217035)
+
 [PowerShell ISE Issue](https://windowsserver.uservoice.com/forums/301869-powershell/suggestions/11733891-powershell-ise-crashes-after-loading-winforms)

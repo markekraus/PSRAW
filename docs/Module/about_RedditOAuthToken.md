@@ -270,6 +270,17 @@ Static: False
 Definition: Boolean IsRateLimited()
 ```
 
+## Refresh(Object Response)
+Refreshes the `RedditOAuthToken` propertes when a token refresh has been perfomed. The response will be either a `system.uri` or a `Microsoft.PowerShell.Commands.WebResponseObject` shapped object. Depending on the grant flow used, the refreshed Access Toekn will be provided in a JSON response or in the fragment part of a URI.
+
+```yaml
+Name: Refresh
+Return Type: Void
+Hidden: False
+Static: False
+Definition: Void Refresh(Object Response)
+```
+
 ## ToString()
 Returns a string representation of the `RedditOAuthToken` object.
 

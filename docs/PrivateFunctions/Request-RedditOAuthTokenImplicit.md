@@ -102,6 +102,7 @@ This function calls
 This function is called by
 
 * [Request-RedditOAuthToken](https://psraw.readthedocs.io/en/latest/Module/Request-RedditOAuthToken)
+* [Update-RedditOAuthToken](https://psraw.readthedocs.io/en/latest/Module/Update-RedditOAuthToken)
 
 ## RELATED LINKS
 
@@ -114,5 +115,7 @@ This function is called by
 [Request-RedditOAuthToken](https://psraw.readthedocs.io/en/latest/Module/Request-RedditOAuthToken)
 
 [Show-RedditOAuthWindow](https://psraw.readthedocs.io/en/latest/PrivateFunctions/Show-RedditOAuthWindow)
+
+[Update-RedditOAuthToken](https://psraw.readthedocs.io/en/latest/Module/Update-RedditOAuthToken)
 
 [https://github.com/reddit/reddit/wiki/OAuth2#token-retrieval-implicit-grant-flow](https://github.com/reddit/reddit/wiki/OAuth2#token-retrieval-implicit-grant-flow)

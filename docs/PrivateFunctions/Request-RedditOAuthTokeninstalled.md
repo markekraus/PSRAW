@@ -98,6 +98,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 This function is called by
 
 * [Request-RedditOAuthToken](https://psraw.readthedocs.io/en/latest/Module/Request-RedditOAuthToken)
+* [Update-RedditOAuthToken](https://psraw.readthedocs.io/en/latest/Module/Update-RedditOAuthToken)
 
 This Function calls 
 
@@ -116,5 +117,9 @@ This Function calls
 [https://psraw.readthedocs.io/en/latest/PrivateFunctions/Request-RedditOAuthCode](https://psraw.readthedocs.io/en/latest/PrivateFunctions/Request-RedditOAuthCode)
 
 [Request-RedditOAuthToken](https://psraw.readthedocs.io/en/latest/Module/Request-RedditOAuthToken)
+
+[Update-RedditOAuthToken](https://psraw.readthedocs.io/en/latest/Module/Update-RedditOAuthToken)
+
+[Invoke-WebRequest](https://go.microsoft.com/fwlink/?LinkID=217035)
 
 [https://github.com/reddit/reddit/wiki/OAuth2#application-only-oauth](https://github.com/reddit/reddit/wiki/OAuth2#application-only-oauth)
