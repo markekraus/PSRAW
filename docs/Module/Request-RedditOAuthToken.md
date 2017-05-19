@@ -294,11 +294,13 @@ For more information about registering Reddit Apps, Reddit's API, or Reddit OAut
 
 [https://psraw.readthedocs.io/en/latest/Module/Request-RedditOAuthToken](https://psraw.readthedocs.io/en/latest/Module/Request-RedditOAuthToken)
 
-[New-RedditApplication](https://psraw.readthedocs.io/en/latest/Module/New-RedditApplication)
-
 [about_RedditOAuthToken](https://psraw.readthedocs.io/en/latest/Module/about_RedditOAuthToken)
 
 [about_RedditApplication](https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication)
+
+[New-RedditApplication](https://psraw.readthedocs.io/en/latest/Module/New-RedditApplication)
+
+[Update-RedditOAuthToken](https://psraw.readthedocs.io/en/latest/Module/Update-RedditOAuthToken)
 
 [https://github.com/reddit/reddit/wiki/API](https://github.com/reddit/reddit/wiki/API)
 

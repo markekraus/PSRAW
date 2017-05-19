@@ -33,5 +33,5 @@ Creates a `RedditApplication` object
 Requests a OAuth Access Token from Reddit
 
 ### [Update-RedditOAuthToken](Update-RedditOAuthToken.md)
-{{Fill in the Synopsis}}
+Refresh a `RedditOAuthToken`
 
