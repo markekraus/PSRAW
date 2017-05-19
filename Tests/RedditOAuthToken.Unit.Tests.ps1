@@ -3,7 +3,7 @@
     
      Created with:  VSCode
      Created on:    5/10/2017 04:09 PM
-     Edited on:     5/11/2017
+     Edited on:     5/18/2017
      Created by:    Mark Kraus
      Organization: 	
      Filename:     RedditOAuthToken.Unit.Tests.ps1
@@ -88,7 +88,15 @@ $ResponseObjectCode = [pscustomobject]@{
     }
 }
 
+$ResponseObjectRefresh = [pscustomobject]@{
+    Content = '{"access_token": "AABBCC", "token_type": "bearer", "expires_in": 3600, "scope": "*"}'
+    Headers = @{
+        'Content-Type' = 'application/json'
+    }
+}
+
 $ResponseUri = [System.Uri]('https://localhos/#access_token=34567&token_type=bearer&state=MyState&expires_in=3600&scope=read')
+$ResponseUriRefresh = [System.Uri]('https://localhos/#access_token=DDEEFF&token_type=bearer&state=MyState&expires_in=3600&scope=read')
 
 $TestHashes = @(
     @{
@@ -189,5 +197,29 @@ Describe "[$Class] Tests" -Tag Unit, Build {
     It "Has a working ToString() method" {
         $CodeToken.ToString() | should -Match 'GUID: '
         $CodeToken.ToString() | should -Match 'Expires: '
+    }
+    It "Has a working Refresh() method" {
+        $OldToken = @{
+            IssueDate  = $CodeToken.IssueDate.psobject.copy()
+            ExpireDate = $CodeToken.ExpireDate.psobject.copy()
+            GUID       = $CodeToken.GUID.psobject.copy()
+        }
+        {
+            $CodeToken.Refresh(
+                [pscustomobject]@{Headers = @{'Content-type' = 'invalid'}}
+            )
+        } | should throw "Response Content-Type is not 'application/json'"
+        {
+            $CodeToken.Refresh(
+                [system.uri]'https://badurl/'
+            )
+        } | should throw "Response does not include Fragment"
+        {$CodeToken.Refresh($ResponseObjectRefresh)} | Should Not throw
+        $CodeToken.GUID | should be  $OldToken.GUID
+        $CodeToken.GetAccessToken() | should be 'AABBCC'
+        $CodeToken.IssueDate | Should BeGreaterThan $OldToken.IssueDate
+        $CodeToken.ExpireDate | Should BeGreaterThan $OldToken.ExpireDate
+        {$CodeToken.Refresh($ResponseUriRefresh)} | should Not throw
+        $CodeToken.GetAccessToken() | should be 'DDEEFF'
     }
 }

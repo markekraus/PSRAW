@@ -118,4 +118,43 @@ Class RedditOAuthToken {
     [string] ToString() {
         Return ('GUID: {0} Expires: {1}' -f $This.GUID, $This.ExpireDate)
     }
+    [void] Refresh ([Object]$Response) {
+        #URI Handler
+        If ($Response.psobject.typenames -contains 'system.uri') {
+            if (-not $Response.Fragment) {
+                $Exception = [System.ArgumentException]::New(
+                    "Response does not include Fragment"
+                )
+                $Exception | Add-Member -Name Uri -MemberType NoteProperty -Value $Response
+                Throw $Exception
+            }
+            $Content = @{}
+            $Paresed = [System.Web.HttpUtility]::
+            ParseQueryString($Response.Fragment -replace '^#')
+            $Paresed.Getenumerator() |
+                ForEach-Object {
+                $Content.Add($_, $Paresed[$_])
+            }
+        }
+        #WebResponse Handler
+        Else {
+            If ( -not ($Response.Headers.'Content-type' -match 'application/json')) {
+                $Exception = [System.ArgumentException]::New(
+                    "Response Content-Type is not 'application/json'"
+                )
+                $Exception | Add-Member -Name Response -MemberType NoteProperty -Value $Response
+                Throw $Exception
+            }
+            $Content = $Response.Content | ConvertFrom-Json -ErrorAction Stop
+        }
+        # Do the needful
+        $This.IssueDate = Get-Date
+        $This.TokenType = $Content.token_type
+        $This.Scope = $Content.Scope -split ' '
+        $This.ExpireDate = (get-date).AddSeconds($Content.expires_in)
+        if ($Content.access_token) {
+            $SecString = $Content.access_token | ConvertTo-SecureString -AsPlainText -Force
+            $This.TokenCredential = [pscredential]::new('access_token', $SecString)
+        }
+    }
 }
