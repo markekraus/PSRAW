@@ -33,4 +33,5 @@ pages:
     - Request-RedditOAuthTokenPassword: PrivateFunctions/Request-RedditOAuthTokenPassword.md
     - Request-RedditOAuthTokenRefresh: PrivateFunctions/Request-RedditOAuthTokenRefresh.md
     - Show-RedditOAuthWindow: PrivateFunctions/Show-RedditOAuthWindow.md
+    - Wait-RedditApiRateLimit: PrivateFunctions/Wait-RedditApiRateLimit.md
 

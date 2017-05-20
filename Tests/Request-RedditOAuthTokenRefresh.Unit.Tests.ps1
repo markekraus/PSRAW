@@ -52,18 +52,18 @@ InModuleScope $moduleName {
         $RefreshCredential = [pscredential]::new($RefreshId, $SecRefreshSecret)
 
         $ApplicationScript = [RedditApplication]@{
-            Name             = 'TestApplication'
-            Description      = 'This is only a test'
-            RedirectUri      = 'https://localhost/'
-            UserAgent        = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
-            Scope            = 'read'
+            Name = 'TestApplication'
+            Description = 'This is only a test'
+            RedirectUri = 'https://localhost/'
+            UserAgent = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
+            Scope = 'read'
             ClientCredential = $ClientCredential
-            UserCredential   = $UserCredential
-            Type             = 'Script'
+            UserCredential = $UserCredential
+            Type = 'Script'
         }
 
         $ApplicationInstalled = [RedditApplication]@{
-            Name             = 'TestApplication'
+            Name = 'TestApplication'
             Description      = 'This is only a test'
             RedirectUri      = 'https://localhost/'
             UserAgent        = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
@@ -169,16 +169,7 @@ InModuleScope $moduleName {
         }
         foreach ($ParameterSet in $ParameterSets) {
             It "'$($ParameterSet.Name)' Parameter set does not have errors" {
-                $LocalParams = @{
-                    AccessToken = $TokenCode
-                }
-                try { & $Command @LocalParams -ErrorAction Stop }
-                Catch { 
-                    Write-Host $($_ | fl * -force | out-string) 
-                    Write-Host $($_.Exception | fl * -force | out-string) 
-                    Write-Host $($_.Exception.Data | fl * -force | out-string)
-                    Write-Host $($Error | fl * -force | out-string) 
-                }
+                $LocalParams = $ParameterSet.Params
                 { & $Command @LocalParams -ErrorAction Stop } | Should not throw
             }
         }
