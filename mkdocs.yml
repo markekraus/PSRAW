@@ -7,6 +7,7 @@ pages:
   - Home: index.md
   - Module Help:
     - PSRAW: Module/PSRAW.md
+    - about_RedditApiResponse: Module/about_RedditApiResponse.md
     - about_RedditApplication: Module/about_RedditApplication.md
     - about_RedditApplicationType: Module/about_RedditApplicationType.md
     - about_RedditOAuthCode: Module/about_RedditOAuthCode.md
@@ -20,6 +21,7 @@ pages:
     - Get-RedditOAuthScope: Module/Get-RedditOAuthScope.md
     - Import-RedditApplication: Module/Import-RedditApplication.md
     - Import-RedditOAuthToken: Module/Import-RedditOAuthToken.md
+    - Invoke-RedditRequest: Module/Invoke-RedditRequest.md
     - New-RedditApplication: Module/New-RedditApplication.md
     - Request-RedditOAuthToken: Module/Request-RedditOAuthToken.md
     - Update-RedditOAuthToken: Module/Update-RedditOAuthToken.md

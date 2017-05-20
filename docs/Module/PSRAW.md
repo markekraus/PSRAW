@@ -26,6 +26,9 @@ Imports a `RedditApplication` object from an XML file.
 ### [Import-RedditOAuthToken](Import-RedditOAuthToken.md)
 Imports a `RedditOAuthToken` object from an XML file.
 
+### [Invoke-RedditRequest](Invoke-RedditRequest.md)
+{{Fill in the Synopsis}}
+
 ### [New-RedditApplication](New-RedditApplication.md)
 Creates a `RedditApplication` object
 
