@@ -3,7 +3,7 @@
     
      Created with:  VSCode
      Created on:    5/07/2017 8:30 PM
-     Edited on:     5/07/2017
+     Edited on:     5/20/2017
      Created by:    Mark Kraus
      Organization: 	
      Filename:      Get-AuthorizationHeader.Unit.Tests.ps1
@@ -11,7 +11,7 @@
     .DESCRIPTION
         Get-AuthorizationHeader Function unit tests
 #>
-$projectRoot = Resolve-Path "$PSScriptRoot\.."
+$projectRoot = Resolve-Path "$PSScriptRoot\..\.."
 $moduleRoot = Split-Path (Resolve-Path "$projectRoot\*\*.psd1")
 $moduleName = Split-Path $moduleRoot -Leaf
 Remove-Module -Force $moduleName  -ErrorAction SilentlyContinue
@@ -24,12 +24,12 @@ InModuleScope $moduleName {
     $ClientId = '54321'
     $ClientSceret = '12345'
     $SecClientSecret = $ClientSceret | ConvertTo-SecureString -AsPlainText -Force 
-    $ClientCredential = [pscredential]::new($ClientId,$SecClientSecret)
+    $ClientCredential = [pscredential]::new($ClientId, $SecClientSecret)
     $Expected = 'Basic NTQzMjE6MTIzNDU='
 
     $ParameterSets = @(
         @{
-            Name = 'Credential'
+            Name   = 'Credential'
             Params = @{
                 Credential = $ClientCredential
             }
@@ -38,19 +38,19 @@ InModuleScope $moduleName {
 
 
     Function MyTest {
-        foreach($ParameterSet in $ParameterSets){
+        foreach ($ParameterSet in $ParameterSets) {
             It "'$($ParameterSet.Name)' Parameter set does not have errors" {
                 $LocalParams = $ParameterSet.Params
                 { & $Command @LocalParams -ErrorAction Stop } | Should not throw
             }
         }
         It "Emits a $TypeName Object" {
-            (Get-Command $Command).OutputType.Name.where({ $_ -eq $TypeName }) | Should be $TypeName
+            (Get-Command $Command).OutputType.Name.where( { $_ -eq $TypeName }) | Should be $TypeName
         }
         It "Returns a $TypeName Object" {
             $LocalParams = $ParameterSets[0].Params.psobject.Copy()
             $Object = & $Command @LocalParams | Select-Object -First 1
-            $Object.psobject.typenames.where({ $_ -eq $TypeName }) | Should be $TypeName
+            $Object.psobject.typenames.where( { $_ -eq $TypeName }) | Should be $TypeName
         }
         It 'Returns an rfc2617 Authorization header' {
             $LocalParams = $ParameterSets[0].Params
@@ -59,7 +59,7 @@ InModuleScope $moduleName {
     }
     Describe "$command Unit" -Tags Unit {
         $commandpresent = Get-Command -Name $Command -Module $moduleName -ErrorAction SilentlyContinue
-        if(-not $commandpresent){
+        if (-not $commandpresent) {
             Write-Warning "'$command' was not found in '$moduleName' during prebuild tests. It may not yet have been added the module. Unit tests will be skipped until after build."
             return
         }

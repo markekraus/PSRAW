@@ -2,24 +2,22 @@
     .NOTES
     
      Created with:  VSCode
-     Created on:    05/11/2017 4:41 AM
-     Edited on:     05/10/2017
+     Created on:    4/30/2017 1:22 PM
+     Edited on:     5/20/2017
      Created by:    Mark Kraus
      Organization: 	
-     Filename:      Import-RedditOAuthToken.Unit.Tests.ps1
+     Filename:      Export-RedditApplication.Unit.Tests.ps1
     
     .DESCRIPTION
-        Import-RedditOAuthToken Function unit tests
+        Export-RedditApplication Function unit tests
 #>
-
-$projectRoot = Resolve-Path "$PSScriptRoot\.."
+$projectRoot = Resolve-Path "$PSScriptRoot\..\.."
 $moduleRoot = Split-Path (Resolve-Path "$projectRoot\*\*.psd1")
 $moduleName = Split-Path $moduleRoot -Leaf
 Remove-Module -Force $moduleName  -ErrorAction SilentlyContinue
 Import-Module (Join-Path $moduleRoot "$moduleName.psd1") -force
 
-$Command = 'Import-RedditOAuthToken'
-$TypeName = 'RedditOAuthToken'
+$Command = 'Export-RedditApplication'
 
 $ClientId = '54321'
 $ClientSceret = '12345'
@@ -31,18 +29,7 @@ $UserSceret = 'password12345'
 $SecUserSecret = $UserSceret | ConvertTo-SecureString -AsPlainText -Force 
 $UserCredential = [pscredential]::new($UserId, $SecUserSecret)
 
-$TokenId = 'access_token'
-$TokenSceret = '34567'
-$SecTokenSecret = $TokenSceret | ConvertTo-SecureString -AsPlainText -Force 
-$TokenCredential = [pscredential]::new($TokenId, $SecTokenSecret)
-
-$RefreshId = 'refresh_token'
-$RefreshSceret = '76543'
-$SecRefreshSecret = $RefreshSceret | ConvertTo-SecureString -AsPlainText -Force 
-$RefreshCredential = [pscredential]::new($RefreshId, $SecRefreshSecret)
-
 $ExportFile = '{0}\RedditApplicationExport-{1}.xml' -f $env:TEMP, [guid]::NewGuid().toString()
-$TokenExportFile = '{0}\RedditTokenExport-{1}.xml' -f $env:TEMP, [guid]::NewGuid().toString()
 
 $Application = [RedditApplication]@{
     Name             = 'TestApplication'
@@ -56,37 +43,25 @@ $Application = [RedditApplication]@{
     ExportPath       = $ExportFile 
 }
 
-$Token = [RedditOAuthToken]@{
-    Application        = $Application
-    IssueDate          = Get-Date
-    ExpireDate         = (Get-Date).AddHours(1)
-    LastApiCall        = Get-Date
-    ExportPath         = $TokenExportFile
-    Scope              = $Application.Scope
-    GUID               = [guid]::NewGuid()
-    Notes              = 'This is a test token'
-    TokenType          = 'bearer'
-    GrantType          = 'Authorization_Code'
-    RateLimitUsed      = 0
-    RateLimitRemaining = 60
-    RateLimitRest      = 60
-    TokenCredential    = $TokenCredential
-    RefreshCredential  = $RefreshCredential
-}
-
-$Token | Export-Clixml -Path $TokenExportFile 
-
 $ParameterSets = @(
     @{
         Name   = 'Path'
         Params = @{
-            Path = $TokenExportFile
+            Path        = $ExportFile
+            Application = $Application
         }
     }
     @{
         Name   = 'LiteralPath'
         Params = @{
-            LiteralPath = $TokenExportFile
+            LiteralPath = $ExportFile
+            Application = $Application
+        }
+    }
+    @{
+        Name   = 'ExportPath'
+        Params = @{
+            Application = $Application
         }
     }
 )
@@ -98,13 +73,18 @@ function MyTest {
             { & $Command @LocalParams -ErrorAction Stop } | Should not throw
         }
     }
-    It "Emits a $TypeName Object" {
-        (Get-Command $Command).OutputType.Name.where( { $_ -eq $TypeName }) | Should be $TypeName
+    It "Exports a valid XML file." {
+        Test-Path -Path $ExportFile | Should Be $True
+        $xml = New-Object System.Xml.XmlDocument
+        {$xml.Load($ExportFile)} | should not throw
     }
-    It "Returns a $TypeName Object" {
-        $LocalParams = $ParameterSets[0].Params.psobject.Copy()
-        $Object = & $Command @LocalParams | Select-Object -First 1
-        $Object.psobject.typenames.where( { $_ -eq $TypeName }) | Should be $TypeName
+    It "Does not store secrets in plaintext" {
+        $Params = @{
+            Path        = $ExportFile
+            SimpleMatch = $true
+            Pattern     = '12345'
+        }
+        Select-String @Params | should be $null
     }
 }
 
@@ -121,4 +101,4 @@ Describe "$command Build" -Tags Build {
     MyTest
 }
 
-Remove-Item -Force -Path $TokenExportFile -ErrorAction SilentlyContinue
+Remove-Item -Force -Path $ExportFile -ErrorAction SilentlyContinue

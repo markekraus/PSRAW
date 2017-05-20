@@ -3,7 +3,7 @@
     
      Created with:  VSCode
      Created on:    4/28/2017 04:40 AM
-     Edited on:     5/10/2017
+     Edited on:     5/20/2017
      Created by:    Mark Kraus
      Organization: 	
      Filename:     RedditApplication.Unit.Tests.ps1
@@ -12,7 +12,7 @@
         Unit Tests for RedditApplication Class
 #>
 
-$projectRoot = Resolve-Path "$PSScriptRoot\.."
+$projectRoot = Resolve-Path "$PSScriptRoot\..\.."
 $moduleRoot = Split-Path (Resolve-Path "$projectRoot\*\*.psd1")
 $moduleName = Split-Path $moduleRoot -Leaf
 Remove-Module -Force $moduleName  -ErrorAction SilentlyContinue
@@ -23,63 +23,61 @@ $Class = 'RedditApplication'
 $ClientId = '54321'
 $ClientSceret = '12345'
 $SecClientSecret = $ClientSceret | ConvertTo-SecureString -AsPlainText -Force 
-$ClientCredential = [pscredential]::new($ClientId,$SecClientSecret)
+$ClientCredential = [pscredential]::new($ClientId, $SecClientSecret)
 
 $UserId = 'reddituser'
 $UserSceret = 'password'
 $SecUserSecret = $UserSceret | ConvertTo-SecureString -AsPlainText -Force 
-$UserCredential = [pscredential]::new($UserId,$SecUserSecret)
-
-$EmptyCred = [System.Management.Automation.PSCredential]::Empty
+$UserCredential = [pscredential]::new($UserId, $SecUserSecret)
 
 $TestHashes = @(
     @{
         Name = 'WebApp'
         Hash = @{
-            Name = 'TestApplication'
-            Description = 'This is only a test'
-            RedirectUri = 'https://localhost/'
-            UserAgent = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
-            Scope = 'read'
+            Name             = 'TestApplication'
+            Description      = 'This is only a test'
+            RedirectUri      = 'https://localhost/'
+            UserAgent        = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
+            Scope            = 'read'
             ClientCredential = $ClientCredential
-            Type = 'WebApp'
+            Type             = 'WebApp'
         }
     }
     @{
         Name = 'Script'
         Hash = @{
-            Name = 'TestApplication'
-            Description = 'This is only a test'
-            RedirectUri = 'https://localhost/'
-            UserAgent = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
-            Scope = 'read'
+            Name             = 'TestApplication'
+            Description      = 'This is only a test'
+            RedirectUri      = 'https://localhost/'
+            UserAgent        = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
+            Scope            = 'read'
             ClientCredential = $ClientCredential
-            UserCredential = $UserCredential
-            Type = 'Script'
+            UserCredential   = $UserCredential
+            Type             = 'Script'
         }
     }
     @{
         Name = 'Installed'
         Hash = @{
-            Name = 'TestApplication'
-            Description = 'This is only a test'
-            RedirectUri = 'https://localhost/'
-            UserAgent = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
-            Scope = 'read'
+            Name             = 'TestApplication'
+            Description      = 'This is only a test'
+            RedirectUri      = 'https://localhost/'
+            UserAgent        = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
+            Scope            = 'read'
             ClientCredential = $ClientCredential
-            Type = 'Installed'
+            Type             = 'Installed'
         }
     }
 )
 
 
 Describe "[$Class] Tests" -Tag Unit, Build {
-    foreach($TestHash in $TestHashes){
-        It "Converts the '$($TestHash.Name)' hash"{
+    foreach ($TestHash in $TestHashes) {
+        It "Converts the '$($TestHash.Name)' hash" {
             {[RedditApplication]$TestHash.Hash} | should not throw
         }
     }
-     It "Has a working Uber Constructor." {
+    It "Has a working Uber Constructor." {
         {
             [RedditApplication]::new(
                 'TestApplication',
@@ -96,15 +94,15 @@ Describe "[$Class] Tests" -Tag Unit, Build {
         } | should not throw
     }
     $Application = [RedditApplication]::new('TestApplication',
-            'This is only a test',
-            'https://localhost/',
-            'windows:PSRAW-Unit-Tests:v1.0.0.0',
-            'Script',
-            [guid]::NewGuid(),
-            'c:\RedditApplication.xml',
-            'read',
-            $ClientCredential,
-            $UserCredential)
+        'This is only a test',
+        'https://localhost/',
+        'windows:PSRAW-Unit-Tests:v1.0.0.0',
+        'Script',
+        [guid]::NewGuid(),
+        'c:\RedditApplication.xml',
+        'read',
+        $ClientCredential,
+        $UserCredential)
     It "Has a working GetClientSecret() method" {
         $Application.GetClientSecret() | should be $ClientSceret
     }
@@ -120,7 +118,7 @@ Describe "[$Class] Tests" -Tag Unit, Build {
         $url | should match 'https://www.reddit.com:443/api/v1/authorize'
     }
     It "Has a working GetAuthorzationUrl(ResponseType, Duration) method" {
-        $url = $Application.GetAuthorzationUrl('code','permanent')
+        $url = $Application.GetAuthorzationUrl('code', 'permanent')
         $url | should match 'client_id=54321'
         $url | should match 'response_type=Code'
         $url | should match 'redirect_uri=https%3a%2f%2flocalhost%2f'
@@ -128,7 +126,7 @@ Describe "[$Class] Tests" -Tag Unit, Build {
         $url | should match 'https://www.reddit.com:443/api/v1/authorize'
     }
     It "Has a working GetAuthorzationUrl(ResponseType, Duration, State) method" {
-        $url = $Application.GetAuthorzationUrl('code','permanent','myteststate')
+        $url = $Application.GetAuthorzationUrl('code', 'permanent', 'myteststate')
         $url | should match 'client_id=54321'
         $url | should match 'response_type=Code'
         $url | should match 'redirect_uri=https%3a%2f%2flocalhost%2f'
@@ -137,7 +135,7 @@ Describe "[$Class] Tests" -Tag Unit, Build {
         $url | should match 'state=myteststate'
     }
     It "Has a working GetAuthorzationUrl(ResponseType, Duration, State, AuthBaseUrl) method" {
-        $url = $Application.GetAuthorzationUrl('code','permanent','myteststate','https://google.com/')
+        $url = $Application.GetAuthorzationUrl('code', 'permanent', 'myteststate', 'https://google.com/')
         $url | should match 'client_id=54321'
         $url | should match 'response_type=Code'
         $url | should match 'redirect_uri=https%3a%2f%2flocalhost%2f'
@@ -158,25 +156,25 @@ Describe "[$Class] Tests" -Tag Unit, Build {
     It "Requires a Type" {
         {
             [RedditApplication]@{
-                Name = 'TestApplication'
-                Description = 'This is only a test'
-                RedirectUri = 'https://localhost/'
-                UserAgent = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
-                Scope = 'read'
+                Name             = 'TestApplication'
+                Description      = 'This is only a test'
+                RedirectUri      = 'https://localhost/'
+                UserAgent        = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
+                Scope            = 'read'
                 ClientCredential = $ClientCredential
-                UserCredential = $UserCredential
+                UserCredential   = $UserCredential
             }
         } | Should Throw 
     }
     It "Requires a ClientCredential" {
         {
             [RedditApplication]@{
-                Name = 'TestApplication'
-                Description = 'This is only a test'
-                RedirectUri = 'https://localhost/'
-                UserAgent = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
-                Scope = 'read'
-                Type = 'Script'
+                Name           = 'TestApplication'
+                Description    = 'This is only a test'
+                RedirectUri    = 'https://localhost/'
+                UserAgent      = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
+                Scope          = 'read'
+                Type           = 'Script'
                 UserCredential = $UserCredential
             }
         } | Should Throw 
@@ -184,53 +182,53 @@ Describe "[$Class] Tests" -Tag Unit, Build {
     It "Requires a UserAgent" {
         {
             [RedditApplication]@{
-                Name = 'TestApplication'
-                Description = 'This is only a test'
-                RedirectUri = 'https://localhost/'
-                Scope = 'read'
-                Type = 'Script'
+                Name             = 'TestApplication'
+                Description      = 'This is only a test'
+                RedirectUri      = 'https://localhost/'
+                Scope            = 'read'
+                Type             = 'Script'
                 ClientCredential = $ClientCredential
-                UserCredential = $UserCredential
+                UserCredential   = $UserCredential
             }
         } | Should Throw 
     }
     It "Requires a RedirectUri" {
         {
             [RedditApplication]@{
-                Name = 'TestApplication'
-                Description = 'This is only a test'
-                UserAgent = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
-                Scope = 'read'
-                Type = 'Script'
+                Name             = 'TestApplication'
+                Description      = 'This is only a test'
+                UserAgent        = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
+                Scope            = 'read'
+                Type             = 'Script'
                 ClientCredential = $ClientCredential
-                UserCredential = $UserCredential
+                UserCredential   = $UserCredential
             }
         } | Should Throw 
     }
     It "Requires a Scope" {
         {
             [RedditApplication]@{
-                Name = 'TestApplication'
-                Description = 'This is only a test'                
-                RedirectUri = 'https://localhost/'
-                UserAgent = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
-                Type = 'Script'
+                Name             = 'TestApplication'
+                Description      = 'This is only a test'                
+                RedirectUri      = 'https://localhost/'
+                UserAgent        = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
+                Type             = 'Script'
                 ClientCredential = $ClientCredential
-                UserCredential = $UserCredential
+                UserCredential   = $UserCredential
             }
         } | Should Throw 
     }
     It "Converts a [PSObject] to [$Class]" {
         {
             [RedditApplication][pscustomobject]@{
-                Name = 'TestApplication'
-                Description = 'This is only a test'
-                RedirectUri = 'https://localhost/'
-                UserAgent = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
-                Scope = 'read'
+                Name             = 'TestApplication'
+                Description      = 'This is only a test'
+                RedirectUri      = 'https://localhost/'
+                UserAgent        = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
+                Scope            = 'read'
                 ClientCredential = $ClientCredential
-                UserCredential = $UserCredential
-                Type = 'Script'
+                UserCredential   = $UserCredential
+                Type             = 'Script'
             }
         } | Should Not Throw
     }

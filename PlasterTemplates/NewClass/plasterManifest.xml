@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<plasterManifest schemaVersion="1.0" 
+    xmlns="http://www.microsoft.com/schemas/PowerShell/Plaster/v1">
+    <metadata>
+        <name>NewClass</name>
+        <id>fb459e00-bf44-4a87-833f-74325dec5e42</id>
+        <version>1.0.0</version>
+        <title>New Class</title>
+        <description></description>
+        <author>Mark Kraus</author>
+        <tags>Class</tags>
+    </metadata>
+    <parameters>
+        <parameter name='ClassName' type='text' prompt='Enter the name of the Class'/>
+        <parameter name='ClassOrder' type='text' prompt='Enter the sort load order for this Class (001, 003, 163, etc)'/>
+        <parameter name='AuthorName' type='user-fullname' prompt='Enter author name' store='text'/>
+        <parameter name='AuthorOrg' type='text' prompt='Enter the name of your organization' default=' '/>
+    </parameters>
+    <content>
+        <templateFile source='Class.txt' destination='Classes\${PLASTER_PARAM_ClassOrder}-${PLASTER_PARAM_ClassName}.ps1'/>
+    </content>
+</plasterManifest>
