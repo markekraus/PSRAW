@@ -3,7 +3,7 @@
     
      Created with:  VSCode
      Created on:    5/18/2017 4:31 AM
-     Edited on:     5/18/2017
+     Edited on:     5/20/2017
      Created by:    Mark Kraus
      Organization: 	
      Filename:     Update-RedditOAuthToken.Unit.Tests.ps1
@@ -11,12 +11,11 @@
     .DESCRIPTION
        Update-RedditOAuthToken Function unit tests
 #>
-$projectRoot = Resolve-Path "$PSScriptRoot\.."
+$projectRoot = Resolve-Path "$PSScriptRoot\..\.."
 $moduleRoot = Split-Path (Resolve-Path "$projectRoot\*\*.psd1")
 $moduleName = Split-Path $moduleRoot -Leaf
 Remove-Module -Force $moduleName  -ErrorAction SilentlyContinue
 Import-Module (Join-Path $moduleRoot "$moduleName.psd1") -force
-Import-Module (Join-Path $moduleRoot "$moduleName.psd1") -force -Scope Global
 
 $Command = 'Update-RedditOAuthToken'
 $TypeName = 'RedditOAuthToken'
@@ -48,186 +47,186 @@ Function MyTest {
     $RefreshCredential = [pscredential]::new($RefreshId, $SecRefreshSecret)
 
     $ApplicationScript = [RedditApplication]@{
-        Name = 'TestApplication'
-        Description = 'This is only a test'
-        RedirectUri = 'https://localhost/'
-        UserAgent = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
-        Scope = 'read'
+        Name             = 'TestApplication'
+        Description      = 'This is only a test'
+        RedirectUri      = 'https://localhost/'
+        UserAgent        = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
+        Scope            = 'read'
         ClientCredential = $ClientCredential
-        UserCredential = $UserCredential
-        Type = 'Script'
+        UserCredential   = $UserCredential
+        Type             = 'Script'
     }
     $ApplicationInstalled = [RedditApplication]@{
-        Name = 'TestApplication'
-        Description = 'This is only a test'
-        RedirectUri = 'https://localhost/'
-        UserAgent = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
-        Scope = 'read'
+        Name             = 'TestApplication'
+        Description      = 'This is only a test'
+        RedirectUri      = 'https://localhost/'
+        UserAgent        = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
+        Scope            = 'read'
         ClientCredential = $InstalledCredential
-        Type = 'Installed'
+        Type             = 'Installed'
     }
     $TokenInstalled = [RedditOAuthToken]@{
-        Application = $ApplicationInstalled
-        IssueDate = (Get-Date).AddHours(-2)
-        ExpireDate = (Get-Date).AddHours(-1)
-        LastApiCall = Get-Date
-        Scope = $ApplicationInstalled.Scope
-        GUID = [guid]::NewGuid()
-        TokenType = 'bearer'
-        GrantType = 'Installed_Client'
-        RateLimitUsed = 0
+        Application        = $ApplicationInstalled
+        IssueDate          = (Get-Date).AddHours(-2)
+        ExpireDate         = (Get-Date).AddHours(-1)
+        LastApiCall        = Get-Date
+        Scope              = $ApplicationInstalled.Scope
+        GUID               = [guid]::NewGuid()
+        TokenType          = 'bearer'
+        GrantType          = 'Installed_Client'
+        RateLimitUsed      = 0
         RateLimitRemaining = 60
-        RateLimitRest = 60
-        TokenCredential = $TokenCredential.psobject.copy()
-        DeviceID = 'MyDeviceID'
+        RateLimitRest      = 60
+        TokenCredential    = $TokenCredential.psobject.copy()
+        DeviceID           = 'MyDeviceID'
     }
 
     $TokenCode = [RedditOAuthToken]@{
-        Application = $ApplicationScript
-        IssueDate = (Get-Date).AddHours(-2)
-        ExpireDate = (Get-Date).AddHours(-1)
-        LastApiCall = Get-Date
-        Scope = $ApplicationScript.Scope
-        GUID = [guid]::NewGuid()
-        TokenType = 'bearer'
-        GrantType = 'Authorization_Code'
-        RateLimitUsed = 0
+        Application        = $ApplicationScript
+        IssueDate          = (Get-Date).AddHours(-2)
+        ExpireDate         = (Get-Date).AddHours(-1)
+        LastApiCall        = Get-Date
+        Scope              = $ApplicationScript.Scope
+        GUID               = [guid]::NewGuid()
+        TokenType          = 'bearer'
+        GrantType          = 'Authorization_Code'
+        RateLimitUsed      = 0
         RateLimitRemaining = 60
-        RateLimitRest = 60
-        TokenCredential = $TokenCredential.psobject.copy()
-        RefreshCredential = $RefreshCredential.psobject.copy()
+        RateLimitRest      = 60
+        TokenCredential    = $TokenCredential.psobject.copy()
+        RefreshCredential  = $RefreshCredential.psobject.copy()
     }
 
     $TokenPassword = [RedditOAuthToken]@{
-        Application = $ApplicationScript
-        IssueDate = (Get-Date).AddHours(-2)
-        ExpireDate = (Get-Date).AddHours(-1)
-        LastApiCall = Get-Date
-        Scope = $ApplicationScript.Scope
-        GUID = [guid]::NewGuid()
-        TokenType = 'bearer'
-        GrantType = 'Password'
-        RateLimitUsed = 0
+        Application        = $ApplicationScript
+        IssueDate          = (Get-Date).AddHours(-2)
+        ExpireDate         = (Get-Date).AddHours(-1)
+        LastApiCall        = Get-Date
+        Scope              = $ApplicationScript.Scope
+        GUID               = [guid]::NewGuid()
+        TokenType          = 'bearer'
+        GrantType          = 'Password'
+        RateLimitUsed      = 0
         RateLimitRemaining = 60
-        RateLimitRest = 60
-        TokenCredential = $TokenCredential.psobject.copy()
+        RateLimitRest      = 60
+        TokenCredential    = $TokenCredential.psobject.copy()
     }
 
     $TokenClient = [RedditOAuthToken]@{
-        Application = $ApplicationScript
-        IssueDate = (Get-Date).AddHours(-2)
-        ExpireDate = (Get-Date).AddHours(-1)
-        LastApiCall = Get-Date
-        Scope = $ApplicationScript.Scope
-        GUID = [guid]::NewGuid()
-        TokenType = 'bearer'
-        GrantType = 'Client_Credentials'
-        RateLimitUsed = 0
+        Application        = $ApplicationScript
+        IssueDate          = (Get-Date).AddHours(-2)
+        ExpireDate         = (Get-Date).AddHours(-1)
+        LastApiCall        = Get-Date
+        Scope              = $ApplicationScript.Scope
+        GUID               = [guid]::NewGuid()
+        TokenType          = 'bearer'
+        GrantType          = 'Client_Credentials'
+        RateLimitUsed      = 0
         RateLimitRemaining = 60
-        RateLimitRest = 60
-        TokenCredential = $TokenCredential.psobject.copy()
+        RateLimitRest      = 60
+        TokenCredential    = $TokenCredential.psobject.copy()
     }
 
     $TokenImplicit = [RedditOAuthToken]@{
-        Application = $ApplicationInstalled
-        IssueDate = (Get-Date).AddHours(-2)
-        ExpireDate = (Get-Date).AddHours(-1)
-        LastApiCall = Get-Date
-        Scope = $ApplicationInstalled.Scope
-        GUID = [guid]::NewGuid()
-        TokenType = 'bearer'
-        GrantType = 'Implicit'
-        RateLimitUsed = 0
+        Application        = $ApplicationInstalled
+        IssueDate          = (Get-Date).AddHours(-2)
+        ExpireDate         = (Get-Date).AddHours(-1)
+        LastApiCall        = Get-Date
+        Scope              = $ApplicationInstalled.Scope
+        GUID               = [guid]::NewGuid()
+        TokenType          = 'bearer'
+        GrantType          = 'Implicit'
+        RateLimitUsed      = 0
         RateLimitRemaining = 60
-        RateLimitRest = 60
-        TokenCredential = $TokenCredential.psobject.copy()
+        RateLimitRest      = 60
+        TokenCredential    = $TokenCredential.psobject.copy()
     }
 
     $TokenWhatif = [RedditOAuthToken]@{
-        Application = $ApplicationScript
-        IssueDate = (Get-Date).AddHours(-2)
-        ExpireDate = (Get-Date).AddHours(-1)
-        LastApiCall = Get-Date
-        Scope = $ApplicationScript.Scope
-        GUID = [guid]::NewGuid()
-        TokenType = 'bearer'
-        GrantType = 'Authorization_Code'
-        RateLimitUsed = 0
+        Application        = $ApplicationScript
+        IssueDate          = (Get-Date).AddHours(-2)
+        ExpireDate         = (Get-Date).AddHours(-1)
+        LastApiCall        = Get-Date
+        Scope              = $ApplicationScript.Scope
+        GUID               = [guid]::NewGuid()
+        TokenType          = 'bearer'
+        GrantType          = 'Authorization_Code'
+        RateLimitUsed      = 0
         RateLimitRemaining = 60
-        RateLimitRest = 60
-        TokenCredential = $TokenCredential.psobject.copy()
-        RefreshCredential = $RefreshCredential.psobject.copy()
+        RateLimitRest      = 60
+        TokenCredential    = $TokenCredential.psobject.copy()
+        RefreshCredential  = $RefreshCredential.psobject.copy()
     }
 
     $TokenReturns = [RedditOAuthToken]@{
-        Application = $ApplicationScript
-        IssueDate = (Get-Date).AddHours(-2)
-        ExpireDate = (Get-Date).AddHours(-1)
-        LastApiCall = Get-Date
-        Scope = $ApplicationScript.Scope
-        GUID = [guid]::NewGuid()
-        TokenType = 'bearer'
-        GrantType = 'Authorization_Code'
-        RateLimitUsed = 0
+        Application        = $ApplicationScript
+        IssueDate          = (Get-Date).AddHours(-2)
+        ExpireDate         = (Get-Date).AddHours(-1)
+        LastApiCall        = Get-Date
+        Scope              = $ApplicationScript.Scope
+        GUID               = [guid]::NewGuid()
+        TokenType          = 'bearer'
+        GrantType          = 'Authorization_Code'
+        RateLimitUsed      = 0
         RateLimitRemaining = 60
-        RateLimitRest = 60
-        TokenCredential = $TokenCredential.psobject.copy()
-        RefreshCredential = $RefreshCredential.psobject.copy()
+        RateLimitRest      = 60
+        TokenCredential    = $TokenCredential.psobject.copy()
+        RefreshCredential  = $RefreshCredential.psobject.copy()
     }
 
     $TokenForce = [RedditOAuthToken]@{
-        Application = $ApplicationScript
-        IssueDate = Get-Date
-        ExpireDate = (Get-Date).AddHours(1)
-        LastApiCall = Get-Date
-        Scope = $ApplicationScript.Scope
-        GUID = [guid]::NewGuid()
-        TokenType = 'bearer'
-        GrantType = 'Authorization_Code'
-        RateLimitUsed = 0
+        Application        = $ApplicationScript
+        IssueDate          = Get-Date
+        ExpireDate         = (Get-Date).AddHours(1)
+        LastApiCall        = Get-Date
+        Scope              = $ApplicationScript.Scope
+        GUID               = [guid]::NewGuid()
+        TokenType          = 'bearer'
+        GrantType          = 'Authorization_Code'
+        RateLimitUsed      = 0
         RateLimitRemaining = 60
-        RateLimitRest = 60
-        TokenCredential = $TokenCredential.psobject.copy()
-        RefreshCredential = $RefreshCredential.psobject.copy()
+        RateLimitRest      = 60
+        TokenCredential    = $TokenCredential.psobject.copy()
+        RefreshCredential  = $RefreshCredential.psobject.copy()
     }
 
     $TokenPassthru = [RedditOAuthToken]@{
-        Application = $ApplicationScript
-        IssueDate = (Get-Date).AddHours(-2)
-        ExpireDate = (Get-Date).AddHours(-1)
-        LastApiCall = Get-Date
-        Scope = $ApplicationScript.Scope
-        GUID = [guid]::NewGuid()
-        TokenType = 'bearer'
-        GrantType = 'Authorization_Code'
-        RateLimitUsed = 0
+        Application        = $ApplicationScript
+        IssueDate          = (Get-Date).AddHours(-2)
+        ExpireDate         = (Get-Date).AddHours(-1)
+        LastApiCall        = Get-Date
+        Scope              = $ApplicationScript.Scope
+        GUID               = [guid]::NewGuid()
+        TokenType          = 'bearer'
+        GrantType          = 'Authorization_Code'
+        RateLimitUsed      = 0
         RateLimitRemaining = 60
-        RateLimitRest = 60
-        TokenCredential = $TokenCredential.psobject.copy()
-        RefreshCredential = $RefreshCredential.psobject.copy()
+        RateLimitRest      = 60
+        TokenCredential    = $TokenCredential.psobject.copy()
+        RefreshCredential  = $RefreshCredential.psobject.copy()
     }
 
     $ParameterSets = @(
         @{
-            Name = 'Code'
+            Name   = 'Code'
             Params = @{
                 AccessToken = $TokenCode
             }
         }
         @{
-            Name = 'Installed'
+            Name   = 'Installed'
             Params = @{
                 AccessToken = $TokenInstalled
             }
         }
         @{
-            Name = 'Password'
+            Name   = 'Password'
             Params = @{
                 AccessToken = $TokenPassword
             }
         }
         @{
-            Name = 'Client'
+            Name   = 'Client'
             Params = @{
                 AccessToken = $TokenClient
             }

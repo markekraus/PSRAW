@@ -2,22 +2,24 @@
     .NOTES
     
      Created with:  VSCode
-     Created on:    4/30/2017 1:22 PM
-     Edited on:     5/10/2017
+     Created on:    05/11/2017 4:41 AM
+     Edited on:     05/20/2017
      Created by:    Mark Kraus
      Organization: 	
-     Filename:      Export-RedditOAuthToken.Unit.Tests.ps1
+     Filename:      Import-RedditOAuthToken.Unit.Tests.ps1
     
     .DESCRIPTION
-        Export-RedditOAuthToken Function unit tests
+        Import-RedditOAuthToken Function unit tests
 #>
-$projectRoot = Resolve-Path "$PSScriptRoot\.."
+
+$projectRoot = Resolve-Path "$PSScriptRoot\..\.."
 $moduleRoot = Split-Path (Resolve-Path "$projectRoot\*\*.psd1")
 $moduleName = Split-Path $moduleRoot -Leaf
 Remove-Module -Force $moduleName  -ErrorAction SilentlyContinue
 Import-Module (Join-Path $moduleRoot "$moduleName.psd1") -force
 
-$Command = 'Export-RedditOAuthToken'
+$Command = 'Import-RedditOAuthToken'
+$TypeName = 'RedditOAuthToken'
 
 $ClientId = '54321'
 $ClientSceret = '12345'
@@ -72,25 +74,19 @@ $Token = [RedditOAuthToken]@{
     RefreshCredential  = $RefreshCredential
 }
 
+$Token | Export-Clixml -Path $TokenExportFile 
+
 $ParameterSets = @(
     @{
         Name   = 'Path'
         Params = @{
-            Path        = $TokenExportFile
-            AccessToken = $Token
+            Path = $TokenExportFile
         }
     }
     @{
         Name   = 'LiteralPath'
         Params = @{
             LiteralPath = $TokenExportFile
-            AccessToken = $Token
-        }
-    }
-    @{
-        Name   = 'ExportPath'
-        Params = @{
-            AccessToken = $Token
         }
     }
 )
@@ -102,18 +98,13 @@ function MyTest {
             { & $Command @LocalParams -ErrorAction Stop } | Should not throw
         }
     }
-    It "Exports a valid XML file." {
-        Test-Path -Path $TokenExportFile | Should Be $True
-        $xml = New-Object System.Xml.XmlDocument
-        {$xml.Load($TokenExportFile)} | should not throw
+    It "Emits a $TypeName Object" {
+        (Get-Command $Command).OutputType.Name.where( { $_ -eq $TypeName }) | Should be $TypeName
     }
-    It "Does not store secrets in plaintext" {
-        $Params = @{
-            Path        = $TokenExportFile
-            SimpleMatch = $true
-            Pattern     = '12345', '34567', "76543" 
-        }
-        Select-String @Params | should be $null
+    It "Returns a $TypeName Object" {
+        $LocalParams = $ParameterSets[0].Params.psobject.Copy()
+        $Object = & $Command @LocalParams | Select-Object -First 1
+        $Object.psobject.typenames.where( { $_ -eq $TypeName }) | Should be $TypeName
     }
 }
 

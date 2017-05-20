@@ -3,7 +3,7 @@
     
      Created with:  VSCode
      Created on:    5/10/2017 04:09 PM
-     Edited on:     5/18/2017
+     Edited on:     5/20/2017
      Created by:    Mark Kraus
      Organization: 	
      Filename:     RedditOAuthToken.Unit.Tests.ps1
@@ -12,7 +12,7 @@
         Unit Tests for RedditOAuthToken Class
 #>
 
-$projectRoot = Resolve-Path "$PSScriptRoot\.."
+$projectRoot = Resolve-Path "$PSScriptRoot\..\.."
 $moduleRoot = Split-Path (Resolve-Path "$projectRoot\*\*.psd1")
 $moduleName = Split-Path $moduleRoot -Leaf
 Remove-Module -Force $moduleName  -ErrorAction SilentlyContinue

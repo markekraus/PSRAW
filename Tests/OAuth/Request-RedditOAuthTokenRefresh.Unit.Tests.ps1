@@ -3,7 +3,7 @@
     
      Created with:  VSCode
      Created on:    5/18/2017 06:19 PM
-     Edited on:     5/18/2017
+     Edited on:     5/20/2017
      Created by:    Mark Kraus
      Organization: 	
      Filename:      Request-RedditOAuthTokenRefresh.Unit.Tests.ps1
@@ -12,16 +12,14 @@
         Request-RedditOAuthTokenRefresh Function unit tests
 #>
 
-$projectRoot = Resolve-Path "$PSScriptRoot\.."
+$projectRoot = Resolve-Path "$PSScriptRoot\..\.."
 $moduleRoot = Split-Path (Resolve-Path "$projectRoot\*\*.psd1")
 $moduleName = Split-Path $moduleRoot -Leaf
 Remove-Module -Force $moduleName  -ErrorAction SilentlyContinue
 Import-Module (Join-Path $moduleRoot "$moduleName.psd1") -force
 
 InModuleScope $moduleName {
-    $projectRoot = Resolve-Path "$PSScriptRoot\.."
-    $moduleRoot = Split-Path (Resolve-Path "$projectRoot\*\*.psd1")
-    $moduleName = Split-Path $moduleRoot -Leaf
+
     
     $Command = 'Request-RedditOAuthTokenRefresh'
     $TypeName = 'Microsoft.PowerShell.Commands.BasicHtmlWebResponseObject'
@@ -52,18 +50,18 @@ InModuleScope $moduleName {
         $RefreshCredential = [pscredential]::new($RefreshId, $SecRefreshSecret)
 
         $ApplicationScript = [RedditApplication]@{
-            Name = 'TestApplication'
-            Description = 'This is only a test'
-            RedirectUri = 'https://localhost/'
-            UserAgent = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
-            Scope = 'read'
+            Name             = 'TestApplication'
+            Description      = 'This is only a test'
+            RedirectUri      = 'https://localhost/'
+            UserAgent        = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
+            Scope            = 'read'
             ClientCredential = $ClientCredential
-            UserCredential = $UserCredential
-            Type = 'Script'
+            UserCredential   = $UserCredential
+            Type             = 'Script'
         }
 
         $ApplicationInstalled = [RedditApplication]@{
-            Name = 'TestApplication'
+            Name             = 'TestApplication'
             Description      = 'This is only a test'
             RedirectUri      = 'https://localhost/'
             UserAgent        = 'windows:PSRAW-Unit-Tests:v1.0.0.0'

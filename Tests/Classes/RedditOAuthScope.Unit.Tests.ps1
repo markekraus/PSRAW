@@ -3,7 +3,7 @@
     
      Created with:  VSCode
      Created on:    4/30/2017 10:15 AM
-     Edited on:     5/10/2017
+     Edited on:     5/20/2017
      Created by:    Mark Kraus
      Organization: 	
      Filename:     RedditOAuthScope.Unit.Tests.ps1
@@ -11,7 +11,7 @@
     .DESCRIPTION
         Unit Tests for RedditOAuthScope Class
 #>
-$projectRoot = Resolve-Path "$PSScriptRoot\.."
+$projectRoot = Resolve-Path "$PSScriptRoot\..\.."
 $moduleRoot = Split-Path (Resolve-Path "$projectRoot\*\*.psd1")
 $moduleName = Split-Path $moduleRoot -Leaf
 Remove-Module -Force $moduleName  -ErrorAction SilentlyContinue
@@ -34,12 +34,12 @@ $TestHashes = @(
 
 
 Describe "[$Class] Tests" -Tag Unit, Build {
-    foreach($TestHash in $TestHashes){
-        It "Converts the '$($TestHash.Name)' hash"{
+    foreach ($TestHash in $TestHashes) {
+        It "Converts the '$($TestHash.Name)' hash" {
             {[RedditOAuthScope]$TestHash.Hash} | should not throw
         }
     }
-     It "Has a working Uber Constructor." {
+    It "Has a working Uber Constructor." {
         {
             [RedditOAuthScope]::new(
                 <#Scope       #> 'creddits',
