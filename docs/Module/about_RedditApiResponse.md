@@ -5,12 +5,12 @@
 Describes the RedditApiResponse Class
 
 # LONG DESCRIPTION
-{{ Long Description Placeholder }}
+The `RedditApiResponse` is returned by the `Invoke-RedditRequest` function. It is used to house the response from the Reddit API.
 
 
 # Constructors
 ## RedditApiResponse()
-{{ Constructor Description Placeholder }}
+Creates a new `RedditApiResponse` object.
 
 ```powershell
 [RedditApiResponse]::new()
@@ -19,7 +19,7 @@ Describes the RedditApiResponse Class
 
 # Properties
 ## AccessToken
-{{ Property Description Placeholder }}
+The `RedditOAuthToken` used to authenticated the API request that resulted in this `RedditApiResponse`.
 
 ```yaml
 Name: AccessToken
@@ -29,7 +29,7 @@ Static: False
 ```
 
 ## ContentObject
-{{ Property Description Placeholder }}
+Will either be a `System.Management.Automation.PSCustomObject` or `System.String`. This is the converted content from the Reddit API response. Most responses from the API should be JSON object. Thise will be converted to `System.Management.Automation.PSCustomObject`. Other reponses will be stored as `System.String`.
 
 ```yaml
 Name: ContentObject
@@ -39,7 +39,7 @@ Static: False
 ```
 
 ## Parameters
-{{ Property Description Placeholder }}
+These are the paramters that were used with `Invoke-WebRequest` when it is called by `Invoke-RedditRequest`. The `Authorization` header will be truncated to protect the Access Token.
 
 ```yaml
 Name: Parameters
@@ -49,7 +49,7 @@ Static: False
 ```
 
 ## RequestDate
-{{ Property Description Placeholder }}
+This is the date the request was made to the API as determined by the API response (Reddit's Servers). This may differ from the local time.
 
 ```yaml
 Name: RequestDate
@@ -59,7 +59,7 @@ Static: False
 ```
 
 ## Response
-{{ Property Description Placeholder }}
+This is the response object returned from `Invoke-WebRequest` when it is called by `Invoke-RedditRequest`.
 
 ```yaml
 Name: Response
@@ -72,27 +72,41 @@ Static: False
 # Methods
 
 # EXAMPLES
-{{ Code or descriptive examples of how to leverage the functions described. }}
 
-# NOTE
-{{ Note Placeholder - Additional information that a user needs to know.}}
+## Basic Example
+```powershell
+$Params = @{
+    ContentType     = 'application/json'
+    Uri             = 'https://oauth.reddit.com/api/v1/me'
+    Method          = 'Get'
+    ErrorAction     = 'Stop'
+    UserAgent       = $AccessToken.Application.UserAgent
+    WebSession      = $AccessToken.Session
+    UseBasicParsing = $true
+    Headers = {
+        Authorization = 'Bearer {0}' -f $AccessToken.GetAccessToken()
+    }
+}
+$Result = Invoke-WebRequest @Params
+ [RedditApiResponse]@{
+    AccessToken   = $AccessToken
+    Parameters    = $Params
+    RequestDate   = $Result.Headers.Date
+    Response      = $Result
+    ContentObject = $Result.Content | ConvertFrom-Json
+}
+```
 
-# TROUBLESHOOTING NOTE
-{{ Troubleshooting Placeholder - Warns users of bugs}}
-
-{{ Explains behavior that is likely to change with fixes }}
+This example demonstrates using a `RedditOAuthToken` to make an autheticated web request to `https://oauth.reddit.com/api/v1/me` and creating a `RedditApiResponse` with the results. This is basically what is done within `Invoke-RedditRequest`
 
 # SEE ALSO
-{{ See also placeholder }}
 
-{{ You can also list related articles, blogs, and video URLs. }}
+[about_RedditApplication](https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication)
 
-# KEYWORDS
-{{List alternate names or titles for this topic that readers might use.}}
+[about_RedditOAuthToken](https://psraw.readthedocs.io/en/latest/Module/about_RedditOAuthToken)
 
-- {{ Keyword Placeholder }}
-- {{ Keyword Placeholder }}
-- {{ Keyword Placeholder }}
-- {{ Keyword Placeholder }}    
+[Invoke-RedditRequest](https://psraw.readthedocs.io/en/latest/Module/Invoke-RedditRequest)
 
+[Invoke-WebRequest](https://go.microsoft.com/fwlink/?LinkID=217035)
 
+[https://psraw.readthedocs.io/](https://psraw.readthedocs.io/)

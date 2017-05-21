@@ -100,7 +100,7 @@ InModuleScope $moduleName {
             Measure-Command {
                 $TokenCode.LastApiCall = Get-Date
                 $TokenCode | & $Command 
-            } | Select-Object -ExpandProperty TotalSeconds | Should BeGreaterThan 3
+            } | Select-Object -ExpandProperty TotalSeconds | Should BeGreaterThan 2
         }
         It "Sleeps only until MaxSleepSeconds" {
             $TokenCode.RateLimitRemaining = 0

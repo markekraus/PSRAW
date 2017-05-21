@@ -76,11 +76,11 @@ $ClientCredential = Get-Credential
 $Scope = Get-RedditOAuthScope | Where-Object {$_.Scope -like '*wiki*'} 
 $Params = @{
     Installed = $True
-    Name = 'Connect-Reddit'
+    Name = 'PSRAW Example App'
     Description = 'My Reddit Bot!'
     ClientCredential = $ClientCredential
     RedirectUri = 'https://adataum/ouath?'
-    UserAgent = 'windows:connect-reddit:v0.0.0.1 (by /u/makrkeraus)'
+    UserAgent = 'windows:PSRAW:v0.0.0.1 (by /u/makrkeraus)'
     Scope = $Scope
 }
 $RedditApp = New-RedditApplication @Params

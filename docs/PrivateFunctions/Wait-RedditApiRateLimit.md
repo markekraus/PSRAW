@@ -7,7 +7,7 @@ schema: 2.0.0
 # Wait-RedditApiRateLimit
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Suppresses the command prompt until the Reddit API Rate Limit has been lifted.
 
 ## SYNTAX
 
@@ -17,21 +17,23 @@ Wait-RedditApiRateLimit [-AccessToken] <RedditOAuthToken> [[-MaxSleepSeconds] <I
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+Reddit allows only 600 requests to be made to the API in 8 minutes. This infomration is returned by the Reddit API as the `x-reatlimit-used`, `x-ratelimit-remaining`, and `x-ratelimit-reset` response headers. `Invoke-GraphRequest` calls the `UpdateRatelimit()` method on `RedditOAuthToken` access tokens after every API call. `Wait-RedditApiRateLimit` will sleep until the rate limit period has been reset or until the `MaxSleepSeconds` has been reached. `Invoke-GraphRequest` calls `Wait-RedditApiRateLimit` before performing any API requests. If the rate limit is not in effect, `Wait-RedditApiRateLimit` will immediatly return.
+
+This function is not intended for direct usage by the module consumer and is not exported by the module. Documentation is provided for developers and contributors.
 
 ## EXAMPLES
 
-### Example 1
+### -------------------------- EXAMPLE 1 --------------------------
 ```
-PS C:\> {{ Add example code here }}
+PS C:\> $AccessToken | Wait-RedditApiRateLimit
 ```
 
-{{ Add example description here }}
+This example shows how `Invoke-GraphRequest` calls `Wait-RedditApiRateLimit`
 
 ## PARAMETERS
 
 ### -AccessToken
-{{Fill AccessToken Description}}
+The `RedditOAuthToken` to check for Rate Limiting and sleep if neccesary.
 
 ```yaml
 Type: RedditOAuthToken
@@ -46,7 +48,7 @@ Accept wildcard characters: False
 ```
 
 ### -MaxSleepSeconds
-{{Fill MaxSleepSeconds Description}}
+The Maximum number of seconds to wait. If this number is lower than the number of seconds until the Rate Limit reset, the function will return before the Rate Limit has been lifted.
 
 ```yaml
 Type: Int32
@@ -104,8 +106,14 @@ System.Int32
 ### System.Void
 
 ## NOTES
+This Function is called by 
+
+* [Invoke-RedditRequest](https://psraw.readthedocs.io/en/latest/Module/Invoke-RedditRequest)
 
 ## RELATED LINKS
 
 [https://psraw.readthedocs.io/en/latest/PrivateFunctions/Wait-RedditApiRateLimit](https://psraw.readthedocs.io/en/latest/PrivateFunctions/Wait-RedditApiRateLimit)
 
+[about_RedditOAuthToken](https://psraw.readthedocs.io/en/latest/Module/about_RedditOAuthToken)
+
+[Invoke-RedditRequest](https://psraw.readthedocs.io/en/latest/Module/Invoke-RedditRequest)
