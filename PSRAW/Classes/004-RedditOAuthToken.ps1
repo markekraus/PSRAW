@@ -29,6 +29,7 @@ Class RedditOAuthToken {
     [string]$DeviceId
     hidden [pscredential]$TokenCredential
     hidden [pscredential]$RefreshCredential
+    hidden [Microsoft.PowerShell.Commands.WebRequestSession]$Session = [Microsoft.PowerShell.Commands.WebRequestSession]::new()
     static [string] $AuthBaseURL = 'https://www.reddit.com/api/v1/access_token'
 
     RedditOAuthToken () {}
@@ -156,5 +157,21 @@ Class RedditOAuthToken {
             $SecString = $Content.access_token | ConvertTo-SecureString -AsPlainText -Force
             $This.TokenCredential = [pscredential]::new('access_token', $SecString)
         }
+    }
+
+    [void] UpdateRateLimit ([Object]$Response) {
+        $This.RateLimitRemaining = $Response.Headers.'x-ratelimit-remaining'
+        $This.RateLimitUsed = $Response.Headers.'x-ratelimit-used'
+        $This.RateLimitRest = $Response.Headers.'x-ratelimit-reset'
+        $This.LastApiCall = $Response.Headers.date
+    }
+
+    Static [RedditOAuthToken] Reserialize ([Object]$Object) {
+        $Token = [RedditOAuthToken]::new()
+        $Properties = $object.psobject.properties.name | Where-Object {-not ($_ -like 'Session' )}
+        Foreach ($Property in $Properties) {
+            $Token.$Property = $Object.$Property
+        }
+        return $Token
     }
 }

@@ -1,0 +1,16 @@
+<#	
+    .NOTES
+    
+     Created with: 	Plaster
+     Created on:   	<%=$PLASTER_Date%> <%=$PLASTER_Time%>
+     Editied on:    <%=$PLASTER_Date%>
+     Created by:   	<%=$PLASTER_PARAM_AuthorName%>
+     Organization: 	<%=$PLASTER_PARAM_AuthorOrg%>
+     Filename:     	<%=$PLASTER_PARAM_ClassOrder%>-<%=$PLASTER_PARAM_ClassName%>.ps1
+    
+    .DESCRIPTION
+        <%=$PLASTER_PARAM_ClassName%> Class
+#>
+Class <%=$PLASTER_PARAM_ClassName%> {
+    <%=$PLASTER_PARAM_ClassName%> () { }
+}

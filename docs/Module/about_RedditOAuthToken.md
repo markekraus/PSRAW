@@ -191,6 +191,16 @@ Hidden: False
 Static: False
 ```
 
+## Session
+Used to track the web session for `Invoke-GraphRequest` when calls are made to Reddit's API. This property will not be imported from `Import-RedditOAuthToken` and instead a new `Microsoft.PowerShell.Commands.WebRequestSession` will be created. This is primarily used to house Reddit's tracking cookies which provide a persisetnt CDN experience.
+
+```yaml
+Name: Session
+Type: Microsoft.PowerShell.Commands.WebRequestSession
+Hidden: True
+Static: False
+```
+
 ## TokenCredential
 A `PSCredential` object to house the OAuth Access Token.
 
@@ -281,6 +291,17 @@ Static: False
 Definition: Void Refresh(Object Response)
 ```
 
+## Reserialize(Object Object)
+Used to reserialize a deserialized `RedditOAuthToken` object. This is called by `Import-RedditOauthToken` after the object has been imported from XML.
+
+```yaml
+Name: Reserialize
+Return Type: RedditOAuthToken
+Hidden: False
+Static: True
+Definition: static RedditOAuthToken Reserialize(Object Object)
+```
+
 ## ToString()
 Returns a string representation of the `RedditOAuthToken` object.
 
@@ -292,6 +313,16 @@ Static: False
 Definition: String ToString()
 ```
 
+## UpdateRateLimit(Object Response)
+Updates the `RateLimitReset`, `RateLimitUsed`, `RateLimitRemaining`, and `LastApiCall` properties. This is called after every successful call to the Reddit API by `Invoke-RedditRequest`.
+
+```yaml
+Name: UpdateRateLimit
+Return Type: Void
+Hidden: False
+Static: False
+Definition: Void UpdateRateLimit(Object Response)
+```
 
 # EXAMPLES
 

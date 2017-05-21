@@ -3,7 +3,7 @@
     
      Created with:  VSCode
      Created on:    5/18/2017 06:19 PM
-     Edited on:     5/18/2017
+     Edited on:     5/20/2017
      Created by:    Mark Kraus
      Organization: 	
      Filename:      Request-RedditOAuthTokenRefresh.Unit.Tests.ps1
@@ -12,16 +12,14 @@
         Request-RedditOAuthTokenRefresh Function unit tests
 #>
 
-$projectRoot = Resolve-Path "$PSScriptRoot\.."
+$projectRoot = Resolve-Path "$PSScriptRoot\..\.."
 $moduleRoot = Split-Path (Resolve-Path "$projectRoot\*\*.psd1")
 $moduleName = Split-Path $moduleRoot -Leaf
 Remove-Module -Force $moduleName  -ErrorAction SilentlyContinue
 Import-Module (Join-Path $moduleRoot "$moduleName.psd1") -force
 
 InModuleScope $moduleName {
-    $projectRoot = Resolve-Path "$PSScriptRoot\.."
-    $moduleRoot = Split-Path (Resolve-Path "$projectRoot\*\*.psd1")
-    $moduleName = Split-Path $moduleRoot -Leaf
+
     
     $Command = 'Request-RedditOAuthTokenRefresh'
     $TypeName = 'Microsoft.PowerShell.Commands.BasicHtmlWebResponseObject'
@@ -169,16 +167,7 @@ InModuleScope $moduleName {
         }
         foreach ($ParameterSet in $ParameterSets) {
             It "'$($ParameterSet.Name)' Parameter set does not have errors" {
-                $LocalParams = @{
-                    AccessToken = $TokenCode
-                }
-                try { & $Command @LocalParams -ErrorAction Stop }
-                Catch { 
-                    Write-Host $($_ | fl * -force | out-string) 
-                    Write-Host $($_.Exception | fl * -force | out-string) 
-                    Write-Host $($_.Exception.Data | fl * -force | out-string)
-                    Write-Host $($Error | fl * -force | out-string) 
-                }
+                $LocalParams = $ParameterSet.Params
                 { & $Command @LocalParams -ErrorAction Stop } | Should not throw
             }
         }

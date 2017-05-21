@@ -61,8 +61,10 @@ function Import-RedditOAuthToken {
             $Params = @{
                 "$ImportParam" = $ImportFile
             }
-            $InObject = Import-Clixml @Params
-            [RedditOAuthToken]$InObject
+            $InObject = Import-Clixml @Params 
+            $AccessToken = [RedditOAuthToken]::Reserialize($InObject)
+            $AccessToken.ExportPath = (Resolve-Path $ImportFile).Path
+            $AccessToken
         } #End Foreach
     } #End Process
 } #End Function

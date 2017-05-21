@@ -57,7 +57,9 @@ function Import-RedditApplication {
                 "$ImportParam" = $ImportFile
             }
             $InObject = Import-Clixml @Params
-            [RedditApplication]$InObject
+            $Application = [RedditApplication]$InObject
+            $Application.ExportPath = (Resolve-Path $ImportFile).Path
+            $Application
         } #End Foreach
     } #End Process
 } #End Function

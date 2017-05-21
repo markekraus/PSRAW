@@ -2,28 +2,24 @@
     .NOTES
     
      Created with:  VSCode
-     Created on:    5/07/2017 11:50 AM
-     Edited on:     5/10/2017
+     Created on:    5/07/2017 12:45 PM
+     Edited on:     5/20/2017
      Created by:    Mark Kraus
      Organization: 	
-     Filename:      Request-RedditOAuthTokenPassword.Unit.Tests.ps1
+     Filename:      Request-RedditOAuthTokenInstalled.Unit.Tests.ps1
     
     .DESCRIPTION
-        Request-RedditOAuthTokenPassword Function unit tests
+        Request-RedditOAuthTokenInstalled Function unit tests
 #>
 
-$projectRoot = Resolve-Path "$PSScriptRoot\.."
+$projectRoot = Resolve-Path "$PSScriptRoot\..\.."
 $moduleRoot = Split-Path (Resolve-Path "$projectRoot\*\*.psd1")
 $moduleName = Split-Path $moduleRoot -Leaf
 Remove-Module -Force $moduleName  -ErrorAction SilentlyContinue
 Import-Module (Join-Path $moduleRoot "$moduleName.psd1") -force
 
 InModuleScope $moduleName {
-    $projectRoot = Resolve-Path "$PSScriptRoot\.."
-    $moduleRoot = Split-Path (Resolve-Path "$projectRoot\*\*.psd1")
-    $moduleName = Split-Path $moduleRoot -Leaf
-    
-    $Command = 'Request-RedditOAuthTokenPassword'
+    $Command = 'Request-RedditOAuthTokenInstalled'
     $TypeName = 'Microsoft.PowerShell.Commands.BasicHtmlWebResponseObject'
     
     $ClientId = '54321'
@@ -32,7 +28,6 @@ InModuleScope $moduleName {
     $ClientCredential = [pscredential]::new($ClientId, $SecClientSecret)
 
     $InstalledId = '54321'
-    $InstalledSceret = ''
     $SecInstalledSecret = [System.Security.SecureString]::new()
     $InstalledCredential = [pscredential]::new($InstalledId, $SecInstalledSecret)
 
@@ -79,6 +74,39 @@ InModuleScope $moduleName {
                 Application = $ApplicationScript
             }
         }
+        @{
+            Name   = 'Script with DeviceID'
+            Params = @{
+                Application = $ApplicationScript
+                DeviceID    = 'MyDeviceID'
+            }
+        }
+        @{
+            Name   = 'WebApp'
+            Params = @{
+                Application = $ApplicationWebApp
+            }
+        }
+        @{
+            Name   = 'WebApp with DeviceID'
+            Params = @{
+                Application = $ApplicationWebApp
+                DeviceID    = 'MyDeviceID'
+            }
+        }
+        @{
+            Name   = 'Installed'
+            Params = @{
+                Application = $ApplicationInstalled
+            }
+        }
+        @{
+            Name   = 'Installed with DeviceID'
+            Params = @{
+                Application = $ApplicationInstalled
+                DeviceID    = 'MyDeviceID'
+            }
+        }
     )
 
 
@@ -106,18 +134,6 @@ InModuleScope $moduleName {
             $LocalParams = $ParameterSets[0].Params.psobject.Copy()
             $Object = & $Command @LocalParams | Select-Object -First 1
             $Object.psobject.typenames.where( { $_ -eq $TypeName }) | Should be $TypeName
-        }
-        It "Does not support 'Installed' apps" {
-            $LocalParams = @{
-                Application = $ApplicationInstalled
-            }
-            { & $Command @LocalParams -ErrorAction Stop } | Should throw "RedditApplicationType must be 'Script'"
-        }
-        It "Does not support 'WebApp' apps" {
-            $LocalParams = @{
-                Application = $ApplicationWebApp
-            }
-            { & $Command @LocalParams -ErrorAction Stop } | Should throw "RedditApplicationType must be 'Script'"
         }
     }
     Describe "$command Unit" -Tags Unit {

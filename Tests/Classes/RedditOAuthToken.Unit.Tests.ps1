@@ -3,7 +3,7 @@
     
      Created with:  VSCode
      Created on:    5/10/2017 04:09 PM
-     Edited on:     5/18/2017
+     Edited on:     5/20/2017
      Created by:    Mark Kraus
      Organization: 	
      Filename:     RedditOAuthToken.Unit.Tests.ps1
@@ -12,7 +12,7 @@
         Unit Tests for RedditOAuthToken Class
 #>
 
-$projectRoot = Resolve-Path "$PSScriptRoot\.."
+$projectRoot = Resolve-Path "$PSScriptRoot\..\.."
 $moduleRoot = Split-Path (Resolve-Path "$projectRoot\*\*.psd1")
 $moduleName = Split-Path $moduleRoot -Leaf
 Remove-Module -Force $moduleName  -ErrorAction SilentlyContinue
@@ -26,7 +26,6 @@ $SecClientSecret = $ClientSceret | ConvertTo-SecureString -AsPlainText -Force
 $ClientCredential = [pscredential]::new($ClientId, $SecClientSecret)
 
 $InstalledId = '54321'
-$InstalledSceret = ''
 $SecInstalledSecret = [System.Security.SecureString]::new()
 $InstalledCredential = [pscredential]::new($InstalledId, $SecInstalledSecret)
 
@@ -221,5 +220,43 @@ Describe "[$Class] Tests" -Tag Unit, Build {
         $CodeToken.ExpireDate | Should BeGreaterThan $OldToken.ExpireDate
         {$CodeToken.Refresh($ResponseUriRefresh)} | should Not throw
         $CodeToken.GetAccessToken() | should be 'DDEEFF'
+    }
+    It "Has a working Reserialize() static method" {
+        $Object = [PSCustomObject]@{
+            Application        = $ApplicationWebApp
+            IssueDate          = Get-Date
+            ExpireDate         = (Get-Date).AddHours(1)
+            LastApiCall        = Get-Date
+            ExportPath         = 'c:\temp\AccessToken.xml'
+            Scope              = 'read'
+            GUID               = [guid]::NewGuid()
+            Notes              = 'This is a test token'
+            TokenType          = 'bearer'
+            GrantType          = 'Authorization_Code'
+            RateLimitUsed      = 0
+            RateLimitRemaining = 60
+            RateLimitRest      = 60
+            TokenCredential    = $TokenCredential
+            RefreshCredential  = $RefreshCredential
+        }
+        $Token = [RedditOAuthToken]::Reserialize($Object)
+        foreach ($Property in $Object.psobject.Properties.Name) {
+            $token.$Property | should be $Object.$Property
+        }
+    }
+    It "has a working UpdateRateLimit() method" {
+        $Response = [PSCustomObject]@{
+            Headers = @{
+                Date                    = Get-Date '2017/05/20'
+                'x-ratelimit-remaining' = 59
+                'x-ratelimit-used'      = 1
+                'x-ratelimit-reset'     = 30
+            }
+        }
+        $CodeToken.UpdateRateLimit($Response)
+        $CodeToken.RateLimitRemaining | should be 59
+        $CodeToken.RateLimitUsed | should be 1
+        $CodeToken.RateLimitRest | should be 30
+        $CodeToken.LastApiCall | should be $(Get-Date '2017/05/20')
     }
 }
