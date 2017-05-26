@@ -232,4 +232,41 @@ Describe "[$Class] Tests" -Tag Unit, Build {
             }
         } | Should Not Throw
     }
+    It "Converts a [Object] to [$Class]" {
+        $Hash = @{
+            Name             = 'TestApplication'
+            Description      = 'This is only a test'
+            RedirectUri      = 'https://localhost/'
+            UserAgent        = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
+            Scope            = 'read'
+            ClientCredential = $ClientCredential
+            UserCredential   = $UserCredential
+            Type             = 'Script'
+        }
+        $Object = [System.Object]::New()
+        $Hash.GetEnumerator() | ForEach-Object {
+            $LocalParams = @{
+                MemberType = 'NoteProperty'
+                Name       = $_.Name
+                Value      = $_.Value
+            }
+            $Object | Add-Member @LocalParams
+        }
+        {
+            [RedditApplication]$Object
+        } | Should Not Throw
+    }
+    It "Throws when a Script Application is missing a UserCredential" {
+        {
+            [RedditApplication][pscustomobject]@{
+                Name             = 'TestApplication'
+                Description      = 'This is only a test'
+                RedirectUri      = 'https://localhost/'
+                UserAgent        = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
+                Scope            = 'read'
+                ClientCredential = $ClientCredential
+                Type             = 'Script'
+            }
+        } | Should Throw "'UserCredential' required for 'Script' type"
+    }
 }
