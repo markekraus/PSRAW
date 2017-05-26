@@ -1,4 +1,4 @@
-# Version 1.1.0.5 (2017-05-26)
+# Version 1.1.0.6 (2017-05-26)
 ## What's new?
 
 Everything! This is the initial release of PSRAW so everything is a new feature! Check out the project at https://github.com/markekraus/PSRAW/ and the documentation at https://psraw.readthedocs.io/
