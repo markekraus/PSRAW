@@ -34,7 +34,7 @@
     Copyright              = '(c) 2017. All rights reserved.'
 	
     # Description of the functionality provided by this module
-    Description            = 'PowerShell Reddit API Wrapper'
+    Description            = 'PowerShell Reddit API Wrapper. See the project site at https://github.com/markekraus/PSRAW and the documentation at https://psmsgraph.readthedocs.io/'
 	
     # Minimum version of the Windows PowerShell engine required by this module
     PowerShellVersion      = '5.0'
@@ -63,7 +63,7 @@
 	
     # Script files (.ps1) that are run in the caller's environment prior to
     # importing this module
-    ScriptsToProcess       = @('Enums\RedditApplicationType.ps1','Enums\RedditOAuthDuration.ps1','Enums\RedditOAuthGrantType.ps1','Enums\RedditOAuthResponseType.ps1','Classes\001-RedditOAuthScope.ps1','Classes\002-RedditApplication.ps1','Classes\003-RedditOAuthCode.ps1','Classes\004-RedditOAuthToken.ps1','Classes\005-RedditApiResponse.ps1')
+    ScriptsToProcess       = @('Enums\RedditApplicationType.ps1', 'Enums\RedditOAuthDuration.ps1', 'Enums\RedditOAuthGrantType.ps1', 'Enums\RedditOAuthResponseType.ps1', 'Classes\001-RedditOAuthScope.ps1', 'Classes\002-RedditApplication.ps1', 'Classes\003-RedditOAuthCode.ps1', 'Classes\004-RedditOAuthToken.ps1', 'Classes\005-RedditApiResponse.ps1')
 	
     # Type files (.ps1xml) to be loaded when importing this module
     TypesToProcess         = @()
@@ -76,7 +76,7 @@
     NestedModules          = @()
 	
     # Functions to export from this module
-    FunctionsToExport      = @('Invoke-RedditRequest','Export-RedditApplication','Import-RedditApplication','New-RedditApplication','Export-RedditOAuthToken','Get-RedditOAuthScope','Import-RedditOAuthToken','Request-RedditOAuthToken','Update-RedditOAuthToken')
+    FunctionsToExport      = @('Invoke-RedditRequest', 'Export-RedditApplication', 'Import-RedditApplication', 'New-RedditApplication', 'Export-RedditOAuthToken', 'Get-RedditOAuthScope', 'Import-RedditOAuthToken', 'Request-RedditOAuthToken', 'Update-RedditOAuthToken')
 	
     # Cmdlets to export from this module
     CmdletsToExport        = @()
@@ -100,7 +100,7 @@
         PSData = @{
 			
             # Tags applied to this module. These help with module discovery in online galleries.
-            Tags         = @('Reddit', 'API', 'OAuth', 'REST', 'Social Media', "Forum", 'Messaging', 'Module')
+            Tags         = @('Reddit', 'API', 'OAuth', 'REST', 'Social Media', "Forum", 'Messaging', 'Module', 'PSRAW', 'Class')
 			
             # A URL to the license for this module.
             LicenseUri   = 'https://github.com/markekraus/PSRAW/blob/master/LICENSE'

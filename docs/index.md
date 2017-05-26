@@ -3,6 +3,8 @@
 # PSRAW
 **P**ower**S**hell **R**eddit **A**PI **W**rapper Module
 
+Project Site: [https://github.com/markekraus/PSRAW](https://github.com/markekraus/PSRAW)
+
 - [PSRAW](#psraw)
     - [What Is Reddit?](#what-is-reddit)
     - [What is PSRAW?](#what-is-psraw)
@@ -66,9 +68,16 @@ PSRAW is a community module made by the community for the community. However, th
 # Using PSRAW
 
 ## Installation
-PSRAW will soon be available on the PowerShell Gallery. 
+PSRAW is available on the [PowerShell Gallery](https://www.powershellgallery.com/packages/psraw/). 
 
-Download the [PSRAW](https://github.com/markekraus/PSRAW/tree/master/PSRAW) folder and all its contents and place them in your PowerShell modules folder.
+To Inspect:
+```powershell
+Save-Module -Name PSRAW -Path <path> 
+```
+To install:
+```powershell
+Install-Module -Name PSRAW
+```
 
 ## Documentation and Help
 The online documentation for this module is available at [https://psraw.readthedocs.io/](https://psraw.readthedocs.io/)
