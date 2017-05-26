@@ -102,4 +102,7 @@ Describe "[$Class] Tests" -Tag Unit, Build {
         ([RedditOAuthCode]$TestHashes[1].Hash).IsExpired() |
             should be $true
     }
+    It 'Has a working ToString() method' {
+        ([RedditOAuthCode]$TestHashes[0].Hash).ToString() | should match "Expires: .* Application: \(.*\)"
+    }
 }

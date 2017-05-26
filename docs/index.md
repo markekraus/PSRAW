@@ -1,4 +1,4 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/dirtlaov0dx9i51e/branch/master?svg=true)](https://ci.appveyor.com/project/markekraus/psraw/branch/master)[![Documentation Status](https://readthedocs.org/projects/psraw/badge/?version=latest)](http://psraw.readthedocs.io/en/latest/?badge=latest)
+[![Build status](https://ci.appveyor.com/api/projects/status/dirtlaov0dx9i51e/branch/master?svg=true)](https://ci.appveyor.com/project/markekraus/psraw/branch/master)[![Documentation Status](https://readthedocs.org/projects/psraw/badge/?version=latest)](http://psraw.readthedocs.io/en/latest/?badge=latest)[![codecov](https://codecov.io/gh/markekraus/PSRAW/branch/staging/graph/badge.svg)](https://codecov.io/gh/markekraus/PSRAW)
 
 # PSRAW
 **P**ower**S**hell **R**eddit **A**PI **W**rapper Module

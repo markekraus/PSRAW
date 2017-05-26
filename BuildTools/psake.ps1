@@ -48,6 +48,10 @@ Properties {
     $ReleaseNotes = "$ProjectRoot\RELEASE.md"
     $ChangeLog = "$ProjectRoot\docs\ChangeLog.md"
     $MkdcosYmlHeader = "$ProjectRoot\Config\header-mkdocs.yml"
+    # Exclude GUI files from coverage tests because they cannot be unit tested.
+    $CodeCoverageExclude = @(
+        'Show-RedditOAuthWindow.ps1'
+    )
 }
 
 Task Default -Depends PostDeploy
@@ -86,7 +90,7 @@ Task UnitTests -Depends Init {
     if ($TestResults.FailedCount -gt 0) {
         Write-Error "Failed '$($TestResults.FailedCount)' tests, build failed"
     }
-    
+    "`n"
 }
 
 Task Build -Depends UnitTests {
@@ -180,6 +184,7 @@ Task Build -Depends UnitTests {
         ErrorAction = 'SilentlyContinue'
     }
     (Get-Content @releaseparameters), "`r`n`r`n", (Get-Content @changeparameters) | Set-Content $ChangeLog
+    "`n"
 }
 
 Task Test -Depends Build {
@@ -216,7 +221,55 @@ Task Test -Depends Build {
     "`n"
 }
 
-Task BuildDocs -depends Test {
+Task CodeCoverage -depends Test {
+    $lines
+    $Params = @{
+        path    = $ModuleFolder 
+        Include = '*.ps1', '*.psm1' 
+        Recurse = $True
+        Exclude = $CodeCoverageExclude
+    }
+    $CodeCoverageFiles = Get-ChildItem @Params
+    $Params = @{
+        CodeCoverage = $CodeCoverageFiles
+        PassThru     = $True
+        Tag          = 'unit '
+        show         = 'none'
+        Script       = "$ProjectRoot\Tests"
+    }
+    $PesterResults = Invoke-Pester @Params
+    If ($ENV:BHBuildSystem -eq 'AppVeyor') {
+        . "$ProjectRoot\BuildTools\CodeCovIo-Helper.ps1"
+        $Params = @{
+            CodeCoverage = $PesterResults.CodeCoverage 
+            RepoRoot     = $ProjectRoot
+        } 
+        $CodeCovJsonPath = Export-CodeCovIoJson @Params
+        Invoke-UploadCoveCoveIoReport -Path $CodeCovJsonPath
+    }
+    $CoveragePercent = $PesterResults.CodeCoverage.NumberOfCommandsExecuted / $PesterResults.CodeCoverage.NumberOfCommandsAnalyzed
+    " "
+    "Code coverage report"
+    "   Files:             {0:N0}" -f $PesterResults.CodeCoverage.NumberOfFilesAnalyzed
+    "   Commands Analyzed: {0:N0}" -f $PesterResults.CodeCoverage.NumberOfCommandsAnalyzed
+    "   Commands Hit:      {0:N0}" -f $PesterResults.CodeCoverage.NumberOfCommandsExecuted
+    "   Commands Missed:   {0:N0}" -f $PesterResults.CodeCoverage.NumberOfCommandsMissed
+    "   Coverage:          {0:P2}" -f $CoveragePercent
+    " "
+    "Missed Commands:"
+    $PesterResults.CodeCoverage.MissedCommands | Select-Object @{
+        Name       = 'File'
+        Expression = {
+            $_.file.replace($ProjectRoot, '') -replace '^\\', ''
+        }
+    }, line, function, command | Out-String
+    if ($CoveragePercent -lt 0.90) {
+        Write-Error ("Build Failed. Coverage {0:P2} is below 90%" -f $CoveragePercent)
+    }
+    "`n"
+}
+
+Task BuildDocs -depends CodeCoverage {
     $lines
     Start-Job -FilePath "$ProjectRoot\BuildTools\BuildDocs.ps1" -ArgumentList @(
         $env:BHPSModuleManifest
@@ -230,6 +283,7 @@ Task BuildDocs -depends Test {
         $true
         $true
     ) | Wait-Job | Receive-Job
+    "`n"
 }
 
 Task TestDocs -Depends BuildDocs {
@@ -260,6 +314,7 @@ Task TestDocs -Depends BuildDocs {
     if ($TestResults.FailedCount -gt 0) {
         Write-Error "Failed '$($TestResults.FailedCount)' tests, build failed"
     }
+    "`n"
 }
 
 Task Deploy -Depends TestDocs {
@@ -284,6 +339,7 @@ Task Deploy -Depends TestDocs {
         "`t* You are committing to the master branch (Current: $ENV:BHBranchName) `n" + 
         "`t* Your commit message includes !deploy (Current: $ENV:BHCommitMessage)"
     }
+    "`n"
 }
 
 Task PostDeploy -depends Deploy {
@@ -370,4 +426,5 @@ Task PostDeploy -depends Deploy {
         $Response = Invoke-RestMethod @releaseParams
         $Response | Format-List *
     }
+    "`n"
 }
