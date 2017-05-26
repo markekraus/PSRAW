@@ -8,6 +8,8 @@ pages:
   - PSRAW Project:
     - Contributing to PSRAW: Project/Contributing.md
     - Project News: Project/News.md
+  - Release Notes: RELEASE.md
+  - Change Log: ChangeLog.md
   - Module Help:
     - PSRAW: Module/PSRAW.md
     - about_RedditApiResponse: Module/about_RedditApiResponse.md
