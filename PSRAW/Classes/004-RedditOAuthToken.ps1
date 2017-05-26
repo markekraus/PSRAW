@@ -11,6 +11,7 @@
     .DESCRIPTION
         RedditOAuthToken Class
 #>
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSAvoidUsingConvertToSecureStringWithPlainText", "")]
 
 Class RedditOAuthToken {
     [RedditApplication]$Application
