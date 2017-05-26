@@ -76,7 +76,7 @@ Static: False
 ```
 
 ## Scope
-Reddit's API reuturns a JSON object that contains an array of hashes. The Scope property preprsents the name of the scope hash. In most cases this matches the `Id`. This is the string that is sent to Reddit to request access to a scope.
+Reddit's API returns a JSON object that contains an array of hashes. The Scope property represents the name of the scope hash. In most cases this matches the `Id`. This is the string that is sent to Reddit to request access to a scope.
 
 ```yaml
 Name: Scope

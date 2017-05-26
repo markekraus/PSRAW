@@ -41,13 +41,13 @@ This is the "core" of this module. From here it is now possible for us to build 
 
 Between this release and the base functionality release, new features will be added in a backwards compatible way. My hope is that there will be no breaking changes. I believe the  core code is in a flexible enough position to achieve that. If there are breaking changes introduced, they will be announced here. In any case, if you plan to include this in production code, v1.1.0.0 should be stable but I would caution against automatic upgrades until v1.2.0.0.
 
-For this and all news items see the [Project News](tree/master/docs/Project/News.md) page.
+For All news see the [Project News](Project/News.md) page.
 
 ## Release Notes
-[Release Notes](tree/master/RELEASE.md)
+[Release Notes](RELEASE.md)
 
 ## Change Log
-[Change Log](tree/master/docs/ChangeLog.md)
+[Change Log](ChangeLog.md)
 
 # Features
 * In-memory and at-rest security of the Access Token, Refresh Token, Client Secret, and User Password. 
@@ -61,14 +61,14 @@ For this and all news items see the [Project News](tree/master/docs/Project/News
 * Thorough Online and In-Console Help Documentation
 
 # Contributing to the PSRAW Project
-PSRAW is a community module made by the community for the community. However, the goal of this project is to maintain high quality best practice code and high quality documentation. We encourage community contributions but there are several considerations to be aware of before contributing. For more information see the [Contributing to PSRAW](tree/master/docs/Project/Contributing.md) document.
+PSRAW is a community module made by the community for the community. However, the goal of this project is to maintain high quality best practice code and high quality documentation. We encourage community contributions but there are several considerations to be aware of before contributing. For more information see the [Contributing to PSRAW](Project/Contributing.md) document.
 
 # Using PSRAW
 
 ## Installation
 PSRAW will soon be available on the PowerShell Gallery. 
 
-Download the [PSRAW](tree/master/PSRAW) module folder and all its contents and place them in your PowerShell modules folder.
+Download the [PSRAW](https://github.com/markekraus/PSRAW/tree/master/PSRAW) folder and all its contents and place them in your PowerShell modules folder.
 
 ## Documentation and Help
 The online documentation for this module is available at [https://psraw.readthedocs.io/](https://psraw.readthedocs.io/)
@@ -81,4 +81,4 @@ Get-Help about_RedditOAuthToken
 ```
 
 ## Quickstart
-To see a quick example of how to use PSRAW see the [Quickstart Example](tree/master/docs/Examples/Quickstart.md) document.
+To see a quick example of how to use PSRAW see the [Quickstart Example](Examples/Quickstart.md) document.

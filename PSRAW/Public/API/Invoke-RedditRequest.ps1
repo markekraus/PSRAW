@@ -3,7 +3,7 @@
     
      Created with: 	Plaster
      Created on:   	5/20/2017 8:32 AM
-     Editied on:    5/20/2017
+     Edited on:     5/20/2017
      Created by:   	Mark Kraus
      Organization: 	 
      Filename:     	Invoke-RedditRequest.ps1
@@ -126,12 +126,12 @@ function Invoke-RedditRequest {
         switch ($Result.Headers.'Content-Type') {
             { $_ -match 'application/json' } {
                 Write-Verbose "Converting result from JSON to PSObject"
-                $ConentObject = $Result.Content | ConvertFrom-Json -ErrorAction SilentlyContinue
+                $ContentObject = $Result.Content | ConvertFrom-Json -ErrorAction SilentlyContinue
                 break
             }
             default {
                 Write-Verbose "Unhandled Content-Type. ContentObject will be raw."
-                $ConentObject = $Result.Content
+                $ContentObject = $Result.Content
                 break
             }
         }
@@ -141,7 +141,7 @@ function Invoke-RedditRequest {
             Parameters    = $Params
             RequestDate   = $Result.Headers.Date
             Response      = $Result
-            ContentObject = $ConentObject
+            ContentObject = $ContentObject
         }
     }
 }

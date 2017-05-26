@@ -3,7 +3,7 @@
     
      Created with: 	VSCode
      Created on:   	5/05/2017 02:48 PM
-     Editied on:    5/15/2017
+     Edited on:     5/15/2017
      Created by:   	Mark Kraus
      Organization: 	
      Filename:     	004-RedditOAuthToken.ps1
@@ -49,11 +49,11 @@ Class RedditOAuthToken {
                 Throw $Exception
             }
             $Content = @{}
-            $Paresed = [System.Web.HttpUtility]::
+            $Parsed = [System.Web.HttpUtility]::
             ParseQueryString($Response.Fragment -replace '^#')
-            $Paresed.Getenumerator() |
+            $Parsed.Getenumerator() |
                 ForEach-Object {
-                $Content.Add($_, $Paresed[$_])
+                $Content.Add($_, $Parsed[$_])
             }
         }
         #WebResponse Handler
@@ -89,13 +89,13 @@ Class RedditOAuthToken {
         }
     }
 
-    [datetime] GetRatelimitReset() {
+    [datetime] GetRateLimitReset() {
         return ($This.LastApiCall).AddSeconds($This.RateLimitRest)
     }
 
     [bool]IsRateLimited() {
         $Now = Get-date
-        $Reset = $This.GetRatelimitReset()
+        $Reset = $This.GetRateLimitReset()
         if ($now -ge $Reset) {
             return $False
         }
@@ -130,11 +130,11 @@ Class RedditOAuthToken {
                 Throw $Exception
             }
             $Content = @{}
-            $Paresed = [System.Web.HttpUtility]::
+            $Parsed = [System.Web.HttpUtility]::
             ParseQueryString($Response.Fragment -replace '^#')
-            $Paresed.Getenumerator() |
+            $Parsed.Getenumerator() |
                 ForEach-Object {
-                $Content.Add($_, $Paresed[$_])
+                $Content.Add($_, $Parsed[$_])
             }
         }
         #WebResponse Handler

@@ -21,8 +21,8 @@ Import-Module (Join-Path $moduleRoot "$moduleName.psd1") -force
 $Class = 'RedditOAuthToken'
 
 $ClientId = '54321'
-$ClientSceret = '12345'
-$SecClientSecret = $ClientSceret | ConvertTo-SecureString -AsPlainText -Force 
+$ClientSecret = '12345'
+$SecClientSecret = $ClientSecret | ConvertTo-SecureString -AsPlainText -Force 
 $ClientCredential = [pscredential]::new($ClientId, $SecClientSecret)
 
 $InstalledId = '54321'
@@ -30,18 +30,18 @@ $SecInstalledSecret = [System.Security.SecureString]::new()
 $InstalledCredential = [pscredential]::new($InstalledId, $SecInstalledSecret)
 
 $UserId = 'reddituser'
-$UserSceret = 'password'
-$SecUserSecret = $UserSceret | ConvertTo-SecureString -AsPlainText -Force 
+$UserSecret = 'password'
+$SecUserSecret = $UserSecret | ConvertTo-SecureString -AsPlainText -Force 
 $UserCredential = [pscredential]::new($UserId, $SecUserSecret)
 
 $TokenId = 'access_token'
-$TokenSceret = '34567'
-$SecTokenSecret = $TokenSceret | ConvertTo-SecureString -AsPlainText -Force 
+$TokenSecret = '34567'
+$SecTokenSecret = $TokenSecret | ConvertTo-SecureString -AsPlainText -Force 
 $TokenCredential = [pscredential]::new($TokenId, $SecTokenSecret)
 
 $RefreshId = 'refresh_token'
-$RefreshSceret = '76543'
-$SecRefreshSecret = $RefreshSceret | ConvertTo-SecureString -AsPlainText -Force 
+$RefreshSecret = '76543'
+$SecRefreshSecret = $RefreshSecret | ConvertTo-SecureString -AsPlainText -Force 
 $RefreshCredential = [pscredential]::new($RefreshId, $SecRefreshSecret)
 
 $ApplicationWebApp = [RedditApplication]@{
@@ -168,9 +168,9 @@ Describe "[$Class] Tests" -Tag Unit, Build {
         $ApplicationScript,
         $ResponseObjectCode
     )
-    It "Has a working GetRatelimitReset() method" {
-        $CodeToken.GetRatelimitReset() | should -BeOfType system.datetime
-        $CodeToken.GetRatelimitReset() | should -BeGreaterThan (get-date)
+    It "Has a working GetRateLimitReset() method" {
+        $CodeToken.GetRateLimitReset() | should -BeOfType system.datetime
+        $CodeToken.GetRateLimitReset() | should -BeGreaterThan (get-date)
     }
     It "Has a working IsRateLimited() method" {
         $CodeToken.IsRateLimited() | should BeOfType System.Boolean

@@ -128,7 +128,7 @@ Describe "Help tests for $moduleName" -Tags Documentation {
             }
             $Constructors = $Class.GetConstructors() |  ConstructorHeading
             foreach ($Constructor in $Constructors) {
-                it "Has Consturctor '$Constructor'" {
+                it "Has Constructor '$Constructor'" {
                     $helpDoc.FullName | should Contain ([regex]::Escape("## $Constructor"))
                 }                
             }

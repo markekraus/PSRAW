@@ -17,7 +17,7 @@ Wait-RedditApiRateLimit [-AccessToken] <RedditOAuthToken> [[-MaxSleepSeconds] <I
 ```
 
 ## DESCRIPTION
-Reddit allows only 600 requests to be made to the API in 8 minutes. This infomration is returned by the Reddit API as the `x-reatlimit-used`, `x-ratelimit-remaining`, and `x-ratelimit-reset` response headers. `Invoke-GraphRequest` calls the `UpdateRatelimit()` method on `RedditOAuthToken` access tokens after every API call. `Wait-RedditApiRateLimit` will sleep until the rate limit period has been reset or until the `MaxSleepSeconds` has been reached. `Invoke-GraphRequest` calls `Wait-RedditApiRateLimit` before performing any API requests. If the rate limit is not in effect, `Wait-RedditApiRateLimit` will immediatly return.
+Reddit allows only 600 requests to be made to the API in 8 minutes. This information is returned by the Reddit API as the `x-ratelimit-used`, `x-ratelimit-remaining`, and `x-ratelimit-reset` response headers. `Invoke-GraphRequest` calls the `UpdateRatelimit()` method on `RedditOAuthToken` access tokens after every API call. `Wait-RedditApiRateLimit` will sleep until the rate limit period has been reset or until the `MaxSleepSeconds` has been reached. `Invoke-GraphRequest` calls `Wait-RedditApiRateLimit` before performing any API requests. If the rate limit is not in effect, `Wait-RedditApiRateLimit` will immediately return.
 
 This function is not intended for direct usage by the module consumer and is not exported by the module. Documentation is provided for developers and contributors.
 
@@ -33,7 +33,7 @@ This example shows how `Invoke-GraphRequest` calls `Wait-RedditApiRateLimit`
 ## PARAMETERS
 
 ### -AccessToken
-The `RedditOAuthToken` to check for Rate Limiting and sleep if neccesary.
+The `RedditOAuthToken` to check for Rate Limiting and sleep if necessary.
 
 ```yaml
 Type: RedditOAuthToken

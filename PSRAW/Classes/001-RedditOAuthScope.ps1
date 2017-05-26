@@ -3,7 +3,7 @@
     
      Created with: 	VSCode
      Created on:   	4/24/2017 3:37 PM
-     Editied on:    5/10/2017
+     Edited on:     5/10/2017
      Created by:   	Mark Kraus
      Organization: 	
      Filename:     	001-RedditOAuthScope.ps1

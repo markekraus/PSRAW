@@ -3,7 +3,7 @@
     
      Created with: 	SAPIEN Technologies, Inc., PowerShell Studio 2017 v5.4.135
      Created on:   	2/28/2017 11:49 AM
-     Editied on:    5/10/2017
+     Edited on:    5/10/2017
      Created by:   	Mark Kraus
      Organization: 	
      Filename:     	PSScriptAnalyzer.tests.Ps1

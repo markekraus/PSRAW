@@ -5,11 +5,11 @@
 Describes the RedditApplication Class
 
 # LONG DESCRIPTION
-The `RedditApplication` class is used to define the parameters of an application which access the Reddit API. The `RedditApplication` class becomes embedded in the `RedditOAuthAcessToken` class after an OAuth Access token is requested. It is also embedded in `RedditOAuthCode` objects when an Authorzation Code is requested. A single application may be used by multiple users or by a single user multiple times. Each user requires their own Access Token and a single user can have multiple Access Token. The `RedditApplication` class makes it possible to define an application’s parameters once and then reuse it multiple times in multiple Access Tokens for multiple users. 
+The `RedditApplication` class is used to define the parameters of an application which access the Reddit API. The `RedditApplication` class becomes embedded in the `RedditOAuthToken` class after an OAuth Access token is requested. It is also embedded in `RedditOAuthCode` objects when an Authorization Code is requested. A single application may be used by multiple users or by a single user multiple times. Each user requires their own Access Token and a single user can have multiple Access Token. The `RedditApplication` class makes it possible to define an application’s parameters once and then reuse it multiple times in multiple Access Tokens for multiple users. 
 
 A `RedditApplication` class houses the Client ID and Client Secret as defined at https://ssl.reddit.com/prefs/apps . The `Name` and `Description` of the `RedditApplication` do not need to match what is registered with Reddit. They are provided along with the `GUID` property as a convenience to identify your applications.
 
-A `RedditApplication` is required to request an OAUth Access Token with `Request-RedditOAuthToken`.
+A `RedditApplication` is required to request an OAuth Access Token with `Request-RedditOAuthToken`.
 
 You can create `RedditApplication` objects using the `New-RedditApplication` function
 
@@ -25,14 +25,14 @@ The default constructor will always throw an `System.NotImplementedException` ex
 ```
 
 ## RedditApplication(Object Object)
-This constructor converts the provided `Object` to a `HashTable` and passes it to the `_init` method. This constructor provides `Object` to `RedditApplication` converstion.
+This constructor converts the provided `Object` to a `HashTable` and passes it to the `_init` method. This constructor provides `Object` to `RedditApplication` conversion.
 
 ```powershell
 [RedditApplication]::new([Object]$Object)
 ```
 
 ## RedditApplication(System.Management.Automation.PSObject PSObject)
-This constructor converts the provided `PSObject` to a `HashTable` and passes it to the `_init` method. This constructor provides `PSObject` to `RedditApplication` converstion.
+This constructor converts the provided `PSObject` to a `HashTable` and passes it to the `_init` method. This constructor provides `PSObject` to `RedditApplication` conversion.
 
 ```powershell
 [RedditApplication]::new([System.Management.Automation.PSObject]$PSObject)
@@ -76,7 +76,7 @@ Static: True
 ```
 
 ## ClientCredential
-The `ClientCredential` property contains a `PSCredential` object where the Username is the Application's Client ID and the password is the Client Secret as configired in reddit. For `Installed` applications, the password should be empty.
+The `ClientCredential` property contains a `PSCredential` object where the Username is the Application's Client ID and the password is the Client Secret as configured in reddit. For `Installed` applications, the password should be empty.
 
 ```yaml
 Name: ClientCredential
@@ -96,7 +96,7 @@ Static: False
 ```
 
 ## Description
-A description for the application used for conevnience of identifying and documenting the `RedditApplication` object only.
+A description for the application used for convenience of identifying and documenting the `RedditApplication` object only.
 
 ```yaml
 Name: Description
@@ -116,7 +116,7 @@ Static: False
 ```
 
 ## GUID
-A `Guid` used to help identify the application. This is provided for convenience and is not sent to or required by the API. In situations where multiple Applications may be in use, this GUID can be used to identify if the same applications is in use on seperate `RedditOAuthToken` objects.
+A `Guid` used to help identify the application. This is provided for convenience and is not sent to or required by the API. In situations where multiple Applications may be in use, this GUID can be used to identify if the same applications is in use on separate `RedditOAuthToken` objects.
 
 ```yaml
 Name: GUID
@@ -156,7 +156,7 @@ Static: False
 ```
 
 ## ScriptUser
-The `ScriptUser` property is the Reddit username used for Script Applications. This should match the uername in the `UserCredential` property
+The `ScriptUser` property is the Reddit username used for Script Applications. This should match the username in the `UserCredential` property
 
 ```yaml
 Name: ScriptUser
@@ -166,7 +166,7 @@ Static: False
 ```
 
 ## Type
-The `Type` property is one of the avialble `RedditAplicationType` enumerator options. This should match the application type registered on Reddit. for more informartion see `about_RedditApplicationType`
+The `Type` property is one of the available `RedditApplicationType` enumerator options. This should match the application type registered on Reddit. for more information see `about_RedditApplicationType`
 
 ```yaml
 Name: Type
@@ -176,7 +176,7 @@ Static: False
 ```
 
 ## UserAgent
-The `UserAgent` property contains the text that will be sent as the `User-Agent` header to the Reddit API. Reddit requires applications accessing their API provide a meaningful user agent. The following convetion is what they recommend.
+The `UserAgent` property contains the text that will be sent as the `User-Agent` header to the Reddit API. Reddit requires applications accessing their API provide a meaningful user agent. The following convention is what they recommend.
 
 ```
 <platform>:<app ID>:<version string> (by /u/<reddit username>)
@@ -209,19 +209,19 @@ Static: False
 
 
 # Methods
-## _GetAuthorzationUrl(RedditOAuthResponseType ResponseType, RedditOAuthDuration Duration, String State, String AuthBaseUrl)
-The `_GetAuthorzationUrl` hidden method is used to generate an authorzation request URL by the `GetAuthorzationUrl` method overloads. It combines the Base URL, Client ID, Response Type, Duration, Redirect URI, and Scope to to provide a URL used for requesting authorzation from Reddit.
+## _GetAuthorizationUrl(RedditOAuthResponseType ResponseType, RedditOAuthDuration Duration, String State, String AuthBaseUrl)
+The `_GetAuthorizationUrl` hidden method is used to generate an authorization request URL by the `GetAuthorizationUrl` method overloads. It combines the Base URL, Client ID, Response Type, Duration, Redirect URI, and Scope to to provide a URL used for requesting authorization from Reddit.
 
 ```yaml
-Name: _GetAuthorzationUrl
+Name: _GetAuthorizationUrl
 Return Type: String
 Hidden: True
 Static: False
-Definition: hidden String _GetAuthorzationUrl(RedditOAuthResponseType ResponseType, RedditOAuthDuration Duration, String State, String AuthBaseUrl)
+Definition: hidden String _GetAuthorizationUrl(RedditOAuthResponseType ResponseType, RedditOAuthDuration Duration, String State, String AuthBaseUrl)
 ```
 
 ## _init(System.Collections.Hashtable InitHash)
-The `_init` hidden method is used by the constructors to initialize the class. This way class initialization code can be maintained in a single method instead of each individual constructor. It performs serveral checks to ensure that required properties are provided and will throw `System.ArgumentException` exceptions if the requirements are not met.
+The `_init` hidden method is used by the constructors to initialize the class. This way class initialization code can be maintained in a single method instead of each individual constructor. It performs several checks to ensure that required properties are provided and will throw `System.ArgumentException` exceptions if the requirements are not met.
 
 ```yaml
 Name: _init
@@ -231,8 +231,8 @@ Static: False
 Definition: hidden Void _init(System.Collections.Hashtable InitHash)
 ```
 
-## GetAuthorzationUrl(RedditOAuthResponseType ResponseType, RedditOAuthDuration Duration, String State)
-The `GetAuthorzationUrl` method is used to generate an authorzation request URL. The default URL will be constructed with following:
+## GetAuthorizationUrl(RedditOAuthResponseType ResponseType, RedditOAuthDuration Duration, String State)
+The `GetAuthorizationUrl` method is used to generate an authorization request URL. The default URL will be constructed with following:
 
 ```yaml
 Base URL: [RedditApplication]::AuthBaseURL
@@ -241,18 +241,18 @@ duration: $Duration
 state: $State
 ```
 
-These will be pased to the `_GetAuthorzationUrl` method which will generate the URL based on attributes from the `RedditApplication` instance.
+These will be passed to the `_GetAuthorizationUrl` method which will generate the URL based on attributes from the `RedditApplication` instance.
 
 ```yaml
-Name: GetAuthorzationUrl
+Name: GetAuthorizationUrl
 Return Type: String
 Hidden: False
 Static: False
-Definition: String GetAuthorzationUrl(RedditOAuthResponseType ResponseType, RedditOAuthDuration Duration, String State)
+Definition: String GetAuthorizationUrl(RedditOAuthResponseType ResponseType, RedditOAuthDuration Duration, String State)
 ```
 
-## GetAuthorzationUrl(RedditOAuthResponseType ResponseType, RedditOAuthDuration Duration, String State, String AuthBaseURL)
-The `GetAuthorzationUrl` method is used to generate an authorzation request URL. The default URL will be constructed with following:
+## GetAuthorizationUrl(RedditOAuthResponseType ResponseType, RedditOAuthDuration Duration, String State, String AuthBaseURL)
+The `GetAuthorizationUrl` method is used to generate an authorization request URL. The default URL will be constructed with following:
 
 ```yaml
 Base URL: $AuthBaseURL
@@ -261,18 +261,18 @@ duration: $Duration
 state: $State
 ```
 
-These will be pased to the `_GetAuthorzationUrl` method which will generate the URL based on attributes from the `RedditApplication` instance.
+These will be passed to the `_GetAuthorizationUrl` method which will generate the URL based on attributes from the `RedditApplication` instance.
 
 ```yaml
-Name: GetAuthorzationUrl
+Name: GetAuthorizationUrl
 Return Type: String
 Hidden: False
 Static: False
-Definition: String GetAuthorzationUrl(RedditOAuthResponseType ResponseType, RedditOAuthDuration Duration, String State, String AuthBaseURL)
+Definition: String GetAuthorizationUrl(RedditOAuthResponseType ResponseType, RedditOAuthDuration Duration, String State, String AuthBaseURL)
 ```
 
-## GetAuthorzationUrl()
-The `GetAuthorzationUrl` method is used to generate an authorzation request URL. The default URL will be constructed with following:
+## GetAuthorizationUrl()
+The `GetAuthorizationUrl` method is used to generate an authorization request URL. The default URL will be constructed with following:
 
 ```yaml
 Base URL: [RedditApplication]::AuthBaseURL
@@ -281,18 +281,18 @@ duration: Permanent
 state: [guid]::NewGuid().toString()
 ```
 
-These will be pased to the `_GetAuthorzationUrl` method which will generate the URL based on attributes from the `RedditApplication` instance.
+These will be passed to the `_GetAuthorizationUrl` method which will generate the URL based on attributes from the `RedditApplication` instance.
 
 ```yaml
-Name: GetAuthorzationUrl
+Name: GetAuthorizationUrl
 Return Type: String
 Hidden: False
 Static: False
-Definition: String GetAuthorzationUrl()
+Definition: String GetAuthorizationUrl()
 ```
 
-## GetAuthorzationUrl(RedditOAuthResponseType ResponseType, RedditOAuthDuration Duration)
-The `GetAuthorzationUrl` method is used to generate an authorzation request URL. The default URL will be constructed with following:
+## GetAuthorizationUrl(RedditOAuthResponseType ResponseType, RedditOAuthDuration Duration)
+The `GetAuthorizationUrl` method is used to generate an authorization request URL. The default URL will be constructed with following:
 
 ```yaml
 Base URL: [RedditApplication]::AuthBaseURL
@@ -301,14 +301,14 @@ duration: $Duration
 state: [guid]::NewGuid().toString()
 ```
 
-These will be pased to the `_GetAuthorzationUrl` method which will generate the URL based on attributes from the `RedditApplication` instance.
+These will be passed to the `_GetAuthorizationUrl` method which will generate the URL based on attributes from the `RedditApplication` instance.
 
 ```yaml
-Name: GetAuthorzationUrl
+Name: GetAuthorizationUrl
 Return Type: String
 Hidden: False
 Static: False
-Definition: String GetAuthorzationUrl(RedditOAuthResponseType ResponseType, RedditOAuthDuration Duration)
+Definition: String GetAuthorizationUrl(RedditOAuthResponseType ResponseType, RedditOAuthDuration Duration)
 ```
 
 ## GetClientSecret()
@@ -385,7 +385,7 @@ $App = [RedditApplication]@{
 
 # SEE ALSO
 
-[about_RedditAplicationType](https://psraw.readthedocs.io/en/latest/Module/about_RedditAplicationType)
+[about_RedditApplicationType](https://psraw.readthedocs.io/en/latest/Module/about_RedditApplicationType)
 
 [about_RedditOAuthCode](https://psraw.readthedocs.io/en/latest/Module/about_RedditOAuthCode)
 

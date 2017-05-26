@@ -3,7 +3,7 @@
     
      Created with: 	VSCode
      Created on:   	5/06/2017 02:27 PM
-     Editied on:    5/14/2017
+     Edited on:     5/14/2017
      Created by:   	Mark Kraus
      Organization: 	
      Filename:     	Request-RedditOAuthTokenImplicit.ps1
@@ -53,7 +53,7 @@ function Request-RedditOAuthTokenImplicit {
         [String]$AuthBaseUrl = [RedditApplication]::AuthBaseURL
     )
     process {
-        $Url = $Application.GetAuthorzationUrl(
+        $Url = $Application.GetAuthorizationUrl(
             [RedditOAuthResponseType]::Token,
             [RedditOAuthDuration]::Temporary,
             $State,

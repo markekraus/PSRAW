@@ -3,7 +3,7 @@
     
      Created with: 	VSCode
      Created on:   	5/01/2017 11:38 AM
-     Editied on:    5/14/2017
+     Edited on:     5/14/2017
      Created by:   	Mark Kraus
      Organization: 	
      Filename:     	Request-RedditOAuthCode.ps1
@@ -57,7 +57,7 @@ function Request-RedditOAuthCode {
         if (-not $pscmdlet.ShouldProcess($Application.ClientID)) {
             return
         }
-        $Url = $Application.GetAuthorzationUrl(
+        $Url = $Application.GetAuthorizationUrl(
             [RedditOAuthResponseType]::Code,
             $Duration,
             $State,

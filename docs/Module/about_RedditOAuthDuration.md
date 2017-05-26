@@ -5,16 +5,16 @@
 Describes the RedditOAuthDuration Enum
 
 # LONG DESCRIPTION
-The `RedditOAuthDuration` enumerator represents the available options for Access Token durations druing Authorzation code requests to the Reddit API.
+The `RedditOAuthDuration` enumerator represents the available options for Access Token durations during Authorization code requests to the Reddit API.
 
 The `RedditOAuthDuration` Enumerator is imported automatically when you import the PSRAW module.
 
 
 # Fields
 ## Permanent
-Requests for permanent OAuth Access Tokens will issue an OAuth Refresh Token. Access Tokens are vailed for 60 minutes. When the Access Token expires the Refresh Token can be used to request a new access token without requiring the application to be authorized again. Refresh tokens are valid until a user or developer revokes the authorization for the application. 
+Requests for permanent OAuth Access Tokens will issue an OAuth Refresh Token. Access Tokens are valid for 60 minutes. When the Access Token expires the Refresh Token can be used to request a new access token without requiring the application to be authorized again. Refresh tokens are valid until a user or developer revokes the authorization for the application. 
 
-When `Permanent` Access Tokens are "renewed" the do not requerie a new grant flow and the Refresh Token will be used to request a new Acess Token.
+When `Permanent` Access Tokens are "renewed" the do not require a new grant flow and the Refresh Token will be used to request a new Access Token.
 
 `Permanent` can only be used with `Code` and `Script` methods.
 

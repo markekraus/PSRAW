@@ -84,7 +84,7 @@ Accept wildcard characters: False
 ```
 
 ### -State
-Optional parameter for the `state` to use when requesting the OAuth Authorization Code. This will be pased to as the `State` parameter to `Request-RedditOAuthCode`. The default is to generate a new `Guid`.
+Optional parameter for the `state` to use when requesting the OAuth Authorization Code. This will be passed to as the `State` parameter to `Request-RedditOAuthCode`. The default is to generate a new `Guid`.
 
 ```yaml
 Type: String

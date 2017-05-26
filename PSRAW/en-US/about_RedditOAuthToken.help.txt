@@ -7,32 +7,32 @@ SHORT DESCRIPTION
 LONG DESCRIPTION
     The `RedditOAuthToken` Class represents the OAuth Access Token used for
     authentication to the Reddit API. `RedditOAuthToken` objects are required by
-    the majority of functions in this module. `Invoke-RedditRequest` usses the
+    the majority of functions in this module. `Invoke-RedditRequest` uses the
     Access Token in `RedditOAuthToken` objects as a `bearer` Authorization
     header when making requests to Reddit. This way Reddit knows what level of
     access the application has in the API as well as under which user context
     the application is acting. Access Tokens are considering temporary secrets
     and are valid for 60 minutes. Some Access Tokens are also issued with
     Refresh Tokens. Refresh Tokens are permanent secrets and are valid until the
-    user or application revokes them. `RedditOAuthToken` objects house the Acess
-    Token and Refresh Toksn as a secure strings in a `PSCredential` objects.
+    user or application revokes them. `RedditOAuthToken` objects house the
+    Access Token and Refresh Token as a secure strings in a `PSCredential` objects.
     `RedditOAuthToken` objects are returned from the `Request-RedditOAuthToken`
     function. They can be "renewed" using the `Update-RedditOAuthToken`
     function. `RedditOAuthToken` objects can be imported and exported to XML
-    files using `Import-RedditOAuthToken` and `Export-RedditOAuthToken`. Diong
+    files using `Import-RedditOAuthToken` and `Export-RedditOAuthToken`. Doing
     so provides a secure way to store the Access Token, Refresh Token, Client
-    Scecret, and Reddit user password so that it can later be imported by other
+    Secret, and Reddit user password so that it can later be imported by other
     scripts or in a later console session. This provides the means for
     automation of authenticated access to the Reddit API.
     The same `RedditOAuthToken` should not be used in parallel PowerShell
     sessions. It is important that the `RedditOAuthToken` only be used within
     the same session state or else the token may be updated in another session
     and thus invalidate the `RedditOAuthToken` in the current session causing
-    Access Denied errors. Concurency where the same session is available should
+    Access Denied errors. Concurrency where the same session is available should
     be fine, but you will still be bound by Reddit's Rate Limiting of `60` API
     calls per minute. It is recommended that if you need concurrency, you
     request multiple Tokens on behalf of multiple users. Otherwise, you should
-    obey the rules and guidlines for accessing the Reddit API and code responsibly.
+    obey the rules and guidelines for accessing the Reddit API and code responsibly.
     The functions in this module will automatically enforce rate limiting when
     the the limits for the current Access Token have been reached. this will
     result in the functions sleeping until the rate limit has been lifted. While
@@ -50,9 +50,9 @@ RedditOAuthToken()
 RedditOAuthToken(RedditOAuthGrantType GrantType, RedditApplication Application, Object Response)
     Creates `RedditOAuthToken` object from the provided `RedditOAuthGrantType`,
     `RedditApplication`, and either a `system.uri` or a
-    `Microsoft.PowerShell.Commands.WebResponseObject` shapped object. Depending
-    on the grant flow used, the Access Toekn will be provided in a JSON response
-    or in the fragment part of a URI. This contructor builds the
+    `Microsoft.PowerShell.Commands.WebResponseObject` shaped object. Depending
+    on the grant flow used, the Access Token will be provided in a JSON response
+    or in the fragment part of a URI. This constructor builds the
     `RedditOAuthToken` from the data provided in those responses.
 
     [RedditOAuthToken]::new(
@@ -94,7 +94,7 @@ DeviceId
 ExpireDate
     A `DateTime` representing the time the Access Token will expire. If the
     Access Token is expired, the functions in this module will attempt to
-    autmatically renew the token upon the next API call.
+    automatically renew the token upon the next API call.
 
     Name: ExpireDate
     Type: DateTime
@@ -124,7 +124,7 @@ GrantType
 GUID
     A `Guid` used to help identify the Access Token. This is provided for
     convenience and is not sent to or required by the API. In situations where
-    mutlple Access Tokens may be in use, this GUID can be used to distringuis
+    multiple Access Tokens may be in use, this GUID can be used to distinguish
     between them. This GUID will not change when a Token is updated, even for
     methods which require a fresh grant flow. The purpose is to identify a
     specific initial grant for the Access Token.
@@ -145,8 +145,8 @@ IssueDate
     Static: False
 
 LastApiCall
-    This is a `DateTime` representing the last time this Acess Token was used to
-    call the API. This will be updated automatically every time a request is
+    This is a `DateTime` representing the last time this Access Token was used
+    to call the API. This will be updated automatically every time a request is
     made to the reddit API.
 
     Name: LastApiCall
@@ -155,8 +155,8 @@ LastApiCall
     Static: False
 
 Notes
-    This `String` property is provided for conveinience to module users. thjis
-    can be used to store session information, a description, a ticket ID, or
+    This `String` property is provided for convenience to module users. this can
+    be used to store session information, a description, a ticket ID, or
     whatever information the module user may deem valuable to associate with the
     Access Token.
 
@@ -169,7 +169,7 @@ RateLimitRemaining
     This is the number of API requests remaining before this Access Token will
     be rate limited. Reddit allows for `60` API calls per minute. If this
     reaches `0`, then the Access Token is rate limited and functions will sleep
-    untile the Rate Limit period is reset.
+    until the Rate Limit period is reset.
 
     Name: RateLimitRemaining
     Type: Int32
@@ -188,9 +188,9 @@ RateLimitRest
     Static: False
 
 RateLimitUsed
-    This is the numer of API calls that have been made since the that Rate Limit
-    reset period. This will be `0` when the rate limite period has reset and
-    `60` if the Access Token has been Rate Limited.
+    This is the number of API calls that have been made since the that Rate
+    Limit reset period. This will be `0` when the rate limit period has reset
+    and `60` if the Access Token has been Rate Limited.
 
     Name: RateLimitUsed
     Type: Int32
@@ -206,7 +206,7 @@ RefreshCredential
     Static: False
 
 Scope
-    An array of `RedditOAuthScops` objects representing the OAuth scopes for
+    An array of `RedditOAuthScope` objects representing the OAuth scopes for
     which this Access Token is valid.
 
     Name: Scope
@@ -219,7 +219,7 @@ Session
     to Reddit's API. This property will not be imported from
     `Import-RedditOAuthToken` and instead a new
     `Microsoft.PowerShell.Commands.WebRequestSession` will be created. This is
-    primarily used to house Reddit's tracking cookies which provide a persisetnt
+    primarily used to house Reddit's tracking cookies which provide a persistent
     CDN experience.
 
     Name: Session
@@ -254,15 +254,15 @@ GetAccessToken()
     Static: False
     Definition: String GetAccessToken()
 
-GetRatelimitReset()
-    Retrives the time that the Rate Limit period will be be reset.
+GetRateLimitReset()
+    Retrieves the time that the Rate Limit period will be be reset.
     (`LastApiCall` plus `RateLimitRest`)
 
-    Name: GetRatelimitReset
+    Name: GetRateLimitReset
     Return Type: DateTime
     Hidden: False
     Static: False
-    Definition: DateTime GetRatelimitReset()
+    Definition: DateTime GetRateLimitReset()
 
 GetRefreshToken()
     Retrieves the plain-text OAuth Refresh Token from the `RefreshCredential`
@@ -275,7 +275,7 @@ GetRefreshToken()
     Definition: String GetRefreshToken()
 
 IsExpired()
-    Returns `$True` if the token is expired Returns `$False` if the otken is not
+    Returns `$True` if the token is expired Returns `$False` if the token is not
     expired.
 
     Name: IsExpired
@@ -295,10 +295,10 @@ IsRateLimited()
     Definition: Boolean IsRateLimited()
 
 Refresh(Object Response)
-    Refreshes the `RedditOAuthToken` propertes when a token refresh has been
-    perfomed. The response will be either a `system.uri` or a
-    `Microsoft.PowerShell.Commands.WebResponseObject` shapped object. Depending
-    on the grant flow used, the refreshed Access Toekn will be provided in a
+    Refreshes the `RedditOAuthToken` properties when a token refresh has been
+    performed. The response will be either a `system.uri` or a
+    `Microsoft.PowerShell.Commands.WebResponseObject` shaped object. Depending
+    on the grant flow used, the refreshed Access Token will be provided in a
     JSON response or in the fragment part of a URI.
 
     Name: Refresh
@@ -309,7 +309,7 @@ Refresh(Object Response)
 
 Reserialize(Object Object)
     Used to reserialize a deserialized `RedditOAuthToken` object. This is called
-    by `Import-RedditOauthToken` after the object has been imported from XML.
+    by `Import-RedditOAuthToken` after the object has been imported from XML.
 
     Name: Reserialize
     Return Type: RedditOAuthToken
@@ -362,18 +362,18 @@ Create New Instance With Constructor
         UseBasicParsing = $true
     }
     $Result = Invoke-WebRequest @Params
-    $Token =  [RedditOAUthToken]::New('Installed', $Application, $Result)
+    $Token =  [RedditOAuthToken]::New('Installed', $Application, $Result)
 
-    This example shows how to manually request an OAuth Access Token fomr Reddit
+    This example shows how to manually request an OAuth Access Token from Reddit
     using the `installed_client` grant method and use the result to create a
-    `RedditOAUthToken` object.
+    `RedditOAuthToken` object.
 
 Sleep Until Rate Limit Period Reset.
     While ($Token.IsRateLimited()){
         Start-Sleep -Seconds 1
     }
 
-    This example demonstrates how to sleep until the the Reate Limit period has
+    This example demonstrates how to sleep until the the Rate Limit period has
     been reset.
 
 SEE ALSO

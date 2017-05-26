@@ -5,13 +5,13 @@
 Describes the RedditOAuthGrantType Enum
 
 # LONG DESCRIPTION
-The `RedditOAuthGrantType` enumerator contains the available grant types available for OAuth Access Tokens requests on Reddit. this is visble on `RedditOAuthToken` objects as the `GrantType` property. It is used by various functions in this module to determine the actions and endpoints required to request Access Tokens.
+The `RedditOAuthGrantType` enumerator contains the available grant types available for OAuth Access Tokens requests on Reddit. this is visible on `RedditOAuthToken` objects as the `GrantType` property. It is used by various functions in this module to determine the actions and endpoints required to request Access Tokens.
 
 The `RedditOAuthGrantType` Enumerator is imported automatically when you import the PSRAW module.
 
 # Fields
 ## Authorization_Code
-This Grant method requires that the Reddit user authorizize the application and retrun an OAuth Authorization code. The application mst the used the Authorization Code, the Client, ID, and client Secret to request an Access Token. For more information see the `Code` parameter description of `Request-RedditOAuthToken` or the Reddit OAuth documentation at https://github.com/reddit/reddit/wiki/OAuth2#token-retrieval-code-flow
+This Grant method requires that the Reddit user authorize the application and return an OAuth Authorization code. The application mst the used the Authorization Code, the Client, ID, and client Secret to request an Access Token. For more information see the `Code` parameter description of `Request-RedditOAuthToken` or the Reddit OAuth documentation at https://github.com/reddit/reddit/wiki/OAuth2#token-retrieval-code-flow
 
 ## Client_Credentials
 This grant method uses the Client ID and Client Secret to request an anonymous Access Token. This method will not act under a user context but will allow "logged out" access to the OAuth API endpoints for `Script` and `WebApp` applications. For more information see the `Client` parameter description of `Request-RedditOAuthToken` or the Reddit OAuth documentation at  https://github.com/reddit/reddit/wiki/OAuth2#application-only-oauth
@@ -23,10 +23,10 @@ This grant flow allows temporary "logged in" access to the Reddit API on behalf 
 This grant flow allows anonymous access to the Reddit API for `Installed` applications. This method will not act under a user context but will allow "logged out" access to the OAuth API endpoints.  For more information see the `Installed` parameter description of `Request-RedditOAuthToken` or the Reddit OAuth documentation at https://github.com/reddit/reddit/wiki/OAuth2#application-only-oauth
 
 ## Password
-This grant flow allows for the developer of `Script` applications to access the Reddit API as themslves. This uses the Username, Password, Client ID, and Client Secret to request an OAuth Access Token.  For more information see the `Script` parameter description of `Request-RedditOAuthToken` or the Reddit OAuth documentation at https://github.com/reddit/reddit/wiki/OAuth2#application-only-oauth
+This grant flow allows for the developer of `Script` applications to access the Reddit API as themselves. This uses the Username, Password, Client ID, and Client Secret to request an OAuth Access Token.  For more information see the `Script` parameter description of `Request-RedditOAuthToken` or the Reddit OAuth documentation at https://github.com/reddit/reddit/wiki/OAuth2#application-only-oauth
 
 ## Refresh_Token
-This grant flow is used to request new OAuth Access Tokens for `Permanent` requests. `Code` and `Password` grant flows can request `Permanent` Acess Tokens which will issue a Refresh Token with the Access Token. When an Access Token expires, the application can use the Refresh Token to request a new Access Token without requiring the user reauthorizng the application. The Refresh Token is valid until the user or applications revokes the authorization. For more information see https://github.com/reddit/reddit/wiki/OAuth2#refreshing-the-token
+This grant flow is used to request new OAuth Access Tokens for `Permanent` requests. `Code` and `Password` grant flows can request `Permanent` Access Tokens which will issue a Refresh Token with the Access Token. When an Access Token expires, the application can use the Refresh Token to request a new Access Token without requiring the user reauthorizing the application. The Refresh Token is valid until the user or applications revokes the authorization. For more information see https://github.com/reddit/reddit/wiki/OAuth2#refreshing-the-token
 
 
 # SEE ALSO

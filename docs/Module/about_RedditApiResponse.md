@@ -29,7 +29,7 @@ Static: False
 ```
 
 ## ContentObject
-Will either be a `System.Management.Automation.PSCustomObject` or `System.String`. This is the converted content from the Reddit API response. Most responses from the API should be JSON object. Thise will be converted to `System.Management.Automation.PSCustomObject`. Other reponses will be stored as `System.String`.
+Will either be a `System.Management.Automation.PSCustomObject` or `System.String`. This is the converted content from the Reddit API response. Most responses from the API should be JSON object. This will be converted to `System.Management.Automation.PSCustomObject`. Other responses will be stored as `System.String`.
 
 ```yaml
 Name: ContentObject
@@ -39,7 +39,7 @@ Static: False
 ```
 
 ## Parameters
-These are the paramters that were used with `Invoke-WebRequest` when it is called by `Invoke-RedditRequest`. The `Authorization` header will be truncated to protect the Access Token.
+These are the parameters that were used with `Invoke-WebRequest` when it is called by `Invoke-RedditRequest`. The `Authorization` header will be truncated to protect the Access Token.
 
 ```yaml
 Name: Parameters
@@ -97,7 +97,7 @@ $Result = Invoke-WebRequest @Params
 }
 ```
 
-This example demonstrates using a `RedditOAuthToken` to make an autheticated web request to `https://oauth.reddit.com/api/v1/me` and creating a `RedditApiResponse` with the results. This is basically what is done within `Invoke-RedditRequest`
+This example demonstrates using a `RedditOAuthToken` to make an authenticated web request to `https://oauth.reddit.com/api/v1/me` and creating a `RedditApiResponse` with the results. This is basically what is done within `Invoke-RedditRequest`
 
 # SEE ALSO
 

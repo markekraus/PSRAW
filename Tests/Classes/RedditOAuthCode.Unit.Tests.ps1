@@ -19,13 +19,13 @@ Import-Module (Join-Path $moduleRoot "$moduleName.psd1") -force
 $Class = 'RedditOAuthCode'
 
 $ClientId = '54321'
-$ClientSceret = '12345'
-$SecClientSecret = $ClientSceret | ConvertTo-SecureString -AsPlainText -Force 
+$ClientSecret = '12345'
+$SecClientSecret = $ClientSecret | ConvertTo-SecureString -AsPlainText -Force 
 $ClientCredential = [pscredential]::new($ClientId, $SecClientSecret)
 
 $UserId = 'reddituser'
-$UserSceret = 'password12345'
-$SecUserSecret = $UserSceret | ConvertTo-SecureString -AsPlainText -Force 
+$UserSecret = 'password12345'
+$SecUserSecret = $UserSecret | ConvertTo-SecureString -AsPlainText -Force 
 $UserCredential = [pscredential]::new($UserId, $SecUserSecret)
 
 $ExportFile = '{0}\RedditApplicationExport-{1}.xml' -f $env:TEMP, [guid]::NewGuid().toString()
@@ -43,8 +43,8 @@ $Application = [RedditApplication]@{
 }
 
 $CodeId = 'AuthCode'
-$CodeSceret = '98765'
-$SecCodeSecret = $CodeSceret | ConvertTo-SecureString -AsPlainText -Force 
+$CodeSecret = '98765'
+$SecCodeSecret = $CodeSecret | ConvertTo-SecureString -AsPlainText -Force 
 $CodeCredential = [pscredential]::new($CodeId, $SecCodeSecret)
 
 $IssueDate = Get-Date
@@ -90,7 +90,7 @@ Describe "[$Class] Tests" -Tag Unit, Build {
     }
     It 'Has a working GetAuthorizationCode() method' {
         ([RedditOAuthCode]$TestHashes[0].Hash).
-        GetAuthorizationCode() | should be $CodeSceret
+        GetAuthorizationCode() | should be $CodeSecret
     }
     It 'Has a working GetExpireDate() method' {
         ([RedditOAuthCode]$TestHashes[0].Hash).GetExpireDate() |

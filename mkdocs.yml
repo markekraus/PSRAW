@@ -5,6 +5,9 @@ theme: readthedocs
 copyright: "PSMSGraph is licensed under the <a href='https://github.com/markekraus/PSRAW/raw/master/LICENSE'>MIT license"
 pages:
   - Home: index.md
+  - PSRAW Project:
+    - Contributing to PSRAW: Project/Contributing.md
+    - Project News: Project/News.md
   - Module Help:
     - PSRAW: Module/PSRAW.md
     - about_RedditApiResponse: Module/about_RedditApiResponse.md
@@ -36,4 +39,6 @@ pages:
     - Request-RedditOAuthTokenRefresh: PrivateFunctions/Request-RedditOAuthTokenRefresh.md
     - Show-RedditOAuthWindow: PrivateFunctions/Show-RedditOAuthWindow.md
     - Wait-RedditApiRateLimit: PrivateFunctions/Wait-RedditApiRateLimit.md
+  - Examples:
+    - Quickstart Example: Examples/Quickstart.md
 

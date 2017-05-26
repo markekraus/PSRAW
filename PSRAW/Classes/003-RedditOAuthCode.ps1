@@ -3,7 +3,7 @@
     
      Created with: 	VSCode
      Created on:   	5/01/2017 12:00 PM
-     Editied on:    5/10/2017
+     Edited on:     5/10/2017
      Created by:   	Mark Kraus
      Organization: 	
      Filename:     	003-RedditOAuthCode.psm1

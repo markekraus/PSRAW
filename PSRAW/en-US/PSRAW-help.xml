@@ -9,7 +9,7 @@
 </maml:para>
 </maml:description>
 </command:details>
-<maml:description><maml:para>Allows you to export a `RedditApplication` object to an XML file so that you can later import the object via `Import-RedditApplication`. This allows you to share the same Reddit application between multiple scripts. This function is a wraper for `Export-Clixml`. 
+<maml:description><maml:para>Allows you to export a `RedditApplication` object to an XML file so that you can later import the object via `Import-RedditApplication`. This allows you to share the same Reddit application between multiple scripts. This function is a wrapper for `Export-Clixml`. 
 </maml:para>
 <maml:para>User Passwords and Client Secrets stored in the `RedditApplication` object are stored as secure strings and are not visible as plaintext in the export file. This also means that a `RedditApplication` object exported by one user cannot be imported by another user on the same computer nor can it be imported by the same user on a different computer. It can only be imported by the same user on the same computer.
 </maml:para>
@@ -244,7 +244,7 @@
 <command:examples><command:example><maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
 <dev:code>$Application.ExportPath = 'c:\PSRAW\RedditApplication.xml'
 $Application | Export-RedditApplication</dev:code>
-<dev:remarks><maml:para>This example uses the `ExportPath` property on the `RedditApplication` object to determine where to export the application. When a `RedditApplication` object is imported with `Import-RedditApplication`, the `ExportPath` of the object will be set with the path to the file it was imported from. This amkes it easy to import, make changes, and then re-export the application. The `ExportPath` property is treated as a `LiteralPath`.
+<dev:remarks><maml:para>This example uses the `ExportPath` property on the `RedditApplication` object to determine where to export the application. When a `RedditApplication` object is imported with `Import-RedditApplication`, the `ExportPath` of the object will be set with the path to the file it was imported from. This makes it easy to import, make changes, and then re-export the application. The `ExportPath` property is treated as a `LiteralPath`.
 </maml:para>
 </dev:remarks>
 </command:example>
@@ -289,7 +289,7 @@ $Application | Export-RedditApplication</dev:code>
 </maml:para>
 </maml:description>
 </command:details>
-<maml:description><maml:para>Allows you to export a `RedditOAuthToken` object to an XML file so that you can later import the object via `Import-RedditOAuthToken`. This allows you to share the same Reddit application between multiple scripts. This function is a wraper for `Export-Clixml`. 
+<maml:description><maml:para>Allows you to export a `RedditOAuthToken` object to an XML file so that you can later import the object via `Import-RedditOAuthToken`. This allows you to share the same Reddit application between multiple scripts. This function is a wrapper for `Export-Clixml`. 
 </maml:para>
 <maml:para>User Password, Client Secret, Access Token, and Refresh Token stored in the `RedditOAuthToken` object are stored as secure strings and are not visible as plaintext in the export file. This also means that a `RedditOAuthToken` object exported by one user cannot be imported by another user on the same computer nor can it be imported by the same user on a different computer. It can only be imported by the same user on the same computer.
 </maml:para>
@@ -524,7 +524,7 @@ $Application | Export-RedditApplication</dev:code>
 <command:examples><command:example><maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
 <dev:code>$Token.ExportPath = 'c:\PSRAW\RedditOAuthToken.xml'
 $Token | Export-RedditOAuthToken</dev:code>
-<dev:remarks><maml:para>This example uses the `ExportPath` property on the `RedditOAuthToken` object to determine where to export the application. When a `RedditOAuthToken` object is imported with `Import-RedditOAuthToken`, the `ExportPath` of the object will be set with the path to the file it was imported from. This amkes it easy to import, make changes, and then re-export the application. The `ExportPath` property is treated as a `LiteralPath`.
+<dev:remarks><maml:para>This example uses the `ExportPath` property on the `RedditOAuthToken` object to determine where to export the application. When a `RedditOAuthToken` object is imported with `Import-RedditOAuthToken`, the `ExportPath` of the object will be set with the path to the file it was imported from. This makes it easy to import, make changes, and then re-export the application. The `ExportPath` property is treated as a `LiteralPath`.
 </maml:para>
 </dev:remarks>
 </command:example>
@@ -565,11 +565,11 @@ $Token | Export-RedditOAuthToken</dev:code>
 <command:details><command:name>Get-RedditOAuthScope</command:name>
 <command:verb>Get</command:verb>
 <command:noun>RedditOAuthScope</command:noun>
-<maml:description><maml:para>Retireve valid Reddit OAuth Scopes.
+<maml:description><maml:para>Retrieve valid Reddit OAuth Scopes.
 </maml:para>
 </maml:description>
 </command:details>
-<maml:description><maml:para>Retrive valid OAuth scope IDs, Names, and Descriptions from Reddit. The Scope ID's are required for requesting OAuth Authorzation codes
+<maml:description><maml:para>Retrieve valid OAuth scope IDs, Names, and Descriptions from Reddit. The Scope ID's are required for requesting OAuth Authorization codes
 </maml:para>
 </maml:description>
 <command:syntax><command:syntaxItem><maml:name>Get-RedditOAuthScope</maml:name>
@@ -650,7 +650,7 @@ $Token | Export-RedditOAuthToken</dev:code>
 </maml:para>
 </maml:description>
 </command:details>
-<maml:description><maml:para>Allows you to import a `RedditApplication` object from an XML file that was previously exported via `Export-RedditApplication`. This allows you to share the same Reddit application between multiple scripts. This function is a wraper for `Import-Clixml`. 
+<maml:description><maml:para>Allows you to import a `RedditApplication` object from an XML file that was previously exported via `Export-RedditApplication`. This allows you to share the same Reddit application between multiple scripts. This function is a wrapper for `Import-Clixml`. 
 </maml:para>
 <maml:para>User Passwords and Client Secrets stored in the `RedditApplication` object are stored as secure strings and are not visible as plaintext in the export file. This also means that a `RedditApplication` object exported by one user cannot be imported by another user on the same computer nor can it be imported by the same user on a different computer. It can only be imported by the same user on the same computer.
 </maml:para>
@@ -812,7 +812,7 @@ $Token | Export-RedditOAuthToken</dev:code>
 </maml:para>
 </maml:description>
 </command:details>
-<maml:description><maml:para>Allows you to import a `RedditOAuthToken` object from an XML file that was previously exported via `Export-RedditOAuthToken`. This allows you to share the same Reddit application between multiple scripts. This function is a wraper for `Import-Clixml`. 
+<maml:description><maml:para>Allows you to import a `RedditOAuthToken` object from an XML file that was previously exported via `Export-RedditOAuthToken`. This allows you to share the same Reddit application between multiple scripts. This function is a wrapper for `Import-Clixml`. 
 </maml:para>
 <maml:para>User Password, Client Secret, Access Token, and Refresh Token stored in the `RedditOAuthToken` object are stored as secure strings and are not visible as plaintext in the export file. This also means that a `RedditOAuthToken` object exported by one user cannot be imported by another user on the same computer nor can it be imported by the same user on a different computer. It can only be imported by the same user on the same computer.
 </maml:para>
@@ -976,9 +976,9 @@ $Token | Export-RedditOAuthToken</dev:code>
 </command:details>
 <maml:description><maml:para>`Invoke-RedditRequest` is the core function of this module. All API requests made to Reddit are done so by calls to `Invoke-RedditRequest`. It can also be used directly in order to obtain raw API responses or to access API functionality that has not yet been provided by this module's wrapper functions.
 </maml:para>
-<maml:para>`Invoke-RedditRequest` Requires a `RedditOAuthToken` in order to perform the authetnicated API request. To create `RedditOAuthToken` see thelp help info for `Request-RedditOAuthToken`.
+<maml:para>`Invoke-RedditRequest` Requires a `RedditOAuthToken` in order to perform the authenticated API request. To create `RedditOAuthToken` see the help info for `Request-RedditOAuthToken`.
 </maml:para>
-<maml:para>`Invoke-RedditRequest` is essentially a wrapper for `Invoke-WebRequest` to ease the burden of authentication, Rate Limit monitroing, and Acces Token renewal. 
+<maml:para>`Invoke-RedditRequest` is essentially a wrapper for `Invoke-WebRequest` to ease the burden of authentication, Rate Limit monitoring, and Access Token renewal. 
 </maml:para>
 <maml:para>`Invoke-RedditRequest` returns a `RedditApiResponse` which contains the `RedditOAuthToken`, The response from the API, and a converted Content Object. The `RedditApiResponse` can then be used to create other module objects or consumed directly.
 </maml:para>
@@ -1194,9 +1194,9 @@ $Token | Export-RedditOAuthToken</dev:code>
 </command:returnValues>
 <maml:alertSet><maml:alert><maml:para>`Invoke-RedditRequest` uses `Invoke-WebRequest` instead of `Invoke-RestMethod` because Reddit returns Rate Limiting data via response headers. `Invoke-RedditRequest` uses the `UseBasicParsing` parameter when calling `Invoke-WebRequest` so the full DOM will not be available on the `RedditApiResponse` object.
 </maml:para>
-<maml:para>`Invoke-RedditRequest` will automatically wait for Rate Limiting to pass. If a Rate Limit is in effect, a warning will be issued by `Invoke-RedditRequest`. Rate Limit periods vary but are generally 8 minutes. If you are supressing warnings and `Invoke-RedditRequest` takes several minutes to complete, you may be making too many calls to the API in too short a time. You can check the status of your rate limit with the `IsRateLimited()` method on the `RedditOAuthToken` before making calls to `Invoke-RedditRequest`.
+<maml:para>`Invoke-RedditRequest` will automatically wait for Rate Limiting to pass. If a Rate Limit is in effect, a warning will be issued by `Invoke-RedditRequest`. Rate Limit periods vary but are generally 8 minutes. If you are suppressing warnings and `Invoke-RedditRequest` takes several minutes to complete, you may be making too many calls to the API in too short a time. You can check the status of your rate limit with the `IsRateLimited()` method on the `RedditOAuthToken` before making calls to `Invoke-RedditRequest`.
 </maml:para>
-<maml:para>`Invoke-RedditRequest` will attempt to refresh all expired Access Tokens. If the `RedditOAuthToken` is an `Implicit` token, this will require an interactive session as the user will need to authorize the application via the provided GUI browser. This may also crash some version of Powershell ISE as there is currently a bug where `WinForms` elements causes ISE to freeze. Avoide using `Implicit` tokens and if they are required, make sure `Invoke-RedditRequest` is called from a PowerShell console instead of the ISE.
+<maml:para>`Invoke-RedditRequest` will attempt to refresh all expired Access Tokens. If the `RedditOAuthToken` is an `Implicit` token, this will require an interactive session as the user will need to authorize the application via the provided GUI browser. This may also crash some version of Powershell ISE as there is currently a bug where `WinForms` elements causes ISE to freeze. Avoid using `Implicit` tokens and if they are required, make sure `Invoke-RedditRequest` is called from a PowerShell console instead of the ISE.
 </maml:para>
 <maml:para>Errors encountered when making the API request will be available in the `Response` property on the the exception object.
 </maml:para>
@@ -1206,11 +1206,11 @@ $Token | Export-RedditOAuthToken</dev:code>
 <dev:code>$Token = Import-RedditOAuthToken 'C:\PSRAW\AccessToken.xml'
 $Uri = 'https://oauth.reddit.com/api/v1/me'
 $Response = $Token | Invoke-RedditRequest -Uri $Uri</dev:code>
-<dev:remarks><maml:para>This example demonstrates how to import a `RedditOAuthToken` that was perviously exported with `Export-RedditOAuthToken` and then using that token to make an authenticated API request to `https://oauth.reddit.com/api/v1/me` with `Invoke-RedditRequest`.
+<dev:remarks><maml:para>This example demonstrates how to import a `RedditOAuthToken` that was previously exported with `Export-RedditOAuthToken` and then using that token to make an authenticated API request to `https://oauth.reddit.com/api/v1/me` with `Invoke-RedditRequest`.
 </maml:para>
 <maml:para>The `RedditOAuthToken` does not need to be refreshed before calling `Invoke-RedditRequest`. `Invoke-RedditRequest` will attempt to refresh expired Access Tokens before making any API calls.
 </maml:para>
-<maml:para>This method is similar to what can be done within automation scripts provded that the  `RedditOAuthToken` is not an `Implicit` token.
+<maml:para>This method is similar to what can be done within automation scripts provided that the  `RedditOAuthToken` is not an `Implicit` token.
 </maml:para>
 </dev:remarks>
 </command:example>
@@ -1223,7 +1223,7 @@ $Params = @{
     Description = 'My Reddit Bot!'
     ClientCredential = $ClientCredential
     RedirectUri = 'https://adataum/ouath?'
-    UserAgent = 'windows:PSRAW:v0.0.0.1 (by /u/makrkeraus)'
+    UserAgent = 'windows:PSRAW:v0.0.0.1 (by /u/markekraus)'
     Scope = $Scope
 }
 $RedditApp = New-RedditApplication @Params
@@ -1298,7 +1298,7 @@ $Messages = $response.ContentObject.data.children.data</dev:code>
 </maml:description>
 <command:syntax><command:syntaxItem><maml:name>New-RedditApplication</maml:name>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="ClientInfo"><maml:name>ClientCredential</maml:name>
-<maml:Description><maml:para>A PScredential object containging the Client ID as the Username and the Client Secret as the password. For 'Installed' Apps which have no Client Secret, the password will be ignored.
+<maml:Description><maml:para>A PScredential object containing the Client ID as the Username and the Client Secret as the password. For 'Installed' Apps which have no Client Secret, the password will be ignored.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
@@ -1316,7 +1316,7 @@ $Messages = $response.ContentObject.data.children.data</dev:code>
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>GUID</maml:name>
-<maml:Description><maml:para>A GUID to identify the application. If one is not perovided, a new GUID will be generated.
+<maml:Description><maml:para>A GUID to identify the application. If one is not provided, a new GUID will be generated.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">Guid</command:parameterValue>
@@ -1333,7 +1333,7 @@ $Messages = $response.ContentObject.data.children.data</dev:code>
 <dev:defaultValue>False</dev:defaultValue>
 </command:parameter>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="AppName"><maml:name>Name</maml:name>
-<maml:Description><maml:para>Name of the Reddit App. This does not need to match the name registered on Reddit. It is used for convenient identification and ducomentation purposes only.
+<maml:Description><maml:para>Name of the Reddit App. This does not need to match the name registered on Reddit. It is used for convenient identification and documentation purposes only.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -1366,7 +1366,7 @@ $Messages = $response.ContentObject.data.children.data</dev:code>
 </maml:para>
 <maml:para>Example:
 </maml:para>
-<maml:para>windows:PSRAW:v0.0.0.1 (by /u/makrkeraus)
+<maml:para>windows:PSRAW:v0.0.0.1 (by /u/markekraus)
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -1377,7 +1377,7 @@ $Messages = $response.ContentObject.data.children.data</dev:code>
 </command:syntaxItem>
 <command:syntaxItem><maml:name>New-RedditApplication</maml:name>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="ClientInfo"><maml:name>ClientCredential</maml:name>
-<maml:Description><maml:para>A PScredential object containging the Client ID as the Username and the Client Secret as the password. For 'Installed' Apps which have no Client Secret, the password will be ignored.
+<maml:Description><maml:para>A PScredential object containing the Client ID as the Username and the Client Secret as the password. For 'Installed' Apps which have no Client Secret, the password will be ignored.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
@@ -1395,7 +1395,7 @@ $Messages = $response.ContentObject.data.children.data</dev:code>
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>GUID</maml:name>
-<maml:Description><maml:para>A GUID to identify the application. If one is not perovided, a new GUID will be generated.
+<maml:Description><maml:para>A GUID to identify the application. If one is not provided, a new GUID will be generated.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">Guid</command:parameterValue>
@@ -1404,7 +1404,7 @@ $Messages = $response.ContentObject.data.children.data</dev:code>
 <dev:defaultValue>[guid]::NewGuid()</dev:defaultValue>
 </command:parameter>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="AppName"><maml:name>Name</maml:name>
-<maml:Description><maml:para>Name of the Reddit App. This does not need to match the name registered on Reddit. It is used for convenient identification and ducomentation purposes only.
+<maml:Description><maml:para>Name of the Reddit App. This does not need to match the name registered on Reddit. It is used for convenient identification and documentation purposes only.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -1445,7 +1445,7 @@ $Messages = $response.ContentObject.data.children.data</dev:code>
 </maml:para>
 <maml:para>Example:
 </maml:para>
-<maml:para>windows:PSRAW:v0.0.0.1 (by /u/makrkeraus)
+<maml:para>windows:PSRAW:v0.0.0.1 (by /u/markekraus)
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -1465,7 +1465,7 @@ $Messages = $response.ContentObject.data.children.data</dev:code>
 </command:syntaxItem>
 <command:syntaxItem><maml:name>New-RedditApplication</maml:name>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="ClientInfo"><maml:name>ClientCredential</maml:name>
-<maml:Description><maml:para>A PScredential object containging the Client ID as the Username and the Client Secret as the password. For 'Installed' Apps which have no Client Secret, the password will be ignored.
+<maml:Description><maml:para>A PScredential object containing the Client ID as the Username and the Client Secret as the password. For 'Installed' Apps which have no Client Secret, the password will be ignored.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
@@ -1483,7 +1483,7 @@ $Messages = $response.ContentObject.data.children.data</dev:code>
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>GUID</maml:name>
-<maml:Description><maml:para>A GUID to identify the application. If one is not perovided, a new GUID will be generated.
+<maml:Description><maml:para>A GUID to identify the application. If one is not provided, a new GUID will be generated.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">Guid</command:parameterValue>
@@ -1492,7 +1492,7 @@ $Messages = $response.ContentObject.data.children.data</dev:code>
 <dev:defaultValue>[guid]::NewGuid()</dev:defaultValue>
 </command:parameter>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="AppName"><maml:name>Name</maml:name>
-<maml:Description><maml:para>Name of the Reddit App. This does not need to match the name registered on Reddit. It is used for convenient identification and ducomentation purposes only.
+<maml:Description><maml:para>Name of the Reddit App. This does not need to match the name registered on Reddit. It is used for convenient identification and documentation purposes only.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -1525,7 +1525,7 @@ $Messages = $response.ContentObject.data.children.data</dev:code>
 </maml:para>
 <maml:para>Example:
 </maml:para>
-<maml:para>windows:PSRAW:v0.0.0.1 (by /u/makrkeraus)
+<maml:para>windows:PSRAW:v0.0.0.1 (by /u/markekraus)
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -1553,7 +1553,7 @@ $Messages = $response.ContentObject.data.children.data</dev:code>
 </command:syntaxItem>
 </command:syntax>
 <command:parameters><command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="ClientInfo"><maml:name>ClientCredential</maml:name>
-<maml:Description><maml:para>A PScredential object containging the Client ID as the Username and the Client Secret as the password. For 'Installed' Apps which have no Client Secret, the password will be ignored.
+<maml:Description><maml:para>A PScredential object containing the Client ID as the Username and the Client Secret as the password. For 'Installed' Apps which have no Client Secret, the password will be ignored.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
@@ -1571,7 +1571,7 @@ $Messages = $response.ContentObject.data.children.data</dev:code>
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>GUID</maml:name>
-<maml:Description><maml:para>A GUID to identify the application. If one is not perovided, a new GUID will be generated.
+<maml:Description><maml:para>A GUID to identify the application. If one is not provided, a new GUID will be generated.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">Guid</command:parameterValue>
@@ -1589,7 +1589,7 @@ $Messages = $response.ContentObject.data.children.data</dev:code>
 <dev:defaultValue>False</dev:defaultValue>
 </command:parameter>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="AppName"><maml:name>Name</maml:name>
-<maml:Description><maml:para>Name of the Reddit App. This does not need to match the name registered on Reddit. It is used for convenient identification and ducomentation purposes only.
+<maml:Description><maml:para>Name of the Reddit App. This does not need to match the name registered on Reddit. It is used for convenient identification and documentation purposes only.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -1631,7 +1631,7 @@ $Messages = $response.ContentObject.data.children.data</dev:code>
 </maml:para>
 <maml:para>Example:
 </maml:para>
-<maml:para>windows:PSRAW:v0.0.0.1 (by /u/makrkeraus)
+<maml:para>windows:PSRAW:v0.0.0.1 (by /u/markekraus)
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -1681,7 +1681,7 @@ $Params = @{
     Description = 'My Reddit Bot!'
     ClientCredential = $ClientCredential
     RedirectUri = 'https://adataum/ouath?'
-    UserAgent = 'windows:connect-reddit:v0.0.0.1 (by /u/makrkeraus)'
+    UserAgent = 'windows:connect-reddit:v0.0.0.1 (by /u/markekraus)'
     Scope = $Scope
 }
 $RedditApp = New-RedditApplication @Params</dev:code>
@@ -1700,7 +1700,7 @@ $Params = @{
     ClientCredential = $ClientCredential
     UserCredential = $UserCredential
     RedirectUri = 'https://adataum/ouath?'
-    UserAgent = 'windows:connect-reddit:v0.0.0.1 (by /u/makrkeraus)'
+    UserAgent = 'windows:connect-reddit:v0.0.0.1 (by /u/markekraus)'
     Scope = $Scope
 }
 $RedditApp = New-RedditApplication @Params</dev:code>
@@ -1717,7 +1717,7 @@ $Params = @{
     Description = 'My Reddit Bot!'
     ClientCredential = $ClientCredential
     RedirectUri = 'https://adataum/ouath?'
-    UserAgent = 'windows:PSRAW:v0.0.0.1 (by /u/makrkeraus)'
+    UserAgent = 'windows:PSRAW:v0.0.0.1 (by /u/markekraus)'
     Scope = $Scope
 }
 $RedditApp = New-RedditApplication @Params</dev:code>
@@ -1763,17 +1763,17 @@ $RedditApp = New-RedditApplication @Params</dev:code>
 </maml:para>
 </maml:description>
 </command:details>
-<maml:description><maml:para>Requests an OAuth Access Token from Reddit and returns a `RedditOAuthToken` object for the given `RedditApplication`. The OAuth Access Token is used by other functions in this module to make authenticated calls tot he Reddit API. For more information on Reddit's OAuth impliementation, see https://github.com/reddit/reddit/wiki/OAuth2
+<maml:description><maml:para>Requests an OAuth Access Token from Reddit and returns a `RedditOAuthToken` object for the given `RedditApplication`. The OAuth Access Token is used by other functions in this module to make authenticated calls tot he Reddit API. For more information on Reddit's OAuth implementation, see https://github.com/reddit/reddit/wiki/OAuth2
 </maml:para>
 <maml:para>A `RedditApplication` object is required to request a `RedditOAutToken`. Once the token has been issued the `RedditApplication` will be added to the `RedditOAuthToken` object as the `Application` property. for mor information see the `about_RedditOAuthToken` help topic.
 </maml:para>
 <maml:para>Reddit provides several different methods for obtaining Access Tokens depending on your needs and required level of access to the API. For more information on each, see the `Client`,`Code`, `Implicit`, `Installed` and `Script` parameter descriptions. For most uses, either `Code` or `Script` will provide the most benefit.
 </maml:para>
-<maml:para>`Code` and `Implicit` methods cannot be run in non-interactive sessions as they require logging into reddit through a GUI (provided by thsi module). For `Code` Access Tokens this only needs to be pereformed once for more info see the `Code` parameter description. For `Implicit` Access Tokens, this must be done at least once an hour.
+<maml:para>`Code` and `Implicit` methods cannot be run in non-interactive sessions as they require logging into reddit through a GUI (provided by this module). For `Code` Access Tokens this only needs to be performed once for more info see the `Code` parameter description. For `Implicit` Access Tokens, this must be done at least once an hour.
 </maml:para>
-<maml:para>All `RedditOAuthToken` types will automatically refresh when they expire when consumed by functions in this module. `Implicit` tokens will prompt for credentials through a GUI on every renewal. You can also manually refresh them using `Update-RedditOauthToken`.
+<maml:para>All `RedditOAuthToken` types will automatically refresh when they expire when consumed by functions in this module. `Implicit` tokens will prompt for credentials through a GUI on every renewal. You can also manually refresh them using `Update-RedditOAuthToken`.
 </maml:para>
-<maml:para>&gt; PowerShell ISE Compatibility Issue &gt;  &gt; There is currently a bug in some versions of PowerShell ISE that result in the ISE becoming unresponsive when `WinForms` elements are used. This is an upstream bug and cannot be fixed within this module. To work around this, run this command from the PowerShell Console only and not from the ISE when using any of the grant methods which require and intercative session.
+<maml:para>&gt; PowerShell ISE Compatibility Issue &gt;  &gt; There is currently a bug in some versions of PowerShell ISE that result in the ISE becoming unresponsive when `WinForms` elements are used. This is an upstream bug and cannot be fixed within this module. To work around this, run this command from the PowerShell Console only and not from the ISE when using any of the grant methods which require and interactive session.
 </maml:para>
 </maml:description>
 <command:syntax><command:syntaxItem><maml:name>Request-RedditOAuthToken</maml:name>
@@ -1789,13 +1789,13 @@ $RedditApp = New-RedditApplication @Params</dev:code>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Client</maml:name>
 <maml:Description><maml:para>Best Used for: Anonymous API access for `WebApp` and `Script` applications
 </maml:para>
-<maml:para>The `Client` switch will initiate a `Client_Credentials` grant flow. This Grant type uses only the application's Client ID and Client Secret to request an OAuth Token. This will enable the use of OAuth Based APIs, but since the OAuth Token will not be associated with any user context it will only have "anonymous" access. This is similar to browsing reddit without having a login. You will not be able to send user messages, post comments or sumissions, or do anything else that would require an active login session on the web site.
+<maml:para>The `Client` switch will initiate a `Client_Credentials` grant flow. This Grant type uses only the application's Client ID and Client Secret to request an OAuth Token. This will enable the use of OAuth Based APIs, but since the OAuth Token will not be associated with any user context it will only have "anonymous" access. This is similar to browsing reddit without having a login. You will not be able to send user messages, post comments or submissions, or do anything else that would require an active login session on the web site.
 </maml:para>
 <maml:para>`Client` access tokens expire after 60 minutes. When they are "renewed" a new token is requested from scratch. This can be used in automation as it does not require user input. A new token will automatically be requested on the next API call made by functions in this module after the token has expired.
 </maml:para>
 <maml:para>`Client` OAuth Access Tokens can only be issued to `Script` and `WebApp` applications as it requires Client Secret.
 </maml:para>
-<maml:para>For more information on Reddit's OAuth impliementation, see https://github.com/reddit/reddit/wiki/OAuth2#application-only-oauth
+<maml:para>For more information on Reddit's OAuth implementation, see https://github.com/reddit/reddit/wiki/OAuth2#application-only-oauth
 </maml:para>
 </maml:Description>
 <dev:type><maml:name>SwitchParameter</maml:name>
@@ -1814,7 +1814,7 @@ $RedditApp = New-RedditApplication @Params</dev:code>
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="2" aliases="none"><maml:name>State</maml:name>
-<maml:Description><maml:para>The `State` parameter is used by the `Code` and `Implicit` methods for validation. It is optional as the module will varify the state. The default will create a new GUID.
+<maml:Description><maml:para>The `State` parameter is used by the `Code` and `Implicit` methods for validation. It is optional as the module will verify the state. The default will create a new GUID.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -1823,11 +1823,11 @@ $RedditApp = New-RedditApplication @Params</dev:code>
 <dev:defaultValue>[guid]::NewGuid().toString()</dev:defaultValue>
 </command:parameter>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Code</maml:name>
-<maml:Description><maml:para>Best used for: Automation, bots and long running unattended process when a single application may act on behalf of one or more users or when you do not wish to store or continually transmit reddit user crednetials. 
+<maml:Description><maml:para>Best used for: Automation, bots and long running unattended process when a single application may act on behalf of one or more users or when you do not wish to store or continually transmit reddit user credentials. 
 </maml:para>
 <maml:para>Offers the best security and flexibility.
 </maml:para>
-<maml:para>The `Code` switch will initiate a `Authorization_Code` grant flow. This grant type uses the Client ID and Redirect URI to direct a user to log in on reddit and authorize the application via GUI web browser. Once the user has logged in and authorized the application, reddit will return an authorization code to the Redirct URI. The GUI browser will close and the  authorization code is then used along with the client ID and Client Secret to request an Access Token and Refresh Token. The Access Token is valid for 60 minutes and is used to authenticate with the Reddit API. Once the Access Token expires the Refresh Token, Client ID, and Client Secret are used to request a new Access Token. The Refresh Token is valid until the user or application revokes it.
+<maml:para>The `Code` switch will initiate a `Authorization_Code` grant flow. This grant type uses the Client ID and Redirect URI to direct a user to log in on reddit and authorize the application via GUI web browser. Once the user has logged in and authorized the application, reddit will return an authorization code to the Redirect URI. The GUI browser will close and the  authorization code is then used along with the client ID and Client Secret to request an Access Token and Refresh Token. The Access Token is valid for 60 minutes and is used to authenticate with the Reddit API. Once the Access Token expires the Refresh Token, Client ID, and Client Secret are used to request a new Access Token. The Refresh Token is valid until the user or application revokes it.
 </maml:para>
 <maml:para>This process requires a interactive powershell session. It only needs to be done once. For automation purposes, the initial `Request-RedditOAuthToken` needs to be done from a normal PowerShell console. Once the token has been issued, export it with `Export-RedditOAuthAToken`. The exported token can then be imported in other scripts with `Import-RedditOAuthToken`. The token will automatically update on the next call the API made by functions in this module.
 </maml:para>
@@ -1865,11 +1865,11 @@ $RedditApp = New-RedditApplication @Params</dev:code>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Installed</maml:name>
 <maml:Description><maml:para>Best Used for: Anonymous API access for `Installed` applications.
 </maml:para>
-<maml:para>The `Installed` option will initiate a `installed_client` grant flow. This will enable the use of OAuth Based APIs, but since the OAuth Token will not be associated with any user context it will only have "anonymous" access. This is similar to browsing reddit without having a login. You will not be able to send user messages, post comments or sumissions, or do anything else that would require an active login session on the web site.
+<maml:para>The `Installed` option will initiate a `installed_client` grant flow. This will enable the use of OAuth Based APIs, but since the OAuth Token will not be associated with any user context it will only have "anonymous" access. This is similar to browsing reddit without having a login. You will not be able to send user messages, post comments or submissions, or do anything else that would require an active login session on the web site.
 </maml:para>
 <maml:para>The token will only be valid for 1 hour and then a new token will be requested. This can be placed in automation as it does not require the user to log in. A new token will automatically be requested on the next API call made by functions in this module after the token has expired.
 </maml:para>
-<maml:para>The `Installed` grant flow requires that a Device ID be sent. The `DeviceID` parameter can be used to supply one. the defualt is to generate a new GUID. That Device ID used should be unique to the device and should be used for all subsequent Access Token requests via the `Installed` method on the same device. This will be set on the `DeviceID` of the returned `RedditOAuthToken` object.
+<maml:para>The `Installed` grant flow requires that a Device ID be sent. The `DeviceID` parameter can be used to supply one. the default is to generate a new GUID. That Device ID used should be unique to the device and should be used for all subsequent Access Token requests via the `Installed` method on the same device. This will be set on the `DeviceID` of the returned `RedditOAuthToken` object.
 </maml:para>
 <maml:para>For more information see https://github.com/reddit/reddit/wiki/OAuth2#application-only-oauth
 </maml:para>
@@ -1890,7 +1890,7 @@ $RedditApp = New-RedditApplication @Params</dev:code>
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="2" aliases="none"><maml:name>State</maml:name>
-<maml:Description><maml:para>The `State` parameter is used by the `Code` and `Implicit` methods for validation. It is optional as the module will varify the state. The default will create a new GUID.
+<maml:Description><maml:para>The `State` parameter is used by the `Code` and `Implicit` methods for validation. It is optional as the module will verify the state. The default will create a new GUID.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -1899,13 +1899,13 @@ $RedditApp = New-RedditApplication @Params</dev:code>
 <dev:defaultValue>[guid]::NewGuid().toString()</dev:defaultValue>
 </command:parameter>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Implicit</maml:name>
-<maml:Description><maml:para>Best used for: `Installed` applicatiosn that need to act on behalf of the user.
+<maml:Description><maml:para>Best used for: `Installed` applications that need to act on behalf of the user.
 </maml:para>
-<maml:para>The `Implicit` grant flow provides `Installled` applications the ability act in a user context. `Installed` applications do not have Client Secrets so this method allows for requesting an access token from a device that is not under the develoepr's direct control. The token will be valid for 1 hour and then a new token will need to be authorized.
+<maml:para>The `Implicit` grant flow provides `Installed` applications the ability act in a user context. `Installed` applications do not have Client Secrets so this method allows for requesting an access token from a device that is not under the developer's direct control. The token will be valid for 1 hour and then a new token will need to be authorized.
 </maml:para>
 <maml:para>This grant flow requires an Interactive session and cannot be run in non-interactive scripts. The user will be provided a GUI Web Browser to log in to Reddit and authorize the application. The user will need to authorize the application on the next request made to the API after the token expires.
 </maml:para>
-<maml:para>The method is provided in the module for completeness, it is not recommended unless you are prepakaging an application that needs to access the Reddit API as a logged in user and the other methods are unavailable.
+<maml:para>The method is provided in the module for completeness, it is not recommended unless you are prepackaging an application that needs to access the Reddit API as a logged in user and the other methods are unavailable.
 </maml:para>
 <maml:para>For more information see https://github.com/reddit/reddit/wiki/OAuth2#authorization-implicit-grant-flow
 </maml:para>
@@ -1930,11 +1930,11 @@ $RedditApp = New-RedditApplication @Params</dev:code>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Script</maml:name>
 <maml:Description><maml:para>Best used for: Automation, bots and long running unattended process when a single application may act on behalf of one or more users or when the Application will only act on behalf of the Application Developer and not on behalf of others.
 </maml:para>
-<maml:para>The `Script` method can only be used by `Script` applications and can only act on behalf of the Reddit user who registered the application. This method will initiate a `password` grant flow. The user's crednetials along with the Client ID and Client Secret are used to request an Access token. The token is valid for 1 hour and then a new token will need to be requested. A new token will automatically be requested on the next API call made by functions in this module after the token has expired.
+<maml:para>The `Script` method can only be used by `Script` applications and can only act on behalf of the Reddit user who registered the application. This method will initiate a `password` grant flow. The user's credentials along with the Client ID and Client Secret are used to request an Access token. The token is valid for 1 hour and then a new token will need to be requested. A new token will automatically be requested on the next API call made by functions in this module after the token has expired.
 </maml:para>
-<maml:para>The `Script` method can be used in automation, but, it requires that the reddit username and password be stored in the `RedditApplication` object. The user password is stored in a secure string and when a `RedditApplication` or `RedditOAuthToken` is exported, the assword is stored in encryoted form that can only be retrieved by te sam user on the same computer where the objectw as exported.
+<maml:para>The `Script` method can be used in automation, but, it requires that the reddit username and password be stored in the `RedditApplication` object. The user password is stored in a secure string and when a `RedditApplication` or `RedditOAuthToken` is exported, the password is stored in encrypted form that can only be retrieved by the same user on the same computer where the object was exported.
 </maml:para>
-<maml:para>In contrast to the `Code` method, the `Script` method does not reauire an interactive session at any point provided you have a way to import a `PSCrwedential` object. The down side is that the developers Client ID, Client Secret, Username, and Password all need to be used and stored.
+<maml:para>In contrast to the `Code` method, the `Script` method does not require an interactive session at any point provided you have a way to import a `PSCredential` object. The down side is that the developers Client ID, Client Secret, Username, and Password all need to be used and stored.
 </maml:para>
 <maml:para>For more information see https://github.com/reddit/reddit/wiki/OAuth2#retrieving-the-access-token
 </maml:para>
@@ -1957,13 +1957,13 @@ $RedditApp = New-RedditApplication @Params</dev:code>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Client</maml:name>
 <maml:Description><maml:para>Best Used for: Anonymous API access for `WebApp` and `Script` applications
 </maml:para>
-<maml:para>The `Client` switch will initiate a `Client_Credentials` grant flow. This Grant type uses only the application's Client ID and Client Secret to request an OAuth Token. This will enable the use of OAuth Based APIs, but since the OAuth Token will not be associated with any user context it will only have "anonymous" access. This is similar to browsing reddit without having a login. You will not be able to send user messages, post comments or sumissions, or do anything else that would require an active login session on the web site.
+<maml:para>The `Client` switch will initiate a `Client_Credentials` grant flow. This Grant type uses only the application's Client ID and Client Secret to request an OAuth Token. This will enable the use of OAuth Based APIs, but since the OAuth Token will not be associated with any user context it will only have "anonymous" access. This is similar to browsing reddit without having a login. You will not be able to send user messages, post comments or submissions, or do anything else that would require an active login session on the web site.
 </maml:para>
 <maml:para>`Client` access tokens expire after 60 minutes. When they are "renewed" a new token is requested from scratch. This can be used in automation as it does not require user input. A new token will automatically be requested on the next API call made by functions in this module after the token has expired.
 </maml:para>
 <maml:para>`Client` OAuth Access Tokens can only be issued to `Script` and `WebApp` applications as it requires Client Secret.
 </maml:para>
-<maml:para>For more information on Reddit's OAuth impliementation, see https://github.com/reddit/reddit/wiki/OAuth2#application-only-oauth
+<maml:para>For more information on Reddit's OAuth implementation, see https://github.com/reddit/reddit/wiki/OAuth2#application-only-oauth
 </maml:para>
 </maml:Description>
 <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
@@ -1972,11 +1972,11 @@ $RedditApp = New-RedditApplication @Params</dev:code>
 <dev:defaultValue>False</dev:defaultValue>
 </command:parameter>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Code</maml:name>
-<maml:Description><maml:para>Best used for: Automation, bots and long running unattended process when a single application may act on behalf of one or more users or when you do not wish to store or continually transmit reddit user crednetials. 
+<maml:Description><maml:para>Best used for: Automation, bots and long running unattended process when a single application may act on behalf of one or more users or when you do not wish to store or continually transmit reddit user credentials. 
 </maml:para>
 <maml:para>Offers the best security and flexibility.
 </maml:para>
-<maml:para>The `Code` switch will initiate a `Authorization_Code` grant flow. This grant type uses the Client ID and Redirect URI to direct a user to log in on reddit and authorize the application via GUI web browser. Once the user has logged in and authorized the application, reddit will return an authorization code to the Redirct URI. The GUI browser will close and the  authorization code is then used along with the client ID and Client Secret to request an Access Token and Refresh Token. The Access Token is valid for 60 minutes and is used to authenticate with the Reddit API. Once the Access Token expires the Refresh Token, Client ID, and Client Secret are used to request a new Access Token. The Refresh Token is valid until the user or application revokes it.
+<maml:para>The `Code` switch will initiate a `Authorization_Code` grant flow. This grant type uses the Client ID and Redirect URI to direct a user to log in on reddit and authorize the application via GUI web browser. Once the user has logged in and authorized the application, reddit will return an authorization code to the Redirect URI. The GUI browser will close and the  authorization code is then used along with the client ID and Client Secret to request an Access Token and Refresh Token. The Access Token is valid for 60 minutes and is used to authenticate with the Reddit API. Once the Access Token expires the Refresh Token, Client ID, and Client Secret are used to request a new Access Token. The Refresh Token is valid until the user or application revokes it.
 </maml:para>
 <maml:para>This process requires a interactive powershell session. It only needs to be done once. For automation purposes, the initial `Request-RedditOAuthToken` needs to be done from a normal PowerShell console. Once the token has been issued, export it with `Export-RedditOAuthAToken`. The exported token can then be imported in other scripts with `Import-RedditOAuthToken`. The token will automatically update on the next call the API made by functions in this module.
 </maml:para>
@@ -2002,13 +2002,13 @@ $RedditApp = New-RedditApplication @Params</dev:code>
 <dev:defaultValue>[guid]::NewGuid().toString()</dev:defaultValue>
 </command:parameter>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Implicit</maml:name>
-<maml:Description><maml:para>Best used for: `Installed` applicatiosn that need to act on behalf of the user.
+<maml:Description><maml:para>Best used for: `Installed` applications that need to act on behalf of the user.
 </maml:para>
-<maml:para>The `Implicit` grant flow provides `Installled` applications the ability act in a user context. `Installed` applications do not have Client Secrets so this method allows for requesting an access token from a device that is not under the develoepr's direct control. The token will be valid for 1 hour and then a new token will need to be authorized.
+<maml:para>The `Implicit` grant flow provides `Installed` applications the ability act in a user context. `Installed` applications do not have Client Secrets so this method allows for requesting an access token from a device that is not under the developer's direct control. The token will be valid for 1 hour and then a new token will need to be authorized.
 </maml:para>
 <maml:para>This grant flow requires an Interactive session and cannot be run in non-interactive scripts. The user will be provided a GUI Web Browser to log in to Reddit and authorize the application. The user will need to authorize the application on the next request made to the API after the token expires.
 </maml:para>
-<maml:para>The method is provided in the module for completeness, it is not recommended unless you are prepakaging an application that needs to access the Reddit API as a logged in user and the other methods are unavailable.
+<maml:para>The method is provided in the module for completeness, it is not recommended unless you are prepackaging an application that needs to access the Reddit API as a logged in user and the other methods are unavailable.
 </maml:para>
 <maml:para>For more information see https://github.com/reddit/reddit/wiki/OAuth2#authorization-implicit-grant-flow
 </maml:para>
@@ -2023,11 +2023,11 @@ $RedditApp = New-RedditApplication @Params</dev:code>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Installed</maml:name>
 <maml:Description><maml:para>Best Used for: Anonymous API access for `Installed` applications.
 </maml:para>
-<maml:para>The `Installed` option will initiate a `installed_client` grant flow. This will enable the use of OAuth Based APIs, but since the OAuth Token will not be associated with any user context it will only have "anonymous" access. This is similar to browsing reddit without having a login. You will not be able to send user messages, post comments or sumissions, or do anything else that would require an active login session on the web site.
+<maml:para>The `Installed` option will initiate a `installed_client` grant flow. This will enable the use of OAuth Based APIs, but since the OAuth Token will not be associated with any user context it will only have "anonymous" access. This is similar to browsing reddit without having a login. You will not be able to send user messages, post comments or submissions, or do anything else that would require an active login session on the web site.
 </maml:para>
 <maml:para>The token will only be valid for 1 hour and then a new token will be requested. This can be placed in automation as it does not require the user to log in. A new token will automatically be requested on the next API call made by functions in this module after the token has expired.
 </maml:para>
-<maml:para>The `Installed` grant flow requires that a Device ID be sent. The `DeviceID` parameter can be used to supply one. the defualt is to generate a new GUID. That Device ID used should be unique to the device and should be used for all subsequent Access Token requests via the `Installed` method on the same device. This will be set on the `DeviceID` of the returned `RedditOAuthToken` object.
+<maml:para>The `Installed` grant flow requires that a Device ID be sent. The `DeviceID` parameter can be used to supply one. the default is to generate a new GUID. That Device ID used should be unique to the device and should be used for all subsequent Access Token requests via the `Installed` method on the same device. This will be set on the `DeviceID` of the returned `RedditOAuthToken` object.
 </maml:para>
 <maml:para>For more information see https://github.com/reddit/reddit/wiki/OAuth2#application-only-oauth
 </maml:para>
@@ -2040,11 +2040,11 @@ $RedditApp = New-RedditApplication @Params</dev:code>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>Script</maml:name>
 <maml:Description><maml:para>Best used for: Automation, bots and long running unattended process when a single application may act on behalf of one or more users or when the Application will only act on behalf of the Application Developer and not on behalf of others.
 </maml:para>
-<maml:para>The `Script` method can only be used by `Script` applications and can only act on behalf of the Reddit user who registered the application. This method will initiate a `password` grant flow. The user's crednetials along with the Client ID and Client Secret are used to request an Access token. The token is valid for 1 hour and then a new token will need to be requested. A new token will automatically be requested on the next API call made by functions in this module after the token has expired.
+<maml:para>The `Script` method can only be used by `Script` applications and can only act on behalf of the Reddit user who registered the application. This method will initiate a `password` grant flow. The user's credentials along with the Client ID and Client Secret are used to request an Access token. The token is valid for 1 hour and then a new token will need to be requested. A new token will automatically be requested on the next API call made by functions in this module after the token has expired.
 </maml:para>
-<maml:para>The `Script` method can be used in automation, but, it requires that the reddit username and password be stored in the `RedditApplication` object. The user password is stored in a secure string and when a `RedditApplication` or `RedditOAuthToken` is exported, the assword is stored in encryoted form that can only be retrieved by te sam user on the same computer where the objectw as exported.
+<maml:para>The `Script` method can be used in automation, but, it requires that the reddit username and password be stored in the `RedditApplication` object. The user password is stored in a secure string and when a `RedditApplication` or `RedditOAuthToken` is exported, the password is stored in encrypted form that can only be retrieved by the same user on the same computer where the object was exported.
 </maml:para>
-<maml:para>In contrast to the `Code` method, the `Script` method does not reauire an interactive session at any point provided you have a way to import a `PSCrwedential` object. The down side is that the developers Client ID, Client Secret, Username, and Password all need to be used and stored.
+<maml:para>In contrast to the `Code` method, the `Script` method does not require an interactive session at any point provided you have a way to import a `PSCredential` object. The down side is that the developers Client ID, Client Secret, Username, and Password all need to be used and stored.
 </maml:para>
 <maml:para>For more information see https://github.com/reddit/reddit/wiki/OAuth2#retrieving-the-access-token
 </maml:para>
@@ -2055,7 +2055,7 @@ $RedditApp = New-RedditApplication @Params</dev:code>
 <dev:defaultValue>False</dev:defaultValue>
 </command:parameter>
 <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="2" aliases="none"><maml:name>State</maml:name>
-<maml:Description><maml:para>The `State` parameter is used by the `Code` and `Implicit` methods for validation. It is optional as the module will varify the state. The default will create a new GUID.
+<maml:Description><maml:para>The `State` parameter is used by the `Code` and `Implicit` methods for validation. It is optional as the module will verify the state. The default will create a new GUID.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -2078,7 +2078,7 @@ $RedditApp = New-RedditApplication @Params</dev:code>
 </maml:description>
 </command:returnValue>
 </command:returnValues>
-<maml:alertSet><maml:alert><maml:para>There is currently a bug in some versions of PowerShell ISE that result in the ISE becoming unresponsive when `WinForms` elements are used. This is an upstream bug and cannot be fixed within this module. To work around this, run this command from the PowerShell Console only and not from the ISE when using any of the grant methods which require and intercative session.
+<maml:alertSet><maml:alert><maml:para>There is currently a bug in some versions of PowerShell ISE that result in the ISE becoming unresponsive when `WinForms` elements are used. This is an upstream bug and cannot be fixed within this module. To work around this, run this command from the PowerShell Console only and not from the ISE when using any of the grant methods which require and interactive session.
 </maml:para>
 <maml:para>For complete documentation visit https://psraw.readthedocs.io/ (https://psraw.readthedocs.io/)For more information about registering Reddit Apps, Reddit's API, or Reddit OAuth see:
 </maml:para>
@@ -2125,7 +2125,7 @@ $Params = @{
     Description = 'My Reddit Bot!'
     ClientCredential = $ClientCredential
     RedirectUri = 'https://adataum/ouath?'
-    UserAgent = 'windows:connect-reddit:v0.0.0.1 (by /u/makrkeraus)'
+    UserAgent = 'windows:connect-reddit:v0.0.0.1 (by /u/markekraus)'
     Scope = $Scope
     OutVariable = 'RedditApp'
 }
@@ -2175,9 +2175,9 @@ $Token = New-RedditApplication @Params | Request-RedditOAuthToken -Code</dev:cod
 </maml:para>
 </maml:description>
 </command:details>
-<maml:description><maml:para>When a `RedditOAuthToken` Token has expired, `Update-RedditOAuthToken`can be used to refresh the Access Token. Depending on the grant method used to request the `RedditOAuthToken` with `Request-RedditOAuthToken`, either a refresh will be perfomed or a new grant flow will be initiated. 
+<maml:description><maml:para>When a `RedditOAuthToken` Token has expired, `Update-RedditOAuthToken`can be used to refresh the Access Token. Depending on the grant method used to request the `RedditOAuthToken` with `Request-RedditOAuthToken`, either a refresh will be performed or a new grant flow will be initiated. 
 </maml:para>
-<maml:para>This function must be run in an interactive session for tokens requested with the `Implicit` grant method. The user will be required to reauhtorize the application with the provided GUI browser. All other grant methods can be refreshed with this function in non-interactive sessions.
+<maml:para>This function must be run in an interactive session for tokens requested with the `Implicit` grant method. The user will be required to reauthorize the application with the provided GUI browser. All other grant methods can be refreshed with this function in non-interactive sessions.
 </maml:para>
 <maml:para>&gt; PowerShell ISE Compatibility Issue &gt;  &gt; There is currently a bug in some versions of PowerShell ISE that result in the ISE becoming unresponsive when `WinForms` elements are used. This is an upstream bug and cannot be fixed within this module. To work around this, run this command from the PowerShell Console only and not from the ISE when using `Implicit` tokens.
 </maml:para>
@@ -2201,7 +2201,7 @@ $Token = New-RedditApplication @Params | Request-RedditOAuthToken -Code</dev:cod
 <dev:defaultValue>False</dev:defaultValue>
 </command:parameter>
 <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>PassThru</maml:name>
-<maml:Description><maml:para>By default, this function does not return any data. The `-PassThru` parameter will place the uodated `RedditOAuthToken` into the output stream to either be stored in another variable or placed in the pipeline and consumed by other functions.
+<maml:Description><maml:para>By default, this function does not return any data. The `-PassThru` parameter will place the updated `RedditOAuthToken` into the output stream to either be stored in another variable or placed in the pipeline and consumed by other functions.
 </maml:para>
 </maml:Description>
 <dev:type><maml:name>SwitchParameter</maml:name>
@@ -2245,7 +2245,7 @@ $Token = New-RedditApplication @Params | Request-RedditOAuthToken -Code</dev:cod
 <dev:defaultValue>False</dev:defaultValue>
 </command:parameter>
 <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none"><maml:name>PassThru</maml:name>
-<maml:Description><maml:para>By default, this function does not return any data. The `-PassThru` parameter will place the uodated `RedditOAuthToken` into the output stream to either be stored in another variable or placed in the pipeline and consumed by other functions.
+<maml:Description><maml:para>By default, this function does not return any data. The `-PassThru` parameter will place the updated `RedditOAuthToken` into the output stream to either be stored in another variable or placed in the pipeline and consumed by other functions.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
@@ -2302,12 +2302,12 @@ $Token = New-RedditApplication @Params | Request-RedditOAuthToken -Code</dev:cod
 </command:example>
 <command:example><maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
 <dev:code>PS C:\&gt; $Token | Update-RedditOAuthToken -Force</dev:code>
-<dev:remarks><maml:para>This example demonstratees using the `-Force` parameter for initiate a token refresh on a token that has not yet expired.
+<dev:remarks><maml:para>This example demonstrates using the `-Force` parameter for initiate a token refresh on a token that has not yet expired.
 </maml:para>
 </dev:remarks>
 </command:example>
 <command:example><maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
-<dev:code>PS C:\&gt; $NewEpireDate = $Token | Update-RedditOAuthToken -PassThru | Select-Object -Expand ExpireDate</dev:code>
+<dev:code>PS C:\&gt; $NewExpireDate = $Token | Update-RedditOAuthToken -PassThru | Select-Object -Expand ExpireDate</dev:code>
 <dev:remarks><maml:para>This example demonstrates using the `-PassThru` parameter to send the updated `RedditOAuthToken` to the pipeline. The `ExpireDate` property is then expanded and stored in `$NewExpireDate`.
 </maml:para>
 </dev:remarks>

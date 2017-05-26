@@ -32,7 +32,7 @@ Class RedditApplication {
         throw [System.NotImplementedException]::New()
     }
 
-    #Hashtable Coverter
+    #Hashtable Converter
     RedditApplication ([System.Collections.Hashtable]$InitHash) {
         $This._init($InitHash)
     }
@@ -114,8 +114,8 @@ Class RedditApplication {
         Return $This.UserCredential.GetNetworkCredential().Password
     }
 
-    [string] GetAuthorzationUrl(){
-        Return $This._GetAuthorzationUrl(
+    [string] GetAuthorizationUrl(){
+        Return $This._GetAuthorizationUrl(
             [RedditOAuthResponseType]::Code,
             [RedditOAuthDuration]::Permanent,
             [guid]::NewGuid().toString(),
@@ -123,11 +123,11 @@ Class RedditApplication {
         )
     }
 
-    [string] GetAuthorzationUrl(
+    [string] GetAuthorizationUrl(
         [RedditOAuthResponseType]$ResponseType, 
         [RedditOAuthDuration]$Duration
     ){
-        Return $This._GetAuthorzationUrl(
+        Return $This._GetAuthorizationUrl(
             $ResponseType,
             $Duration,
             [guid]::NewGuid().toString(),
@@ -135,12 +135,12 @@ Class RedditApplication {
         )
     }
 
-    [string] GetAuthorzationUrl(
+    [string] GetAuthorizationUrl(
         [RedditOAuthResponseType]$ResponseType, 
         [RedditOAuthDuration]$Duration,
         [String]$State
     ){
-            Return $This._GetAuthorzationUrl(
+            Return $This._GetAuthorizationUrl(
                 $ResponseType,
                 $Duration,
                 $State,
@@ -148,13 +148,13 @@ Class RedditApplication {
             )
     }
 
-    [string] GetAuthorzationUrl(
+    [string] GetAuthorizationUrl(
         [RedditOAuthResponseType]$ResponseType, 
         [RedditOAuthDuration]$Duration,
         [String]$State,
         [String]$AuthBaseURL
     ){
-            Return $This._GetAuthorzationUrl(
+            Return $This._GetAuthorizationUrl(
                 $ResponseType,
                 $Duration,
                 $State,
@@ -162,7 +162,7 @@ Class RedditApplication {
             )
     }
 
-    hidden [string] _GetAuthorzationUrl(
+    hidden [string] _GetAuthorizationUrl(
         [RedditOAuthResponseType]$ResponseType, 
         [RedditOAuthDuration]$Duration, 
         [string]$State, 

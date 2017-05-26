@@ -70,7 +70,7 @@ $parameters = @{
 $ReleaseText = (Get-Content @parameters) -join "`n"
 if ($ReleaseText) {
     $ReleaseText | Set-Content "$ProjectRoot\docs\RELEASE.md"
-    $YMLText = "$YMLtext  - Realse Notes: RELEASE.md`n"
+    $YMLText = "$YMLtext  - Release Notes: RELEASE.md`n"
 }
 
 "Populating Change Log..."
@@ -132,7 +132,7 @@ if ($ClassDocs) {
     foreach ($Class in $Classes) {
         $helpdoc = $AboutHelpDocs | Where-Object {$_.basename -like "about_$($Class.Name)"}
         if ($helpdoc) { 
-            #TODO: Add autmatic addition of new methods, constructors, and properties
+            #TODO: Add automatic addition of new methods, constructors, and properties
             continue 
         }
         $AboutPath = Join-Path $ModuleHelpPath "about_$($Class.Name).md"
@@ -147,7 +147,7 @@ if ($EnumDocs) {
     foreach ($Enum in $Enums) {
         $helpdoc = $AboutHelpDocs | Where-Object {$_.basename -like "about_$($Enum.Name)"}
         if ($helpdoc) { 
-            #TODO: Add autmatic addition of new Fields
+            #TODO: Add automatic addition of new Fields
             continue 
         }
         $AboutPath = Join-Path $ModuleHelpPath "about_$($Enum.Name).md"
@@ -194,7 +194,7 @@ if ($PrivateDocs) {
 
 
 "Populating YAML Examples Documentation.."
-$ExampleFiles = Get-ChildItem "$ExampleHelpPath" -ErrorAction SilentlyContinue |
+$ExampleFiles = Get-ChildItem "$ExampleHelpPath" -Filter '*.md' -ErrorAction SilentlyContinue |
     Sort-Object -Property 'Name'
 if ($ExampleFiles) {
     $YMLText = "$YMLtext  - Examples:`n"

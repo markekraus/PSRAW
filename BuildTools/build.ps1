@@ -3,13 +3,13 @@
 	
 	 Created with: 	VSCode
 	 Created on:   	4/23/2017
-     Edited on::    4/23/2017
+     Edited on:     4/23/2017
 	 Created by:   	Mark Kraus
 	 Organization: 	
 	 Filename:     	build.ps1
 	
 	.DESCRIPTION
-		Build Initliazation
+		Build Initialization
 #>
 param ($Task = 'Default')
 
@@ -17,7 +17,7 @@ Get-PackageProvider -Name NuGet -ForceBootstrap | Out-Null
 
 $ModuleInstallScope = 'CurrentUser'
 if ($ENV:BHBuildSystem -eq 'AppVeyor') {
-    $ModuleInstallScope = 'Gobal'
+    $ModuleInstallScope = 'Global'
 }
 
 

@@ -6,14 +6,14 @@ SHORT DESCRIPTION
 
 LONG DESCRIPTION
     The `RedditOAuthCode` class contains the result of an OAuth Authorization
-    Code requeest to the Reddit API. `RedditOAuthCode` objectss are returnd from
+    Code request to the Reddit API. `RedditOAuthCode` objects are returned from
     `Request-RedditOAuthCode` and are used to request `RedditOAuthToken`'s via `Request-RedditOAuthTokenCode`.
     The `RedditOAuthCode` class is imported automatically when you import the
     PSRAW module.
 
 CONSTRUCTORS
 RedditOAuthCode()
-    The default constructor will retrun an empty `RedditOAuthCode` object.
+    The default constructor will return an empty `RedditOAuthCode` object.
 
     [RedditOAuthCode]::new()
 
@@ -142,13 +142,13 @@ ToString()
     Definition: String ToString()
 
 NOTE
-    `RedditOAuthCode` Objects are not intended to be cerate manually or modified
+    `RedditOAuthCode` Objects are not intended to be create manually or modified
     by module consumers. Documentation is provided for developers and
     contributors.
 
 SEE ALSO
-    about_RedditAplication
-    about_RedditAplicationType
+    about_RedditApplication
+    about_RedditApplicationType
     about_RedditOAuthDuration
     about_RedditOAuthResponseType
     about_RedditOAuthToken
