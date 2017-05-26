@@ -3,7 +3,7 @@
     
      Created with: 	VSCode
      Created on:   	5/01/2017 11:38 AM
-     Editied on:    5/13/2017
+     Edited on:    5/13/2017
      Created by:   	Mark Kraus
      Organization: 	
      Filename:     	Request-RedditOAuthToken.ps1
@@ -160,6 +160,6 @@ function Request-RedditOAuthToken {
                 Break
             }
         }
-        [RedditOAUthToken]::New($GrantType, $Application, $Result)
+        [RedditOAuthToken]::New($GrantType, $Application, $Result)
     }
 }

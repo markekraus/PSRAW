@@ -18,9 +18,9 @@ Show-RedditOAuthWindow [-Url] <String> [-RedirectUri] <String> [-WhatIf] [-Confi
 ## DESCRIPTION
 This provides a GUI Web Browser for users to login to Reddit and Authorize applications in `authorization_code` and `implicit`
 
-In order to request an OAuth Access Token through the `code` grant flow, an OAuth Authorization code must first be requested by the user. The Authorization code request must include the Application Client ID, Redirect URI, The requested access scops, a duration and a response type of `code`. 
+In order to request an OAuth Access Token through the `code` grant flow, an OAuth Authorization code must first be requested by the user. The Authorization code request must include the Application Client ID, Redirect URI, The requested access scope, a duration and a response type of `code`. 
 
-`Reqeust-RedditOAuthCode` creates an OAuth Authorization Code request URL and then calls `Show-RedditOAuthWindow` where the user is prompted to authorozie the application. Once the authorization is complete `Show-RedditOAuthWindow` retruns the resulting URL to `Reqeust-RedditOAuthCode` which then parses the response and creates a `RedditOAuthCode` object.
+`Request-RedditOAuthCode` creates an OAuth Authorization Code request URL and then calls `Show-RedditOAuthWindow` where the user is prompted to authorize the application. Once the authorization is complete `Show-RedditOAuthWindow` returns the resulting URL to `Request-RedditOAuthCode` which then parses the response and creates a `RedditOAuthCode` object.
 
 `Request-RedditOAuthTokenImplicit` request authorization of new tokens every hour. 
 
@@ -41,12 +41,12 @@ $RedirectUri = 'https://127.0.0.1/'
 $Result = Show-RedditOAuthWindow -Url $URL -RedirectUri $RedirectUri
 ```
 
-This is an example of what `Reqeust-RedditOAuthCode` calls to `Show-RedditOAuthWindow`.
+This is an example of what `Request-RedditOAuthCode` calls to `Show-RedditOAuthWindow`.
 
 ## PARAMETERS
 
 ### -RedirectUri
-The Redirect Uri expected. This is tested for in the curent URL of the window and when it is detected it closes the windows and returns the resulting URL.
+The Redirect Uri expected. This is tested for in the current URL of the window and when it is detected it closes the windows and returns the resulting URL.
 
 ```yaml
 Type: String
@@ -61,7 +61,7 @@ Accept wildcard characters: False
 ```
 
 ### -Url
-This is the URL to disaplay
+This is the URL to display
 
 ```yaml
 Type: String

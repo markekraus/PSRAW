@@ -18,7 +18,7 @@ Exports a `RedditApplication` object to an XML file.
 Exports a `RedditOAuthToken` object to an XML file.
 
 ### [Get-RedditOAuthScope](Get-RedditOAuthScope.md)
-Retireve valid Reddit OAuth Scopes.
+Retrieve valid Reddit OAuth Scopes.
 
 ### [Import-RedditApplication](Import-RedditApplication.md)
 Imports a `RedditApplication` object from an XML file.

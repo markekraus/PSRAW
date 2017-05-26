@@ -17,9 +17,9 @@ Request-RedditOAuthCode [-Application] <RedditApplication> [[-State] <String>]
 ```
 
 ## DESCRIPTION
-In order to request an OAuth Access Token through the `code` grant flow, an OAuth Authorization code must first be requested by the user. The Authorization code request must include the Application Client ID, Redirect URI, The requested access scops, a duration and a response type of `code`. 
+In order to request an OAuth Access Token through the `code` grant flow, an OAuth Authorization code must first be requested by the user. The Authorization code request must include the Application Client ID, Redirect URI, The requested access scope, a duration and a response type of `code`. 
 
-`Reqeust-RedditOAuthCode` creates an OAuth Authorization Code request URL and then calls `Show-RedditOAuthWindow` where the user is prompted to authorozie the application. Once the authorization is complete `Show-RedditOAuthWindow` retruns the resulting URL to `Reqeust-RedditOAuthCode` which then parses the response and creates a `RedditOAuthCode` object.
+`Request-RedditOAuthCode` creates an OAuth Authorization Code request URL and then calls `Show-RedditOAuthWindow` where the user is prompted to authorize the application. Once the authorization is complete `Show-RedditOAuthWindow` returns the resulting URL to `Request-RedditOAuthCode` which then parses the response and creates a `RedditOAuthCode` object.
 
 Since this function calls `Show-RedditOAuthWindow` and a GUI is created, this command cannot be run in a non-interactive mode. This process should only need to be done when first requesting an OAuth Access Token, when an OAuth Refresh Token has expired or invalidated, or when a Temporary OAuth Access Token has expired.
 
@@ -85,7 +85,7 @@ Accept wildcard characters: False
 ### -Duration
 `RedditOAuthDuration` option for determining the validity period of the Access Token. the default is `Permanent` which will issue an OAuth Refresh Token along with the OAuth Access Token which can be used to request subsequent Access Tokens without the user needing to authorize the application.
 
-`Temporary` will allow for requesing OAuth Access Tokens that will expire in 1 hour and will not be renewable.
+`Temporary` will allow for requesting OAuth Access Tokens that will expire in 1 hour and will not be renewable.
 
 ```yaml
 Type: RedditOAuthDuration
@@ -101,7 +101,7 @@ Accept wildcard characters: False
 ```
 
 ### -State
-This is a string that will be sent along with the OAuth Authrization Code request which will be returned by the Reddit API to varify the response. This is optional and the fault is to generate a new `Guid`. This will be visible as the `StateSent` property on the reuslting `RedditOAuthCode` object and can be compared to the `StateReceived` property which contains the state response from reddit.
+This is a string that will be sent along with the OAuth Authorization Code request which will be returned by the Reddit API to verify the response. This is optional and the fault is to generate a new `Guid`. This will be visible as the `StateSent` property on the resulting `RedditOAuthCode` object and can be compared to the `StateReceived` property which contains the state response from reddit.
 
 ```yaml
 Type: String

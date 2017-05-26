@@ -20,9 +20,9 @@ Invoke-RedditRequest [-AccessToken] <RedditOAuthToken> [-Uri] <Uri> [[-Method] <
 ## DESCRIPTION
 `Invoke-RedditRequest` is the core function of this module. All API requests made to Reddit are done so by calls to `Invoke-RedditRequest`. It can also be used directly in order to obtain raw API responses or to access API functionality that has not yet been provided by this module's wrapper functions.
 
-`Invoke-RedditRequest` Requires a `RedditOAuthToken` in order to perform the authetnicated API request. To create `RedditOAuthToken` see thelp help info for `Request-RedditOAuthToken`.
+`Invoke-RedditRequest` Requires a `RedditOAuthToken` in order to perform the authenticated API request. To create `RedditOAuthToken` see the help info for `Request-RedditOAuthToken`.
 
-`Invoke-RedditRequest` is essentially a wrapper for `Invoke-WebRequest` to ease the burden of authentication, Rate Limit monitroing, and Acces Token renewal. 
+`Invoke-RedditRequest` is essentially a wrapper for `Invoke-WebRequest` to ease the burden of authentication, Rate Limit monitoring, and Access Token renewal. 
 
 `Invoke-RedditRequest` returns a `RedditApiResponse` which contains the `RedditOAuthToken`, The response from the API, and a converted Content Object. The `RedditApiResponse` can then be used to create other module objects or consumed directly.
 
@@ -35,11 +35,11 @@ $Uri = 'https://oauth.reddit.com/api/v1/me'
 $Response = $Token | Invoke-RedditRequest -Uri $Uri
 ```
 
-This example demonstrates how to import a `RedditOAuthToken` that was perviously exported with `Export-RedditOAuthToken` and then using that token to make an authenticated API request to `https://oauth.reddit.com/api/v1/me` with `Invoke-RedditRequest`.
+This example demonstrates how to import a `RedditOAuthToken` that was previously exported with `Export-RedditOAuthToken` and then using that token to make an authenticated API request to `https://oauth.reddit.com/api/v1/me` with `Invoke-RedditRequest`.
 
 The `RedditOAuthToken` does not need to be refreshed before calling `Invoke-RedditRequest`. `Invoke-RedditRequest` will attempt to refresh expired Access Tokens before making any API calls.
 
-This method is similar to what can be done within automation scripts provded that the 
+This method is similar to what can be done within automation scripts provided that the 
 `RedditOAuthToken` is not an `Implicit` token.
 
 ### -------------------------- EXAMPLE 2 --------------------------
@@ -52,7 +52,7 @@ $Params = @{
     Description = 'My Reddit Bot!'
     ClientCredential = $ClientCredential
     RedirectUri = 'https://adataum/ouath?'
-    UserAgent = 'windows:PSRAW:v0.0.0.1 (by /u/makrkeraus)'
+    UserAgent = 'windows:PSRAW:v0.0.0.1 (by /u/markekraus)'
     Scope = $Scope
 }
 $RedditApp = New-RedditApplication @Params
@@ -230,9 +230,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## NOTES
 `Invoke-RedditRequest` uses `Invoke-WebRequest` instead of `Invoke-RestMethod` because Reddit returns Rate Limiting data via response headers. `Invoke-RedditRequest` uses the `UseBasicParsing` parameter when calling `Invoke-WebRequest` so the full DOM will not be available on the `RedditApiResponse` object.
 
-`Invoke-RedditRequest` will automatically wait for Rate Limiting to pass. If a Rate Limit is in effect, a warning will be issued by `Invoke-RedditRequest`. Rate Limit periods vary but are generally 8 minutes. If you are supressing warnings and `Invoke-RedditRequest` takes several minutes to complete, you may be making too many calls to the API in too short a time. You can check the status of your rate limit with the `IsRateLimited()` method on the `RedditOAuthToken` before making calls to `Invoke-RedditRequest`.
+`Invoke-RedditRequest` will automatically wait for Rate Limiting to pass. If a Rate Limit is in effect, a warning will be issued by `Invoke-RedditRequest`. Rate Limit periods vary but are generally 8 minutes. If you are suppressing warnings and `Invoke-RedditRequest` takes several minutes to complete, you may be making too many calls to the API in too short a time. You can check the status of your rate limit with the `IsRateLimited()` method on the `RedditOAuthToken` before making calls to `Invoke-RedditRequest`.
 
-`Invoke-RedditRequest` will attempt to refresh all expired Access Tokens. If the `RedditOAuthToken` is an `Implicit` token, this will require an interactive session as the user will need to authorize the application via the provided GUI browser. This may also crash some version of Powershell ISE as there is currently a bug where `WinForms` elements causes ISE to freeze. Avoide using `Implicit` tokens and if they are required, make sure `Invoke-RedditRequest` is called from a PowerShell console instead of the ISE.
+`Invoke-RedditRequest` will attempt to refresh all expired Access Tokens. If the `RedditOAuthToken` is an `Implicit` token, this will require an interactive session as the user will need to authorize the application via the provided GUI browser. This may also crash some version of Powershell ISE as there is currently a bug where `WinForms` elements causes ISE to freeze. Avoid using `Implicit` tokens and if they are required, make sure `Invoke-RedditRequest` is called from a PowerShell console instead of the ISE.
 
 Errors encountered when making the API request will be available in the `Response` property on the the exception object.
 

@@ -5,13 +5,13 @@
 Describes the RedditOAuthCode Class
 
 # LONG DESCRIPTION
-The `RedditOAuthCode` class contains the result of an OAuth Authorization Code requeest to the Reddit API. `RedditOAuthCode` objectss are returnd from `Request-RedditOAuthCode` and are used to request `RedditOAuthToken`'s via `Request-RedditOAuthTokenCode`.
+The `RedditOAuthCode` class contains the result of an OAuth Authorization Code request to the Reddit API. `RedditOAuthCode` objects are returned from `Request-RedditOAuthCode` and are used to request `RedditOAuthToken`'s via `Request-RedditOAuthTokenCode`.
 
 The `RedditOAuthCode` class is imported automatically when you import the PSRAW module.
 
 # Constructors
 ## RedditOAuthCode()
-The default constructor will retrun an empty `RedditOAuthCode` object.
+The default constructor will return an empty `RedditOAuthCode` object.
 
 ```powershell
 [RedditOAuthCode]::new()
@@ -159,13 +159,13 @@ Definition: String ToString()
 ```
 
 # NOTE
-`RedditOAuthCode` Objects are not intended to be cerate manually or modified by module consumers. Documentation is provided for developers and contributors.
+`RedditOAuthCode` Objects are not intended to be create manually or modified by module consumers. Documentation is provided for developers and contributors.
 
 # SEE ALSO
 
-[about_RedditAplication](https://psraw.readthedocs.io/en/latest/Module/about_RedditAplicationType)
+[about_RedditApplication](https://psraw.readthedocs.io/en/latest/Module/about_RedditApplicationType)
 
-[about_RedditAplicationType](https://psraw.readthedocs.io/en/latest/Module/about_RedditAplicationType)
+[about_RedditApplicationType](https://psraw.readthedocs.io/en/latest/Module/about_RedditApplicationType)
 
 [about_RedditOAuthDuration](https://psraw.readthedocs.io/en/latest/Module/about_RedditOAuthDuration)
 

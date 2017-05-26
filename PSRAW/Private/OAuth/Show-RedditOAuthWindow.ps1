@@ -3,7 +3,7 @@
     
      Created with: 	VSCode
      Created on:   	5/03/2017 04:16 AM
-     Editied on:    5/14/2017
+     Edited on:     5/14/2017
      Created by:   	Mark Kraus
      Organization: 	
      Filename:     	Show-RedditOAuthWindow.ps1
@@ -52,7 +52,7 @@ function Show-RedditOAuthWindow {
             }
         }
         $Web = New-Object @Params
-        # Close the form when the retruned to the RedirectURI
+        # Close the form when the returned to the RedirectURI
         $DocumentCompleted_Script = {
             if ($web.Url.AbsoluteUri -like "$RedirectUri*") {
                 $form.Close()

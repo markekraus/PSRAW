@@ -7,7 +7,7 @@ schema: 2.0.0
 # Get-RedditOAuthScope
 
 ## SYNOPSIS
-Retireve valid Reddit OAuth Scopes.
+Retrieve valid Reddit OAuth Scopes.
 
 ## SYNTAX
 
@@ -16,7 +16,7 @@ Get-RedditOAuthScope [[-ApiEndpointUri] <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Retrive valid OAuth scope IDs, Names, and Descriptions from Reddit. The Scope ID's are required for requesting OAuth Authorzation codes
+Retrieve valid OAuth scope IDs, Names, and Descriptions from Reddit. The Scope ID's are required for requesting OAuth Authorization codes
 
 ## EXAMPLES
 

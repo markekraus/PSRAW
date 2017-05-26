@@ -22,8 +22,8 @@ $Command = 'Request-RedditOAuthToken'
 $TypeName = 'RedditOAuthToken'
 
 $ClientId = '54321'
-$ClientSceret = '12345'
-$SecClientSecret = $ClientSceret | ConvertTo-SecureString -AsPlainText -Force 
+$ClientSecret = '12345'
+$SecClientSecret = $ClientSecret | ConvertTo-SecureString -AsPlainText -Force 
 $ClientCredential = [pscredential]::new($ClientId, $SecClientSecret)
 
 $InstalledId = '54321'
@@ -31,8 +31,8 @@ $SecInstalledSecret = [System.Security.SecureString]::new()
 $InstalledCredential = [pscredential]::new($InstalledId, $SecInstalledSecret)
 
 $UserId = 'reddituser'
-$UserSceret = 'password'
-$SecUserSecret = $UserSceret | ConvertTo-SecureString -AsPlainText -Force 
+$UserSecret = 'password'
+$SecUserSecret = $UserSecret | ConvertTo-SecureString -AsPlainText -Force 
 $UserCredential = [pscredential]::new($UserId, $SecUserSecret)
 
 $ApplicationWebApp = [RedditApplication]@{
@@ -204,9 +204,9 @@ Function MyTest {
     
 }
 Describe "$command Unit" -Tags Unit {
-    $commandpresent = Get-Command -Name $Command -Module $moduleName -ErrorAction SilentlyContinue
-    if (-not $commandpresent) {
-        Write-Warning "'$command' was not found in '$moduleName' during prebuild tests. It may not yet have been added the module. Unit tests will be skipped until after build."
+    $CommandPresent = Get-Command -Name $Command -Module $moduleName -ErrorAction SilentlyContinue
+    if (-not $CommandPresent) {
+        Write-Warning "'$command' was not found in '$moduleName' during pre-build tests. It may not yet have been added the module. Unit tests will be skipped until after build."
         return
     }
     MyTest

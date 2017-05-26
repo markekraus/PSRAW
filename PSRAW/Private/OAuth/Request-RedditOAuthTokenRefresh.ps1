@@ -3,7 +3,7 @@
     
      Created with: 	VSCode
      Created on:   	5/17/2017 03:58 PM
-     Editied on:    5/18/2017
+     Edited on:     5/18/2017
      Created by:   	Mark Kraus
      Organization: 	
      Filename:     	Request-RedditOAuthTokenRefresh.ps1

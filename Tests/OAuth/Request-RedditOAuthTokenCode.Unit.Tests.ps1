@@ -26,8 +26,8 @@ InModuleScope $moduleName {
     $TypeName = 'Microsoft.PowerShell.Commands.BasicHtmlWebResponseObject'
     
     $ClientId = '54321'
-    $ClientSceret = '12345'
-    $SecClientSecret = $ClientSceret | ConvertTo-SecureString -AsPlainText -Force 
+    $ClientSecret = '12345'
+    $SecClientSecret = $ClientSecret | ConvertTo-SecureString -AsPlainText -Force 
     $ClientCredential = [pscredential]::new($ClientId, $SecClientSecret)
 
     $InstalledId = '54321'
@@ -35,8 +35,8 @@ InModuleScope $moduleName {
     $InstalledCredential = [pscredential]::new($InstalledId, $SecInstalledSecret)
 
     $UserId = 'reddituser'
-    $UserSceret = 'password'
-    $SecUserSecret = $UserSceret | ConvertTo-SecureString -AsPlainText -Force 
+    $UserSecret = 'password'
+    $SecUserSecret = $UserSecret | ConvertTo-SecureString -AsPlainText -Force 
     $UserCredential = [pscredential]::new($UserId, $SecUserSecret)
 
     $ApplicationWebApp = [RedditApplication]@{
@@ -84,8 +84,8 @@ InModuleScope $moduleName {
         }
         Mock -CommandName Request-RedditOAuthCode -ModuleName $moduleName -MockWith {
             $CodeId = 'AuthCode'
-            $CodeSceret = '98765'
-            $SecCodeSecret = $CodeSceret | ConvertTo-SecureString -AsPlainText -Force 
+            $CodeSecret = '98765'
+            $SecCodeSecret = $CodeSecret | ConvertTo-SecureString -AsPlainText -Force 
             $CodeCredential = [pscredential]::new($CodeId, $SecCodeSecret)
             $Result = [pscustomobject]@{ 
                 AuthCodeCredential = $CodeCredential
@@ -139,9 +139,9 @@ InModuleScope $moduleName {
         }
     }
     Describe "$command Unit" -Tags Unit {
-        $commandpresent = Get-Command -Name $Command -Module $moduleName -ErrorAction SilentlyContinue
-        if (-not $commandpresent) {
-            Write-Warning "'$command' was not found in '$moduleName' during prebuild tests. It may not yet have been added the module. Unit tests will be skipped until after build."
+        $CommandPresent = Get-Command -Name $Command -Module $moduleName -ErrorAction SilentlyContinue
+        if (-not $CommandPresent) {
+            Write-Warning "'$command' was not found in '$moduleName' during pre-build tests. It may not yet have been added the module. Unit tests will be skipped until after build."
             return
         }
         MyTest

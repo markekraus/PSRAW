@@ -21,13 +21,13 @@ Import-Module (Join-Path $moduleRoot "$moduleName.psd1") -force
 $Class = 'RedditApplication'
 
 $ClientId = '54321'
-$ClientSceret = '12345'
-$SecClientSecret = $ClientSceret | ConvertTo-SecureString -AsPlainText -Force 
+$ClientSecret = '12345'
+$SecClientSecret = $ClientSecret | ConvertTo-SecureString -AsPlainText -Force 
 $ClientCredential = [pscredential]::new($ClientId, $SecClientSecret)
 
 $UserId = 'reddituser'
-$UserSceret = 'password'
-$SecUserSecret = $UserSceret | ConvertTo-SecureString -AsPlainText -Force 
+$UserSecret = 'password'
+$SecUserSecret = $UserSecret | ConvertTo-SecureString -AsPlainText -Force 
 $UserCredential = [pscredential]::new($UserId, $SecUserSecret)
 
 $TestHashes = @(
@@ -104,29 +104,29 @@ Describe "[$Class] Tests" -Tag Unit, Build {
         $ClientCredential,
         $UserCredential)
     It "Has a working GetClientSecret() method" {
-        $Application.GetClientSecret() | should be $ClientSceret
+        $Application.GetClientSecret() | should be $ClientSecret
     }
     It "Has a working GetClientSecret() method" {
-        $Application.GetUserPassword() | should be $UserSceret
+        $Application.GetUserPassword() | should be $UserSecret
     }
-    It "Has a working GetAuthorzationUrl() method" {
-        $url = $Application.GetAuthorzationUrl()
+    It "Has a working GetAuthorizationUrl() method" {
+        $url = $Application.GetAuthorizationUrl()
         $url | should match 'client_id=54321'
         $url | should match 'response_type=Code'
         $url | should match 'redirect_uri=https%3a%2f%2flocalhost%2f'
         $url | should match 'duration=Permanent'
         $url | should match 'https://www.reddit.com:443/api/v1/authorize'
     }
-    It "Has a working GetAuthorzationUrl(ResponseType, Duration) method" {
-        $url = $Application.GetAuthorzationUrl('code', 'permanent')
+    It "Has a working GetAuthorizationUrl(ResponseType, Duration) method" {
+        $url = $Application.GetAuthorizationUrl('code', 'permanent')
         $url | should match 'client_id=54321'
         $url | should match 'response_type=Code'
         $url | should match 'redirect_uri=https%3a%2f%2flocalhost%2f'
         $url | should match 'duration=Permanent'
         $url | should match 'https://www.reddit.com:443/api/v1/authorize'
     }
-    It "Has a working GetAuthorzationUrl(ResponseType, Duration, State) method" {
-        $url = $Application.GetAuthorzationUrl('code', 'permanent', 'myteststate')
+    It "Has a working GetAuthorizationUrl(ResponseType, Duration, State) method" {
+        $url = $Application.GetAuthorizationUrl('code', 'permanent', 'myteststate')
         $url | should match 'client_id=54321'
         $url | should match 'response_type=Code'
         $url | should match 'redirect_uri=https%3a%2f%2flocalhost%2f'
@@ -134,8 +134,8 @@ Describe "[$Class] Tests" -Tag Unit, Build {
         $url | should match 'https://www.reddit.com:443/api/v1/authorize'
         $url | should match 'state=myteststate'
     }
-    It "Has a working GetAuthorzationUrl(ResponseType, Duration, State, AuthBaseUrl) method" {
-        $url = $Application.GetAuthorzationUrl('code', 'permanent', 'myteststate', 'https://google.com/')
+    It "Has a working GetAuthorizationUrl(ResponseType, Duration, State, AuthBaseUrl) method" {
+        $url = $Application.GetAuthorizationUrl('code', 'permanent', 'myteststate', 'https://google.com/')
         $url | should match 'client_id=54321'
         $url | should match 'response_type=Code'
         $url | should match 'redirect_uri=https%3a%2f%2flocalhost%2f'

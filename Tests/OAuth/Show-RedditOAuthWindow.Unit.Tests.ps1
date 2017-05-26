@@ -31,9 +31,9 @@ InModuleScope PSRAW {
 
     "'$command' is a GUI function. Limited testing available"
     Describe "$command Unit" -Tags Unit {
-        $commandpresent = Get-Command -Name $Command -Module $moduleName -ErrorAction SilentlyContinue
-        if (-not $commandpresent) {
-            Write-Warning "'$command' was not found in '$moduleName' during prebuild tests. It may not yet have been added the module. Unit tests will be skipped until after build."
+        $CommandPresent = Get-Command -Name $Command -Module $moduleName -ErrorAction SilentlyContinue
+        if (-not $CommandPresent) {
+            Write-Warning "'$command' was not found in '$moduleName' during pre-build tests. It may not yet have been added the module. Unit tests will be skipped until after build."
             return
         }
         MyTest

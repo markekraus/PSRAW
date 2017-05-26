@@ -161,7 +161,7 @@ Task Build -Depends UnitTests {
     }
     $ReleaseText = (Get-Content @parameters | Where-Object {$_ -notmatch '^# Version '}) -join "`r`n"
     if (-not $ReleaseText) {
-        "Skipping realse notes`n"
+        "Skipping release notes`n"
         "Consider adding a RELEASE.md to your project.`n"
         return
     }
@@ -319,7 +319,7 @@ Task PostDeploy -depends Deploy {
     
     "git status"
     cmd /c "git status 2>&1"
-    # Do not recommit to staging so that clean pull request can be perfomred
+    # Do not recommit to staging so that clean pull request can be performed
     if ( 
         $ENV:BHCommitMessage -notmatch '!skiprecommit' -and 
         (

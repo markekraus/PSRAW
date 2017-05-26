@@ -3,7 +3,7 @@
     
      Created with: 	Plaster
      Created on:   	5/20/2017 6:18 AM
-     Editied on:    5/20/2017
+     Edited on:     5/20/2017
      Created by:   	Mark Kraus
      Organization: 	 
      Filename:     	Wait-RedditApiRateLimit.ps1
@@ -51,7 +51,7 @@ function Wait-RedditApiRateLimit {
             Write-Verbose 'Token has not exceeded ratelimit.'
             return
         }
-        $Message = 'Rate limit in effect until {0}. Sleeping.' -f $AccessToken.GetRatelimitReset()
+        $Message = 'Rate limit in effect until {0}. Sleeping.' -f $AccessToken.GetRateLimitReset()
         Write-Warning $Message
         while (
             $AccessToken.IsRateLimited() -and 

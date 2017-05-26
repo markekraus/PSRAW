@@ -30,7 +30,7 @@ Export-RedditApplication -LiteralPath <String> [-Encoding <String>] -Application
 ```
 
 ## DESCRIPTION
-Allows you to export a `RedditApplication` object to an XML file so that you can later import the object via `Import-RedditApplication`. This allows you to share the same Reddit application between multiple scripts. This function is a wraper for `Export-Clixml`. 
+Allows you to export a `RedditApplication` object to an XML file so that you can later import the object via `Import-RedditApplication`. This allows you to share the same Reddit application between multiple scripts. This function is a wrapper for `Export-Clixml`. 
 
 User Passwords and Client Secrets stored in the `RedditApplication` object are stored as secure strings and are not visible as plaintext in the export file. This also means that a `RedditApplication` object exported by one user cannot be imported by another user on the same computer nor can it be imported by the same user on a different computer. It can only be imported by the same user on the same computer.
 
@@ -46,7 +46,7 @@ $Application.ExportPath = 'c:\PSRAW\RedditApplication.xml'
 $Application | Export-RedditApplication
 ```
 
-This example uses the `ExportPath` property on the `RedditApplication` object to determine where to export the application. When a `RedditApplication` object is imported with `Import-RedditApplication`, the `ExportPath` of the object will be set with the path to the file it was imported from. This amkes it easy to import, make changes, and then re-export the application. The `ExportPath` property is treated as a `LiteralPath`.
+This example uses the `ExportPath` property on the `RedditApplication` object to determine where to export the application. When a `RedditApplication` object is imported with `Import-RedditApplication`, the `ExportPath` of the object will be set with the path to the file it was imported from. This makes it easy to import, make changes, and then re-export the application. The `ExportPath` property is treated as a `LiteralPath`.
 
 ### -------------------------- EXAMPLE 2 --------------------------
 ```

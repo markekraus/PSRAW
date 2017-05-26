@@ -17,7 +17,7 @@ Request-RedditOAuthTokenRefresh [-AccessToken] <RedditOAuthToken> [[-AuthBaseUrl
 ```
 
 ## DESCRIPTION
-Requests an OAuth Access Token from Reddit using the `refresh_token` grant flow. Only `RedditOAuthToken` Access Tokens requested using the `code` grant flow can use this method. This works be sending the `refresh_token` stored in the `RefreshCrednetial` property of the `RedditOAuthToken` object to request a new Access token.
+Requests an OAuth Access Token from Reddit using the `refresh_token` grant flow. Only `RedditOAuthToken` Access Tokens requested using the `code` grant flow can use this method. This works be sending the `refresh_token` stored in the `RefreshCredential` property of the `RedditOAuthToken` object to request a new Access token.
 
 This function is essentially a convenience wrapper for `Invoke-WebRequest` and returns a `Microsoft.PowerShell.Commands.BasicHtmlWebResponseObject` that results from the Auth Token Request.
 

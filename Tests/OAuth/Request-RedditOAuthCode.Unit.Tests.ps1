@@ -23,13 +23,13 @@ InModuleScope PSRAW {
     $TypeName = 'RedditOAuthCode'
     
     $ClientId = '54321'
-    $ClientSceret = '12345'
-    $SecClientSecret = $ClientSceret | ConvertTo-SecureString -AsPlainText -Force 
+    $ClientSecret = '12345'
+    $SecClientSecret = $ClientSecret | ConvertTo-SecureString -AsPlainText -Force 
     $ClientCredential = [pscredential]::new($ClientId, $SecClientSecret)
     
     $UserId = 'reddituser'
-    $UserSceret = 'password12345'
-    $SecUserSecret = $UserSceret | ConvertTo-SecureString -AsPlainText -Force 
+    $UserSecret = 'password12345'
+    $SecUserSecret = $UserSecret | ConvertTo-SecureString -AsPlainText -Force 
     $UserCredential = [pscredential]::new($UserId, $SecUserSecret)
     
     $ExportFile = '{0}\RedditApplicationExport-{1}.xml' -f $env:TEMP, [guid]::NewGuid().toString()
@@ -102,9 +102,9 @@ InModuleScope PSRAW {
     }
 
     Describe "$command Unit" -Tags Unit {
-        $commandpresent = Get-Command -Name $Command -Module $moduleName -ErrorAction SilentlyContinue
-        if (-not $commandpresent) {
-            Write-Warning "'$command' was not found in '$moduleName' during prebuild tests. It may not yet have been added the module. Unit tests will be skipped until after build."
+        $CommandPresent = Get-Command -Name $Command -Module $moduleName -ErrorAction SilentlyContinue
+        if (-not $CommandPresent) {
+            Write-Warning "'$command' was not found in '$moduleName' during pre-build tests. It may not yet have been added the module. Unit tests will be skipped until after build."
             return
         }
         MyTest

@@ -17,7 +17,7 @@ Request-RedditOAuthTokenImplicit [-Application] <RedditApplication> [[-State] <S
 ```
 
 ## DESCRIPTION
-Requests an OAuth Access Token from Reddit using the `implicit` grant flow. This method allows `Installed` apps to obtain an OAuth Access token allowing tha pplication to act on behalf of a user. For more information see the `Implicit` parameter description for `Request-RedditOAuthToken`.
+Requests an OAuth Access Token from Reddit using the `implicit` grant flow. This method allows `Installed` apps to obtain an OAuth Access token allowing the application to act on behalf of a user. For more information see the `Implicit` parameter description for `Request-RedditOAuthToken`.
 
 This function calls `Show-RedditOAuthWindow` and returns the results as a `System.Uri`
 

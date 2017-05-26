@@ -30,7 +30,7 @@ Export-RedditOAuthToken -LiteralPath <String> [-Encoding <String>] -AccessToken 
 ```
 
 ## DESCRIPTION
-Allows you to export a `RedditOAuthToken` object to an XML file so that you can later import the object via `Import-RedditOAuthToken`. This allows you to share the same Reddit application between multiple scripts. This function is a wraper for `Export-Clixml`. 
+Allows you to export a `RedditOAuthToken` object to an XML file so that you can later import the object via `Import-RedditOAuthToken`. This allows you to share the same Reddit application between multiple scripts. This function is a wrapper for `Export-Clixml`. 
 
 User Password, Client Secret, Access Token, and Refresh Token stored in the `RedditOAuthToken` object are stored as secure strings and are not visible as plaintext in the export file. This also means that a `RedditOAuthToken` object exported by one user cannot be imported by another user on the same computer nor can it be imported by the same user on a different computer. It can only be imported by the same user on the same computer.
 
@@ -46,7 +46,7 @@ $Token.ExportPath = 'c:\PSRAW\RedditOAuthToken.xml'
 $Token | Export-RedditOAuthToken
 ```
 
-This example uses the `ExportPath` property on the `RedditOAuthToken` object to determine where to export the application. When a `RedditOAuthToken` object is imported with `Import-RedditOAuthToken`, the `ExportPath` of the object will be set with the path to the file it was imported from. This amkes it easy to import, make changes, and then re-export the application. The `ExportPath` property is treated as a `LiteralPath`.
+This example uses the `ExportPath` property on the `RedditOAuthToken` object to determine where to export the application. When a `RedditOAuthToken` object is imported with `Import-RedditOAuthToken`, the `ExportPath` of the object will be set with the path to the file it was imported from. This makes it easy to import, make changes, and then re-export the application. The `ExportPath` property is treated as a `LiteralPath`.
 
 ### -------------------------- EXAMPLE 2 --------------------------
 ```

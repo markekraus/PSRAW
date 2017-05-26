@@ -11,7 +11,7 @@ The `RedditOAuthResponseType` Enumerator is imported automatically when you impo
 
 # Fields
 ## Code
-Used to request OAUth Authozation Code in Code Flow Token requests
+Used to request OAuth Authorization Code in Code Flow Token requests
 
 ## Token
 Used to request OAuth Access Tokens.

@@ -17,9 +17,9 @@ Update-RedditOAuthToken -AccessToken <RedditOAuthToken[]> [-Force] [-PassThru] [
 ```
 
 ## DESCRIPTION
-When a `RedditOAuthToken` Token has expired, `Update-RedditOAuthToken`can be used to refresh the Access Token. Depending on the grant method used to request the `RedditOAuthToken` with `Request-RedditOAuthToken`, either a refresh will be perfomed or a new grant flow will be initiated. 
+When a `RedditOAuthToken` Token has expired, `Update-RedditOAuthToken`can be used to refresh the Access Token. Depending on the grant method used to request the `RedditOAuthToken` with `Request-RedditOAuthToken`, either a refresh will be performed or a new grant flow will be initiated. 
 
-This function must be run in an interactive session for tokens requested with the `Implicit` grant method. The user will be required to reauhtorize the application with the provided GUI browser. All other grant methods can be refreshed with this function in non-interactive sessions.
+This function must be run in an interactive session for tokens requested with the `Implicit` grant method. The user will be required to reauthorize the application with the provided GUI browser. All other grant methods can be refreshed with this function in non-interactive sessions.
 
 > **PowerShell ISE Compatibility Issue**
 > 
@@ -37,11 +37,11 @@ PS C:\> $Token | Update-RedditOAuthToken
 PS C:\> $Token | Update-RedditOAuthToken -Force
 ```
 
-This example demonstratees using the `-Force` parameter for initiate a token refresh on a token that has not yet expired.
+This example demonstrates using the `-Force` parameter for initiate a token refresh on a token that has not yet expired.
 
 ### -------------------------- EXAMPLE 2 --------------------------
 ```
-PS C:\> $NewEpireDate = $Token | Update-RedditOAuthToken -PassThru | Select-Object -Expand ExpireDate
+PS C:\> $NewExpireDate = $Token | Update-RedditOAuthToken -PassThru | Select-Object -Expand ExpireDate
 ```
 
 This example demonstrates using the `-PassThru` parameter to send the updated `RedditOAuthToken` to the pipeline. The `ExpireDate` property is then expanded and stored in `$NewExpireDate`.
@@ -79,7 +79,7 @@ Accept wildcard characters: False
 ```
 
 ### -PassThru
-By default, this function does not return any data. The `-PassThru` parameter will place the uodated `RedditOAuthToken` into the output stream to either be stored in another variable or placed in the pipeline and consumed by other functions.
+By default, this function does not return any data. The `-PassThru` parameter will place the updated `RedditOAuthToken` into the output stream to either be stored in another variable or placed in the pipeline and consumed by other functions.
 
 ```yaml
 Type: SwitchParameter

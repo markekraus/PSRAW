@@ -5,3 +5,6 @@ theme: readthedocs
 copyright: "PSMSGraph is licensed under the <a href='https://github.com/markekraus/PSRAW/raw/master/LICENSE'>MIT license"
 pages:
   - Home: index.md
+  - PSRAW Project:
+    - Contributing to PSRAW: Project/Contributing.md
+    - Project News: Project/News.md

@@ -22,7 +22,7 @@ Import-RedditOAuthToken -LiteralPath <String[]> [-WhatIf] [-Confirm] [<CommonPar
 ```
 
 ## DESCRIPTION
-Allows you to import a `RedditOAuthToken` object from an XML file that was previously exported via `Export-RedditOAuthToken`. This allows you to share the same Reddit application between multiple scripts. This function is a wraper for `Import-Clixml`. 
+Allows you to import a `RedditOAuthToken` object from an XML file that was previously exported via `Export-RedditOAuthToken`. This allows you to share the same Reddit application between multiple scripts. This function is a wrapper for `Import-Clixml`. 
 
 User Password, Client Secret, Access Token, and Refresh Token stored in the `RedditOAuthToken` object are stored as secure strings and are not visible as plaintext in the export file. This also means that a `RedditOAuthToken` object exported by one user cannot be imported by another user on the same computer nor can it be imported by the same user on a different computer. It can only be imported by the same user on the same computer.
 

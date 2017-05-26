@@ -17,7 +17,7 @@ Request-RedditOAuthTokenInstalled [-Application] <RedditApplication> [[-DeviceID
 ```
 
 ## DESCRIPTION
-Requests an OAuth Access Token from Reddit using the `installed_client` grant flow. This method allows `Installed` applications to gain anonymous unprivilegde access to the OAuth APIs using only the application's Client ID and a Device ID. For more information on this grant method see the `Installed` parameter description for `Request-RedditOAuthToken`.
+Requests an OAuth Access Token from Reddit using the `installed_client` grant flow. This method allows `Installed` applications to gain anonymous unprivileged access to the OAuth APIs using only the application's Client ID and a Device ID. For more information on this grant method see the `Installed` parameter description for `Request-RedditOAuthToken`.
 
 This function is essentially a convenience wrapper for `Invoke-WebRequest` and returns a `Microsoft.PowerShell.Commands.BasicHtmlWebResponseObject` that results from the Auth Token Request.
 
