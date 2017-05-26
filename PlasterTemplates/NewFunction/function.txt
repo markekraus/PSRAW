@@ -1,0 +1,40 @@
+<#	
+    .NOTES
+    
+     Created with: 	Plaster
+     Created on:   	<%=$PLASTER_Date%> <%=$PLASTER_Time%>
+     Edited on:     <%=$PLASTER_Date%>
+     Created by:   	<%=$PLASTER_PARAM_AuthorName%>
+     Organization: 	<%=$PLASTER_PARAM_AuthorOrg%>
+     Filename:     	<%=$PLASTER_PARAM_FunctionName%>.ps1
+    
+    .DESCRIPTION
+        <%=$PLASTER_PARAM_FunctionName%> Function
+#>
+[CmdletBinding()]
+param()
+
+function <%=$PLASTER_PARAM_FunctionName%> {
+    [CmdletBinding(
+        ConfirmImpact = '<%=$PLASTER_PARAM_ConfirmImpact%>',
+        HelpUri = 'https://psraw.readthedocs.io/en/latest/<%=$PLASTER_PARAM_FunctionScope%>/<%=$PLASTER_PARAM_FunctionName%>',
+        SupportsShouldProcess = $true
+    )]
+    [OutputType([<%=$PLASTER_PARAM_OutputType%>])]
+    param
+    (
+
+    )
+    Begin {
+
+    }
+    Process {
+        if (-not $PSCmdlet.ShouldProcess("Item")) {
+            return
+        }
+
+    }
+    End {
+
+    }
+}

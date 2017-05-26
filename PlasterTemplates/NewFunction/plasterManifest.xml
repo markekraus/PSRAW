@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<plasterManifest
+  schemaVersion="1.0" xmlns="http://www.microsoft.com/schemas/PowerShell/Plaster/v1">
+  <metadata>
+    <name>NewFunction</name>
+    <id>37b036b5-4474-42c4-9e06-5031908576c7</id>
+    <version>1.0.0</version>
+    <title>New Function</title>
+    <description></description>
+    <author>Mark Kraus</author>
+    <tags>Function, PrivateFunction, PublicFunction</tags>
+  </metadata>
+  <parameters>
+    <parameter
+        name='FunctionName'
+        type='text'
+        prompt='Enter the name of the function'/>
+    <parameter
+        name='FunctionCat'
+        type='text'
+        prompt='Enter the categroy of the function (API, OAuth, Application, etc.)'/>
+    <parameter
+        name='AuthorName'
+        type='user-fullname'
+        prompt='Enter author name'
+        store='text'/>
+    <parameter
+        name='AuthorOrg'
+        type='text'
+        prompt='Enter the name of your organization'
+        default=' '/>
+    <parameter 
+        name='FunctionScope'
+        type='choice'
+        prompt='Select the scope of the function:'
+        default='0'
+        store='text'>
+        <choice 
+            label='&amp;Public'
+            help="Public exported module function"
+            value="Module"/>
+        <choice 
+            label='P&amp;rivate'
+            help="Private internal module function"
+            value="PrivateFunctions"/>
+    </parameter>
+    <parameter 
+        name='ConfirmImpact'
+        type='choice'
+        prompt='Select ConfirmImpact level of the function:'
+        default='1'
+        store='text'>
+        <choice 
+            label='&amp;High'
+            help="This action is potentially highly destructive and should be confirmed by default unless otherwise specified. "
+            value="High"/>
+        <choice 
+            label='&amp;Low'
+            help="This action only needs to be confirmed when the user has requested that low-impact changes must be confirmed."
+            value="Low"/>
+        <choice 
+            label='&amp;Medium'
+            help="This action should be confirmed in most scenarios where confirmation is requested."
+            value="Medium"/>
+        <choice 
+            label='&amp;None'
+            help="There is never any need to confirm this action."
+            value="None"/>
+    </parameter>
+    <parameter
+        name='OutputType'
+        type='text'
+        prompt='Enter the OutputType of the function'
+        default=''/>
+  </parameters>
+  <content>
+    <templateFile 
+        condition="$PLASTER_PARAM_FunctionScope -eq 'Module'"
+        source='function.txt'
+        destination='Public\${PLASTER_PARAM_FunctionCat}\${PLASTER_PARAM_FunctionName}.ps1'/>
+    <templateFile 
+        condition="$PLASTER_PARAM_FunctionScope -eq 'PrivateFunctions'"
+        source='function.txt'
+        destination='Private\${PLASTER_PARAM_FunctionCat}\${PLASTER_PARAM_FunctionName}.ps1'/>
+  </content>
+</plasterManifest>

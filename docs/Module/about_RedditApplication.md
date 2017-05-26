@@ -1,98 +1,182 @@
-﻿# RedditApplication Class
-## about_RedditApplication           
+# RedditApplication
+## about_RedditApplication
 
 # SHORT DESCRIPTION
 Describes the RedditApplication Class
 
 # LONG DESCRIPTION
-The RedditApplication class is used to define the parameters of an application which access the Reddit API. The RedditApplication class becomes imbedded in the [RedditOAuthAcessToken](https://psraw.readthedocs.io/en/latest/Module/about_RedditOAuthAcessToken) class after an OAuth Access token is requested. A single Application may be used by multiple users or by a single user multiple time. Each user requires their own Access Token and a single user can have multiple Access Token. The RedditApplication class makes it possible to define an application’s parameters once and then reuse it multiple times in multiple Access Tokens. 
+The `RedditApplication` class is used to define the parameters of an application which access the Reddit API. The `RedditApplication` class becomes embedded in the `RedditOAuthToken` class after an OAuth Access token is requested. It is also embedded in `RedditOAuthCode` objects when an Authorization Code is requested. A single application may be used by multiple users or by a single user multiple times. Each user requires their own Access Token and a single user can have multiple Access Token. The `RedditApplication` class makes it possible to define an application’s parameters once and then reuse it multiple times in multiple Access Tokens for multiple users. 
 
-A RedditApplication class houses the Client ID and Client Secret as defined at [https://ssl.reddit.com/prefs/apps](https://ssl.reddit.com/prefs/apps). The Name and Description of the RedditApplication do not need to match what is registered with Reddit. They are provided along with the GUID property as a convenience to identify your applications.
+A `RedditApplication` class houses the Client ID and Client Secret as defined at https://ssl.reddit.com/prefs/apps . The `Name` and `Description` of the `RedditApplication` do not need to match what is registered with Reddit. They are provided along with the `GUID` property as a convenience to identify your applications.
 
-A RedditApplication is required to request an Authorization Code with [Request-RedditOAuthAuthorzationCode](https://psraw.readthedocs.io/en/latest/Module/Request-RedditOAuthAuthorzationCode).
+A `RedditApplication` is required to request an OAuth Access Token with `Request-RedditOAuthToken`.
 
-You can create RedditApplication objects using the [New-RedditApplication](https://psraw.readthedocs.io/en/latest/Module/New-RedditApplication) function
+You can create `RedditApplication` objects using the `New-RedditApplication` function
 
-The RedditApplication class is imported from a nested module located at PSRAW\Classes\RedditApplication.psm1. This means you can import the class either from the PSRAW module or directly from the nested module.
+The `RedditApplication` class is imported automatically when you import the PSRAW module.
 
-## Constructors
 
-### RedditApplication()
-The default constructor will always throw an System.NotImplementedException exception. It is included because PowerShell v5 classes behave oddly when a default constructor is missing. This constructor cannot be used to create an instance of the class.
+# Constructors
+## RedditApplication()
+The default constructor will always throw an `System.NotImplementedException` exception. It is included because PowerShell v5 classes behave oddly when a default constructor is missing when other constructors are defined. This constructor cannot be used to create an instance of the class.
 
 ```powershell
-[RedditApplicaion]::new()
+[RedditApplication]::new()
 ```
 
-## RedditApplication([System.Collections.Hashtable]$InitHash)
-This constructor passes the provided HashTable to the _int([System.Collections.Hashtable]$InitHash) method. This constructor provides HashTable to RedditApplication conversion.
+## RedditApplication(Object Object)
+This constructor converts the provided `Object` to a `HashTable` and passes it to the `_init` method. This constructor provides `Object` to `RedditApplication` conversion.
 
 ```powershell
-[RedditApplicaion]::new([System.Collections.Hashtable]$InitHash)
+[RedditApplication]::new([Object]$Object)
 ```
 
-## RedditApplication ([PSObject]$PSObject)
-This constructor converts the provided PSObject to a hashtable and passes it to the _int([System.Collections.Hashtable]$InitHash) method. This constructor provides PSObject to RedditApplication converstion.
+## RedditApplication(System.Management.Automation.PSObject PSObject)
+This constructor converts the provided `PSObject` to a `HashTable` and passes it to the `_init` method. This constructor provides `PSObject` to `RedditApplication` conversion.
 
 ```powershell
-[RedditApplicaion]::new([PSObject]$PSObject)
+[RedditApplication]::new([System.Management.Automation.PSObject]$PSObject)
 ```
 
-## RedditApplication([String]$Name,[String]$Description,[uri]$RedirectUri,[String]$UserAgent,[RedditApplicationType]$Type,[guid]$GUID,[string]$ExportPath,[RedditScope[]]$Scope,[System.Management.Automation.PSCredential]$ClientCredential,[System.Management.Automation.PSCredential]$UserCredential)
-This constructor converts the arguments to a HashTable and pass them to the _int([System.Collections.Hashtable]$InitHash) method. 
+## RedditApplication(System.Collections.Hashtable InitHash)
+This constructor passes the provided `HashTable` to the `_init` method. This constructor provides `HashTable` to `RedditApplication` conversion.
 
 ```powershell
-[RedditApplicaion]::new(
-    [String]$Name,
-    [String]$Description,
-    [uri]$RedirectUri,
-    [String]$UserAgent,
-    [RedditApplicationType]$Type,
-    [guid]$GUID,
-    [string]$ExportPath,
-    [RedditScope[]]$Scope,
-    [System.Management.Automation.PSCredential]$ClientCredential,
+[RedditApplication]::new([System.Collections.Hashtable]$InitHash)
+```
+
+## RedditApplication(String Name, String Description, Uri RedirectUri, String UserAgent, RedditApplicationType Type, Guid GUID, String ExportPath, RedditOAuthScope[] Scope, System.Management.Automation.PSCredential ClientCredential, System.Management.Automation.PSCredential UserCredential)
+This constructor converts the arguments to a `HashTable` and passes them to the `_init` method. 
+
+```powershell
+[RedditApplication]::new(
+    [String]$Name, 
+    [String]$Description, 
+    [Uri]$RedirectUri, 
+    [String]$UserAgent, 
+    [RedditApplicationType]$Type, 
+    [Guid]$GUID, 
+    [String]$ExportPath, 
+    [RedditOAuthScope[]]$Scope, 
+    [System.Management.Automation.PSCredential]$ClientCredential, 
     [System.Management.Automation.PSCredential]$UserCredential
 )
 ```
 
-## Properties
 
-### Name
-The name of the application used for convenience of identifying the RedditApplication object only
+# Properties
+## AuthBaseURL
+The `AuthBaseURL` static property is default base URL used to request authorization codes from reddit.
 
 ```yaml
-Data Type: String
-Name: Name
-Default value: None
-Access: Public
-Scope: Instance
+Name: AuthBaseURL
+Type: String
+Hidden: False
+Static: True
 ```
 
-### Description
-A description for the application used for conevnience of identifying and documenting the RedditApplication object only.
+## ClientCredential
+The `ClientCredential` property contains a `PSCredential` object where the Username is the Application's Client ID and the password is the Client Secret as configured in reddit. For `Installed` applications, the password should be empty.
 
 ```yaml
-Data Type: String
+Name: ClientCredential
+Type: System.Management.Automation.PSCredential
+Hidden: True
+Static: False
+```
+
+## ClientID
+The `ClientID` property is the Client ID as provided by reddit when the application is registered. This should match the username of the `ClientCredential`. Changing this is not recommended.
+
+```yaml
+Name: ClientID
+Type: String
+Hidden: False
+Static: False
+```
+
+## Description
+A description for the application used for convenience of identifying and documenting the `RedditApplication` object only.
+
+```yaml
 Name: Description
-Default value: None
-Access: Public
-Scope: Instance
+Type: String
+Hidden: False
+Static: False
 ```
 
-### RedirectUri
-The Redirect URI for the application. This must match the Redirect URI registered at google. This is required byt Reddit's OAuth to request both Authorization codes and Access Tokens.
+## ExportPath
+This is the path the `RedditApplication` was last imported from or where you wish to export it to. It is provided for interaction with `Import-RedditApplication` and `Export-RedditApplication`. This should be the literal path of the file.
 
 ```yaml
-Data Type: Uri
-Name: RedirectUri
-Default value: None
-Access: Public
-Scope: Instance
+Name: ExportPath
+Type: String
+Hidden: False
+Static: False
 ```
 
-### UserAgent
-The UserAgent property contains the text thatwill be sent as the User-Agent header to the Reddit API. Redit requires applications accessing their API provide a meaningful user agent. The following convetion is what they recommend.
+## GUID
+A `Guid` used to help identify the application. This is provided for convenience and is not sent to or required by the API. In situations where multiple Applications may be in use, this GUID can be used to identify if the same applications is in use on separate `RedditOAuthToken` objects.
+
+```yaml
+Name: GUID
+Type: Guid
+Hidden: False
+Static: False
+```
+
+## Name
+The name of the application used for convenience of identifying the `RedditApplication` object only.
+
+```yaml
+Name: Name
+Type: String
+Hidden: False
+Static: False
+```
+
+## RedirectUri
+The Redirect URI for the application. This must match the Redirect URI registered for the application on Reddit. This is required byt Reddit's OAuth to request both Authorization codes and Access Tokens.
+
+```yaml
+Name: RedirectUri
+Type: Uri
+Hidden: False
+Static: False
+```
+
+## Scope
+The Scope property is an array of `RedditOAuthScope` objects which list the scopes for which the Application will request access to. To get all valid scopes use `Get-RedditOAuthScope`. For more information see the help topic for `Get-RedditOAuthScope`.
+
+```yaml
+Name: Scope
+Type: RedditOAuthScope[]
+Hidden: False
+Static: False
+```
+
+## ScriptUser
+The `ScriptUser` property is the Reddit username used for Script Applications. This should match the username in the `UserCredential` property
+
+```yaml
+Name: ScriptUser
+Type: String
+Hidden: False
+Static: False
+```
+
+## Type
+The `Type` property is one of the available `RedditApplicationType` enumerator options. This should match the application type registered on Reddit. for more information see `about_RedditApplicationType`
+
+```yaml
+Name: Type
+Type: RedditApplicationType
+Hidden: False
+Static: False
+```
+
+## UserAgent
+The `UserAgent` property contains the text that will be sent as the `User-Agent` header to the Reddit API. Reddit requires applications accessing their API provide a meaningful user agent. The following convention is what they recommend.
 
 ```
 <platform>:<app ID>:<version string> (by /u/<reddit username>)
@@ -104,145 +188,157 @@ Example:
 windows:MyPSRAW-App:v1.2.3 (by /u/markekraus)
 ```
 
-See [https://github.com/reddit/reddit/wiki/API#rules](https://github.com/reddit/reddit/wiki/API#rules) for more details.
+For more details see https://github.com/reddit/reddit/wiki/API#rules
 
 ```yaml
-Data Type: Uri
 Name: UserAgent
-Default value: None
-Access: Public
-Scope: Instance
+Type: String
+Hidden: False
+Static: False
 ```
 
-### Type
-The Type property is one of the avialble [RedditAplicationType](https://psraw.readthedocs.io/en/latest/Module/about_RedditAplicationType) enum options. This should match the application type registered on Reddit.
-
-
-```yaml
-Data Type: RedditApplicationType
-Name: Type
-Default value: None
-Access: Public
-Scope: Instance
-```
-
-### ClientID
-The ClientID property is the Client ID as provided by reddit when the application is registered. This should match the username of the ClientCredential. Changing this is not recommended.
+## UserCredential
+The `UserCredential` property contains a `PSCredential` object where the username and passwords are the Reddit Username and password used for `Script` Applications. For `WebApp` and `Installed` apps, this is not required and will be ignored.
 
 ```yaml
-Data Type: String
-Name: ClientID
-Default value: None
-Access: Public
-Scope: Instance
-```
-
-### GUID
-A Guid used to help identify the application. This is provided for convenience and is not sent to or required by the API.
-
-```yaml
-Data Type: Guid
-Name: GUID
-Default value: None
-Access: Public
-Scope: Instance
-```
-
-### ExportPath
-This is the path the RedditApplication was last imported from or where you wish to export it to. It is provided for interaction with [Import-RedditApplication](https://psraw.readthedocs.io/en/latest/Module/Import-RedditApplication) and [Export-RedditApplication](https://psraw.readthedocs.io/en/latest/Module/Export-RedditApplication). This should be the literal path of the file.
-
-```yaml
-Data Type: String
-Name: ExportPath
-Default value: None
-Access: Public
-Scope: Instance
-```
-
-### ScriptUser 
-The ScriptUser property is the Reddit username used for Script Applications. This should match the uername in the UserCrednetial property
-
-```yaml
-Data Type: String
-Name: ExportPath
-Default value: None
-Access: Public
-Scope: Instance
-```
-
-### Scope
-The Scope property is an array of [RedditScope](https://psraw.readthedocs.io/en/latest/Module/about_RedditScope) objects which list the scopes for which the Application will request access to. To get all valid scopes use [Get-RedditOAuthScope](https://psraw.readthedocs.io/en/latest/Module/Get-RedditOAuthScope).
-
-```yaml
-Data Type: RedditScope[]
-Name: Scope
-Default value: None
-Access: Public
-Scope: Instance
-```
-
-### ClientCredential
-The ClientCredential property contains a PSCredential object where the Username is the Application's Client ID and the password is the Client Secret as configired in reddit. For Installed applications, the password can be anything as it will be ignored.
-
-```yaml
-Data Type: System.Management.Automation.PSCredential
-Name: ClientCredential
-Default value: None
-Access: Hidden
-Scope: Instance
-```
-
-### UserCredential
-The UserCredential property contains a PSCredential object where the username and passwords are the Reddit Username and password used for Script Applications. Fore WebApp and Installed apps, this is not required and will be ignored.
-
-```yaml
-Data Type: System.Management.Automation.PSCredential
 Name: UserCredential
-Default value: None
-Access: Hidden
-Scope: Instance
+Type: System.Management.Automation.PSCredential
+Hidden: True
+Static: False
 ```
 
-## Methods
 
-### GetClientSecret()
-The GetClientSecret method is used to retrieve the plaintext Client Secret which is stored as the password of the ClientCredential. This is used in various functions to retrieve the Client Secret in order to authenticate the application with OAuth.
+# Methods
+## _GetAuthorizationUrl(RedditOAuthResponseType ResponseType, RedditOAuthDuration Duration, String State, String AuthBaseUrl)
+The `_GetAuthorizationUrl` hidden method is used to generate an authorization request URL by the `GetAuthorizationUrl` method overloads. It combines the Base URL, Client ID, Response Type, Duration, Redirect URI, and Scope to to provide a URL used for requesting authorization from Reddit.
 
 ```yaml
-Data Type: String
-Name: GetClientSecret
-Access: Public
-Scope: Instance
-Definition: string GetClientSecret()
+Name: _GetAuthorizationUrl
+Return Type: String
+Hidden: True
+Static: False
+Definition: hidden String _GetAuthorizationUrl(RedditOAuthResponseType ResponseType, RedditOAuthDuration Duration, String State, String AuthBaseUrl)
 ```
 
-###  GetUserPassword()
-The  GetUserPassword method is used to retrieve the plaintext user password which is stored as the password of the UserCredential. This is used in various functions to retrieve the user password in order to authenticate script applications with OAuth.
+## _init(System.Collections.Hashtable InitHash)
+The `_init` hidden method is used by the constructors to initialize the class. This way class initialization code can be maintained in a single method instead of each individual constructor. It performs several checks to ensure that required properties are provided and will throw `System.ArgumentException` exceptions if the requirements are not met.
 
 ```yaml
-Data Type: String
-Name:  GetUserPassword
-Access: Public
-Scope: Instance
-Definition: string  GetUserPassword()
-```
-
-### _init([System.Collections.Hashtable]$InitHash)
-The _init hidden method is used by the constructors to initialize the class. This way class initialization code can be maintained in a single methods instead of each constructor. It performs serveral checks to ensure that required properties are provided and will throw System.ArgumentException exceptions if the requirements are not met.
-
-```yaml
-Data Type: Void
 Name: _init
-Access: Hidden
-Scope: Instance
-Definition: hidden void _init(System.Collections.Hashtable InitHash)
+Return Type: Void
+Hidden: True
+Static: False
+Definition: hidden Void _init(System.Collections.Hashtable InitHash)
 ```
+
+## GetAuthorizationUrl(RedditOAuthResponseType ResponseType, RedditOAuthDuration Duration, String State)
+The `GetAuthorizationUrl` method is used to generate an authorization request URL. The default URL will be constructed with following:
+
+```yaml
+Base URL: [RedditApplication]::AuthBaseURL
+response_type: $ResponseType
+duration: $Duration
+state: $State
+```
+
+These will be passed to the `_GetAuthorizationUrl` method which will generate the URL based on attributes from the `RedditApplication` instance.
+
+```yaml
+Name: GetAuthorizationUrl
+Return Type: String
+Hidden: False
+Static: False
+Definition: String GetAuthorizationUrl(RedditOAuthResponseType ResponseType, RedditOAuthDuration Duration, String State)
+```
+
+## GetAuthorizationUrl(RedditOAuthResponseType ResponseType, RedditOAuthDuration Duration, String State, String AuthBaseURL)
+The `GetAuthorizationUrl` method is used to generate an authorization request URL. The default URL will be constructed with following:
+
+```yaml
+Base URL: $AuthBaseURL
+response_type: $ResponseType
+duration: $Duration
+state: $State
+```
+
+These will be passed to the `_GetAuthorizationUrl` method which will generate the URL based on attributes from the `RedditApplication` instance.
+
+```yaml
+Name: GetAuthorizationUrl
+Return Type: String
+Hidden: False
+Static: False
+Definition: String GetAuthorizationUrl(RedditOAuthResponseType ResponseType, RedditOAuthDuration Duration, String State, String AuthBaseURL)
+```
+
+## GetAuthorizationUrl()
+The `GetAuthorizationUrl` method is used to generate an authorization request URL. The default URL will be constructed with following:
+
+```yaml
+Base URL: [RedditApplication]::AuthBaseURL
+response_type: Code
+duration: Permanent
+state: [guid]::NewGuid().toString()
+```
+
+These will be passed to the `_GetAuthorizationUrl` method which will generate the URL based on attributes from the `RedditApplication` instance.
+
+```yaml
+Name: GetAuthorizationUrl
+Return Type: String
+Hidden: False
+Static: False
+Definition: String GetAuthorizationUrl()
+```
+
+## GetAuthorizationUrl(RedditOAuthResponseType ResponseType, RedditOAuthDuration Duration)
+The `GetAuthorizationUrl` method is used to generate an authorization request URL. The default URL will be constructed with following:
+
+```yaml
+Base URL: [RedditApplication]::AuthBaseURL
+response_type: $ResponseType
+duration: $Duration
+state: [guid]::NewGuid().toString()
+```
+
+These will be passed to the `_GetAuthorizationUrl` method which will generate the URL based on attributes from the `RedditApplication` instance.
+
+```yaml
+Name: GetAuthorizationUrl
+Return Type: String
+Hidden: False
+Static: False
+Definition: String GetAuthorizationUrl(RedditOAuthResponseType ResponseType, RedditOAuthDuration Duration)
+```
+
+## GetClientSecret()
+The `GetClientSecret` method is used to retrieve the plaintext Client Secret which is stored as the password of the `ClientCredential`. This is used in various functions to retrieve the Client Secret in order to authenticate the application with OAuth.
+
+```yaml
+Name: GetClientSecret
+Return Type: String
+Hidden: False
+Static: False
+Definition: String GetClientSecret()
+```
+
+## GetUserPassword()
+The `GetUserPassword` method is used to retrieve the plaintext user password which is stored as the password of the `UserCredential`. This is used in various functions to retrieve the user password in order to authenticate script applications with OAuth.
+
+```yaml
+Name: GetUserPassword
+Return Type: String
+Hidden: False
+Static: False
+Definition: String GetUserPassword()
+```
+
 
 # EXAMPLES
 
 ## Create WebApp RedditApplication
 ```powershell
-Using module '.\PSRAW\Classes\RedditApplication.psm1'
+Import-Module PSRAW
 $ClientCredential = Get-Credential
 $App = [RedditApplication]@{
      Name = 'TestApplication'
@@ -257,10 +353,10 @@ $App = [RedditApplication]@{
 
 ## Create Script RedditApplication
 ```powershell
-Using module PSRAW
+Import-Module PSRAW
 $UserCredential = Get-Credential
 $ClientCredential = Get-Credential
-$App = [PSRAW.RedditApplication]@{
+$App = [RedditApplication]@{
     Name = 'TestApplication'
     Description = 'This is only a test'
     RedirectUri = 'https://localhost/'
@@ -274,7 +370,7 @@ $App = [PSRAW.RedditApplication]@{
 
 ## Create Installed RedditApplication
 ```powershell
-Using module '.\PSRAW\Classes\RedditApplication.psm1'
+Import-Module PSRAW
 $ClientCredential = Get-Credential
 $App = [RedditApplication]@{
      Name = 'TestApplication'
@@ -288,13 +384,22 @@ $App = [RedditApplication]@{
 ```
 
 # SEE ALSO
+
+[about_RedditApplicationType](https://psraw.readthedocs.io/en/latest/Module/about_RedditApplicationType)
+
+[about_RedditOAuthCode](https://psraw.readthedocs.io/en/latest/Module/about_RedditOAuthCode)
+
+[about_RedditOAuthDuration](https://psraw.readthedocs.io/en/latest/Module/about_RedditOAuthDuration)
+
+[about_RedditOAuthResponseType](https://psraw.readthedocs.io/en/latest/Module/about_RedditOAuthResponseType)
+
+[about_RedditOAuthScope](https://psraw.readthedocs.io/en/latest/Module/about_RedditOAuthScope)
+
+[about_RedditOAuthToken](https://psraw.readthedocs.io/en/latest/Module/about_RedditOAuthToken)
+
 [New-RedditApplication](https://psraw.readthedocs.io/en/latest/Module/New-RedditApplication)
 
-[Get-RedditOAuthScope](https://psraw.readthedocs.io/en/latest/Module/Get-RedditOAuthScope)
-
-[about_RedditAplicationType](https://psraw.readthedocs.io/en/latest/Module/about_RedditAplicationType)
-
-[about_RedditScope](https://psraw.readthedocs.io/en/latest/Module/about_RedditScope)
+[Request-RedditOAuthToken](https://psraw.readthedocs.io/en/latest/Module/New-RedditApplication)
 
 [https://github.com/reddit/reddit/wiki/API](https://github.com/reddit/reddit/wiki/API)
 
@@ -303,3 +408,5 @@ $App = [RedditApplication]@{
 [https://www.reddit.com/prefs/apps](https://www.reddit.com/prefs/apps)
 
 [https://www.reddit.com/wiki/api](https://www.reddit.com/wiki/api)
+
+[https://psraw.readthedocs.io/](https://psraw.readthedocs.io/)

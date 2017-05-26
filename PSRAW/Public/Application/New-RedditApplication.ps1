@@ -1,99 +1,103 @@
 <#	
     .NOTES
-    ===========================================================================
+    
      Created with:  VSCode
      Created on:    4/26/2017 04:40 AM
-     Edited on:     4/28/2017
+     Edited on:     5/14/2017
      Created by:    Mark Kraus
      Organization: 	
      Filename:      New-RedditApplication.ps1
-    ===========================================================================
+    
     .DESCRIPTION
         New-RedditApplication Function
 #>
-Using Module '..\..\Enums\RedditApplicationType.psm1'
-Using Module '..\..\Classes\RedditScope.psm1'
-Using Module '..\..\Classes\RedditApplication.psm1'
+[CmdletBinding()]
+param()
 
 function New-RedditApplication {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute(
-        "PSUseShouldProcessForStateChangingFunctions", "", Justification = "Creates in-memory object only.")]
-    [CmdletBinding(DefaultParameterSetName = 'WebApp',
-                   ConfirmImpact = 'None',
-                   HelpUri = 'https://psraw.readthedocs.io/en/latest/functions/New-RedditApplication')]
+        "PSUseShouldProcessForStateChangingFunctions", 
+        "", 
+        Justification = "Creates in-memory object only."
+    )]
+    [CmdletBinding(
+        DefaultParameterSetName = 'WebApp',
+        ConfirmImpact = 'None',
+        HelpUri = 'https://psraw.readthedocs.io/en/latest/Module/New-RedditApplication'
+    )]
     [OutputType([RedditApplication])]
     param
     (
         [Parameter(ParameterSetName = 'Script',
-                   Mandatory = $true)]
+            Mandatory = $true)]
         [switch]$Script,
         
         [Parameter(ParameterSetName = 'WebApp',
-                   Mandatory = $true)]
+            Mandatory = $true)]
         [switch]$WebApp,
         
         [Parameter(ParameterSetName = 'Installed',
-                   Mandatory = $true)]
+            Mandatory = $true)]
         [switch]$Installed,
         
         [Parameter(ParameterSetName = 'Installed',
-                   Mandatory = $true)]
+            Mandatory = $true)]
         [Parameter(ParameterSetName = 'Script',
-                   Mandatory = $true)]
+            Mandatory = $true)]
         [Parameter(ParameterSetName = 'WebApp',
-                   Mandatory = $true)]
+            Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
         [Alias('AppName')]
         [string]$Name,
         
         [Parameter(ParameterSetName = 'Installed',
-                   Mandatory = $true)]
+            Mandatory = $true)]
         [Parameter(ParameterSetName = 'Script',
-                   Mandatory = $true)]
+            Mandatory = $true)]
         [Parameter(ParameterSetName = 'WebApp',
-                   Mandatory = $true)]
+            Mandatory = $true)]
         [Alias('ClientInfo')]
         [System.Management.Automation.PSCredential]$ClientCredential,
         
         [Parameter(ParameterSetName = 'Installed',
-                   Mandatory = $true)]
+            Mandatory = $true)]
         [Parameter(ParameterSetName = 'WebApp',
-                   Mandatory = $true)]
+            Mandatory = $true)]
         [Parameter(ParameterSetName = 'Script',
-                   Mandatory = $true)]
+            Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
         [uri]$RedirectUri,
         
         [Parameter(ParameterSetName = 'Installed',
-                   Mandatory = $true)]
+            Mandatory = $true)]
         [Parameter(ParameterSetName = 'WebApp',
-                   Mandatory = $true)]
+            Mandatory = $true)]
         [Parameter(ParameterSetName = 'Script',
-                   Mandatory = $true)]
+            Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
         [string]$UserAgent,
         
         [Parameter(ParameterSetName = 'Installed',
-                   Mandatory = $true)]
+            Mandatory = $true)]
         [Parameter(ParameterSetName = 'Script',
-                   Mandatory = $true)]
+            Mandatory = $true)]
         [Parameter(ParameterSetName = 'WebApp',
-                   Mandatory = $true)]
+            Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
-        [RedditScope[]]$Scope,
+        [RedditOAuthScope[]]$Scope,
         
         [Parameter(ParameterSetName = 'Installed',
-                   Mandatory = $false)]
+            Mandatory = $false)]
         [Parameter(ParameterSetName = 'Script',
-                   Mandatory = $false)]
+            Mandatory = $false)]
         [Parameter(ParameterSetName = 'WebApp',
-                   Mandatory = $false)]
+            Mandatory = $false)]
         [string]$Description,
         
         [Parameter(ParameterSetName = 'Script',
-                   Mandatory = $true)]
+            Mandatory = $true)]
         [Parameter(ParameterSetName = 'WebApp',
-                   Mandatory = $false)]
+            Mandatory = $false)]
         [Alias('Credential')]
         [System.Management.Automation.PSCredential]$UserCredential,
         
@@ -122,15 +126,15 @@ function New-RedditApplication {
         }
        
         [RedditApplication]@{
-            Name = $Name
-            Description = $Description
-            Type = $AppType
-            UserAgent = $UserAgent
+            Name             = $Name
+            Description      = $Description
+            Type             = $AppType
+            UserAgent        = $UserAgent
             ClientCredential = $ClientCredential
-            UserCredential = $UserCredential
-            RedirectUri = $RedirectUri
-            Scope = $Scope
-            GUID = $GUID
+            UserCredential   = $UserCredential
+            RedirectUri      = $RedirectUri
+            Scope            = $Scope
+            GUID             = $GUID
         }
     }
 }

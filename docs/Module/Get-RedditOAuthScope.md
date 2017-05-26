@@ -7,7 +7,7 @@ schema: 2.0.0
 # Get-RedditOAuthScope
 
 ## SYNOPSIS
-Retireve valid Reddit OAuth Scopes.
+Retrieve valid Reddit OAuth Scopes.
 
 ## SYNTAX
 
@@ -16,13 +16,13 @@ Get-RedditOAuthScope [[-ApiEndpointUri] <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Retrive valid OAuth scope IDs, Names, and Descriptions from Reddit. The Scope ID's are required for requesting OAuth Authorzation codes
+Retrieve valid OAuth scope IDs, Names, and Descriptions from Reddit. The Scope ID's are required for requesting OAuth Authorization codes
 
 ## EXAMPLES
 
 ### -------------------------- EXAMPLE 1 --------------------------
 ```
-$RedditScopes = Get-RedditOAuthScope
+$RedditOAuthScopes = Get-RedditOAuthScope
 ```
 
 ## PARAMETERS
@@ -41,7 +41,7 @@ Aliases:
 
 Required: False
 Position: 1
-Default value: [RedditScope]::GetApiEndpointUri()
+Default value: [RedditOAuthScope]::GetApiEndpointUri()
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -53,21 +53,23 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### RedditScope
+### RedditOAuthScope
 
 ## NOTES
+For complete documentation visit [https://psraw.readthedocs.io/](https://psraw.readthedocs.io/)
+
 For more information about registering Reddit Apps, Reddit's API, or Reddit OAuth see:
 
-* https://github.com/reddit/reddit/wiki/API
-* https://github.com/reddit/reddit/wiki/OAuth2
-* https://www.reddit.com/prefs/apps
-* https://www.reddit.com/wiki/api
+* [https://github.com/reddit/reddit/wiki/API](https://github.com/reddit/reddit/wiki/API)
+* [https://github.com/reddit/reddit/wiki/OAuth2](https://github.com/reddit/reddit/wiki/OAuth2)
+* [https://www.reddit.com/prefs/apps](https://www.reddit.com/prefs/apps)
+* [https://www.reddit.com/wiki/api](https://www.reddit.com/wiki/api)
 
 ## RELATED LINKS
 
 [Get-RedditOAuthScope](https://psraw.readthedocs.io/en/latest/Module/Get-RedditOAuthScope)
 
-[about_RedditScope](https://psraw.readthedocs.io/en/latest/Module/about_RedditScope)
+[about_RedditOAuthScope](https://psraw.readthedocs.io/en/latest/Module/about_RedditOAuthScope)
 
 [https://github.com/reddit/reddit/wiki/API](https://github.com/reddit/reddit/wiki/API)
 
@@ -77,3 +79,4 @@ For more information about registering Reddit Apps, Reddit's API, or Reddit OAut
 
 [https://www.reddit.com/wiki/api](https://www.reddit.com/wiki/api)
 
+[https://psraw.readthedocs.io/](https://psraw.readthedocs.io/)

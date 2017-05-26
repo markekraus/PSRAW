@@ -1,13 +1,13 @@
 <#	
 	.NOTES
-	===========================================================================
+	
 	 Created with: 	VSCode
 	 Created on:   	4/23/2017
-     Edited on::    4/23/2017
+     Edited on::    5/11/2017
 	 Created by:   	Mark Kraus
 	 Organization: 	
 	 Filename:     	psake.ps1
-	===========================================================================
+	
 	.DESCRIPTION
 		psake Build Automation
 #>
@@ -22,6 +22,9 @@ Properties {
     $ModuleFolder = Split-Path -Path $ENV:BHPSModuleManifest -Parent
     # Configured in appveyor.yml
     $ModuleName = $ENV:ModuleName
+    If (-not $ModuleName) {
+        $ModuleName = Split-Path -Path $ModuleFolder -Leaf
+    }
     $PSVersion = $PSVersionTable.PSVersion.Major
     $TestFile = "TestResults_PS$PSVersion`_$TimeStamp.xml"
     $lines = '----------------------------------------------------------------------'
@@ -30,11 +33,11 @@ Properties {
         $Verbose = @{ Verbose = $True }
     }
     $CurrentVersion = [version](Get-Metadata -Path $env:BHPSModuleManifest)
-    $BuildVersion = [version]::New($CurrentVersion.Major, $CurrentVersion.Minor, $CurrentVersion.Build, ($CurrentVersion.Revision +1))
-    if($ENV:BHBranchName -eq "master"){
+    $BuildVersion = [version]::New($CurrentVersion.Major, $CurrentVersion.Minor, $CurrentVersion.Build, ($CurrentVersion.Revision + 1))
+    if ($ENV:BHBranchName -eq "master") {
         $BuildVersion = [version]::New($CurrentVersion.Major, $CurrentVersion.Minor, ($CurrentVersion.Build + 1), 0)
     }
-    If($ENV:BHBranchName -eq "master" -and $ENV:BHCommitMessage -match '!deploy'){
+    If ($ENV:BHBranchName -eq "master" -and $ENV:BHCommitMessage -match '!deploy') {
         $GalleryVersion = Get-NextPSGalleryVersion -Name $ModuleName
         $BuildVersion = [version]::New($CurrentVersion.Major, ($CurrentVersion.Minor + 1), 0, 0)
         If ($GalleryVersion -gt $BuildVersion) {
@@ -44,7 +47,11 @@ Properties {
     $BuildDate = Get-Date -uFormat '%Y-%m-%d'
     $ReleaseNotes = "$ProjectRoot\RELEASE.md"
     $ChangeLog = "$ProjectRoot\docs\ChangeLog.md"
-    $MkdcosYmlHeader =  "$ProjectRoot\Config\header-mkdocs.yml"
+    $MkdcosYmlHeader = "$ProjectRoot\Config\header-mkdocs.yml"
+    # Exclude GUI files from coverage tests because they cannot be unit tested.
+    $CodeCoverageExclude = @(
+        'Show-RedditOAuthWindow.ps1'
+    )
 }
 
 Task Default -Depends PostDeploy
@@ -65,16 +72,14 @@ Task UnitTests -Depends Init {
     $Timestamp = Get-date -uformat "%Y%m%d-%H%M%S"
     $TestFile = "TestResults_PS$PSVersion`_$TimeStamp.xml"
     $Parameters = @{
-        Script = "$ProjectRoot\Tests"
-        PassThru = $true
-        Tag = 'Unit'
+        Script       = "$ProjectRoot\Tests"
+        PassThru     = $true
+        Tag          = 'Unit'
         OutputFormat = 'NUnitXml'
-        OutputFile = "$ProjectRoot\$TestFile"
+        OutputFile   = "$ProjectRoot\$TestFile"
+        Show         = 'Fails'
     }
-    $TestResults =Invoke-Pester @Parameters
-    if ($TestResults.FailedCount -gt 0) {
-        Write-Error "Failed '$($TestResults.FailedCount)' tests, build failed"
-    }
+    $TestResults = Invoke-Pester @Parameters
     "`n"
     If ($ENV:BHBuildSystem -eq 'AppVeyor') {
         "Uploading $ProjectRoot\$TestFile to AppVeyor"
@@ -82,12 +87,16 @@ Task UnitTests -Depends Init {
         (New-Object 'System.Net.WebClient').UploadFile("https://ci.appveyor.com/api/testresults/nunit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path "$ProjectRoot\$TestFile"))
     }
     Remove-Item "$ProjectRoot\$TestFile" -Force -ErrorAction SilentlyContinue
+    if ($TestResults.FailedCount -gt 0) {
+        Write-Error "Failed '$($TestResults.FailedCount)' tests, build failed"
+    }
+    "`n"
 }
 
 Task Build -Depends UnitTests {
     $lines
     
-    if(Test-Path "$ModuleFolder\Public\"){
+    if (Test-Path "$ModuleFolder\Public\") {
         "Populating AliasesToExport and FunctionsToExport"
         # Load the module, read the exported functions and aliases, update the psd1
         $FunctionFiles = Get-ChildItem "$ModuleFolder\Public\" -Filter '*.ps1' -Recurse |
@@ -95,66 +104,68 @@ Task Build -Depends UnitTests {
         $ExportFunctions = @()
         $ExportAliases = @()
         foreach ($FunctionFile in $FunctionFiles) {
+            "- Processing $($FunctionFile.FullName)"
             $AST = [System.Management.Automation.Language.Parser]::ParseFile($FunctionFile.FullName, [ref]$null, [ref]$null)        
-            $Functions = $AST.FindAll({
+            $Functions = $AST.FindAll( {
                     $args[0] -is [System.Management.Automation.Language.FunctionDefinitionAst]
                 }, $true)
             if ($Functions.Name) {
                 $ExportFunctions += $Functions.Name
             }
-            $Aliases = $AST.FindAll({
-                    $args[0] -is [System.Management.Automation.Language.AttributeAst] -and
-                    $args[0].parent -is [System.Management.Automation.Language.ParamBlockAst] -and
+            $Aliases = $AST.FindAll( {
+                    $args[0] -is [System.Management.Automation.Language.AttributeAst] -and 
+                    $args[0].parent -is [System.Management.Automation.Language.ParamBlockAst] -and 
                     $args[0].TypeName.FullName -eq 'alias'
                 }, $true)
             if ($Aliases.PositionalArguments.value) {
                 $ExportAliases += $Aliases.PositionalArguments.value
             }        
         }
-        Set-ModuleFunctions -Name $env:BHPSModuleManifest -FunctionsToExport $ExportFunctions
+        "- Running Update-MetaData -Path $env:BHPSModuleManifest -PropertyName FunctionsToExport -Value : `r`n  - {0}" -f ($ExportFunctions -Join "`r`n  - ")
+        Update-MetaData -Path $env:BHPSModuleManifest -PropertyName FunctionsToExport -Value $ExportFunctions
+        "- Update-Metadata -Path $env:BHPSModuleManifest -PropertyName AliasesToExport -Value : `r`n  - {0}" -f ($ExportAliases -Join "`r`n  - ")
         Update-Metadata -Path $env:BHPSModuleManifest -PropertyName AliasesToExport -Value $ExportAliases
     }
     Else {
         "$ModuleFolder\Public\ not found. No public functions to import"
     }
     
-    
-    "Populating NestedModules"
-    # Scan the Public, Private, Enums, and Classes folders and add all Files to NestedModules
-    # I prefer to populate this instead of dot sourcing from the .psm1
+    "Populating ScriptsToProcess"
+    # Scan the Enums and Classes folders and add all Files to ScriptsToProcess
+    # These scripts will be loaded in the Global Scope upon module import
+    # This is an unfortunate requirement for v5 classes and Enums
     $Parameters = @{
-        Path = @(
+        Path        = @(
             "$ModuleFolder\Enums\"
             "$ModuleFolder\Classes\"
-            "$ModuleFolder\Public\"
-            "$ModuleFolder\Private\"
         )
-        Filter = '*.ps*1'
-        Recurse = $true
+        Filter      = '*.ps1'
+        Recurse     = $true
         ErrorAction = 'SilentlyContinue'
     }
-    $ExportModules = Get-ChildItem @Parameters |
+    $ExportScripts = Get-ChildItem @Parameters |
         Where-Object { $_.Name -notmatch '\.tests{0,1}\.ps1' } |
         ForEach-Object { $_.fullname.replace("$ModuleFolder\", "") }
-    if($ExportModules){
-        Update-Metadata -Path $env:BHPSModuleManifest -PropertyName NestedModules -Value $ExportModules
+    if ($ExportScripts) {
+        "- Running Update-Metadata: `r`n  - {0}" -f ( $ExportScripts -Join "`r`n  - ")
+        Update-Metadata -Path $env:BHPSModuleManifest -PropertyName ScriptsToProcess -Value $ExportScripts
     }
-    else{
-        "No modules found to add to NestedModules"
+    else {
+        "No scripts found to add to ScriptsToProcess"
     }
-    
     
     # Bump the module version
+    "Updating Module version to $BuildVersion"
     Update-Metadata -Path $env:BHPSModuleManifest -PropertyName ModuleVersion -Value $BuildVersion
     
     # Update release notes with Version info and set the PSD1 release notes
     $parameters = @{
-        Path = $ReleaseNotes
+        Path        = $ReleaseNotes
         ErrorAction = 'SilentlyContinue'
     }
     $ReleaseText = (Get-Content @parameters | Where-Object {$_ -notmatch '^# Version '}) -join "`r`n"
     if (-not $ReleaseText) {
-        "Skipping realse notes`n"
+        "Skipping release notes`n"
         "Consider adding a RELEASE.md to your project.`n"
         return
     }
@@ -165,17 +176,18 @@ Task Build -Depends UnitTests {
     
     # Update the ChangeLog with the current release notes
     $releaseparameters = @{
-        Path = $ReleaseNotes
+        Path        = $ReleaseNotes
         ErrorAction = 'SilentlyContinue'
     }
     $changeparameters = @{
-        Path = $ChangeLog
+        Path        = $ChangeLog
         ErrorAction = 'SilentlyContinue'
     }
-    (Get-Content @releaseparameters),"`r`n`r`n", (Get-Content @changeparameters) | Set-Content $ChangeLog
+    (Get-Content @releaseparameters), "`r`n`r`n", (Get-Content @changeparameters) | Set-Content $ChangeLog
+    "`n"
 }
 
-Task Test -Depends Build  {
+Task Test -Depends Build {
     $lines
     "`n`tSTATUS: Testing with PowerShell $PSVersion"
     
@@ -183,11 +195,12 @@ Task Test -Depends Build  {
     $Timestamp = Get-date -uformat "%Y%m%d-%H%M%S"
     $TestFile = "TestResults_PS$PSVersion`_$TimeStamp.xml"
     $parameters = @{
-        Script = "$ProjectRoot\Tests"
-        PassThru = $true
+        Script       = "$ProjectRoot\Tests"
+        PassThru     = $true
         OutputFormat = 'NUnitXml'
-        OutputFile = "$ProjectRoot\$TestFile"
-        Tag = 'Build'
+        OutputFile   = "$ProjectRoot\$TestFile"
+        Tag          = 'Build'
+        Show         = 'Fails'
     }    
     $TestResults = Invoke-Pester @parameters 
     
@@ -208,80 +221,74 @@ Task Test -Depends Build  {
     "`n"
 }
 
-Task BuildDocs -depends Test {
+Task CodeCoverage -depends Test {
     $lines
-    $ModuleFunctions = get-Metadata -Path $env:BHPSModuleManifest -PropertyName FunctionsToExport
-    if(-not $ModuleFunctions){
-        "Module '$ModuleName' has no functions to document"
-        return
+    $Params = @{
+        path    = $ModuleFolder 
+        Include = '*.ps1', '*.psm1' 
+        Recurse = $True
+        Exclude = $CodeCoverageExclude
     }
-    "Loading Module from $ENV:BHPSModuleManifest"
-    Remove-Module $ModuleName -Force -ea SilentlyContinue
-    # platyPS + AppVeyor requires the module to be loaded in Global scope
-    Import-Module $ENV:BHPSModuleManifest -force -Global
-    
-    "Initializing YAML text..."
-    $YMLtext = (Get-Content $MkdcosYmlHeader) -join "`n"
-    $YMLtext = "$YMLtext`n"
-    "Populating Release Notes"
-    $parameters = @{
-        Path = $ReleaseNotes
-        ErrorAction = 'SilentlyContinue'
+    $CodeCoverageFiles = Get-ChildItem @Params
+    $Params = @{
+        CodeCoverage = $CodeCoverageFiles
+        PassThru     = $True
+        Tag          = 'unit '
+        show         = 'none'
+        Script       = "$ProjectRoot\Tests"
     }
-    $ReleaseText = (Get-Content @parameters) -join "`n"
-    if ($ReleaseText) {
-        $ReleaseText | Set-Content "$ProjectRoot\docs\RELEASE.md"
-        $YMLText = "$YMLtext  - Realse Notes: RELEASE.md`n"
-    }
-    "Populating Change Log..."
-    if ((Test-Path -Path $ChangeLog)) {
-        $YMLText = "$YMLtext  - Change Log: ChangeLog.md`n"
-    }
-    $YMLText = "$YMLtext  - Module Help:`n"
-    If( -not (Test-Path "$ProjectRoot\docs\Module")){
-        "Initialize Module Help folder.."
+    $PesterResults = Invoke-Pester @Params
+    If ($ENV:BHBuildSystem -eq 'AppVeyor') {
+        . "$ProjectRoot\BuildTools\CodeCovIo-Helper.ps1"
         $Params = @{
-            Module = $ModuleName
-            OutputFolder = "$ProjectRoot\docs\Module"
-            WithModulePage = $true
-            Force = $true
+            CodeCoverage = $PesterResults.CodeCoverage 
+            RepoRoot     = $ProjectRoot
+        } 
+        $CodeCovJsonPath = Export-CodeCovIoJson @Params
+        Invoke-UploadCoveCoveIoReport -Path $CodeCovJsonPath
+    }
+    $CoveragePercent = $PesterResults.CodeCoverage.NumberOfCommandsExecuted / $PesterResults.CodeCoverage.NumberOfCommandsAnalyzed
+    " "
+    "Code coverage report"
+    "   Files:             {0:N0}" -f $PesterResults.CodeCoverage.NumberOfFilesAnalyzed
+    "   Commands Analyzed: {0:N0}" -f $PesterResults.CodeCoverage.NumberOfCommandsAnalyzed
+    "   Commands Hit:      {0:N0}" -f $PesterResults.CodeCoverage.NumberOfCommandsExecuted
+    "   Commands Missed:   {0:N0}" -f $PesterResults.CodeCoverage.NumberOfCommandsMissed
+    "   Coverage:          {0:P2}" -f $CoveragePercent
+    " "
+    "Missed Commands:"
+    $PesterResults.CodeCoverage.MissedCommands | Select-Object @{
+        Name       = 'File'
+        Expression = {
+            $_.file.replace($ProjectRoot, '') -replace '^\\', ''
         }
-        New-MarkdownHelp @Params 
+    }, line, function, command | Out-String
+    if ($CoveragePercent -lt 0.90) {
+        Write-Error ("Build Failed. Coverage {0:P2} is below 90%" -f $CoveragePercent)
     }
-    "Updateing Module Help documentation..."
-    $Params = @{
-        AlphabeticParamsOrder = $true
-        Path = "$ProjectRoot\docs\Module"
-    }
-    Update-MarkdownHelpModule @Params
-    "Adding Index..." 
-    $Index = Get-Item "$ProjectRoot\docs\Module\$ModuleName.md"
-    $Part = "    - {0}: Module/{1}" -f $ModuleName, $Index.Name
-    $YMLText = "{0}{1}`n" -f $YMLText, $Part
-    "Populating YAML.."
-    Get-ChildItem "$ProjectRoot\docs\Module" | 
-        Where-Object {$_.Name -notlike "$ModuleName.md"} |
-        Sort-Object -Property 'Name' |
-        foreach-object {
-            $Function = $_.Name -replace '\.md', ''
-            $Part = "    - {0}: Module/{1}" -f $Function, $_.Name
-            $YMLText = "{0}{1}`n" -f $YMLText, $Part
-            $Part
-        }
-    "Setting $ProjectRoot\mkdocs.yml..."
-    $YMLtext | Set-Content -Path "$ProjectRoot\mkdocs.yml"
-    $ModuleFolder
-    $Params = @{
-        Path = "$ProjectRoot\docs\Module" 
-        OutputPath = "$ModuleFolder\en-US" 
-        Force = $true
-    }
-    New-ExternalHelp @Params
+    "`n"
+}
+
+Task BuildDocs -depends CodeCoverage {
+    $lines
+    Start-Job -FilePath "$ProjectRoot\BuildTools\BuildDocs.ps1" -ArgumentList @(
+        $env:BHPSModuleManifest
+        $ModuleName
+        $MkdcosYmlHeader
+        $ChangeLog
+        $ProjectRoot
+        $ModuleFolder
+        $ReleaseNotes
+        $true
+        $true
+        $true
+    ) | Wait-Job | Receive-Job
+    "`n"
 }
 
 Task TestDocs -Depends BuildDocs {
     $lines
-    if($ENV:BHBranchName -like 'develop'){
+    if ($ENV:BHBranchName -like 'develop') {
         'Skipping develop branch'
         return
     }
@@ -289,16 +296,14 @@ Task TestDocs -Depends BuildDocs {
     $Timestamp = Get-date -uformat "%Y%m%d-%H%M%S"
     $TestFile = "TestResults_PS$PSVersion`_$TimeStamp.xml"
     $Parameters = @{
-        Script = "$ProjectRoot\Tests"
-        PassThru = $true
-        Tag = 'Documentation'
+        Script       = "$ProjectRoot\Tests"
+        PassThru     = $true
+        Tag          = 'Documentation'
         OutputFormat = 'NUnitXml'
-        OutputFile = "$ProjectRoot\$TestFile"
+        OutputFile   = "$ProjectRoot\$TestFile"
+        Show         = 'Fails'
     }
-    $TestResults =Invoke-Pester @Parameters
-    if ($TestResults.FailedCount -gt 0) {
-        Write-Error "Failed '$($TestResults.FailedCount)' tests, build failed"
-    }
+    $TestResults = Invoke-Pester @Parameters
     "`n"
     If ($ENV:BHBuildSystem -eq 'AppVeyor') {
         "Uploading $ProjectRoot\$TestFile to AppVeyor"
@@ -306,6 +311,10 @@ Task TestDocs -Depends BuildDocs {
         (New-Object 'System.Net.WebClient').UploadFile("https://ci.appveyor.com/api/testresults/nunit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path "$ProjectRoot\$TestFile"))
     }
     Remove-Item "$ProjectRoot\$TestFile" -Force -ErrorAction SilentlyContinue
+    if ($TestResults.FailedCount -gt 0) {
+        Write-Error "Failed '$($TestResults.FailedCount)' tests, build failed"
+    }
+    "`n"
 }
 
 Task Deploy -Depends TestDocs {
@@ -313,23 +322,24 @@ Task Deploy -Depends TestDocs {
     
     # Gate deployment
     if (
-        $ENV:BHBuildSystem -ne 'Unknown' -and
-        $ENV:BHBranchName -eq "master" -and
+        $ENV:BHBuildSystem -ne 'Unknown' -and 
+        $ENV:BHBranchName -eq "master" -and 
         $ENV:BHCommitMessage -match '!deploy'
     ) {
         $Params = @{
-            Path = $ProjectRoot
+            Path  = $ProjectRoot
             Force = $true
         }
         
         Invoke-PSDeploy @Verbose @Params
     }
     else {
-        "Skipping deployment: To deploy, ensure that...`n" +
-        "`t* You are in a known build system (Current: $ENV:BHBuildSystem)`n" +
-        "`t* You are committing to the master branch (Current: $ENV:BHBranchName) `n" +
+        "Skipping deployment: To deploy, ensure that...`n" + 
+        "`t* You are in a known build system (Current: $ENV:BHBuildSystem)`n" + 
+        "`t* You are committing to the master branch (Current: $ENV:BHBranchName) `n" + 
         "`t* Your commit message includes !deploy (Current: $ENV:BHCommitMessage)"
     }
+    "`n"
 }
 
 Task PostDeploy -depends Deploy {
@@ -365,30 +375,30 @@ Task PostDeploy -depends Deploy {
     
     "git status"
     cmd /c "git status 2>&1"
-    # Do not recommit to staging so that clean pull request can be perfomred
+    # Do not recommit to staging so that clean pull request can be performed
     if ( 
         $ENV:BHCommitMessage -notmatch '!skiprecommit' -and 
         (
-            $ENV:BHCommitMessage -match '!forcerecommit' -or
+            $ENV:BHCommitMessage -match '!forcerecommit' -or 
             (
-                $ENV:BHBranchName -notlike "staging" -and
+                $ENV:BHBranchName -notlike "staging" -and 
                 $ENV:BHBranchName -notlike "develop"
                 
             )
         )
-    ){
+    ) {
         "git push origin $ENV:BHBranchName"
         cmd /c "git push origin $ENV:BHBranchName 2>&1"
     }    
     # if this is a !deploy on master, create GitHub release
     if (
-        $ENV:BHBuildSystem -ne 'Unknown' -and
-        $ENV:BHBranchName -eq "master" -and
+        $ENV:BHBuildSystem -ne 'Unknown' -and 
+        $ENV:BHBranchName -eq "master" -and 
         $ENV:BHCommitMessage -match '!deploy'
     ) {
         "Publishing Release 'v$BuildVersion' to Github"
         $parameters = @{
-            Path = $ReleaseNotes
+            Path        = $ReleaseNotes
             ErrorAction = 'SilentlyContinue'
         }
         $ReleaseText = (Get-Content @parameters) -join "`r`n"
@@ -396,24 +406,25 @@ Task PostDeploy -depends Deploy {
             $ReleaseText = "Release version $BuildVersion ($BuildDate)"
         }
         $Body = @{
-            "tag_name" = "v$BuildVersion"
-            "target_commitish"= "master"
-            "name" = "v$BuildVersion"
-            "body"= $ReleaseText
-            "draft" = $false
-            "prerelease"= $false
+            "tag_name"         = "v$BuildVersion"
+            "target_commitish" = "master"
+            "name"             = "v$BuildVersion"
+            "body"             = $ReleaseText
+            "draft"            = $false
+            "prerelease"       = $false
         } | ConvertTo-Json
         $releaseParams = @{
-            Uri = "https://api.github.com/repos/{0}/releases" -f $ENV:APPVEYOR_REPO_NAME
-            Method = 'POST'
-            Headers = @{
+            Uri         = "https://api.github.com/repos/{0}/releases" -f $ENV:APPVEYOR_REPO_NAME
+            Method      = 'POST'
+            Headers     = @{
                 Authorization = 'Basic ' + [Convert]::ToBase64String(
                     [Text.Encoding]::ASCII.GetBytes($env:access_token + ":x-oauth-basic"));
             }
             ContentType = 'application/json'
-            Body = $Body
+            Body        = $Body
         }
         $Response = Invoke-RestMethod @releaseParams
         $Response | Format-List *
     }
+    "`n"
 }

@@ -1,26 +1,25 @@
 ﻿<#	
     .NOTES
-    ===========================================================================
+    
      Created with: 	VSCode
      Created on:   	4/23/2017 04:40 AM
      Edited on:     4/23/2017
      Created by:   	Mark Kraus
      Organization: 	
      Filename:     	Get-RedditOAuthScope.Unit.Tests.ps1
-    ===========================================================================
+    
     .DESCRIPTION
         Unit Tests for Get-RedditOAuthScope
 #>
 
-$projectRoot = Resolve-Path "$PSScriptRoot\.."
+$projectRoot = Resolve-Path "$PSScriptRoot\..\.."
 $moduleRoot = Split-Path (Resolve-Path "$projectRoot\*\*.psd1")
 $moduleName = Split-Path $moduleRoot -Leaf
 Remove-Module -Force $moduleName  -ErrorAction SilentlyContinue
 Import-Module (Join-Path $moduleRoot "$moduleName.psd1") -force
 
 $Command = 'Get-RedditOAuthScope'
-$TypeName = 'RedditScope'
-$RequiredParams = @()
+$TypeName = 'RedditOAuthScope'
 
 $Params = @{}
 
@@ -174,27 +173,20 @@ function MyTest {
         $LocalParams = $Params.psobject.Copy()
         { & $Command @LocalParams -ErrorAction Stop } | Should not throw
     }
-    Foreach ($RequiredParam in $RequiredParams) {
-        It "Requires the $RequiredParam parameter" {
-            ((Get-Command $Command).Parameters[$RequiredParam].Attributes |
-                Where-Object { $_ -is [parameter] }).Mandatory |
-            Should be $true
-        }
-    }
     It "Emits a $TypeName Object" {
-        (Get-Command $Command).OutputType.Name.where({ $_ -eq $TypeName }) | Should be $TypeName
+        (Get-Command $Command).OutputType.Name.where( { $_ -eq $TypeName }) | Should be $TypeName
     }
     It "Returns a $TypeName Object" {
         $LocalParams = $Params.psobject.Copy()
         $Object = & $Command @LocalParams | Select-Object -First 1
-        $Object.psobject.typenames.where({ $_ -eq $TypeName }) | Should be $TypeName
+        $Object.psobject.typenames.where( { $_ -eq $TypeName }) | Should be $TypeName
     }
 }
 
 Describe "$command Unit" -Tags Unit {
-    $commandpresent = Get-Command -Name $Command -Module $moduleName -ErrorAction SilentlyContinue
-    if(-not $commandpresent){
-        Write-Warning "'$command' was not found in '$moduleName' during prebuild tests. It may not yet have been added the module. Unit tests will be skipped until after build."
+    $CommandPresent = Get-Command -Name $Command -Module $moduleName -ErrorAction SilentlyContinue
+    if (-not $CommandPresent) {
+        Write-Warning "'$command' was not found in '$moduleName' during pre-build tests. It may not yet have been added the module. Unit tests will be skipped until after build."
         return
     }
     MyTest
