@@ -3,6 +3,8 @@
 # PSRAW
 **P**ower**S**hell **R**eddit **A**PI **W**rapper Module
 
+<img src="http://i.imgur.com/4BCLgcx.png" height="100" width="100"> 
+
 - [PSRAW](#psraw)
     - [What Is Reddit?](#what-is-reddit)
     - [What is PSRAW?](#what-is-psraw)
