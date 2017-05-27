@@ -3,6 +3,8 @@
 # PSRAW
 **P**ower**S**hell **R**eddit **A**PI **W**rapper Module
 
+<img src="http://i.imgur.com/4BCLgcx.png" height="100" width="100"> 
+
 Project Site: [https://github.com/markekraus/PSRAW](https://github.com/markekraus/PSRAW)
 
 - [PSRAW](#psraw)
