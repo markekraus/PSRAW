@@ -14,11 +14,12 @@
 $projectRoot = Resolve-Path "$PSScriptRoot\.."
 $moduleRoot = Split-Path (Resolve-Path "$projectRoot\*\*.psd1")
 $moduleName = Split-Path $moduleRoot -Leaf
+Import-Module (Join-Path $moduleRoot "$moduleName.psd1") -force
 
 Describe "PSScriptAnalyzer Tests" -Tags Build {
     
     $Rules = Get-ScriptAnalyzerRule
-    $scripts = Get-ChildItem $moduleRoot -Include *.ps1, *.psm1 -Recurse | Where-Object fullname -notmatch 'classes'
+    $scripts = Get-ChildItem $moduleRoot -Include *.ps1, *.psm1 -Recurse
     
     foreach ($Script in $scripts) {
         $RelPath = $Script.FullName.Replace($moduleRoot, '') -replace '^\\', ''
