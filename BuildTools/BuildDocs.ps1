@@ -102,10 +102,10 @@ If ($PrivateDocs) {
     $PrivateFunctions = Get-ModulePrivateFunction -ModuleName $ModuleName    
     $PrivateHelp = Get-ChildItem $PrivateHelpPath -Filter '*.md' -ErrorAction SilentlyContinue
     foreach ($PrivateFunction in $PrivateFunctions) {
-        $helpdoc = $PrivateHelp | Where-Object {$_.basename -like $PrivateFunction.Name}
+        $HelpDoc = $PrivateHelp | Where-Object {$_.basename -like $PrivateFunction.Name}
         $FunctionDefinition = "Function {0} {{ {1} }}" -f $PrivateFunction.name, $PrivateFunction.Definition
         . ([scriptblock]::Create($FunctionDefinition))
-        if (-not $helpdoc) {
+        if (-not $HelpDoc) {
             $Params = @{
                 Command               = $PrivateFunction.name 
                 Force                 = $true
@@ -130,10 +130,10 @@ if ($ClassDocs) {
     $Classes = Get-ModuleClass -ModuleName $ModuleName | Where-Object {$_.IsClass}
     $AboutHelpDocs = Get-ChildItem -Path $ModuleHelpPath -Filter 'about_*.md'
     foreach ($Class in $Classes) {
-        $helpdoc = $AboutHelpDocs | Where-Object {$_.basename -like "about_$($Class.Name)"}
-        if ($helpdoc) { 
-            #TODO: Add automatic addition of new methods, constructors, and properties
-            continue 
+        $HelpDoc = $AboutHelpDocs | Where-Object {$_.basename -like "about_$($Class.Name)"}
+        if ($HelpDoc) { 
+            Update-ClassMarkdown -Class $Class -Path $HelpDoc.FullName
+            continue
         }
         $AboutPath = Join-Path $ModuleHelpPath "about_$($Class.Name).md"
         Classtext $Class | Set-Content -Path $AboutPath
@@ -145,9 +145,9 @@ if ($EnumDocs) {
     $Enums = Get-ModuleClass -ModuleName $ModuleName | Where-Object {$_.IsEnum}
     $AboutHelpDocs = Get-ChildItem -Path $ModuleHelpPath -Filter 'about_*.md'
     foreach ($Enum in $Enums) {
-        $helpdoc = $AboutHelpDocs | Where-Object {$_.basename -like "about_$($Enum.Name)"}
-        if ($helpdoc) { 
-            #TODO: Add automatic addition of new Fields
+        $HelpDoc = $AboutHelpDocs | Where-Object {$_.basename -like "about_$($Enum.Name)"}
+        if ($HelpDoc) { 
+            Update-EnumMarkdown -Enum $Enum -Path $HelpDoc.FullName
             continue 
         }
         $AboutPath = Join-Path $ModuleHelpPath "about_$($Enum.Name).md"
