@@ -2,12 +2,13 @@ site_name: PSRAW - PowerShell Reddit API Wrapper Module
 site_author: Mark Kraus
 repo_url: https://github.com/markekraus/PSRAW/
 theme: readthedocs
-copyright: "PSMSGraph is licensed under the <a href='https://github.com/markekraus/PSRAW/raw/master/LICENSE'>MIT license"
+copyright: "PSRAW is licensed under the <a href='https://github.com/markekraus/PSRAW/raw/master/LICENSE'>MIT license"
 pages:
   - Home: index.md
   - PSRAW Project:
     - Contributing to PSRAW: Project/Contributing.md
     - Project News: Project/News.md
+  - Release Notes: RELEASE.md
   - Change Log: ChangeLog.md
   - Module Help:
     - PSRAW: Module/PSRAW.md
