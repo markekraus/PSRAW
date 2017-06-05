@@ -20,22 +20,22 @@ Import-Module (Join-Path $moduleRoot "$moduleName.psd1") -force
 $Command = 'Export-RedditOAuthToken'
 
 $ClientId = '54321'
-$ClientSecret = '12345'
+$ClientSecret = '08239842-a6f5-4fe5-ab4c-4592084ad44e'
 $SecClientSecret = $ClientSecret | ConvertTo-SecureString -AsPlainText -Force 
 $ClientCredential = [pscredential]::new($ClientId, $SecClientSecret)
 
 $UserId = 'reddituser'
-$UserSecret = 'password12345'
+$UserSecret = '08239842-a6f5-4fe5-ab4c-4592084ad44f'
 $SecUserSecret = $UserSecret | ConvertTo-SecureString -AsPlainText -Force 
 $UserCredential = [pscredential]::new($UserId, $SecUserSecret)
 
 $TokenId = 'access_token'
-$TokenSecret = '34567'
+$TokenSecret = '08239842-a6f5-4fe5-ab4c-4592084ad44g'
 $SecTokenSecret = $TokenSecret | ConvertTo-SecureString -AsPlainText -Force 
 $TokenCredential = [pscredential]::new($TokenId, $SecTokenSecret)
 
 $RefreshId = 'refresh_token'
-$RefreshSecret = '76543'
+$RefreshSecret = '08239842-a6f5-4fe5-ab4c-4592084ad44h'
 $SecRefreshSecret = $RefreshSecret | ConvertTo-SecureString -AsPlainText -Force 
 $RefreshCredential = [pscredential]::new($RefreshId, $SecRefreshSecret)
 
@@ -111,7 +111,7 @@ function MyTest {
         $Params = @{
             Path        = $TokenExportFile
             SimpleMatch = $true
-            Pattern     = '12345', '34567', "76543" 
+            Pattern     = '08239842-a6f5-4fe5-ab4c-4592084ad44' 
         }
         Select-String @Params | should be $null
     }

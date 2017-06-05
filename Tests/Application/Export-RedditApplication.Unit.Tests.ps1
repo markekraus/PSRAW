@@ -20,12 +20,12 @@ Import-Module (Join-Path $moduleRoot "$moduleName.psd1") -force
 $Command = 'Export-RedditApplication'
 
 $ClientId = '54321'
-$ClientSecret = '12345'
+$ClientSecret = '08239842-a6f5-4fe5-ab4c-4592084ad44e'
 $SecClientSecret = $ClientSecret | ConvertTo-SecureString -AsPlainText -Force 
 $ClientCredential = [pscredential]::new($ClientId, $SecClientSecret)
 
 $UserId = 'reddituser'
-$UserSecret = 'password12345'
+$UserSecret = '08239842-a6f5-4fe5-ab4c-4592084ad44f'
 $SecUserSecret = $UserSecret | ConvertTo-SecureString -AsPlainText -Force 
 $UserCredential = [pscredential]::new($UserId, $SecUserSecret)
 
@@ -82,7 +82,7 @@ function MyTest {
         $Params = @{
             Path        = $ExportFile
             SimpleMatch = $true
-            Pattern     = '12345'
+            Pattern     = '08239842-a6f5-4fe5-ab4c-4592084ad44'
         }
         Select-String @Params | should be $null
     }

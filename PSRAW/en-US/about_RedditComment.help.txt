@@ -1,0 +1,392 @@
+﻿TOPIC
+    about_redditcomment
+
+SHORT DESCRIPTION
+    Describes the RedditComment Class
+
+LONG DESCRIPTION
+    {{ Long Description Placeholder }}
+
+CONSTRUCTORS
+RedditComment()
+    {{ Constructor Description Placeholder }}
+
+    [RedditComment]::new()
+
+RedditComment(RedditOAuthToken AccessToken, System.Management.Automation.PSObject Object)
+    {{ Constructor Description Placeholder }}
+
+    [RedditComment]::new([RedditOAuthToken]$AccessToken, [System.Management.Automation.PSObject]$Object)
+
+PROPERTIES
+AccessToken
+    {{ Property Description Placeholder }}
+
+    Name: AccessToken
+    Type: RedditOAuthToken
+    Hidden: False
+    Static: False
+
+ApiEndpointUri
+    {{ Property Description Placeholder }}
+
+    Name: ApiEndpointUri
+    Type: String
+    Hidden: False
+    Static: True
+
+approved_by
+    {{ Property Description Placeholder }}
+
+    Name: approved_by
+    Type: String
+    Hidden: False
+    Static: False
+
+archived
+    {{ Property Description Placeholder }}
+
+    Name: archived
+    Type: Boolean
+    Hidden: False
+    Static: False
+
+author
+    {{ Property Description Placeholder }}
+
+    Name: author
+    Type: String
+    Hidden: False
+    Static: False
+
+author_flair_css_class
+    {{ Property Description Placeholder }}
+
+    Name: author_flair_css_class
+    Type: String
+    Hidden: False
+    Static: False
+
+author_flair_text
+    {{ Property Description Placeholder }}
+
+    Name: author_flair_text
+    Type: String
+    Hidden: False
+    Static: False
+
+banned_by
+    {{ Property Description Placeholder }}
+
+    Name: banned_by
+    Type: String
+    Hidden: False
+    Static: False
+
+body
+    {{ Property Description Placeholder }}
+
+    Name: body
+    Type: String
+    Hidden: False
+    Static: False
+
+body_html
+    {{ Property Description Placeholder }}
+
+    Name: body_html
+    Type: String
+    Hidden: False
+    Static: False
+
+can_gild
+    {{ Property Description Placeholder }}
+
+    Name: can_gild
+    Type: Boolean
+    Hidden: False
+    Static: False
+
+controversiality
+    {{ Property Description Placeholder }}
+
+    Name: controversiality
+    Type: Double
+    Hidden: False
+    Static: False
+
+created
+    {{ Property Description Placeholder }}
+
+    Name: created
+    Type: RedditDate
+    Hidden: False
+    Static: False
+
+created_utc
+    {{ Property Description Placeholder }}
+
+    Name: created_utc
+    Type: RedditDate
+    Hidden: False
+    Static: False
+
+depth
+    {{ Property Description Placeholder }}
+
+    Name: depth
+    Type: Int64
+    Hidden: False
+    Static: False
+
+distinguished
+    {{ Property Description Placeholder }}
+
+    Name: distinguished
+    Type: String
+    Hidden: False
+    Static: False
+
+downs
+    {{ Property Description Placeholder }}
+
+    Name: downs
+    Type: Int64
+    Hidden: False
+    Static: False
+
+edited
+    {{ Property Description Placeholder }}
+
+    Name: edited
+    Type: Boolean
+    Hidden: False
+    Static: False
+
+gilded
+    {{ Property Description Placeholder }}
+
+    Name: gilded
+    Type: Int64
+    Hidden: False
+    Static: False
+
+id
+    {{ Property Description Placeholder }}
+
+    Name: id
+    Type: String
+    Hidden: False
+    Static: False
+
+likes
+    {{ Property Description Placeholder }}
+
+    Name: likes
+    Type: String
+    Hidden: False
+    Static: False
+
+link_id
+    {{ Property Description Placeholder }}
+
+    Name: link_id
+    Type: String
+    Hidden: False
+    Static: False
+
+mod_reports
+    {{ Property Description Placeholder }}
+
+    Name: mod_reports
+    Type: RedditModReport[]
+    Hidden: False
+    Static: False
+
+name
+    {{ Property Description Placeholder }}
+
+    Name: name
+    Type: String
+    Hidden: False
+    Static: False
+
+num_reports
+    {{ Property Description Placeholder }}
+
+    Name: num_reports
+    Type: String
+    Hidden: False
+    Static: False
+
+parent_id
+    {{ Property Description Placeholder }}
+
+    Name: parent_id
+    Type: String
+    Hidden: False
+    Static: False
+
+Prefix
+    {{ Property Description Placeholder }}
+
+    Name: Prefix
+    Type: RedditThingPrefix
+    Hidden: False
+    Static: False
+
+removal_reason
+    {{ Property Description Placeholder }}
+
+    Name: removal_reason
+    Type: String
+    Hidden: False
+    Static: False
+
+replies
+    {{ Property Description Placeholder }}
+
+    Name: replies
+    Type: String
+    Hidden: False
+    Static: False
+
+report_reasons
+    {{ Property Description Placeholder }}
+
+    Name: report_reasons
+    Type: String[]
+    Hidden: False
+    Static: False
+
+saved
+    {{ Property Description Placeholder }}
+
+    Name: saved
+    Type: Boolean
+    Hidden: False
+    Static: False
+
+score
+    {{ Property Description Placeholder }}
+
+    Name: score
+    Type: Int64
+    Hidden: False
+    Static: False
+
+score_hidden
+    {{ Property Description Placeholder }}
+
+    Name: score_hidden
+    Type: Boolean
+    Hidden: False
+    Static: False
+
+stickied
+    {{ Property Description Placeholder }}
+
+    Name: stickied
+    Type: Boolean
+    Hidden: False
+    Static: False
+
+subreddit
+    {{ Property Description Placeholder }}
+
+    Name: subreddit
+    Type: String
+    Hidden: False
+    Static: False
+
+subreddit_id
+    {{ Property Description Placeholder }}
+
+    Name: subreddit_id
+    Type: String
+    Hidden: False
+    Static: False
+
+subreddit_name_prefixed
+    {{ Property Description Placeholder }}
+
+    Name: subreddit_name_prefixed
+    Type: String
+    Hidden: False
+    Static: False
+
+subreddit_type
+    {{ Property Description Placeholder }}
+
+    Name: subreddit_type
+    Type: String
+    Hidden: False
+    Static: False
+
+ups
+    {{ Property Description Placeholder }}
+
+    Name: ups
+    Type: Int64
+    Hidden: False
+    Static: False
+
+user_reports
+    {{ Property Description Placeholder }}
+
+    Name: user_reports
+    Type: RedditUserReport[]
+    Hidden: False
+    Static: False
+
+METHODS
+GetApiEndpointUri()
+    {{ Method Description Placeholder }}
+
+    Name: GetApiEndpointUri
+    Return Type: String
+    Hidden: False
+    Static: False
+    Definition: String GetApiEndpointUri()
+
+GetFullName()
+    {{ Method Description Placeholder }}
+
+    Name: GetFullName
+    Return Type: String
+    Hidden: False
+    Static: False
+    Definition: String GetFullName()
+
+ToString()
+    {{ Method Description Placeholder }}
+
+    Name: ToString
+    Return Type: String
+    Hidden: False
+    Static: False
+    Definition: String ToString()
+
+EXAMPLES
+    {{ Code or descriptive examples of how to leverage the functions described.
+    }}
+
+NOTE
+    {{ Note Placeholder - Additional information that a user needs to know.}}
+
+TROUBLESHOOTING NOTE
+    {{ Troubleshooting Placeholder - Warns users of bugs}}
+    {{ Explains behavior that is likely to change with fixes }}
+
+SEE ALSO
+    {{ See also placeholder }}
+    {{ You can also list related articles, blogs, and video URLs. }}
+
+KEYWORDS
+    {{List alternate names or titles for this topic that readers might use.}}
+    - {{ Keyword Placeholder }}
+    - {{ Keyword Placeholder }}
+    - {{ Keyword Placeholder }}
+    - {{ Keyword Placeholder }}
+
+
