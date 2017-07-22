@@ -50,7 +50,6 @@ Class RedditComment : RedditThing {
     [long]$ups
     [RedditUserReport[]]$user_reports
     [RedditThingPrefix]$Prefix = 't1'
-    [RedditOAuthToken]$AccessToken
     static [string] $ApiEndpointUri = 'https://oauth.reddit.com/api/info?id=t1_{0}'
 
     RedditComment () { }

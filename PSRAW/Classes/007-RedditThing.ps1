@@ -12,9 +12,8 @@
         RedditThing Class
 #>
 Class RedditThing {
-    [RedditOAuthToken]$AccessToken
+    hidden [RedditOAuthToken]$AccessToken
     [RedditThingPrefix]$Prefix
-    [string]$UID
     Static [String]$ApiEndpointUri
     RedditThing () {
         $Type = $This.GetType()
