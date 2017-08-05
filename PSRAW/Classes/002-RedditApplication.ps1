@@ -38,17 +38,17 @@ Class RedditApplication {
     }
 
     #PSObject Converter
-    RedditApplication ([PSObject] $PSObject){
+    RedditApplication ([PSObject] $PSObject) {
         $InitHash = @{}
-        Foreach($Property in $PSObject.PSObject.properties.Name){
+        Foreach ($Property in $PSObject.PSObject.properties.Name) {
             $InitHash[$Property] = $PSObject.$Property
         }
         $This._init($InitHash)
     }
 
-    RedditApplication ([Object] $Object){
+    RedditApplication ([Object] $Object) {
         $InitHash = @{}
-        Foreach($Property in $Object.PSObject.properties.Name){
+        Foreach ($Property in $Object.PSObject.properties.Name) {
             $InitHash[$Property] = $Object.$Property
         }
         $This._init($InitHash)
@@ -67,41 +67,41 @@ Class RedditApplication {
         [System.Management.Automation.PSCredential]$UserCredential
     ) {
         $This._init(@{
-            Name = $Name
-            Description = $Description
-            RedirectUri = $RedirectUri
-            UserAgent = $UserAgent
-            Type = $Type
-            GUID = $GUID
-            ExportPath = $ExportPath
-            Scope = $Scope
-            ClientCredential = $ClientCredential
-            UserCredential = $UserCredential
-        })
+                Name             = $Name
+                Description      = $Description
+                RedirectUri      = $RedirectUri
+                UserAgent        = $UserAgent
+                Type             = $Type
+                GUID             = $GUID
+                ExportPath       = $ExportPath
+                Scope            = $Scope
+                ClientCredential = $ClientCredential
+                UserCredential   = $UserCredential
+            })
     }
 
-    hidden [void] _init ([System.Collections.Hashtable]$InitHash){
-        if(-not (
+    hidden [void] _init ([System.Collections.Hashtable]$InitHash) {
+        if (-not (
                 $InitHash.Type.toString() -and $InitHash.ClientCredential -and 
                 $InitHash.RedirectUri -and $InitHash.UserAgent -and $InitHash.Scope
-            )){
+            )) {
             throw [System.ArgumentException]::New(
                 "'Type', 'ClientCredential', 'UserAgent', 'Scope', and 'RedirectUri' are required."
             )
         }
-        if($InitHash.Type -like 'Script' -and -not $InitHash.UserCredential){
+        if ($InitHash.Type -like 'Script' -and -not $InitHash.UserCredential) {
             throw [System.ArgumentException]::New(
                 "'UserCredential' required for 'Script' type"
             )
         }
-        foreach($Item in $InitHash.GetEnumerator()){
+        foreach ($Item in $InitHash.GetEnumerator()) {
             $This.$($Item.name) = $Item.Value
         }
         $This.ClientID = $This.ClientCredential.UserName
-        if($This.Type -eq [RedditApplicationType]::Script){
+        if ($This.Type -eq [RedditApplicationType]::Script) {
             $This.ScriptUser = $This.UserCredential.UserName
         }
-        else{
+        else {
             $This.ScriptUser = $This.ClientID
         }
     }
@@ -112,78 +112,5 @@ Class RedditApplication {
 
     [string] GetUserPassword () {
         Return $This.UserCredential.GetNetworkCredential().Password
-    }
-
-    [string] GetAuthorizationUrl(){
-        Return $This._GetAuthorizationUrl(
-            [RedditOAuthResponseType]::Code,
-            [RedditOAuthDuration]::Permanent,
-            [guid]::NewGuid().toString(),
-            [RedditApplication]::AuthBaseURL
-        )
-    }
-
-    [string] GetAuthorizationUrl(
-        [RedditOAuthResponseType]$ResponseType, 
-        [RedditOAuthDuration]$Duration
-    ){
-        Return $This._GetAuthorizationUrl(
-            $ResponseType,
-            $Duration,
-            [guid]::NewGuid().toString(),
-            [RedditApplication]::AuthBaseURL
-        )
-    }
-
-    [string] GetAuthorizationUrl(
-        [RedditOAuthResponseType]$ResponseType, 
-        [RedditOAuthDuration]$Duration,
-        [String]$State
-    ){
-            Return $This._GetAuthorizationUrl(
-                $ResponseType,
-                $Duration,
-                $State,
-                [RedditApplication]::AuthBaseURL
-            )
-    }
-
-    [string] GetAuthorizationUrl(
-        [RedditOAuthResponseType]$ResponseType, 
-        [RedditOAuthDuration]$Duration,
-        [String]$State,
-        [String]$AuthBaseURL
-    ){
-            Return $This._GetAuthorizationUrl(
-                $ResponseType,
-                $Duration,
-                $State,
-                $AuthBaseURL
-            )
-    }
-
-    hidden [string] _GetAuthorizationUrl(
-        [RedditOAuthResponseType]$ResponseType, 
-        [RedditOAuthDuration]$Duration, 
-        [string]$State, 
-        [string]$AuthBaseUrl
-    ){
-        $Query = [System.Web.HttpUtility]::ParseQueryString([String]::Empty)
-        $Query['client_id'] = $This.ClientId
-        $Query['response_type'] = $ResponseType.ToString().ToLower()
-        $Query['state'] = $State
-        $Query['redirect_uri'] = $This.RedirectUri
-        $Query['duration'] = $Duration.ToString().ToLower()
-        $Query['scope'] = $This.Scope.Scope -Join ','
-        $UrlObj = [System.Uri]$AuthBaseUrl
-        $URLBuilder = New-Object -TypeName System.UriBuilder
-        $UrlBuilder.Host = $UrlObj.Host
-        $UrlBuilder.Scheme = $UrlObj.Scheme
-        $UrlBuilder.Port = $UrlObj.Port
-        $UrlBuilder.UserName = $($UrlObj.UserInfo -split ':')[0]
-        $UrlBuilder.Password = $($UrlObj.UserInfo -split ':')[1]
-        $UrlBuilder.Path = $UrlObj.AbsolutePath
-        $URLBuilder.Query = $Query.ToString()
-        Return $URLBuilder.ToString()
     }
 }

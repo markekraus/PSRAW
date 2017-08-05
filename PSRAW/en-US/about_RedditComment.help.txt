@@ -19,14 +19,6 @@ RedditComment(RedditOAuthToken AccessToken, System.Management.Automation.PSObjec
     [RedditComment]::new([RedditOAuthToken]$AccessToken, [System.Management.Automation.PSObject]$Object)
 
 PROPERTIES
-AccessToken
-    {{ Property Description Placeholder }}
-
-    Name: AccessToken
-    Type: RedditOAuthToken
-    Hidden: False
-    Static: False
-
 ApiEndpointUri
     {{ Property Description Placeholder }}
 

@@ -29,7 +29,6 @@ Class RedditOAuthToken {
     [int]$RateLimitRest
     [string]$DeviceId
     hidden [pscredential]$TokenCredential
-    hidden [pscredential]$RefreshCredential
     hidden [Microsoft.PowerShell.Commands.WebRequestSession]$Session = [Microsoft.PowerShell.Commands.WebRequestSession]::new()
     static [string] $AuthBaseURL = 'https://www.reddit.com/api/v1/access_token'
 
@@ -38,37 +37,16 @@ Class RedditOAuthToken {
     RedditOAuthToken (
         [RedditOAuthGrantType]$GrantType, 
         [RedditApplication]$Application, 
-        [Object]$Response
-    ) {
-        #URI Handler
-        If ($Response.psobject.typenames -contains 'system.uri') {
-            if (-not $Response.Fragment) {
-                $Exception = [System.ArgumentException]::New(
-                    "Response does not include Fragment"
-                )
-                $Exception | Add-Member -Name Uri -MemberType NoteProperty -Value $Response
-                Throw $Exception
-            }
-            $Content = @{}
-            $Parsed = [System.Web.HttpUtility]::
-            ParseQueryString($Response.Fragment -replace '^#')
-            $Parsed.Getenumerator() |
-                ForEach-Object {
-                $Content.Add($_, $Parsed[$_])
-            }
+        [RedditOAuthResponse]$Response
+    ) { 
+        If ( -not ($Response.ContentType -match 'application/json')) {
+            $Exception = [System.ArgumentException]::New(
+                "Response Content-Type is not 'application/json'"
+            )
+            $Exception | Add-Member -Name Response -MemberType NoteProperty -Value $Response
+            Throw $Exception
         }
-        #WebResponse Handler
-        Else {
-            If ( -not ($Response.Headers.'Content-type' -match 'application/json')) {
-                $Exception = [System.ArgumentException]::New(
-                    "Response Content-Type is not 'application/json'"
-                )
-                $Exception | Add-Member -Name Response -MemberType NoteProperty -Value $Response
-                Throw $Exception
-            }
-            $Content = $Response.Content | ConvertFrom-Json -ErrorAction Stop
-        }
-        # Do the needful
+        $Content = $Response.Content | ConvertFrom-Json -ErrorAction Stop
         $This.GrantType = $GrantType
         $This.Application = $Application
         $This.DeviceId = $Content.DeviceId
@@ -83,10 +61,6 @@ Class RedditOAuthToken {
         if ($Content.access_token) {
             $SecString = $Content.access_token | ConvertTo-SecureString -AsPlainText -Force
             $This.TokenCredential = [pscredential]::new('access_token', $SecString)
-        }
-        if ($Content.refresh_token) {
-            $SecString = $Content.refresh_token | ConvertTo-SecureString -AsPlainText -Force
-            $This.RefreshCredential = [pscredential]::new('refresh_token', $SecString)
         }
     }
 
@@ -113,43 +87,19 @@ Class RedditOAuthToken {
     [string] GetAccessToken() {
         return $This.TokenCredential.GetNetworkCredential().Password
     }
-    [string] GetRefreshToken() {
-        return $This.RefreshCredential.GetNetworkCredential().Password
-    }
 
     [string] ToString() {
         Return ('GUID: {0} Expires: {1}' -f $This.GUID, $This.ExpireDate)
     }
-    [void] Refresh ([Object]$Response) {
-        #URI Handler
-        If ($Response.psobject.typenames -contains 'system.uri') {
-            if (-not $Response.Fragment) {
-                $Exception = [System.ArgumentException]::New(
-                    "Response does not include Fragment"
-                )
-                $Exception | Add-Member -Name Uri -MemberType NoteProperty -Value $Response
-                Throw $Exception
-            }
-            $Content = @{}
-            $Parsed = [System.Web.HttpUtility]::
-            ParseQueryString($Response.Fragment -replace '^#')
-            $Parsed.Getenumerator() |
-                ForEach-Object {
-                $Content.Add($_, $Parsed[$_])
-            }
+    [void] Refresh ([RedditOAuthResponse]$Response) {
+        If ( -not ($Response.ContentType -match 'application/json')) {
+            $Exception = [System.ArgumentException]::New(
+                "Response Content-Type is not 'application/json'"
+            )
+            $Exception | Add-Member -Name Response -MemberType NoteProperty -Value $Response
+            Throw $Exception
         }
-        #WebResponse Handler
-        Else {
-            If ( -not ($Response.Headers.'Content-type' -match 'application/json')) {
-                $Exception = [System.ArgumentException]::New(
-                    "Response Content-Type is not 'application/json'"
-                )
-                $Exception | Add-Member -Name Response -MemberType NoteProperty -Value $Response
-                Throw $Exception
-            }
-            $Content = $Response.Content | ConvertFrom-Json -ErrorAction Stop
-        }
-        # Do the needful
+        $Content = $Response.Content | ConvertFrom-Json -ErrorAction Stop
         $This.IssueDate = Get-Date
         $This.TokenType = $Content.token_type
         $This.Scope = $Content.Scope -split ' '
@@ -164,7 +114,7 @@ Class RedditOAuthToken {
         $This.RateLimitRemaining = $Response.Headers.'x-ratelimit-remaining'
         $This.RateLimitUsed = $Response.Headers.'x-ratelimit-used'
         $This.RateLimitRest = $Response.Headers.'x-ratelimit-reset'
-        $This.LastApiCall = $Response.Headers.date
+        $This.LastApiCall = $Response.Headers.Date[0]
     }
 
     Static [RedditOAuthToken] Reserialize ([Object]$Object) {

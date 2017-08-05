@@ -19,7 +19,7 @@
     RootModule             = 'PSRAW.psm1'
 	
     # Version number of this module.
-    ModuleVersion          = '1.0.15.3'
+    ModuleVersion          = '1.0.15.8'
 	
     # ID used to uniquely identify this module
     GUID                   = '92c8f916-4890-45eb-a3e7-592f5b5b3f24'
@@ -59,11 +59,11 @@
     RequiredModules        = @()
 	
     # Assemblies that must be loaded prior to importing this module
-    RequiredAssemblies     = @('System.Web', 'System.Windows.Forms')
+    #RequiredAssemblies     = @('System.Windows.Forms')
 	
     # Script files (.ps1) that are run in the caller's environment prior to
     # importing this module
-    ScriptsToProcess       = @('Enums\RedditApplicationType.ps1','Enums\RedditOAuthDuration.ps1','Enums\RedditOAuthGrantType.ps1','Enums\RedditOAuthResponseType.ps1','Enums\RedditThingPrefix.ps1','Classes\001-RedditOAuthScope.ps1','Classes\002-RedditApplication.ps1','Classes\003-RedditOAuthCode.ps1','Classes\004-RedditOAuthToken.ps1','Classes\005-RedditApiResponse.ps1','Classes\006-RedditDate.ps1','Classes\007-RedditThing.ps1','Classes\008-RedditModReport.ps1','Classes\008-RedditUserReport.ps1','Classes\009-RedditComment.ps1')
+    ScriptsToProcess       = @('Enums\RedditApplicationType.ps1', 'Enums\RedditOAuthDuration.ps1', 'Enums\RedditOAuthGrantType.ps1', 'Enums\RedditOAuthResponseType.ps1', 'Enums\RedditThingPrefix.ps1', 'Classes\001-RedditOAuthScope.ps1', 'Classes\002-RedditApplication.ps1', 'Classes\003-RedditOAuthResponse.ps1', 'Classes\004-RedditOAuthToken.ps1', 'Classes\005-RedditApiResponse.ps1', 'Classes\006-RedditDate.ps1', 'Classes\007-RedditThing.ps1', 'Classes\008-RedditModReport.ps1', 'Classes\008-RedditUserReport.ps1', 'Classes\009-RedditComment.ps1')
 	
     # Type files (.ps1xml) to be loaded when importing this module
     TypesToProcess         = @()
@@ -76,7 +76,7 @@
     NestedModules          = @()
 	
     # Functions to export from this module
-    FunctionsToExport      = @('Invoke-RedditRequest','Export-RedditApplication','Import-RedditApplication','New-RedditApplication','Export-RedditOAuthToken','Get-RedditOAuthScope','Import-RedditOAuthToken','Request-RedditOAuthToken','Update-RedditOAuthToken')
+    FunctionsToExport      = @('Invoke-RedditRequest', 'Export-RedditApplication', 'Import-RedditApplication', 'New-RedditApplication', 'Export-RedditOAuthToken', 'Get-RedditOAuthScope', 'Import-RedditOAuthToken', 'Request-RedditOAuthToken', 'Update-RedditOAuthToken')
 	
     # Cmdlets to export from this module
     CmdletsToExport        = @()

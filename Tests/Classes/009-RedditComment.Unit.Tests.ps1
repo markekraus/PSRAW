@@ -96,11 +96,6 @@ Function MyTest {
     $SecTokenSecret = $TokenSecret | ConvertTo-SecureString -AsPlainText -Force 
     $TokenCredential = [pscredential]::new($TokenId, $SecTokenSecret)
 
-    $RefreshId = 'refresh_token'
-    $RefreshSecret = '76543'
-    $SecRefreshSecret = $RefreshSecret | ConvertTo-SecureString -AsPlainText -Force 
-    $RefreshCredential = [pscredential]::new($RefreshId, $SecRefreshSecret)
-
     $ApplicationScript = [RedditApplication]@{
         Name             = 'TestApplication'
         Description      = 'This is only a test'
@@ -111,7 +106,7 @@ Function MyTest {
         UserCredential   = $UserCredential
         Type             = 'Script'
     }
-    $TokenCode = [RedditOAuthToken]@{
+    $TokenScript = [RedditOAuthToken]@{
         Application        = $ApplicationScript
         IssueDate          = (Get-Date).AddHours(-2)
         ExpireDate         = (Get-Date).AddHours(-1)
@@ -119,16 +114,15 @@ Function MyTest {
         Scope              = $ApplicationScript.Scope
         GUID               = [guid]::NewGuid()
         TokenType          = 'bearer'
-        GrantType          = 'Authorization_Code'
+        GrantType          = 'Password'
         RateLimitUsed      = 0
         RateLimitRemaining = 60
         RateLimitRest      = 60
         TokenCredential    = $TokenCredential.psobject.copy()
-        RefreshCredential  = $RefreshCredential.psobject.copy()
     }
     It 'Creates a RedditComment from a RedditAccessToken and an object' {
         $Object = ConvertFrom-Json $CommentJSON 
-        $RedditComment = [RedditComment]::new($TokenCode, $Object)
+        $RedditComment = [RedditComment]::new($TokenScript, $Object)
         $RedditComment.subreddit_id | should be 't5_abc12'
         $RedditComment.link_id | should be 't3_def345'
         $RedditComment.user_reports[0].reason | should be 'Stupid Comment'
@@ -146,7 +140,7 @@ Function MyTest {
     }
     It 'Creates a RedditComment from a RedditAccessToken and an object' {
         $Object = ConvertFrom-Json $CommentJSON 
-        $RedditComment = [RedditComment]::new($TokenCode, $Object)
+        $RedditComment = [RedditComment]::new($TokenScript, $Object)
         $RedditComment.subreddit_id | should be 't5_abc12'
         $RedditComment.link_id | should be 't3_def345'
         $RedditComment.user_reports[0].reason | should be 'Stupid Comment'
@@ -165,22 +159,22 @@ Function MyTest {
     It 'Automatically adds new properties' {
         $Object = ConvertFrom-Json $CommentJSON 
         $Object.data | Add-Member -MemberType NoteProperty -Name 'Testy' -Value 'TestTest'
-        $RedditComment = [RedditComment]::new($TokenCode, $Object)
+        $RedditComment = [RedditComment]::new($TokenScript, $Object)
         $RedditComment.Testy | should be 'TestTest'
     }
     It 'Has a working GetApiEndpointUri() method' {
         $Object = ConvertFrom-Json $CommentJSON 
-        $RedditComment = [RedditComment]::new($TokenCode, $Object)
+        $RedditComment = [RedditComment]::new($TokenScript, $Object)
         $RedditComment.GetApiEndpointUri() | should be 'https://oauth.reddit.com/api/info?id=t1_ghij678'
     }
     It 'Has a working GetFullName() method' {
         $Object = ConvertFrom-Json $CommentJSON 
-        $RedditComment = [RedditComment]::new($TokenCode, $Object)
+        $RedditComment = [RedditComment]::new($TokenScript, $Object)
         $RedditComment.GetFullName() | should be 't1_ghij678'
     }
     It 'Has a working ToString() method' {
         $Object = ConvertFrom-Json $CommentJSON 
-        $RedditComment = [RedditComment]::new($TokenCode, $Object)
+        $RedditComment = [RedditComment]::new($TokenScript, $Object)
         $RedditComment.ToString() | should be 'Stupid Comment!'
     }
 }

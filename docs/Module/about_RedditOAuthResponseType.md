@@ -20,10 +20,6 @@ Used to request OAuth Access Tokens.
 
 [about_RedditApplication](https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication)
 
-[about_RedditOAuthCode](https://psraw.readthedocs.io/en/latest/Module/about_RedditOAuthCode)
-
-[Request-RedditOAuthCode](https://psraw.readthedocs.io/en/latest/PrivateFunctions/Request-RedditOAuthCode)
-
 [https://github.com/reddit/reddit/wiki/OAuth2](https://github.com/reddit/reddit/wiki/OAuth2)
 
 [https://psraw.readthedocs.io/](https://psraw.readthedocs.io/)

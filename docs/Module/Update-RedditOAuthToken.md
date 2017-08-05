@@ -19,12 +19,6 @@ Update-RedditOAuthToken -AccessToken <RedditOAuthToken[]> [-Force] [-PassThru] [
 ## DESCRIPTION
 When a `RedditOAuthToken` Token has expired, `Update-RedditOAuthToken`can be used to refresh the Access Token. Depending on the grant method used to request the `RedditOAuthToken` with `Request-RedditOAuthToken`, either a refresh will be performed or a new grant flow will be initiated. 
 
-This function must be run in an interactive session for tokens requested with the `Implicit` grant method. The user will be required to reauthorize the application with the provided GUI browser. All other grant methods can be refreshed with this function in non-interactive sessions.
-
-> **PowerShell ISE Compatibility Issue**
-> 
-> There is currently a bug in some versions of PowerShell ISE that result in the ISE becoming unresponsive when `WinForms` elements are used. This is an upstream bug and cannot be fixed within this module. To work around this, run this command from the PowerShell Console only and not from the ISE when using `Implicit` tokens.
-
 ## EXAMPLES
 
 ### -------------------------- EXAMPLE 1 --------------------------
@@ -136,8 +130,6 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### RedditOAuthToken
 
 ## NOTES
-There is currently a bug in some versions of PowerShell ISE that result in the ISE becoming unresponsive when `WinForms` elements are used. This is an upstream bug and cannot be fixed within this module. To work around this, run this command from the PowerShell Console only and not from the ISE when using `Implicit` tokens.
-
 For complete documentation visit [https://psraw.readthedocs.io/](https://psraw.readthedocs.io/)
 
 For more information about registering Reddit Apps, Reddit's API, or Reddit OAuth see:

@@ -25,16 +25,6 @@ Describes the RedditComment Class
 
 
 # Properties
-## AccessToken
-{{ Property Description Placeholder }}
-
-```yaml
-Name: AccessToken
-Type: RedditOAuthToken
-Hidden: False
-Static: False
-```
-
 ## ApiEndpointUri
 {{ Property Description Placeholder }}
 

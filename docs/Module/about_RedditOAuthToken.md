@@ -171,16 +171,6 @@ Hidden: False
 Static: False
 ```
 
-## RefreshCredential
-A `PSCredential` object to house the OAuth Refresh Token.
-
-```yaml
-Name: RefreshCredential
-Type: System.Management.Automation.PSCredential
-Hidden: True
-Static: False
-```
-
 ## Scope
 An array of `RedditOAuthScope` objects representing the OAuth scopes for which this Access Token is valid.
 
@@ -243,17 +233,6 @@ Return Type: DateTime
 Hidden: False
 Static: False
 Definition: DateTime GetRateLimitReset()
-```
-
-## GetRefreshToken()
-Retrieves the plain-text OAuth Refresh Token from the `RefreshCredential` property.
-
-```yaml
-Name: GetRefreshToken
-Return Type: String
-Hidden: False
-Static: False
-Definition: String GetRefreshToken()
 ```
 
 ## IsExpired()
@@ -330,7 +309,7 @@ Definition: Void UpdateRateLimit(Object Response)
 ```powershell
 Import-Module PSRAW
 $Application = Import-RedditApplication -Path 'c:\MyApp.xml'
- $Params = @{
+$Params = @{
     Uri             = [RedditOAuthToken]::AuthBaseURL
     Body            = @{
         grant_type = 'https://oauth.reddit.com/grants/installed_client'

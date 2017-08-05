@@ -2,34 +2,34 @@
     .NOTES
     
      Created with:  VSCode
-     Created on:    5/04/2017 03:45 PM
-     Edited on:     5/10/2017
+     Created on:    8/01/2017 3:37 PM
+     Edited on:     8/01/2017
      Created by:    Mark Kraus
      Organization: 	
-     Filename:     Show-RedditOAuthWindow.Unit.Tests.ps1
+     Filename:      Get-HttpResponseContentType.Tests.ps1
     
     .DESCRIPTION
-        Unit Tests for Show-RedditOAuthWindow  Function
+         Get-HttpResponseContentType Function unit tests
 #>
-
 $projectRoot = Resolve-Path "$PSScriptRoot\..\.."
 $moduleRoot = Split-Path (Resolve-Path "$projectRoot\*\*.psd1")
 $moduleName = Split-Path $moduleRoot -Leaf
 Remove-Module -Force $moduleName  -ErrorAction SilentlyContinue
 Import-Module (Join-Path $moduleRoot "$moduleName.psd1") -force
 
+$Command = 'Get-HttpResponseContentType'
 
-InModuleScope PSRAW {
-    $Command = 'Show-RedditOAuthWindow'
-    $TypeName = 'System.Uri'
-
-    function MyTest {
-        It "Emits a $TypeName Object" {
-            (Get-Command $Command).OutputType.Name.where( { $_ -eq $TypeName }) | Should be $TypeName
+InModuleScope $moduleName {
+    $Command = $Global:Command
+    $ModuleName = $Global:ModuleName
+    Function MyTest {
+        $Uri = 'http://httpbin.org/headers'
+        $Response = Invoke-WebRequest -Uri $Uri
+        It 'Returns a valid content-type string for a provided WebResponse' {
+            $Response | Get-HttpResponseContentType |
+                Should Match 'application/json'
         }
     }
-
-    "'$command' is a GUI function. Limited testing available"
     Describe "$command Unit" -Tags Unit {
         $CommandPresent = Get-Command -Name $Command -Module $moduleName -ErrorAction SilentlyContinue
         if (-not $CommandPresent) {
@@ -38,8 +38,6 @@ InModuleScope PSRAW {
         }
         MyTest
     }
-
-
     Describe "$command Build" -Tags Build {
         MyTest
     }

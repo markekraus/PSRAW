@@ -38,14 +38,6 @@ Prefix
     Hidden: False
     Static: False
 
-UID
-    {{ Property Description Placeholder }}
-
-    Name: UID
-    Type: String
-    Hidden: False
-    Static: False
-
 METHODS
 GetApiEndpointUri()
     {{ Method Description Placeholder }}

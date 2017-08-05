@@ -39,7 +39,6 @@ Temporary
 
 SEE ALSO
     about_RedditApplication
-    about_RedditOAuthCode
     about_RedditOAuthToken
     New-RedditApplication
     Request-RedditOAuthToken

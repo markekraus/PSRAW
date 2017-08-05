@@ -49,17 +49,6 @@ Hidden: False
 Static: False
 ```
 
-## UID
-{{ Property Description Placeholder }}
-
-```yaml
-Name: UID
-Type: String
-Hidden: False
-Static: False
-```
-
-
 # Methods
 ## GetApiEndpointUri()
 {{ Method Description Placeholder }}

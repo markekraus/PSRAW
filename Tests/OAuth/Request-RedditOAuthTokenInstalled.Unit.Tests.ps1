@@ -18,9 +18,20 @@ $moduleName = Split-Path $moduleRoot -Leaf
 Remove-Module -Force $moduleName  -ErrorAction SilentlyContinue
 Import-Module (Join-Path $moduleRoot "$moduleName.psd1") -force
 
+$Global:InvokeWebRequest = Get-Command 'Invoke-WebRequest'
+<#
+{
+    "access_token": "2e806026-a304-49ec-9f72-d35100f77526",
+    "token_type": "bearer",
+    "expires_in": 900,
+    "scope": "read",
+}
+#>
+$Global:EchoUri = 'http://urlecho.appspot.com/echo?status=200&Content-Type=application%2Fjson&body=%7B%0A%20%20%20%20%22access_token%22%3A%20%222e806026-a304-49ec-9f72-d35100f77526%22%2C%0A%20%20%20%20%22token_type%22%3A%20%22bearer%22%2C%0A%20%20%20%20%22expires_in%22%3A%20900%2C%0A%20%20%20%20%22scope%22%3A%20%22read%22%2C%0A%7D'
+
 InModuleScope $moduleName {
     $Command = 'Request-RedditOAuthTokenInstalled'
-    $TypeName = 'Microsoft.PowerShell.Commands.BasicHtmlWebResponseObject'
+    $TypeName = 'RedditOAuthResponse'
     
     $ClientId = '54321'
     $ClientSecret = '12345'
@@ -112,13 +123,7 @@ InModuleScope $moduleName {
 
     Function MyTest {
         Mock -CommandName Invoke-WebRequest -ModuleName $moduleName -MockWith {
-            $TempHtml = "{0}\{1}-empty.html" -f $env:TEMP, [guid]::NewGuid()
-            '' | Set-Content $TempHtml
-            $Request = [System.Net.WebRequest]::Create("file://$TempHtml")
-            $Response = $Request.GetResponse()
-            $Response.Headers['Content-Type'] = 'application/json'
-            $Result = [Microsoft.PowerShell.Commands.BasicHtmlWebResponseObject]::new($Response)
-            Remove-Item -Force -Confirm:$false -Path $TempHtml -ErrorAction SilentlyContinue
+            $Result = & $Global:InvokeWebRequest -UseBasicParsing -Uri $Global:EchoUri 
             return $Result
         }
         foreach ($ParameterSet in $ParameterSets) {

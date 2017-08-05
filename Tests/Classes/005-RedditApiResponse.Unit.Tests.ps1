@@ -24,11 +24,6 @@ $ClientSecret = '12345'
 $SecClientSecret = $ClientSecret | ConvertTo-SecureString -AsPlainText -Force 
 $ClientCredential = [pscredential]::new($ClientId, $SecClientSecret)
 
-$InstalledId = '54321'
-$InstalledSecret = ''
-$SecInstalledSecret = [System.Security.SecureString]::new()
-$InstalledCredential = [pscredential]::new($InstalledId, $SecInstalledSecret)
-
 $UserId = 'reddituser'
 $UserSecret = 'password'
 $SecUserSecret = $UserSecret | ConvertTo-SecureString -AsPlainText -Force 
@@ -38,11 +33,6 @@ $TokenId = 'access_token'
 $TokenSecret = '34567'
 $SecTokenSecret = $TokenSecret | ConvertTo-SecureString -AsPlainText -Force 
 $TokenCredential = [pscredential]::new($TokenId, $SecTokenSecret)
-
-$RefreshId = 'refresh_token'
-$RefreshSecret = '76543'
-$SecRefreshSecret = $RefreshSecret | ConvertTo-SecureString -AsPlainText -Force 
-$RefreshCredential = [pscredential]::new($RefreshId, $SecRefreshSecret)
 
 $ApplicationScript = [RedditApplication]@{
     Name             = 'TestApplication'
@@ -55,7 +45,7 @@ $ApplicationScript = [RedditApplication]@{
     Type             = 'Script'
 }
 
-$TokenCode = [RedditOAuthToken]@{
+$TokenScript = [RedditOAuthToken]@{
     Application        = $ApplicationScript
     IssueDate          = Get-Date
     ExpireDate         = (Get-Date).AddHours(1)
@@ -65,22 +55,17 @@ $TokenCode = [RedditOAuthToken]@{
     GUID               = [guid]::newguid()
     Notes              = 'This is a test token'
     TokenType          = 'bearer'
-    GrantType          = 'Authorization_Code'
+    GrantType          = 'Password'
     RateLimitUsed      = 0
     RateLimitRemaining = 60
     RateLimitRest      = 60
     TokenCredential    = $TokenCredential
-    RefreshCredential  = $RefreshCredential
 }
 
-$TempHtml = "{0}\{1}-empty.html" -f $env:TEMP, [guid]::NewGuid()
-'' | Set-Content $TempHtml
-$Request = [System.Net.WebRequest]::Create("file://$TempHtml")
-$Response = $Request.GetResponse()
-$Response.Headers['Content-Type'] = 'application/json'
-$Result = [Microsoft.PowerShell.Commands.BasicHtmlWebResponseObject]::new($Response)
-Remove-Item -Force -Confirm:$false -Path $TempHtml -ErrorAction SilentlyContinue
-$JSON = @'
+$Uri = 'http://urlecho.appspot.com/echo?status=200&Content-Type=application%2Fjson&body=%7B%0A%20%20%20%20%22comment_karma%22%3A%200%2C%20%0A%20%20%20%20%22created%22%3A%201389649907.0%2C%20%0A%20%20%20%20%22created_utc%22%3A%201389649907.0%2C%20%0A%20%20%20%20%22has_mail%22%3A%20false%2C%20%0A%20%20%20%20%22has_mod_mail%22%3A%20false%2C%20%0A%20%20%20%20%22has_verified_email%22%3A%20null%2C%20%0A%20%20%20%20%22id%22%3A%20%221%22%2C%20%0A%20%20%20%20%22is_gold%22%3A%20false%2C%20%0A%20%20%20%20%22is_mod%22%3A%20true%2C%20%0A%20%20%20%20%22link_karma%22%3A%201%2C%20%0A%20%20%20%20%22name%22%3A%20%22reddit_bot%22%2C%20%0A%20%20%20%20%22over_18%22%3A%20true%0A%7D'
+$response = Invoke-WebRequest -UseBasicParsing -Uri $Uri
+
+<#
 {
     "comment_karma": 0, 
     "created": 1389649907.0, 
@@ -95,23 +80,24 @@ $JSON = @'
     "name": "reddit_bot", 
     "over_18": true
 }
-'@
+#>
+
 $TestHashes = @(
     @{
         Name = 'TestHash'
         Hash = @{
-            AccessToken   = $TokenCode
+            AccessToken   = $TokenScript
             Parameters    = @{
                 ContentType     = 'application/json'
                 Method          = 'Default'
                 Uri             = 'https://oauth.reddit.com/api/v1/me'
                 ErrorAction     = 'Stop'
-                WebSession      = $TokenCode.Session
+                WebSession      = $TokenScript.Session
                 UseBasicParsing = $true
             }
-            RequestDate   = Get-Date
-            Response      = $Result
-            ContentObject = $JSON | ConvertFrom-Json
+            RequestDate   = $response.Headers.Date[0]
+            Response      = $response
+            ContentObject = $response.Content | ConvertFrom-Json
         }
     }
 )

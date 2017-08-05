@@ -2,21 +2,20 @@
     .NOTES
     
      Created with: 	Plaster
-     Created on:   	5/20/2017 10:01 AM
-     Edited on:     5/20/2017
+     Created on:   	8/2/2017 4:31 PM
+     Edited on:     8/2/2017
      Created by:   	Mark Kraus
      Organization: 	 
-     Filename:     	005-RedditApiResponse.ps1
+     Filename:     	003-RedditOAuthResponse.ps1
     
     .DESCRIPTION
-        RedditApiResponse Class
+        RedditOAuthResponse Class
 #>
-Class RedditApiResponse {
-    [RedditOAuthToken]$AccessToken
+Class RedditOAuthResponse {
     [hashtable]$Parameters
     [DateTime]$RequestDate
     [Microsoft.PowerShell.Commands.WebResponseObject]$Response
-    [PSObject]$ContentObject
+    [PSObject]$Content
     [String]$ContentType
-    RedditApiResponse () { }
+    RedditOAuthResponse () { }
 }

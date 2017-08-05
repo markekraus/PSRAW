@@ -34,11 +34,6 @@ $TokenSecret = '08239842-a6f5-4fe5-ab4c-4592084ad44g'
 $SecTokenSecret = $TokenSecret | ConvertTo-SecureString -AsPlainText -Force 
 $TokenCredential = [pscredential]::new($TokenId, $SecTokenSecret)
 
-$RefreshId = 'refresh_token'
-$RefreshSecret = '08239842-a6f5-4fe5-ab4c-4592084ad44h'
-$SecRefreshSecret = $RefreshSecret | ConvertTo-SecureString -AsPlainText -Force 
-$RefreshCredential = [pscredential]::new($RefreshId, $SecRefreshSecret)
-
 $ExportFile = '{0}\RedditApplicationExport-{1}.xml' -f $env:TEMP, [guid]::NewGuid().toString()
 $TokenExportFile = '{0}\RedditTokenExport-{1}.xml' -f $env:TEMP, [guid]::NewGuid().toString()
 
@@ -54,7 +49,7 @@ $Application = [RedditApplication]@{
     ExportPath       = $ExportFile 
 }
 
-$Token = [RedditOAuthToken]@{
+$TokenScript = [RedditOAuthToken]@{
     Application        = $Application
     IssueDate          = Get-Date
     ExpireDate         = (Get-Date).AddHours(1)
@@ -64,12 +59,11 @@ $Token = [RedditOAuthToken]@{
     GUID               = [guid]::NewGuid()
     Notes              = 'This is a test token'
     TokenType          = 'bearer'
-    GrantType          = 'Authorization_Code'
+    GrantType          = 'Password'
     RateLimitUsed      = 0
     RateLimitRemaining = 60
     RateLimitRest      = 60
     TokenCredential    = $TokenCredential
-    RefreshCredential  = $RefreshCredential
 }
 
 $ParameterSets = @(
@@ -77,20 +71,20 @@ $ParameterSets = @(
         Name   = 'Path'
         Params = @{
             Path        = $TokenExportFile
-            AccessToken = $Token
+            AccessToken = $TokenScript
         }
     }
     @{
         Name   = 'LiteralPath'
         Params = @{
             LiteralPath = $TokenExportFile
-            AccessToken = $Token
+            AccessToken = $TokenScript
         }
     }
     @{
         Name   = 'ExportPath'
         Params = @{
-            AccessToken = $Token
+            AccessToken = $TokenScript
         }
     }
 )

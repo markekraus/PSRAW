@@ -18,7 +18,7 @@ function Request-RedditOAuthTokenInstalled {
     [CmdletBinding(
         HelpUri = 'https://psraw.readthedocs.io/en/latest/PrivateFunctions/Request-RedditOAuthTokenInstalled'
     )]
-    [OutputType([Microsoft.PowerShell.Commands.BasicHtmlWebResponseObject])]
+    [OutputType([RedditOAuthResponse])]
     param (
         [Parameter( 
             mandatory = $true, 
@@ -55,6 +55,14 @@ function Request-RedditOAuthTokenInstalled {
             Method          = 'POST'
             UseBasicParsing = $true
         }
-        Invoke-WebRequest @Params 
+        $Response = Invoke-WebRequest @Params
+        $Null = $Params.Remove('Headers')
+        [RedditOAuthResponse]@{
+            Response    = $Response
+            RequestDate = $Response.Headers.Date[0]
+            Parameters  = $Params
+            Content     = $Response.Content
+            ContentType = $Response | Get-HttpResponseContentType
+        }
     }
 }

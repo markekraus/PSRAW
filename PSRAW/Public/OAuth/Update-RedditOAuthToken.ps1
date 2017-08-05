@@ -54,13 +54,6 @@ function Update-RedditOAuthToken {
                     $Result = Request-RedditOAuthTokenInstalled @Params
                     Break
                 }
-                'Authorization_Code' { 
-                    $Params = @{
-                        AccessToken = $Token
-                    }  
-                    $Result = Request-RedditOAuthTokenRefresh @Params
-                    Break
-                }
                 'Password' { 
                     $Params = @{
                         Application = $Token.Application
@@ -73,13 +66,6 @@ function Update-RedditOAuthToken {
                         Application = $Token.Application
                     }  
                     $Result = Request-RedditOAuthTokenClient @Params
-                    Break
-                }
-                'Implicit' { 
-                    $Params = @{
-                        Application = $Token.Application
-                    }  
-                    $Result = Request-RedditOAuthTokenImplicit @Params
                     Break
                 }
             }

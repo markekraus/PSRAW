@@ -109,40 +109,6 @@ Describe "[$Class] Tests" -Tag Unit, Build {
     It "Has a working GetClientSecret() method" {
         $Application.GetUserPassword() | should be $UserSecret
     }
-    It "Has a working GetAuthorizationUrl() method" {
-        $url = $Application.GetAuthorizationUrl()
-        $url | should match 'client_id=54321'
-        $url | should match 'response_type=Code'
-        $url | should match 'redirect_uri=https%3a%2f%2flocalhost%2f'
-        $url | should match 'duration=Permanent'
-        $url | should match 'https://www.reddit.com:443/api/v1/authorize'
-    }
-    It "Has a working GetAuthorizationUrl(ResponseType, Duration) method" {
-        $url = $Application.GetAuthorizationUrl('code', 'permanent')
-        $url | should match 'client_id=54321'
-        $url | should match 'response_type=Code'
-        $url | should match 'redirect_uri=https%3a%2f%2flocalhost%2f'
-        $url | should match 'duration=Permanent'
-        $url | should match 'https://www.reddit.com:443/api/v1/authorize'
-    }
-    It "Has a working GetAuthorizationUrl(ResponseType, Duration, State) method" {
-        $url = $Application.GetAuthorizationUrl('code', 'permanent', 'myteststate')
-        $url | should match 'client_id=54321'
-        $url | should match 'response_type=Code'
-        $url | should match 'redirect_uri=https%3a%2f%2flocalhost%2f'
-        $url | should match 'duration=Permanent'
-        $url | should match 'https://www.reddit.com:443/api/v1/authorize'
-        $url | should match 'state=myteststate'
-    }
-    It "Has a working GetAuthorizationUrl(ResponseType, Duration, State, AuthBaseUrl) method" {
-        $url = $Application.GetAuthorizationUrl('code', 'permanent', 'myteststate', 'https://google.com/')
-        $url | should match 'client_id=54321'
-        $url | should match 'response_type=Code'
-        $url | should match 'redirect_uri=https%3a%2f%2flocalhost%2f'
-        $url | should match 'duration=Permanent'
-        $url | should match 'https://google.com'
-        $url | should match 'state=myteststate'
-    }
     It "Has a AuthBaseURL static property" {
         {[RedditApplication]::AuthBaseURL} | should not throw
         [RedditApplication]::AuthBaseURL | should not BeNullOrEmpty

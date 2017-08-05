@@ -42,8 +42,6 @@ $Temporary = [RedditOAuthDuration]::Temporary
 
 [about_RedditApplication](https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication)
 
-[about_RedditOAuthCode](https://psraw.readthedocs.io/en/latest/Module/about_RedditOAuthCode)
-
 [about_RedditOAuthToken](https://psraw.readthedocs.io/en/latest/Module/about_RedditOAuthToken)
 
 [New-RedditApplication](https://psraw.readthedocs.io/en/latest/Module/New-RedditApplication)

@@ -48,10 +48,7 @@ Properties {
     $ReleaseNotes = "$ProjectRoot\RELEASE.md"
     $ChangeLog = "$ProjectRoot\docs\ChangeLog.md"
     $MkdcosYmlHeader = "$ProjectRoot\Config\header-mkdocs.yml"
-    # Exclude GUI files from coverage tests because they cannot be unit tested.
-    $CodeCoverageExclude = @(
-        'Show-RedditOAuthWindow.ps1'
-    )
+    $CodeCoverageExclude = @()
 }
 
 Task Default -Depends PostDeploy
@@ -74,7 +71,7 @@ Task UnitTests -Depends Init {
     $Parameters = @{
         Script       = "$ProjectRoot\Tests"
         PassThru     = $true
-        Tag          = 'Unit'
+        Tag          = 'PreBuild'
         OutputFormat = 'NUnitXml'
         OutputFile   = "$ProjectRoot\$TestFile"
         Show         = 'Fails'
@@ -288,7 +285,10 @@ Task BuildDocs -depends CodeCoverage {
 
 Task TestDocs -Depends BuildDocs {
     $lines
-    if ($ENV:BHBranchName -like 'develop') {
+    if (
+        $ENV:BHBranchName -like 'develop' -or 
+        $ENV:BHBranchName -like 'CoreRefactor'
+    ) {
         'Skipping develop branch'
         return
     }

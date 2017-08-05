@@ -39,11 +39,6 @@ $TokenSecret = '34567'
 $SecTokenSecret = $TokenSecret | ConvertTo-SecureString -AsPlainText -Force 
 $TokenCredential = [pscredential]::new($TokenId, $SecTokenSecret)
 
-$RefreshId = 'refresh_token'
-$RefreshSecret = '76543'
-$SecRefreshSecret = $RefreshSecret | ConvertTo-SecureString -AsPlainText -Force 
-$RefreshCredential = [pscredential]::new($RefreshId, $SecRefreshSecret)
-
 $ApplicationWebApp = [RedditApplication]@{
     Name             = 'TestApplication'
     Description      = 'This is only a test'
@@ -73,26 +68,39 @@ $ApplicationInstalled = [RedditApplication]@{
     Type             = 'Installed'
 }
 
-$ResponseObject = [pscustomobject]@{
-    Content = '{"access_token": "34567", "token_type": "bearer", "device_id": "MyDeviceID", "expires_in": 3600, "scope": "*"}'
-    Headers = @{
-        'Content-Type' = 'application/json'
-    }
-}
-
-$ResponseObjectCode = [pscustomobject]@{
-    Content = '{"access_token": "34567", "token_type": "bearer", "expires_in": 3600, "refresh_token": "76543", "scope": "read"}'
-    Headers = @{
-        'Content-Type' = 'application/json'
-    }
-}
-
-$ResponseObjectRefresh = [pscustomobject]@{
-    Content = '{"access_token": "AABBCC", "token_type": "bearer", "expires_in": 3600, "scope": "*"}'
-    Headers = @{
-        'Content-Type' = 'application/json'
-    }
-}
+<#
+{"access_token": "34567", "token_type": "bearer", "device_id": "MyDeviceID", "expires_in": 3600, "scope": "*"}
+#>
+$EchoUriInstalled = 'http://urlecho.appspot.com/echo?status=200&Content-Type=application%2Fjson&body=%7B%22access_token%22%3A%20%2234567%22%2C%20%22token_type%22%3A%20%22bearer%22%2C%20%22device_id%22%3A%20%22MyDeviceID%22%2C%20%22expires_in%22%3A%203600%2C%20%22scope%22%3A%20%22*%22%7D'
+$Response = Invoke-WebRequest -UseBasicParsing -Uri $EchoUriInstalled
+$ResponseObjectInstalled = [RedditOAuthResponse]@{
+    Response    = $Response
+    RequestDate = $Response.Headers.Date[0]
+    Content     = $Response.Content
+    ContentType = 'application/json'
+} 
+<#
+{"access_token": "34567", "token_type": "bearer", "expires_in": 3600, "scope": "read"}
+#>
+$EchoUriPassword = 'http://urlecho.appspot.com/echo?status=200&Content-Type=application%2Fjson&body=%7B%22access_token%22%3A%20%2234567%22%2C%20%22token_type%22%3A%20%22bearer%22%2C%20%22expires_in%22%3A%203600%2C%20%22scope%22%3A%20%22read%22%7D'
+$Response = Invoke-WebRequest -UseBasicParsing -Uri $EchoUriPassword
+$ResponseObjectPassword = [RedditOAuthResponse]@{
+    Response    = $Response
+    RequestDate = $Response.Headers.Date[0]
+    Content     = $Response.Content
+    ContentType = 'application/json'
+} 
+<#
+{"access_token": "AABBCC", "token_type": "bearer", "expires_in": 3600, "scope": "*"}
+#>
+$EchoUriRefresh = 'http://urlecho.appspot.com/echo?status=200&Content-Type=application%2Fjson&body=%7B%22access_token%22%3A%20%22AABBCC%22%2C%20%22token_type%22%3A%20%22bearer%22%2C%20%22expires_in%22%3A%203600%2C%20%22scope%22%3A%20%22*%22%7D'
+$Response = Invoke-WebRequest -UseBasicParsing -Uri $EchoUriRefresh
+$ResponseObjectRefresh = [RedditOAuthResponse]@{
+    Response    = $Response
+    RequestDate = $Response.Headers.Date[0]
+    Content     = $Response.Content
+    ContentType = 'application/json'
+} 
 
 $ResponseUri = [System.Uri]('https://localhos/#access_token=34567&token_type=bearer&state=MyState&expires_in=3600&scope=read')
 $ResponseUriRefresh = [System.Uri]('https://localhos/#access_token=DDEEFF&token_type=bearer&state=MyState&expires_in=3600&scope=read')
@@ -101,7 +109,7 @@ $TestHashes = @(
     @{
         Name = 'Token'
         Hash = @{
-            Application        = $ApplicationWebApp
+            Application        = $ApplicationScript
             IssueDate          = Get-Date
             ExpireDate         = (Get-Date).AddHours(1)
             LastApiCall        = Get-Date
@@ -110,12 +118,11 @@ $TestHashes = @(
             GUID               = [guid]::NewGuid()
             Notes              = 'This is a test token'
             TokenType          = 'bearer'
-            GrantType          = 'Authorization_Code'
+            GrantType          = 'Password'
             RateLimitUsed      = 0
             RateLimitRemaining = 60
             RateLimitRest      = 60
             TokenCredential    = $TokenCredential
-            RefreshCredential  = $RefreshCredential
         }
     }
 )
@@ -132,94 +139,66 @@ Describe "[$Class] Tests" -Tag Unit, Build {
             [RedditOAuthToken]::new(
                 'Installed',
                 $ApplicationInstalled,
-                $ResponseObject
+                $ResponseObjectInstalled
             )
         } | should not throw
-    }
-    It "Has a working Constructor for URI objects." {
-        {
-            [RedditOAuthToken]::new(
-                'Implicit',
-                $ApplicationInstalled,
-                $ResponseUri
-            )
-        } | should not throw
-    }
-    It "Fails if the URI is missing a Fragment" {
-        {
-            [RedditOAuthToken]::new(
-                'Implicit',
-                $ApplicationInstalled,
-                [system.uri]'https://badurl/'
-            )
-        } | should throw "Response does not include Fragment"
     }
     It "Fails if the Object is not an application/json response" {
         {
             [RedditOAuthToken]::new(
-                'Implicit',
+                'Password',
                 $ApplicationInstalled,
-                [pscustomobject]@{Headers = @{'Content-type' = 'invalid'}}
+                [RedditOAuthResponse]@{ContentType = 'invalid'}
             )
         } | should throw "Response Content-Type is not 'application/json'"
     }
-    $CodeToken = [RedditOAuthToken]::new(
-        'Authorization_Code',
+    $TokeScript = [RedditOAuthToken]::new(
+        'Password',
         $ApplicationScript,
-        $ResponseObjectCode
+        $ResponseObjectPassword
     )
     It "Has a working GetRateLimitReset() method" {
-        $CodeToken.GetRateLimitReset() | should -BeOfType system.datetime
-        $CodeToken.GetRateLimitReset() | should -BeGreaterThan (get-date)
+        $TokeScript.GetRateLimitReset() | should BeOfType system.datetime
+        $TokeScript.GetRateLimitReset() | should BeGreaterThan (get-date)
     }
     It "Has a working IsRateLimited() method" {
-        $CodeToken.IsRateLimited() | should BeOfType System.Boolean
-        $CodeToken.IsRateLimited() | should be $false
-        $tempval = $CodeToken.LastApiCall.PSObject.copy()
-        $CodeToken.LastApiCall = (get-date).AddHours(-3)
-        $CodeToken.IsRateLimited() | should be $false
-        $CodeToken.LastApiCall = $tempval
-        $tempval = $CodeToken.RateLimitRemaining
-        $CodeToken.RateLimitRemaining = 0
-        $CodeToken.IsRateLimited() | should be $true
+        $TokeScript.IsRateLimited() | should BeOfType System.Boolean
+        $TokeScript.IsRateLimited() | should be $false
+        $tempval = $TokeScript.LastApiCall.PSObject.copy()
+        $TokeScript.LastApiCall = (get-date).AddHours(-3)
+        $TokeScript.IsRateLimited() | should be $false
+        $TokeScript.LastApiCall = $tempval
+        $tempval = $TokeScript.RateLimitRemaining
+        $TokeScript.RateLimitRemaining = 0
+        $TokeScript.IsRateLimited() | should be $true
     }
     It "Has a working IsExpired() method" {
-        $CodeToken.IsExpired() | should BeOfType System.Boolean
-        $CodeToken.IsExpired() | should be $false
+        $TokeScript.IsExpired() | should BeOfType System.Boolean
+        $TokeScript.IsExpired() | should be $false
     }
     it "Has a working GetAccessToken() method" {
-        $CodeToken.GetAccessToken() | should be 34567
-    }
-    it "Has a working GetRefreshToken() method" {
-        $CodeToken.GetRefreshToken() | should be 76543
+        $TokeScript.GetAccessToken() | should be 34567
     }
     It "Has a working ToString() method" {
-        $CodeToken.ToString() | should -Match 'GUID: '
-        $CodeToken.ToString() | should -Match 'Expires: '
+        $TokeScript.ToString() | should Match 'GUID: '
+        $TokeScript.ToString() | should Match 'Expires: '
     }
     It "Has a working Refresh() method" {
         $OldToken = @{
-            IssueDate  = $CodeToken.IssueDate.psobject.copy()
-            ExpireDate = $CodeToken.ExpireDate.psobject.copy()
-            GUID       = $CodeToken.GUID.psobject.copy()
+            IssueDate  = $TokeScript.IssueDate.psobject.copy()
+            ExpireDate = $TokeScript.ExpireDate.psobject.copy()
+            GUID       = $TokeScript.GUID.psobject.copy()
         }
         {
-            $CodeToken.Refresh(
-                [pscustomobject]@{Headers = @{'Content-type' = 'invalid'}}
+            $TokeScript.Refresh(
+                [RedditOAuthResponse]@{ContentType = 'invalid'}
             )
         } | should throw "Response Content-Type is not 'application/json'"
-        {
-            $CodeToken.Refresh(
-                [system.uri]'https://badurl/'
-            )
-        } | should throw "Response does not include Fragment"
-        {$CodeToken.Refresh($ResponseObjectRefresh)} | Should Not throw
-        $CodeToken.GUID | should be  $OldToken.GUID
-        $CodeToken.GetAccessToken() | should be 'AABBCC'
-        $CodeToken.IssueDate | Should BeGreaterThan $OldToken.IssueDate
-        $CodeToken.ExpireDate | Should BeGreaterThan $OldToken.ExpireDate
-        {$CodeToken.Refresh($ResponseUriRefresh)} | should Not throw
-        $CodeToken.GetAccessToken() | should be 'DDEEFF'
+        {$TokeScript.Refresh($ResponseObjectRefresh)} | Should Not throw
+        $TokeScript.GUID | should be  $OldToken.GUID
+        $TokeScript.GetAccessToken() | should be 'AABBCC'
+        $TokeScript.IssueDate | Should BeGreaterThan $OldToken.IssueDate
+        $TokeScript.ExpireDate | Should BeGreaterThan $OldToken.ExpireDate
     }
     It "Has a working Reserialize() static method" {
         $Object = [PSCustomObject]@{
@@ -232,12 +211,11 @@ Describe "[$Class] Tests" -Tag Unit, Build {
             GUID               = [guid]::NewGuid()
             Notes              = 'This is a test token'
             TokenType          = 'bearer'
-            GrantType          = 'Authorization_Code'
+            GrantType          = 'Password'
             RateLimitUsed      = 0
             RateLimitRemaining = 60
             RateLimitRest      = 60
             TokenCredential    = $TokenCredential
-            RefreshCredential  = $RefreshCredential
         }
         $Token = [RedditOAuthToken]::Reserialize($Object)
         foreach ($Property in $Object.psobject.Properties.Name) {
@@ -253,10 +231,10 @@ Describe "[$Class] Tests" -Tag Unit, Build {
                 'x-ratelimit-reset'     = 30
             }
         }
-        $CodeToken.UpdateRateLimit($Response)
-        $CodeToken.RateLimitRemaining | should be 59
-        $CodeToken.RateLimitUsed | should be 1
-        $CodeToken.RateLimitRest | should be 30
-        $CodeToken.LastApiCall | should be $(Get-Date '2017/05/20')
+        $TokeScript.UpdateRateLimit($Response)
+        $TokeScript.RateLimitRemaining | should be 59
+        $TokeScript.RateLimitUsed | should be 1
+        $TokeScript.RateLimitRest | should be 30
+        $TokeScript.LastApiCall | should be $(Get-Date '2017/05/20')
     }
 }

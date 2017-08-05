@@ -27,7 +27,7 @@ This function is not intended for direct usage by the module consumer and is not
 PS C:\> $AuthHeader = $Application.ClientCredential | Get-AuthorizationHeader
 ```
 
-This example demonstrates how the `Request-RedditOAuthTokenCode` function uses `Get-AuthorizationHeader` to generate an authorization header to send in the Access Token request.
+This example demonstrates how the `Request-RedditOAuthToken` function uses `Get-AuthorizationHeader` to generate an authorization header to send in the Access Token request.
 
 ## PARAMETERS
 
@@ -61,7 +61,6 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 This function is used in the following functions:
 
 * [Request-RedditOAuthTokenClient](https://psraw.readthedocs.io/en/latest/PrivateFunctions/Request-RedditOAuthTokenClient)
-* [Request-RedditOAuthTokenCode](https://psraw.readthedocs.io/en/latest/PrivateFunctions/Request-RedditOAuthTokenCode)
 * [Request-RedditOAuthTokenInstalled](https://psraw.readthedocs.io/en/latest/PrivateFunctions/Request-RedditOAuthTokenInstalled)
 * [Request-RedditOAuthTokenPassword](https://psraw.readthedocs.io/en/latest/PrivateFunctions/Request-RedditOAuthTokenPassword)
 
@@ -70,8 +69,6 @@ This function is used in the following functions:
 [Get-AuthorizationHeader](https://psraw.readthedocs.io/en/latest/PrivateFunctions/Get-AuthorizationHeader)
 
 [Request-RedditOAuthTokenClient](https://psraw.readthedocs.io/en/latest/PrivateFunctions/Request-RedditOAuthTokenClient)
-
-[Request-RedditOAuthTokenCode](https://psraw.readthedocs.io/en/latest/PrivateFunctions/Request-RedditOAuthTokenCode)
 
 [Request-RedditOAuthTokenInstalled](https://psraw.readthedocs.io/en/latest/PrivateFunctions/Request-RedditOAuthTokenInstalled)
 
