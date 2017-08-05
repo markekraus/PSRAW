@@ -66,7 +66,7 @@ Describe "Help tests for $moduleName" -Tags Documentation {
             foreach ($parameter in $help.parameters.parameter) {
                 if ($parameter -notmatch 'whatif|confirm') {
                     it "Has a Parameter description for '$($parameter.name)'" {
-                        $parameter.Description.text | Should Not BeNullOrEmpty
+                        $parameter.Description.text -join '' | Should Not BeNullOrEmpty
                     }
                 }
             }

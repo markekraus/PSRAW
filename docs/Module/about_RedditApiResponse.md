@@ -38,6 +38,8 @@ Hidden: False
 Static: False
 ```
 
+## ContentType
+
 ## Parameters
 These are the parameters that were used with `Invoke-WebRequest` when it is called by `Invoke-RedditRequest`. The `Authorization` header will be truncated to protect the Access Token.
 

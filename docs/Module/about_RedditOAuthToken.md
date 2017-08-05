@@ -28,17 +28,7 @@ Creates an empty `RedditOAuthToken` object.
 [RedditOAuthToken]::new()
 ```
 
-## RedditOAuthToken(RedditOAuthGrantType GrantType, RedditApplication Application, Object Response)
-Creates `RedditOAuthToken` object from the provided `RedditOAuthGrantType`, `RedditApplication`, and either a `system.uri` or a `Microsoft.PowerShell.Commands.WebResponseObject` shaped object. Depending on the grant flow used, the Access Token will be provided in a JSON response or in the fragment part of a URI. This constructor builds the `RedditOAuthToken` from the data provided in those responses.
-
-```powershell
-[RedditOAuthToken]::new(
-    [RedditOAuthGrantType]$GrantType, 
-    [RedditApplication]$Application, 
-    [Object]$Response
-)
-```
-
+## RedditOAuthToken(RedditOAuthGrantType GrantType, RedditApplication Application, RedditOAuthResponse Response)
 
 # Properties
 ## Application
@@ -259,16 +249,7 @@ Static: False
 Definition: Boolean IsRateLimited()
 ```
 
-## Refresh(Object Response)
-Refreshes the `RedditOAuthToken` properties when a token refresh has been performed. The response will be either a `system.uri` or a `Microsoft.PowerShell.Commands.WebResponseObject` shaped object. Depending on the grant flow used, the refreshed Access Token will be provided in a JSON response or in the fragment part of a URI.
-
-```yaml
-Name: Refresh
-Return Type: Void
-Hidden: False
-Static: False
-Definition: Void Refresh(Object Response)
-```
+## Refresh(RedditOAuthResponse Response)
 
 ## Reserialize(Object Object)
 Used to reserialize a deserialized `RedditOAuthToken` object. This is called by `Import-RedditOAuthToken` after the object has been imported from XML.
