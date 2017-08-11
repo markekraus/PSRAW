@@ -21,7 +21,7 @@ function New-RedditApplication {
         Justification = "Creates in-memory object only."
     )]
     [CmdletBinding(
-        DefaultParameterSetName = 'WebApp',
+        DefaultParameterSetName = 'Script',
         ConfirmImpact = 'None',
         HelpUri = 'https://psraw.readthedocs.io/en/latest/Module/New-RedditApplication'
     )]
@@ -41,11 +41,11 @@ function New-RedditApplication {
         [switch]$Installed,
         
         [Parameter(ParameterSetName = 'Installed',
-            Mandatory = $true)]
+            Mandatory = $False)]
         [Parameter(ParameterSetName = 'Script',
-            Mandatory = $true)]
+            Mandatory = $False)]
         [Parameter(ParameterSetName = 'WebApp',
-            Mandatory = $true)]
+            Mandatory = $False)]
         [ValidateNotNullOrEmpty()]
         [Alias('AppName')]
         [string]$Name,
@@ -78,13 +78,18 @@ function New-RedditApplication {
         [string]$UserAgent,
         
         [Parameter(ParameterSetName = 'Installed',
-            Mandatory = $true)]
+            Mandatory = $False,
+            DontShow = $true
+        )]
         [Parameter(ParameterSetName = 'Script',
-            Mandatory = $true)]
+            Mandatory = $False,
+            DontShow = $true
+        )]
         [Parameter(ParameterSetName = 'WebApp',
-            Mandatory = $true)]
-        [ValidateNotNullOrEmpty()]
-        [RedditOAuthScope[]]$Scope,
+            Mandatory = $False,
+            DontShow = $true
+        )]
+        [RedditOAuthScope[]]$Scope = '*',
         
         [Parameter(ParameterSetName = 'Installed',
             Mandatory = $false)]

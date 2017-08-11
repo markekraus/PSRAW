@@ -1,5 +1,12 @@
 # Project News
 
+## August 2017
+
+### PowerShell Core Compatibility Refactor
+Many Many changes have been made to the module to make it compatible with PowerShell Core. The upcoming release will be a major version and many breaking changes will be introduced. Chief among them are the removal of the `Code` and `Implicit` grant flows. These grant flows required a GUI and GUI is not possible in PowerShell Core. In the future we will investigate bringing these grant flows back through CLI means. The current estimates for doing so would set this project back even further. We would rather provide the "Base" functionality release before tackling the additional grant flows. For most use cases for this module, the `Script` grant flow should be sufficient.
+
+This release will not add any additional functionality for users. Most of the changes are taking place "under the hood". The underlying class structures for upcoming functionality (such as retrieving comments) are being added but with no current functionality. If you begin using these classes in your projects please note that their shape and functionality may change dramatically in coming minor versions.
+
 ## May 2017
 
 ### Core Functionality Milestone Reached!

@@ -51,7 +51,8 @@ Describe "Help tests for $moduleName" -Tags Documentation {
         Context "$($Function.name) Public Function" {
             it "Has a Valid HelpUri" {
                 $Function.HelpUri | Should Not BeNullOrEmpty
-                $Function.HelpUri | should -BeLike "$ModuleBaseURL/$($Function.name)"
+                $Pattern = [regex]::Escape("$ModuleBaseURL/$($Function.name)")
+                $Function.HelpUri | should Match $Pattern
             }
             It "Has related Links" {
                 $help.relatedLinks.navigationLink.uri.count | Should BeGreaterThan 0
@@ -65,14 +66,14 @@ Describe "Help tests for $moduleName" -Tags Documentation {
             foreach ($parameter in $help.parameters.parameter) {
                 if ($parameter -notmatch 'whatif|confirm') {
                     it "Has a Parameter description for '$($parameter.name)'" {
-                        $parameter.Description.text | Should Not BeNullOrEmpty
+                        $parameter.Description.text -join '' | Should Not BeNullOrEmpty
                     }
                 }
             }
             it "Does not have Template artifacts" {
                 $Matches = $null
                 $null = $helpText -match '{{.*}}'
-                $Matches.count | should -BeExactly 0
+                $Matches.count | should Be 0
             }
         }
     }# End foreach
@@ -82,11 +83,12 @@ Describe "Help tests for $moduleName" -Tags Documentation {
         Context "$($Function.name) Private Function" {
             it "Has a HelpUri" {
                 $Function.HelpUri | Should Not BeNullOrEmpty
-                $Function.HelpUri | should -BeLike "$PrivateFunctionBaseURL/$($Function.name)"
+                $Pattern = [regex]::Escape("$PrivateFunctionBaseURL/$($Function.name)")
+                $Function.HelpUri | should Match $Pattern
             }
             $helpDoc = $PrivateHelpFiles | Where-Object { $_.BaseName -eq $Function.name}
             it "Has a help document" {
-                $helpDoc | should -not -BeNullOrEmpty
+                $helpDoc | should not BeNullOrEmpty
             }
 
             it "Does not have Template artifacts" {
@@ -111,7 +113,7 @@ Describe "Help tests for $moduleName" -Tags Documentation {
                 $help | Should Not BeNullOrEmpty
             }
             it "Has a help document" {
-                $helpDoc | should -not -BeNullOrEmpty
+                $helpDoc | should not BeNullOrEmpty
             }
             $Properties = $Class.DeclaredMembers.where( {$_.MemberType -eq 'Property'}).name
             foreach ($Property in $Properties) {
@@ -146,7 +148,7 @@ Describe "Help tests for $moduleName" -Tags Documentation {
                 $help | Should Not BeNullOrEmpty
             }
             it "Has a help document" {
-                $helpDoc | should -not -BeNullOrEmpty
+                $helpDoc | should not BeNullOrEmpty
             }
             $Fields = $Enum.GetFields().where( {-not $_.IsSpecialName}).name
             foreach ($Field in $Fields) {

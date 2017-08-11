@@ -15,7 +15,8 @@ Class RedditApiResponse {
     [RedditOAuthToken]$AccessToken
     [hashtable]$Parameters
     [DateTime]$RequestDate
-    [Object]$Response
-    [Object]$ContentObject
+    [Microsoft.PowerShell.Commands.WebResponseObject]$Response
+    [PSObject]$ContentObject
+    [String]$ContentType
     RedditApiResponse () { }
 }

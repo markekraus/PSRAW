@@ -39,13 +39,11 @@ This example demonstrates how to import a `RedditOAuthToken` that was previously
 
 The `RedditOAuthToken` does not need to be refreshed before calling `Invoke-RedditRequest`. `Invoke-RedditRequest` will attempt to refresh expired Access Tokens before making any API calls.
 
-This method is similar to what can be done within automation scripts provided that the 
-`RedditOAuthToken` is not an `Implicit` token.
+This method is similar to what can be done within automation scripts.
 
 ### -------------------------- EXAMPLE 2 --------------------------
 ```
 $ClientCredential = Get-Credential
-$Scope = Get-RedditOAuthScope
 $Params = @{
     Installed = $True
     Name = 'PSRAW Example App'
@@ -53,7 +51,6 @@ $Params = @{
     ClientCredential = $ClientCredential
     RedirectUri = 'https://adataum/ouath?'
     UserAgent = 'windows:PSRAW:v0.0.0.1 (by /u/markekraus)'
-    Scope = $Scope
 }
 $RedditApp = New-RedditApplication @Params
 $Token = $RedditApp | Request-RedditOAuthToken -Code
@@ -232,7 +229,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 `Invoke-RedditRequest` will automatically wait for Rate Limiting to pass. If a Rate Limit is in effect, a warning will be issued by `Invoke-RedditRequest`. Rate Limit periods vary but are generally 8 minutes. If you are suppressing warnings and `Invoke-RedditRequest` takes several minutes to complete, you may be making too many calls to the API in too short a time. You can check the status of your rate limit with the `IsRateLimited()` method on the `RedditOAuthToken` before making calls to `Invoke-RedditRequest`.
 
-`Invoke-RedditRequest` will attempt to refresh all expired Access Tokens. If the `RedditOAuthToken` is an `Implicit` token, this will require an interactive session as the user will need to authorize the application via the provided GUI browser. This may also crash some version of Powershell ISE as there is currently a bug where `WinForms` elements causes ISE to freeze. Avoid using `Implicit` tokens and if they are required, make sure `Invoke-RedditRequest` is called from a PowerShell console instead of the ISE.
+`Invoke-RedditRequest` will attempt to refresh all expired Access Tokens.
 
 Errors encountered when making the API request will be available in the `Response` property on the the exception object.
 

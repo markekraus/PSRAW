@@ -7,6 +7,8 @@ Describes the RedditApiResponse Class
 # LONG DESCRIPTION
 The `RedditApiResponse` is returned by the `Invoke-RedditRequest` function. It is used to house the response from the Reddit API.
 
+The `RedditApiResponse` class is imported automatically when you import the PSRAW module.
+
 
 # Constructors
 ## RedditApiResponse()
@@ -34,6 +36,16 @@ Will either be a `System.Management.Automation.PSCustomObject` or `System.String
 ```yaml
 Name: ContentObject
 Type: Object
+Hidden: False
+Static: False
+```
+
+## ContentType
+The `Content-Type` response header returned from Reddit.
+
+```yaml
+Name: ContentType
+Type: System.String
 Hidden: False
 Static: False
 ```
@@ -94,6 +106,7 @@ $Result = Invoke-WebRequest @Params
     RequestDate   = $Result.Headers.Date
     Response      = $Result
     ContentObject = $Result.Content | ConvertFrom-Json
+    ContentType   = $Result | Get-HttpResponseContentType
 }
 ```
 

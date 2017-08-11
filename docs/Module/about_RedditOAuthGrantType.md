@@ -10,14 +10,9 @@ The `RedditOAuthGrantType` enumerator contains the available grant types availab
 The `RedditOAuthGrantType` Enumerator is imported automatically when you import the PSRAW module.
 
 # Fields
-## Authorization_Code
-This Grant method requires that the Reddit user authorize the application and return an OAuth Authorization code. The application mst the used the Authorization Code, the Client, ID, and client Secret to request an Access Token. For more information see the `Code` parameter description of `Request-RedditOAuthToken` or the Reddit OAuth documentation at https://github.com/reddit/reddit/wiki/OAuth2#token-retrieval-code-flow
 
 ## Client_Credentials
 This grant method uses the Client ID and Client Secret to request an anonymous Access Token. This method will not act under a user context but will allow "logged out" access to the OAuth API endpoints for `Script` and `WebApp` applications. For more information see the `Client` parameter description of `Request-RedditOAuthToken` or the Reddit OAuth documentation at  https://github.com/reddit/reddit/wiki/OAuth2#application-only-oauth
-
-## Implicit
-This grant flow allows temporary "logged in" access to the Reddit API on behalf of the user who authorizes the application. This is only available for `Installed` applications. When the Access Token expires, a new `Implicit` grant flow must be initiated and the applications will need to be re-authorized by the user. For more information see the `Implicit` parameter description of `Request-RedditOAuthToken` or the Reddit OAuth documentation at https://github.com/reddit/reddit/wiki/OAuth2#authorization-implicit-grant-flow
 
 ## Installed_Client
 This grant flow allows anonymous access to the Reddit API for `Installed` applications. This method will not act under a user context but will allow "logged out" access to the OAuth API endpoints.  For more information see the `Installed` parameter description of `Request-RedditOAuthToken` or the Reddit OAuth documentation at https://github.com/reddit/reddit/wiki/OAuth2#application-only-oauth
@@ -25,17 +20,11 @@ This grant flow allows anonymous access to the Reddit API for `Installed` applic
 ## Password
 This grant flow allows for the developer of `Script` applications to access the Reddit API as themselves. This uses the Username, Password, Client ID, and Client Secret to request an OAuth Access Token.  For more information see the `Script` parameter description of `Request-RedditOAuthToken` or the Reddit OAuth documentation at https://github.com/reddit/reddit/wiki/OAuth2#application-only-oauth
 
-## Refresh_Token
-This grant flow is used to request new OAuth Access Tokens for `Permanent` requests. `Code` and `Password` grant flows can request `Permanent` Access Tokens which will issue a Refresh Token with the Access Token. When an Access Token expires, the application can use the Refresh Token to request a new Access Token without requiring the user reauthorizing the application. The Refresh Token is valid until the user or applications revokes the authorization. For more information see https://github.com/reddit/reddit/wiki/OAuth2#refreshing-the-token
 
 
 # SEE ALSO
 
-[about_RedditOAuthCode](https://psraw.readthedocs.io/en/latest/Module/about_RedditOAuthCode)
-
 [about_RedditOAuthToken](https://psraw.readthedocs.io/en/latest/Module/about_RedditOAuthToken)
-
-[Request-RedditOAuthCode](https://psraw.readthedocs.io/en/latest/Module/Request-RedditOAuthCode)
 
 [Request-RedditOAuthToken](https://psraw.readthedocs.io/en/latest/Module/Request-RedditOAuthToken)
 

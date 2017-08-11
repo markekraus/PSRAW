@@ -38,11 +38,6 @@ InModuleScope $moduleName {
         $SecTokenSecret = $TokenSecret | ConvertTo-SecureString -AsPlainText -Force 
         $TokenCredential = [pscredential]::new($TokenId, $SecTokenSecret)
 
-        $RefreshId = 'refresh_token'
-        $RefreshSecret = '76543'
-        $SecRefreshSecret = $RefreshSecret | ConvertTo-SecureString -AsPlainText -Force 
-        $RefreshCredential = [pscredential]::new($RefreshId, $SecRefreshSecret)
-
         $ApplicationScript = [RedditApplication]@{
             Name             = 'TestApplication'
             Description      = 'This is only a test'
@@ -62,12 +57,11 @@ InModuleScope $moduleName {
             Scope              = $ApplicationScript.Scope
             GUID               = [guid]::NewGuid()
             TokenType          = 'bearer'
-            GrantType          = 'Authorization_Code'
+            GrantType          = 'Password'
             RateLimitUsed      = 0
             RateLimitRemaining = 60
             RateLimitRest      = 60
             TokenCredential    = $TokenCredential.psobject.copy()
-            RefreshCredential  = $RefreshCredential.psobject.copy()
         }
 
         $ParameterSets = @(

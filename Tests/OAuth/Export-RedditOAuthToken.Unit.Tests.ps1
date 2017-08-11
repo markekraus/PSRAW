@@ -20,24 +20,19 @@ Import-Module (Join-Path $moduleRoot "$moduleName.psd1") -force
 $Command = 'Export-RedditOAuthToken'
 
 $ClientId = '54321'
-$ClientSecret = '12345'
+$ClientSecret = '08239842-a6f5-4fe5-ab4c-4592084ad44e'
 $SecClientSecret = $ClientSecret | ConvertTo-SecureString -AsPlainText -Force 
 $ClientCredential = [pscredential]::new($ClientId, $SecClientSecret)
 
 $UserId = 'reddituser'
-$UserSecret = 'password12345'
+$UserSecret = '08239842-a6f5-4fe5-ab4c-4592084ad44f'
 $SecUserSecret = $UserSecret | ConvertTo-SecureString -AsPlainText -Force 
 $UserCredential = [pscredential]::new($UserId, $SecUserSecret)
 
 $TokenId = 'access_token'
-$TokenSecret = '34567'
+$TokenSecret = '08239842-a6f5-4fe5-ab4c-4592084ad44g'
 $SecTokenSecret = $TokenSecret | ConvertTo-SecureString -AsPlainText -Force 
 $TokenCredential = [pscredential]::new($TokenId, $SecTokenSecret)
-
-$RefreshId = 'refresh_token'
-$RefreshSecret = '76543'
-$SecRefreshSecret = $RefreshSecret | ConvertTo-SecureString -AsPlainText -Force 
-$RefreshCredential = [pscredential]::new($RefreshId, $SecRefreshSecret)
 
 $ExportFile = '{0}\RedditApplicationExport-{1}.xml' -f $env:TEMP, [guid]::NewGuid().toString()
 $TokenExportFile = '{0}\RedditTokenExport-{1}.xml' -f $env:TEMP, [guid]::NewGuid().toString()
@@ -54,7 +49,7 @@ $Application = [RedditApplication]@{
     ExportPath       = $ExportFile 
 }
 
-$Token = [RedditOAuthToken]@{
+$TokenScript = [RedditOAuthToken]@{
     Application        = $Application
     IssueDate          = Get-Date
     ExpireDate         = (Get-Date).AddHours(1)
@@ -64,12 +59,11 @@ $Token = [RedditOAuthToken]@{
     GUID               = [guid]::NewGuid()
     Notes              = 'This is a test token'
     TokenType          = 'bearer'
-    GrantType          = 'Authorization_Code'
+    GrantType          = 'Password'
     RateLimitUsed      = 0
     RateLimitRemaining = 60
     RateLimitRest      = 60
     TokenCredential    = $TokenCredential
-    RefreshCredential  = $RefreshCredential
 }
 
 $ParameterSets = @(
@@ -77,20 +71,20 @@ $ParameterSets = @(
         Name   = 'Path'
         Params = @{
             Path        = $TokenExportFile
-            AccessToken = $Token
+            AccessToken = $TokenScript
         }
     }
     @{
         Name   = 'LiteralPath'
         Params = @{
             LiteralPath = $TokenExportFile
-            AccessToken = $Token
+            AccessToken = $TokenScript
         }
     }
     @{
         Name   = 'ExportPath'
         Params = @{
-            AccessToken = $Token
+            AccessToken = $TokenScript
         }
     }
 )
@@ -111,7 +105,7 @@ function MyTest {
         $Params = @{
             Path        = $TokenExportFile
             SimpleMatch = $true
-            Pattern     = '12345', '34567', "76543" 
+            Pattern     = '08239842-a6f5-4fe5-ab4c-4592084ad44' 
         }
         Select-String @Params | should be $null
     }

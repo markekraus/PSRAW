@@ -16,7 +16,7 @@ Get-RedditOAuthScope [[-ApiEndpointUri] <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Retrieve valid OAuth scope IDs, Names, and Descriptions from Reddit. The Scope ID's are required for requesting OAuth Authorization codes
+Retrieve valid OAuth scope IDs, Names, and Descriptions from Reddit. 
 
 ## EXAMPLES
 

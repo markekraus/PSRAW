@@ -19,7 +19,7 @@ Request-RedditOAuthTokenClient [-Application] <RedditApplication> [[-AuthBaseUrl
 ## DESCRIPTION
 Requests an OAuth Access Token from Reddit using the `client_credentials` grant flow. This method allows `Script` and `WebApp` applications to gain anonymous unprivileged access to the OAuth APIs using only the application's Client ID and Client Secret. For more information on this grant method see the `Client` parameter description for `Request-RedditOAuthToken`.
 
-This function is essentially a convenience wrapper for `Invoke-WebRequest` and returns a `Microsoft.PowerShell.Commands.BasicHtmlWebResponseObject` that results from the Auth Token Request.
+This function is essentially a convenience wrapper for `Invoke-WebRequest` and returns a `RedditOAuthResponse` that results from the Auth Token Request.
 
 This function is not intended for direct usage by the module consumer and is not exported by the module. Documentation is provided for developers and contributors.
 
@@ -27,7 +27,7 @@ This function is not intended for direct usage by the module consumer and is not
 
 ### -------------------------- EXAMPLE 1 --------------------------
 ```
-PS C:\> $Result = Request-RedditOAuthTokenClient -Application $Application
+$Result = Request-RedditOAuthTokenClient -Application $Application
 ```
 
 This example demonstrates how `Request-RedditOAuthToken` calls `Request-RedditOAuthTokenClient` to request an OAuth Access Token.
@@ -73,7 +73,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### Microsoft.PowerShell.Commands.BasicHtmlWebResponseObject
+### RedditOAuthResponse
 
 ## NOTES
 This function is called by
@@ -84,10 +84,13 @@ This function is called by
 This Function calls 
 
 * [Get-AuthorizationHeader](https://psraw.readthedocs.io/en/latest/Module/Get-AuthorizationHeader)
+* [Get-HttpResponseContentType](https://psraw.readthedocs.io/en/latest/PrivateFunctions/Get-HttpResponseContentType)
 
 ## RELATED LINKS
 
 [https://psraw.readthedocs.io/en/latest/PrivateFunctions/Request-RedditOAuthTokenClient](https://psraw.readthedocs.io/en/latest/PrivateFunctions/Request-RedditOAuthTokenClient)
+
+[RedditOAuthResponse](https://psraw.readthedocs.io/en/latest/Module/RedditOAuthResponse)
 
 [about_RedditApplication](https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication)
 

@@ -12,10 +12,7 @@
         RedditOAuthGrantType Enum
 #>
 Enum RedditOAuthGrantType {
-    Authorization_Code
     Client_Credentials
     Installed_Client
     Password
-    Refresh_Token
-    Implicit
 }

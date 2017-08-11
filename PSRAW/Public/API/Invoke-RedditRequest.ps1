@@ -21,6 +21,7 @@ function Invoke-RedditRequest {
         SupportsShouldProcess = $true
     )]
     [OutputType([RedditApiResponse])]
+    [Alias('irr')]
     param
     (
         [Parameter(
@@ -106,10 +107,13 @@ function Invoke-RedditRequest {
         }
         catch {
             $response = $_.Exception.Response
-            $Stream = $response.GetResponseStream()
-            $Stream.Position = 0
-            $StreamReader = New-Object System.IO.StreamReader $Stream
-            $ResponseBody = $StreamReader.ReadToEnd()
+            $ResponseBody = $_.ErrorDetails.Message
+            if ($Response.GetType().FullName -like 'System.Net.HttpWebResponse') {
+                $Stream = $response.GetResponseStream()
+                $Stream.Position = 0
+                $StreamReader = New-Object System.IO.StreamReader $Stream
+                $ResponseBody = $StreamReader.ReadToEnd()
+            }
             $ErrorMessage = "Unable to query Uri '{0}': {1}: {2}" -f (
                 $Uri, 
                 $_.Exception.Message, 
@@ -123,7 +127,8 @@ function Invoke-RedditRequest {
         $Params.Headers.Authorization = '{0}...<truncated>' -f (
             $Params.Headers.Authorization.Substring(0, 3)
         )
-        switch ($Result.Headers.'Content-Type') {
+        $ContentType = $Result | Get-HttpResponseContentType
+        switch ($ContentType) {
             { $_ -match 'application/json' } {
                 Write-Verbose "Converting result from JSON to PSObject"
                 $ContentObject = $Result.Content | ConvertFrom-Json -ErrorAction SilentlyContinue
@@ -139,9 +144,10 @@ function Invoke-RedditRequest {
         [RedditApiResponse]@{
             AccessToken   = $AccessToken
             Parameters    = $Params
-            RequestDate   = $Result.Headers.Date
+            RequestDate   = $Result.Headers.Date[0]
             Response      = $Result
             ContentObject = $ContentObject
+            ContentType   = $ContentType
         }
     }
 }

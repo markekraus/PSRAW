@@ -5,7 +5,7 @@
 Describes the RedditOAuthScope Class
 
 # LONG DESCRIPTION
-The `RedditOAuthScope` Class is used to define OAuth Scopes for Reddit's API. All OAuth Access Tokens are limited in what functions they may perform. Scopes for an application define what the application can and cannot do on the API. When creating a new `RedditApplication` class, one or more `RedditOAuthScope` objects are required to be set on the `Scope` property. When a request is made for an OAuth Authorization Code, the scopes will be provided and the resulting Access Token will only be valid for those scopes.
+The `RedditOAuthScope` Class is used to define OAuth Scopes for Reddit's API. All OAuth Access Tokens are limited in what functions they may perform. Scopes for an application define what the application can and cannot do on the API. 
 
 `RedditOAuthScope` objects can be created manually or you can retrieve all valid scopes with `Get-RedditOAuthScope`. `RedditOAuthScope` objects appear as properties on `RedditApplication` and `RedditOAuthToken` objects.
 
@@ -127,16 +127,15 @@ Definition: String ToString()
 ```powershell
 Import-Module PSRAW
 $Scope = [RedditOAuthScope]@{
-    Scope = 'creddits'
-    Id = 'creddits'
-    Name = 'Spend reddit gold creddits'
+    Scope       = 'creddits'
+    Id          = 'creddits'
+    Name        = 'Spend reddit gold creddits'
     Description = 'Spend my reddit gold creddits on giving gold to other users.'
 }
 ```
 
 ## Simple String Scope
 ```powershell
-Import-Module PSRAW
 $ReadScope = [RedditOAuthScope]'read'
 ```
 

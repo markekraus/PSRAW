@@ -51,9 +51,6 @@ $UserCredential = Get-Credential
 $RedirectUri = 'https://127.0.0.1'
 $AppExportPath = 'C:\PSRAW\MyApp.xml'
 $UserAgent = 'windows:markekraus-PSRAW:v0.0.0.1 (by /u/markekraus)'
-
-$Scopes = Get-RedditOAuthScope | 
-    Where-Object {$_.Scope -in 'privatemessage', 'read'}
 $Params = @{
     Script           = $True
     Name             = "markekraus's PSRAW App"
@@ -62,7 +59,6 @@ $Params = @{
     UserCredential   = $UserCredential
     RedirectUri      = $RedirectUri
     UserAgent        = $UserAgent 
-    Scope            = $Scopes
 }
 $RedditApp = New-RedditApplication @Params
 $RedditApp | Export-RedditApplication -Path $AppExportPath
@@ -117,8 +113,6 @@ $RedirectUri = 'https://127.0.0.1'
 $AppExportPath = 'C:\PSRAW\MyApp.xml'
 $UserAgent = 'windows:markekraus-PSRAW:v0.0.0.1 (by /u/markekraus)'
 
-$Scopes = Get-RedditOAuthScope | 
-    Where-Object {$_.Scope -in 'privatemessage', 'read'}
 $Params = @{
     Script           = $True
     Name             = "markekraus's PSRAW App"
@@ -127,7 +121,6 @@ $Params = @{
     UserCredential   = $UserCredential
     RedirectUri      = $RedirectUri
     UserAgent        = $UserAgent 
-    Scope            = $Scopes
 }
 $RedditApp = New-RedditApplication @Params
 $RedditApp | Export-RedditApplication -Path $AppExportPath

@@ -26,19 +26,16 @@ A Web base application. Can also be used in scripts to act on behalf of other us
 
 ## WebApp
 ```powershell
-Import-Module PSRAW
 $WebApp = [RedditApplicationType]::WebApp
 ```
 
 ## Script
 ```powershell
-Import-Module PSRAW
 $Script = [RedditApplicationType]::Script
 ```
 
 ## installed
 ```powershell
-Import-Module PSRAW
 $Installed= [RedditApplicationType]::Installed
 ```
 

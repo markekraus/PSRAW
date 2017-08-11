@@ -1,0 +1,44 @@
+﻿TOPIC
+    about_redditmodreport
+
+SHORT DESCRIPTION
+    Describes the RedditModReport Class
+
+LONG DESCRIPTION
+    A moderator report for a comment or submission.
+    The `RedditModReport` class is imported automatically when you import the
+    PSRAW module.
+
+CONSTRUCTORS
+RedditModReport(Object[] InputObjects)
+    Creates a `RedditModReport` from an array.
+
+    [RedditModReport]::new([Object[]]$InputObjects)
+
+PROPERTIES
+Moderator
+    The reporting Moderator's Reddit username.
+
+    Name: Moderator
+    Type: String
+    Hidden: False
+    Static: False
+
+Reason
+    The reason for the report.
+
+    Name: Reason
+    Type: String
+    Hidden: False
+    Static: False
+
+METHODS
+EXAMPLES
+    $RedditModReport = [RedditModReport]@('Breaks Rule 12', 'markekraus')
+
+SEE ALSO
+    about_RedditModReport
+    about_RedditComment
+    https://www.reddit.com/wiki/api
+    https://psraw.readthedocs.io/
+
