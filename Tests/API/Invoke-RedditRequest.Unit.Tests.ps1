@@ -12,17 +12,17 @@
         Invoke-RedditRequest Function unit tests
 #>
 
-$projectRoot = Resolve-Path "$PSScriptRoot\..\.."
-$moduleRoot = Split-Path (Resolve-Path "$projectRoot\*\*.psd1")
-$moduleName = Split-Path $moduleRoot -Leaf
-Remove-Module -Force $moduleName  -ErrorAction SilentlyContinue
-Import-Module (Join-Path $moduleRoot "$moduleName.psd1") -force
+$ProjectRoot = Resolve-Path "$PSScriptRoot\..\.."
+$ModuleRoot = Split-Path (Resolve-Path "$ProjectRoot\*\*.psd1")
+$ModuleName = Split-Path $ModuleRoot -Leaf
+Remove-Module -Force $ModuleName  -ErrorAction SilentlyContinue
+Import-Module (Join-Path $ModuleRoot "$ModuleName.psd1") -force
 
 #region insanity
 # For whatever reason, pester chokes trying to mock Update-RedditOAuthToken
 # So, we remove it from the module and replace it with a script scope function
 # We later mock that function too because it wont work without the mock either
-$module = Get-Module $moduleName
+$module = Get-Module $ModuleName
 & $module {
     Get-ChildItem function:\ | 
         Where-Object {$_.name -like 'Update-RedditOAuthToken'} | 
@@ -143,6 +143,7 @@ Function MyTest {
     $Global:Uri = 'http://urlecho.appspot.com/echo?status=200&Content-Type=application%2Fjson&body=%7B%0A%20%20%20%20%22comment_karma%22%3A%200%2C%20%0A%20%20%20%20%22created%22%3A%201389649907.0%2C%20%0A%20%20%20%20%22created_utc%22%3A%201389649907.0%2C%20%0A%20%20%20%20%22has_mail%22%3A%20false%2C%20%0A%20%20%20%20%22has_mod_mail%22%3A%20false%2C%20%0A%20%20%20%20%22has_verified_email%22%3A%20null%2C%20%0A%20%20%20%20%22id%22%3A%20%221%22%2C%20%0A%20%20%20%20%22is_gold%22%3A%20false%2C%20%0A%20%20%20%20%22is_mod%22%3A%20true%2C%20%0A%20%20%20%20%22link_karma%22%3A%201%2C%20%0A%20%20%20%20%22name%22%3A%20%22reddit_bot%22%2C%20%0A%20%20%20%20%22over_18%22%3A%20true%0A%7D'
     $Global:UriBad = 'http://urlecho.appspot.com/echo?status=404&Content-Type=text%2Fhtml&body=Bad%20Page!'
     $Global:UriRaw = 'http://urlecho.appspot.com/echo?status=200&Content-Type=text%2Fhtml&body=Hello%20world!'
+    $Global:UriDefaultToken = 'https://httpbin.org/get'
     $ParameterSets = @(
         @{
             Name   = 'Uri Only'
@@ -190,13 +191,13 @@ Function MyTest {
         }
     )
     $Global:InvokeWebRequest = Get-Command 'Invoke-WebRequest'
-    Mock -CommandName Invoke-WebRequest -ModuleName $moduleName -MockWith {
+    Mock -CommandName Invoke-WebRequest -ModuleName $ModuleName -MockWith {
         & $Global:InvokeWebRequest -Uri $Uri
     }
     
     $Params = @{
         CommandName     = 'Update-RedditOAuthToken'
-        ModuleName      = $moduleName
+        ModuleName      = $ModuleName
         ParameterFilter = {$AccessToken.Notes -notlike 'badupdate'}
         MockWith        = { }
     }
@@ -204,7 +205,7 @@ Function MyTest {
 
     $Params = @{
         CommandName     = 'Update-RedditOAuthToken'
-        ModuleName      = $moduleName
+        ModuleName      = $ModuleName
         ParameterFilter = {$AccessToken.Notes -like 'badupdate'}
         MockWith        = { Write-Error 'Bad' }
     }
@@ -218,7 +219,7 @@ Function MyTest {
     }
     $Params = @{
         CommandName = 'Wait-RedditApiRateLimit'
-        ModuleName  = $moduleName 
+        ModuleName  = $ModuleName 
     }
     Mock @Params -MockWith {
         $null = $null
@@ -234,6 +235,15 @@ Function MyTest {
     It "Supports WhatIf" {
         $LocalParams = $ParameterSets[0].Params
         {& $Command @LocalParams -WhatIf -ErrorAction Stop } | should not throw
+    }
+    It "Has an irr alias" {
+        $LocalParams = $ParameterSets[0].Params
+        { irr @LocalParams -ErrorAction Stop } | should not throw
+    }
+    It "Uses the Default token when one is not supplied" {
+        $Global:TokenScript = $TokenScript
+        & $Module { $PsrawSettings.AccessToken = $Global:TokenScript }
+        { & $Command -Uri $UriDefaultToken } | Should Not Throw
     }
     It 'Handles Token Refresh errors gracefully' {
         $LocalParams = @{
@@ -262,9 +272,9 @@ Function MyTest {
     }
 }
 Describe "$command Unit" -Tags Unit {
-    $CommandPresent = Get-Command -Name $Command -Module $moduleName -ErrorAction SilentlyContinue
+    $CommandPresent = Get-Command -Name $Command -Module $ModuleName -ErrorAction SilentlyContinue
     if (-not $CommandPresent) {
-        Write-Warning "'$command' was not found in '$moduleName' during pre-build tests. It may not yet have been added the module. Unit tests will be skipped until after build."
+        Write-Warning "'$command' was not found in '$ModuleName' during pre-build tests. It may not yet have been added the module. Unit tests will be skipped until after build."
         return
     }
     MyTest

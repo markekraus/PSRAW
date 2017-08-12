@@ -27,14 +27,17 @@ pages:
     - about_RedditThingKind: Module/about_RedditThingKind.md
     - about_RedditThingPrefix: Module/about_RedditThingPrefix.md
     - about_RedditUserReport: Module/about_RedditUserReport.md
+    - Connect-Reddit: Module/Connect-Reddit.md
     - Export-RedditApplication: Module/Export-RedditApplication.md
     - Export-RedditOAuthToken: Module/Export-RedditOAuthToken.md
+    - Get-RedditDefaultOAuthToken: Module/Get-RedditDefaultOAuthToken.md
     - Get-RedditOAuthScope: Module/Get-RedditOAuthScope.md
     - Import-RedditApplication: Module/Import-RedditApplication.md
     - Import-RedditOAuthToken: Module/Import-RedditOAuthToken.md
     - Invoke-RedditRequest: Module/Invoke-RedditRequest.md
     - New-RedditApplication: Module/New-RedditApplication.md
     - Request-RedditOAuthToken: Module/Request-RedditOAuthToken.md
+    - Set-RedditDefaultOAuthToken: Module/Set-RedditDefaultOAuthToken.md
     - Update-RedditOAuthToken: Module/Update-RedditOAuthToken.md
   - Private Functions:
     - Get-AuthorizationHeader: PrivateFunctions/Get-AuthorizationHeader.md
@@ -44,5 +47,6 @@ pages:
     - Request-RedditOAuthTokenPassword: PrivateFunctions/Request-RedditOAuthTokenPassword.md
     - Wait-RedditApiRateLimit: PrivateFunctions/Wait-RedditApiRateLimit.md
   - Examples:
-    - Quickstart Example: Examples/Quickstart.md
+    - System.Object[]: Examples/ConsoleQuickStart.md
+    - Quicker Quickstart Example for 2.0: Examples/Quickstart.md
 

@@ -1,5 +1,6 @@
 ---
 external help file: PSRAW-help.xml
+Module Name: PSRAW
 online version: https://psraw.readthedocs.io/en/latest/Module/Request-RedditOAuthToken
 schema: 2.0.0
 ---
@@ -7,28 +8,28 @@ schema: 2.0.0
 # Request-RedditOAuthToken
 
 ## SYNOPSIS
-Requests a OAuth Access Token from Reddit
+Requests a OAuth Access Token from Reddit and sets it as the session default OAuth Token
 
 ## SYNTAX
 
 ### Script (Default)
 ```
-Request-RedditOAuthToken [-Script] [-Application] <RedditApplication> [<CommonParameters>]
+Request-RedditOAuthToken [-Script] [-Application] <RedditApplication> [-PassThru] [<CommonParameters>]
 ```
 
 ### Installed
 ```
-Request-RedditOAuthToken [-Installed] [-Application] <RedditApplication> [[-DeviceID] <String>]
+Request-RedditOAuthToken [-Installed] [-Application] <RedditApplication> [[-DeviceID] <String>] [-PassThru]
  [<CommonParameters>]
 ```
 
 ### Client
 ```
-Request-RedditOAuthToken [-Client] [-Application] <RedditApplication> [<CommonParameters>]
+Request-RedditOAuthToken [-Client] [-Application] <RedditApplication> [-PassThru] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Requests an OAuth Access Token from Reddit and returns a `RedditOAuthToken` object for the given `RedditApplication`. The OAuth Access Token is used by other functions in this module to make authenticated calls tot he Reddit API. For more information on Reddit's OAuth implementation, see https://github.com/reddit/reddit/wiki/OAuth2
+Requests an OAuth Access Token from Reddit for the given `RedditApplication` and sets it as the session default OAuth Token. The OAuth Access Token is used by other functions in this module to make authenticated calls tot he Reddit API. For more information on Reddit's OAuth implementation, see https://github.com/reddit/reddit/wiki/OAuth2
 
 A `RedditApplication` object is required to request a `RedditOAutToken`. Once the token has been issued the `RedditApplication` will be added to the `RedditOAuthToken` object as the `Application` property. for mor information see the `about_RedditOAuthToken` help topic.
 
@@ -40,17 +41,22 @@ All `RedditOAuthToken` types will automatically refresh when they expire when co
 
 ### -------------------------- EXAMPLE 1 --------------------------
 ```
-$Token = $RedditApp | Request-RedditOAuthToken -Script
+$RedditApp | Request-RedditOAuthToken -Script
 ```
 
 ### -------------------------- EXAMPLE 3 --------------------------
 ```
-$Token = $RedditApp | Request-RedditOAuthToken -Installed -DeviceId 'db470a80-da50-4ae1-9bba-24a1a3454392'
+$RedditApp | Request-RedditOAuthToken -Installed -DeviceId 'db470a80-da50-4ae1-9bba-24a1a3454392'
 ```
 
 ### -------------------------- EXAMPLE 4 --------------------------
 ```
-$Token = $RedditApp | Request-RedditOAuthToken -Client
+$RedditApp | Request-RedditOAuthToken -Client
+```
+
+### -------------------------- EXAMPLE 5 --------------------------
+```
+$Token = $RedditApp | Request-RedditOAuthToken -Script -PassThru
 ```
 
 ### -------------------------- EXAMPLE 6 --------------------------
@@ -67,7 +73,7 @@ $Params = @{
     UserCredential   = $UserCredential
     OutVariable      = 'RedditApp'
 }
-$Token = New-RedditApplication @Params | Request-RedditOAuthToken -Code
+$Token = New-RedditApplication @Params | Request-RedditOAuthToken -Script -PassThru
 ```
 
 This example demonstrates how to create a `RedditApplication` with `New-RedditApplication` and pass it to `Request-RedditOAuthToken` to obtain a `RedditOAuthToken`. The token will be stored in `$Token` and the application will be stored in `RedditApp`.
@@ -146,6 +152,21 @@ Aliases:
 Required: True
 Position: Named
 Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -PassThru
+By default this command does not return any data. When `-PassThru` is used, the `RedditOAuthToken` that is imported is passed to the pipeline.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: 
+
+Required: False
+Position: Named
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

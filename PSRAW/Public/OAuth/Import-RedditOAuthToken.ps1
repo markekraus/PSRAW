@@ -38,7 +38,10 @@ function Import-RedditOAuthToken {
             ValueFromRemainingArguments = $true
         )]
         [ValidateNotNullOrEmpty()]
-        [string[]]$LiteralPath
+        [string[]]$LiteralPath,
+
+        [switch]
+        $PassThru
     )
     
     Process {
@@ -64,7 +67,10 @@ function Import-RedditOAuthToken {
             $InObject = Import-Clixml @Params 
             $AccessToken = [RedditOAuthToken]::Reserialize($InObject)
             $AccessToken.ExportPath = (Resolve-Path $ImportFile).Path
-            $AccessToken
+            $AccessToken | Set-RedditDefaultOAuthToken
+            If ($PassThru) {
+                $AccessToken
+            }
         } #End Foreach
     } #End Process
 } #End Function

@@ -11,11 +11,11 @@
     .DESCRIPTION
         Unit Tests for RedditOAuthResponse Class
 #>
-$projectRoot = Resolve-Path "$PSScriptRoot\..\.."
-$moduleRoot = Split-Path (Resolve-Path "$projectRoot\*\*.psd1")
-$moduleName = Split-Path $moduleRoot -Leaf
-Remove-Module -Force $moduleName  -ErrorAction SilentlyContinue
-Import-Module (Join-Path $moduleRoot "$moduleName.psd1") -force
+$ProjectRoot = Resolve-Path "$PSScriptRoot\..\.."
+$ModuleRoot = Split-Path (Resolve-Path "$ProjectRoot\*\*.psd1")
+$ModuleName = Split-Path $ModuleRoot -Leaf
+Remove-Module -Force $ModuleName  -ErrorAction SilentlyContinue
+Import-Module (Join-Path $ModuleRoot "$ModuleName.psd1") -force
 
 $Class = 'RedditOAuthResponse'
 

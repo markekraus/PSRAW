@@ -23,17 +23,19 @@ function Update-RedditOAuthToken {
     param
     (
         [Parameter(
-            Mandatory = $true,
+            Mandatory = $false,
             ValueFromPipeline = $true,
             ValueFromPipelineByPropertyName = $true,
             Position = 0
         )]
         [Alias('Token')]
-        [RedditOAuthToken[]]$AccessToken,
+        [RedditOAuthToken[]]$AccessToken = (Get-RedditDefaultOAuthToken),
         
         [switch]$Force,
         
-        [switch]$PassThru
+        [switch]$PassThru,
+
+        [switch]$SetDefault
         
     )
     
@@ -70,6 +72,9 @@ function Update-RedditOAuthToken {
                 }
             }
             $Token.Refresh($Result)
+            if ($SetDefault) {
+                $Token | Set-RedditDefaultOAuthToken
+            }
             if ($PassThru.IsPresent) {
                 $Token
             }

@@ -53,10 +53,10 @@ Import-Module $ModuleManifest -force -Global
 Import-Module $ModuleManifest -Force
 
 "Sourcing ModuleData-Helper..."
-. "$projectRoot\BuildTools\ModuleData-Helper.ps1"
+. "$ProjectRoot\BuildTools\ModuleData-Helper.ps1"
 
 "Sourcing BuildDocs-Helper..."
-. "$projectRoot\BuildTools\BuildDocs-Helper.ps1"
+. "$ProjectRoot\BuildTools\BuildDocs-Helper.ps1"
 
 "Initializing YAML text..."
 $YMLtext = (Get-Content $HeaderMkDocsYml) -join "`n"

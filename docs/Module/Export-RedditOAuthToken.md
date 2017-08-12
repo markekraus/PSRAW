@@ -1,5 +1,6 @@
 ---
 external help file: PSRAW-help.xml
+Module Name: PSRAW
 online version: https://psraw.readthedocs.io/en/latest/Module/Export-RedditOAuthToken
 schema: 2.0.0
 ---
@@ -13,19 +14,19 @@ Exports a `RedditOAuthToken` object to an XML file.
 
 ### ExportPath (Default)
 ```
-Export-RedditOAuthToken [-Encoding <String>] -AccessToken <RedditOAuthToken> [-WhatIf] [-Confirm]
+Export-RedditOAuthToken [-Encoding <String>] [-AccessToken <RedditOAuthToken>] [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```
 
 ### Path
 ```
-Export-RedditOAuthToken -Path <String> [-Encoding <String>] -AccessToken <RedditOAuthToken> [-WhatIf]
+Export-RedditOAuthToken -Path <String> [-Encoding <String>] [-AccessToken <RedditOAuthToken>] [-WhatIf]
  [-Confirm] [<CommonParameters>]
 ```
 
 ### LiteralPath
 ```
-Export-RedditOAuthToken -LiteralPath <String> [-Encoding <String>] -AccessToken <RedditOAuthToken> [-WhatIf]
+Export-RedditOAuthToken -LiteralPath <String> [-Encoding <String>] [-AccessToken <RedditOAuthToken>] [-WhatIf]
  [-Confirm] [<CommonParameters>]
 ```
 
@@ -72,7 +73,7 @@ Type: RedditOAuthToken
 Parameter Sets: (All)
 Aliases: Token
 
-Required: True
+Required: False
 Position: Named
 Default value: None
 Accept pipeline input: True (ByPropertyName, ByValue)

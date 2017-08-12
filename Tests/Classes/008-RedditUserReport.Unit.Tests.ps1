@@ -11,11 +11,11 @@
     .DESCRIPTION
         Unit Tests for RedditUserReport Class
 #>
-$projectRoot = Resolve-Path "$PSScriptRoot\..\.."
-$moduleRoot = Split-Path (Resolve-Path "$projectRoot\*\*.psd1")
-$moduleName = Split-Path $moduleRoot -Leaf
-Remove-Module -Force $moduleName  -ErrorAction SilentlyContinue
-Import-Module (Join-Path $moduleRoot "$moduleName.psd1") -force
+$ProjectRoot = Resolve-Path "$PSScriptRoot\..\.."
+$ModuleRoot = Split-Path (Resolve-Path "$ProjectRoot\*\*.psd1")
+$ModuleName = Split-Path $ModuleRoot -Leaf
+Remove-Module -Force $ModuleName  -ErrorAction SilentlyContinue
+Import-Module (Join-Path $ModuleRoot "$ModuleName.psd1") -force
 
 $Class = 'RedditUserReport'
 
@@ -29,7 +29,7 @@ Function MyTest {
 
 Describe "[$Class] Unit Tests" -Tag Unit {
     if (-not ($Class -as [Type])) {
-        Write-Warning "'$class' was not found in '$moduleName' during pre-build tests. It may not yet have been added the module. Unit tests will be skipped until after build."
+        Write-Warning "'$class' was not found in '$ModuleName' during pre-build tests. It may not yet have been added the module. Unit tests will be skipped until after build."
         return
     }
     MyTest

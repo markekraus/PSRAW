@@ -1,3 +1,4 @@
+# Version 2.0.0.1 (2017-08-12)
 ## Module Manifest
 
 * All `RequiredAssemblies` have been removed
@@ -5,30 +6,59 @@
 ## Root Module
 
 * Added `$PSDefaultParameterValues` for `Invoke-WebRequest` to set `-SkipHeaderValidation` if available (for backwards compatibility with 5.1)
+* Added `$PsrawSettings` module scope hashtable variable to house settings such as the session default OAuth token.
 
 ## Public Functions
+
+### Connect-Reddit
+
+* Added to Streamline and simplify the initial OAUth process.
+
+### Export-RedditOAuthToken
+
+* All parameters are no longer mandatory to accommodate exporting the default token to its default path
+
+### Get-RedditDefaultOAuthToken
+
+* Added to retrieve the Default token for the session
+
+### Import-RedditOAuthToken
+
+* Now returns nothing by default. Use `-PassThru` to return the imported token
+* Sets the imported token as the session default Token.
 
 ### Invoke-RedditRequest
 
 * Now has `irr` alias to mimic `iwr` and `irm` aliases.
 * `Invoke-WebRequest` error handling logic reworked to support 5.1 and 6.0
+* Access token is no longer mandatory and uses the session default AccessToken if one is not supplied
 
 ### New-RedditApplication
 
 * Default Parameter Set changed to `Script`
 * `Name` parameter is no longer Mandatory to simplify connecting
 * `Scope` parameter  has been deprecated and is no longer Mandatory
+* `UserAgent` no longer mandatory. default is now `PowerShell:PSRAW:2.0 (by /u/markekraus)`
+
 
 ### Request-RedditOAuthToken
 
+* Now returns nothing by default. Use `-PassThru` to return the token
+* Sets the retrieved token as the session default token.
 * `Code` and `Implicit` parameter sets have been removed.
 * `Code` and `Implicit` parameters have been removed
 * `Code` and `Implicit` grants flows have been removed
 * `State` parameter has been removed (was only required for Implicit grants)
 
+### Set-RedditDefaultOAuthToken
+
+* Added to set the session default token
+
 ### Update-RedditOAuthToken
 
+* `-AccessToken` is no longer mandatory and the default is the session default token
 * `Code` and `Implicit` grants flows have been removed
+* `-SetDefault` switch added to set the updated token as the session default token.
 
 ## Private Functions
 
@@ -73,7 +103,7 @@
 ### RedditApplication
 
 * `Scope` is now hidden as it serves no purpose without Code grant flows.
-* Removed `GetAuthorizationUrl()` and `_GetAuthorizationUrl()` as they depended on System.Web (not available in Core) and are not needed without the Code or Implicit grant flows.
+* Removed `GetAuthorizationUrl()` and `_GetAuthorizationUrl()` as they depended on `System.Web` (not available in Core) and are not needed without the Code or Implicit grant flows.
 
 ### ReditOAuthCode
 
@@ -90,6 +120,7 @@
 * `GetRefreshToken()` Removed (not needed without Code grant flow)
 * `Refresh()` now takes a `RedditOAuthResponse`
 * `UpdateRateLimit()` adjusted to support both 5.1 and 6.0 style headers dictionaries.
+* Default constructor now sets the GUID to `[GUID]:Empty`
 
 ### RedditApiResponse
 

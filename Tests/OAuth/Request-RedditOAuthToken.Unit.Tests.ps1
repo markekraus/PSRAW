@@ -11,12 +11,12 @@
     .DESCRIPTION
         Request-RedditOAuthToken Function unit tests
 #>
-$projectRoot = Resolve-Path "$PSScriptRoot\..\.."
-$moduleRoot = Split-Path (Resolve-Path "$projectRoot\*\*.psd1")
-$moduleName = Split-Path $moduleRoot -Leaf
-Remove-Module -Force $moduleName  -ErrorAction SilentlyContinue
-Import-Module (Join-Path $moduleRoot "$moduleName.psd1") -force
-Import-Module (Join-Path $moduleRoot "$moduleName.psd1") -force -Scope Global
+$ProjectRoot = Resolve-Path "$PSScriptRoot\..\.."
+$ModuleRoot = Split-Path (Resolve-Path "$ProjectRoot\*\*.psd1")
+$ModuleName = Split-Path $ModuleRoot -Leaf
+Remove-Module -Force $ModuleName  -ErrorAction SilentlyContinue
+Import-Module (Join-Path $ModuleRoot "$ModuleName.psd1") -force
+Import-Module (Join-Path $ModuleRoot "$ModuleName.psd1") -force -Scope Global
 
 $Command = 'Request-RedditOAuthToken'
 $TypeName = 'RedditOAuthToken'
@@ -28,7 +28,7 @@ $TypeName = 'RedditOAuthToken'
 # Request-RedditOAuthTokenClient 
 # So, we remove them from the module and replace it with a script scope function
 # We later mock that function too because it wont work without the mock either
-$module = Get-Module $moduleName
+$module = Get-Module $ModuleName
 & $module {
     $Commands = @(
         'Request-RedditOAuthTokenInstalled'
@@ -163,7 +163,7 @@ $ParameterSets = @(
     }
 )
 Function MyTest {
-    Mock -CommandName Request-RedditOAuthTokenInstalled -ModuleName $moduleName -MockWith {
+    Mock -CommandName Request-RedditOAuthTokenInstalled -ModuleName $ModuleName -MockWith {
         # {"access_token": "34567", "token_type": "bearer", "device_id": "MyDeviceID", "expires_in": 3600, "scope": "*"}
         $EchoUriInstalled = 'http://urlecho.appspot.com/echo?status=200&Content-Type=application%2Fjson&body=%7B%22access_token%22%3A%20%2234567%22%2C%20%22token_type%22%3A%20%22bearer%22%2C%20%22device_id%22%3A%20%22MyDeviceID%22%2C%20%22expires_in%22%3A%203600%2C%20%22scope%22%3A%20%22*%22%7D'
         $Response = Invoke-WebRequest -UseBasicParsing -Uri $EchoUriInstalled
@@ -175,7 +175,7 @@ Function MyTest {
         } 
         return $Global:EchoResponseInstalled
     }
-    Mock -CommandName Request-RedditOAuthTokenPassword -ModuleName $moduleName -MockWith {
+    Mock -CommandName Request-RedditOAuthTokenPassword -ModuleName $ModuleName -MockWith {
         # {"access_token": "34567", "token_type": "bearer", "expires_in": 3600, "scope": "*"}
         $EchoUriPassword = 'http://urlecho.appspot.com/echo?status=200&Content-Type=application%2Fjson&body=%7B%22access_token%22%3A%20%2234567%22%2C%20%22token_type%22%3A%20%22bearer%22%2C%20%22expires_in%22%3A%203600%2C%20%22scope%22%3A%20%22*%22%7D'
         $Response = Invoke-WebRequest -UseBasicParsing -Uri $EchoUriPassword
@@ -187,7 +187,7 @@ Function MyTest {
         } 
         return $Global:EchoResponsePassword 
     }
-    Mock -CommandName Request-RedditOAuthTokenClient -ModuleName $moduleName -MockWith {
+    Mock -CommandName Request-RedditOAuthTokenClient -ModuleName $ModuleName -MockWith {
         # '{"access_token": "34567", "token_type": "bearer", "expires_in": 3600, "scope": "*"}
         $EchoUriClient = 'http://urlecho.appspot.com/echo?status=200&Content-Type=application%2Fjson&body=%7B%22access_token%22%3A%20%2234567%22%2C%20%22token_type%22%3A%20%22bearer%22%2C%20%22expires_in%22%3A%203600%2C%20%22scope%22%3A%20%22*%22%7D'
         $Response = Invoke-WebRequest -UseBasicParsing -Uri $EchoUriClient
@@ -208,17 +208,17 @@ Function MyTest {
     It "Emits a $TypeName Object" {
         (Get-Command $Command).OutputType.Name.where( { $_ -eq $TypeName }) | Should be $TypeName
     }
-    It "Returns a $TypeName Object" {
+    It "Returns a $TypeName Object with PassThru" {
         $LocalParams = $ParameterSets[0].Params.psobject.Copy()
-        $Object = & $Command @LocalParams | Select-Object -First 1
+        $Object = & $Command @LocalParams -PassThru | Select-Object -First 1
         $Object.psobject.typenames.where( { $_ -eq $TypeName }) | Should be $TypeName
     }
     
 }
 Describe "$command Unit" -Tags Unit {
-    $CommandPresent = Get-Command -Name $Command -Module $moduleName -ErrorAction SilentlyContinue
+    $CommandPresent = Get-Command -Name $Command -Module $ModuleName -ErrorAction SilentlyContinue
     if (-not $CommandPresent) {
-        Write-Warning "'$command' was not found in '$moduleName' during pre-build tests. It may not yet have been added the module. Unit tests will be skipped until after build."
+        Write-Warning "'$command' was not found in '$ModuleName' during pre-build tests. It may not yet have been added the module. Unit tests will be skipped until after build."
         return
     }
     MyTest

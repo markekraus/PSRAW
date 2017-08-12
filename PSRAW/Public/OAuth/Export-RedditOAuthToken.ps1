@@ -69,27 +69,30 @@ function Export-RedditOAuthToken {
         
         [Parameter(
             ParameterSetName = 'LiteralPath',
-            Mandatory = $true,
+            Mandatory = $false,
             ValueFromPipeline = $true,
             ValueFromPipelineByPropertyName = $true
         )]
         [Parameter(
             ParameterSetName = 'Path',
-            Mandatory = $true,
+            Mandatory = $false,
             ValueFromPipeline = $true,
             ValueFromPipelineByPropertyName = $true
         )]
         [Parameter(
             ParameterSetName = 'ExportPath',
-            Mandatory = $true,
+            Mandatory = $false,
             ValueFromPipeline = $true,
             ValueFromPipelineByPropertyName = $true
         )]
         [Alias('Token')]
-        [RedditOAuthToken]$AccessToken
+        [RedditOAuthToken]$AccessToken = (Get-RedditDefaultOAuthToken)
     )
     
     Process {
+        #if (-not $AccessToken) {
+        #    $AccessToken = Get-RedditDefaultOAuthToken
+        #}
         $Params = @{
             Depth       = [int32]::MaxValue - 1
             Encoding    = $Encoding

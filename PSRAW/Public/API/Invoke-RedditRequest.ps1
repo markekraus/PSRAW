@@ -24,30 +24,39 @@ function Invoke-RedditRequest {
     [Alias('irr')]
     param
     (
+        
         [Parameter(
             Mandatory = $true,
             ValueFromPipeline = $true,
-            ValueFromPipelineByPropertyName = $true)]
-        [RedditOAuthToken]
-        $AccessToken,
-        
-        [Parameter(Mandatory = $true)]
+            ValueFromPipelineByPropertyName = $true
+        )]
         [ValidateNotNullOrEmpty()]
         [System.Uri]$Uri,
+
+        [Parameter(
+            Mandatory = $false,
+            ValueFromPipeline = $false,
+            ValueFromPipelineByPropertyName = $true
+        )]
+        [RedditOAuthToken]
+        $AccessToken = (Get-RedditDefaultOAuthToken),
         
         [Parameter(
             Mandatory = $false,
-            ValueFromPipelineByPropertyName = $true)]
+            ValueFromPipelineByPropertyName = $true
+        )]
         [Microsoft.PowerShell.Commands.WebRequestMethod]$Method = 'Default',
         
         [Parameter(
             Mandatory = $false,
-            ValueFromPipelineByPropertyName = $true)]
+            ValueFromPipelineByPropertyName = $true
+        )]
         [Object]$Body,
         
         [Parameter(
             Mandatory = $false,
-            ValueFromPipelineByPropertyName = $true)]
+            ValueFromPipelineByPropertyName = $true
+        )]
         [ValidateNotNullOrEmpty()]
         [System.Collections.IDictionary]$Headers,
         
@@ -59,7 +68,8 @@ function Invoke-RedditRequest {
         
         [Parameter(
             Mandatory = $false,
-            ValueFromPipelineByPropertyName = $true)]
+            ValueFromPipelineByPropertyName = $true
+        )]
         [System.String]$ContentType = 'application/json'
     )
     Process {

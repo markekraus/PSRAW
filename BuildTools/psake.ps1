@@ -40,6 +40,14 @@ Properties {
     If ($ENV:BHBranchName -eq "master" -and $ENV:BHCommitMessage -match '!deploy') {
         $GalleryVersion = Get-NextPSGalleryVersion -Name $ModuleName
         $BuildVersion = [version]::New($CurrentVersion.Major, ($CurrentVersion.Minor + 1), 0, 0)
+        if(
+            $CurrentVersion.Minor    -eq 0 -and
+            $CurrentVersion.Build    -eq 0 -and
+            $CurrentVersion.Revision -eq 0
+         ){
+             #This is a major version release, don't molest the the version
+             $BuildVersion = $CurrentVersion 
+        }
         If ($GalleryVersion -gt $BuildVersion) {
             $BuildVersion = $GalleryVersion
         }
@@ -171,15 +179,15 @@ Task Build -Depends Init {
     Update-Metadata -Path $env:BHPSModuleManifest -PropertyName ReleaseNotes -Value $ReleaseText
     
     # Update the ChangeLog with the current release notes
-    $releaseparameters = @{
+    $ReleaseParameters = @{
         Path        = $ReleaseNotes
         ErrorAction = 'SilentlyContinue'
     }
-    $changeparameters = @{
+    $ChangeParameters = @{
         Path        = $ChangeLog
         ErrorAction = 'SilentlyContinue'
     }
-    (Get-Content @releaseparameters), "`r`n`r`n", (Get-Content @changeparameters) | Set-Content $ChangeLog
+    (Get-Content @ReleaseParameters), "`r`n`r`n", (Get-Content @ChangeParameters) | Set-Content $ChangeLog
     "`n"
 }
 

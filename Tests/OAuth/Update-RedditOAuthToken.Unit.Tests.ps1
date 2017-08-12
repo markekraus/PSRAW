@@ -11,11 +11,11 @@
     .DESCRIPTION
        Update-RedditOAuthToken Function unit tests
 #>
-$projectRoot = Resolve-Path "$PSScriptRoot\..\.."
-$moduleRoot = Split-Path (Resolve-Path "$projectRoot\*\*.psd1")
-$Global:moduleName = Split-Path $moduleRoot -Leaf
-Remove-Module -Force $moduleName  -ErrorAction SilentlyContinue
-Import-Module (Join-Path $moduleRoot "$moduleName.psd1") -force
+$ProjectRoot = Resolve-Path "$PSScriptRoot\..\.."
+$ModuleRoot = Split-Path (Resolve-Path "$ProjectRoot\*\*.psd1")
+$Global:moduleName = Split-Path $ModuleRoot -Leaf
+Remove-Module -Force $ModuleName  -ErrorAction SilentlyContinue
+Import-Module (Join-Path $ModuleRoot "$ModuleName.psd1") -force
 
 $Global:Command = 'Update-RedditOAuthToken'
 $Global:TypeName = 'RedditOAuthToken'
@@ -29,7 +29,7 @@ $Global:TypeName = 'RedditOAuthToken'
 # Request-RedditOAuthTokenClient 
 # So, we remove them from the module and replace it with a script scope function
 # We later mock that function too because it wont work without the mock either
-$module = Get-Module $moduleName
+$module = Get-Module $ModuleName
 & $module {
     $Commands = @(
         'Request-RedditOAuthTokenInstalled'
@@ -86,18 +86,18 @@ function Request-RedditOAuthTokenClient {
 
 $Command = $Global:Command
 $TypeName = $Global:TypeName
-$moduleName = $Global:moduleName
-<#Mock -CommandName Request-RedditOAuthTokenInstalled -ModuleName $moduleName -MockWith {
+$ModuleName = $Global:moduleName
+<#Mock -CommandName Request-RedditOAuthTokenInstalled -ModuleName $ModuleName -MockWith {
         return $Global:EchoResponseInstalled
     }
-    Mock -CommandName Request-RedditOAuthTokenPassword -ModuleName $moduleName -MockWith {
+    Mock -CommandName Request-RedditOAuthTokenPassword -ModuleName $ModuleName -MockWith {
         return $Global:EchoResponsePassword
     }
-    Mock -CommandName Request-RedditOAuthTokenClient -ModuleName $moduleName -MockWith {
+    Mock -CommandName Request-RedditOAuthTokenClient -ModuleName $ModuleName -MockWith {
         return $Global:EchoResponseClient
     }#>
 Function MyTest {
-    Mock -CommandName Request-RedditOAuthTokenInstalled -ModuleName $moduleName -MockWith {
+    Mock -CommandName Request-RedditOAuthTokenInstalled -ModuleName $ModuleName -MockWith {
         $EchoUriInstalled = 'http://urlecho.appspot.com/echo?status=200&Content-Type=application%2Fjson&body=%7B%22access_token%22%3A%20%22AABBCC%22%2C%20%22token_type%22%3A%20%22bearer%22%2C%20%22device_id%22%3A%20%22MyDeviceID%22%2C%20%22expires_in%22%3A%203600%2C%20%22scope%22%3A%20%22*%22%7D'
         $Response = Invoke-WebRequest -UseBasicParsing -Uri $EchoUriInstalled
         $Global:EchoResponseInstalled = [RedditOAuthResponse]@{
@@ -108,7 +108,7 @@ Function MyTest {
         } 
         return $Global:EchoResponseInstalled
     }
-    Mock -CommandName Request-RedditOAuthTokenPassword -ModuleName $moduleName -MockWith {
+    Mock -CommandName Request-RedditOAuthTokenPassword -ModuleName $ModuleName -MockWith {
         $EchoUriPassword = 'http://urlecho.appspot.com/echo?status=200&Content-Type=application%2Fjson&body=%7B%22access_token%22%3A%20%22AABBCC%22%2C%20%22token_type%22%3A%20%22bearer%22%2C%20%22expires_in%22%3A%203600%2C%20%22scope%22%3A%20%22*%22%7D'
         $Response = Invoke-WebRequest -UseBasicParsing -Uri $EchoUriPassword
         $Global:EchoResponsePassword = [RedditOAuthResponse]@{
@@ -119,7 +119,7 @@ Function MyTest {
         } 
         return $Global:EchoResponsePassword 
     }
-    Mock -CommandName Request-RedditOAuthTokenClient -ModuleName $moduleName -MockWith {
+    Mock -CommandName Request-RedditOAuthTokenClient -ModuleName $ModuleName -MockWith {
         $EchoUriClient = 'http://urlecho.appspot.com/echo?status=200&Content-Type=application%2Fjson&body=%7B%22access_token%22%3A%20%22AABBCC%22%2C%20%22token_type%22%3A%20%22bearer%22%2C%20%22expires_in%22%3A%203600%2C%20%22scope%22%3A%20%22*%22%7D'
         $Response = Invoke-WebRequest -UseBasicParsing -Uri $EchoUriClient
         $Global:EchoResponseClient = [RedditOAuthResponse]@{
@@ -132,7 +132,7 @@ Function MyTest {
     }
     $Command = $Global:Command
     $TypeName = $Global:TypeName
-    $moduleName = $Global:moduleName
+    $ModuleName = $Global:moduleName
 
     $ClientId = '54321'
     $ClientSecret = '12345'
@@ -278,6 +278,36 @@ Function MyTest {
         TokenCredential    = $TokenCredential.psobject.copy()
     }
 
+    $TokenDefault = [RedditOAuthToken]@{
+        Application        = $ApplicationScript
+        IssueDate          = (Get-Date).AddHours(-2)
+        ExpireDate         = (Get-Date).AddHours(-1)
+        LastApiCall        = Get-Date
+        Scope              = $ApplicationScript.Scope
+        GUID               = [guid]::NewGuid()
+        TokenType          = 'bearer'
+        GrantType          = 'Password'
+        RateLimitUsed      = 0
+        RateLimitRemaining = 60
+        RateLimitRest      = 60
+        TokenCredential    = $TokenCredential.psobject.copy()
+    }
+
+    $TokenSetDefault = [RedditOAuthToken]@{
+        Application        = $ApplicationScript
+        IssueDate          = (Get-Date).AddHours(-2)
+        ExpireDate         = (Get-Date).AddHours(-1)
+        LastApiCall        = Get-Date
+        Scope              = $ApplicationScript.Scope
+        GUID               = [guid]::NewGuid()
+        TokenType          = 'bearer'
+        GrantType          = 'Password'
+        RateLimitUsed      = 0
+        RateLimitRemaining = 60
+        RateLimitRest      = 60
+        TokenCredential    = $TokenCredential.psobject.copy()
+    }
+
     $ParameterSets = @(
         @{
             Name   = 'Installed'
@@ -328,12 +358,23 @@ Function MyTest {
         & $Command -Force -AccessToken $TokenForce
         $TokenForce.GetAccessToken() | Should be 'AABBCC'
     }
-    
+    It "Updates the Default Token if one is not provided" {
+        $TokenDefault | Set-RedditDefaultOAuthToken
+        (Get-RedditDefaultOAuthToken).GetAccessToken() | should be 34567
+        {  & $Command -ErrorAction Stop } | Should Not Throw
+        (Get-RedditDefaultOAuthToken).GetAccessToken() | should be AABBCC
+    }
+    It "Sets the Updated token to the Default Token with -SetAsDefault" {
+        [RedditOAuthToken]::new() | Set-RedditDefaultOAuthToken
+        $TokenSetDefault.GetAccessToken() | should be 34567
+        {  & $Command -AccessToken  $TokenSetDefault -SetDefault -ErrorAction Stop } | Should Not Throw
+        (Get-RedditDefaultOAuthToken).GUID | should be $TokenSetDefault.GUID
+    }
 }
 Describe "$Command Unit" -Tags Unit {
-    $CommandPresent = Get-Command -Name $Command -Module $moduleName -ErrorAction SilentlyContinue
+    $CommandPresent = Get-Command -Name $Command -Module $ModuleName -ErrorAction SilentlyContinue
     if (-not $CommandPresent) {
-        Write-Warning "'$command' was not found in '$moduleName' during pre-build tests. It may not yet have been added the module. Unit tests will be skipped until after build."
+        Write-Warning "'$command' was not found in '$ModuleName' during pre-build tests. It may not yet have been added the module. Unit tests will be skipped until after build."
         return
     }
     MyTest

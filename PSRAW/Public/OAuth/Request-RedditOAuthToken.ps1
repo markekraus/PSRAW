@@ -70,7 +70,9 @@ function Request-RedditOAuthToken {
             ValueFromPipelineByPropertyName = $true,
             Position = 1
         )]
-        [string]$DeviceID = [guid]::NewGuid().toString()
+        [string]$DeviceID = [guid]::NewGuid().toString(),
+
+        [switch]$PassThru
     )
     
     process {
@@ -102,6 +104,10 @@ function Request-RedditOAuthToken {
                 Break
             }
         }
-        [RedditOAuthToken]::New($GrantType, $Application, $Result)
+        $Token = [RedditOAuthToken]::New($GrantType, $Application, $Result)
+        $Token | Set-RedditDefaultOAuthToken
+        if ($PassThru) {
+            $Token
+        }
     }
 }

@@ -12,20 +12,20 @@
         Pester Test for proper help elements on module functions
 #>
 
-$projectRoot = Resolve-Path "$PSScriptRoot\.."
-$moduleRoot = Split-Path (Resolve-Path "$projectRoot\*\*.psd1")
-$moduleName = Split-Path $moduleRoot -Leaf
+$ProjectRoot = Resolve-Path "$PSScriptRoot\.."
+$ModuleRoot = Split-Path (Resolve-Path "$ProjectRoot\*\*.psd1")
+$ModuleName = Split-Path $ModuleRoot -Leaf
 
-Import-Module (Join-Path $moduleRoot "$moduleName.psd1") -force
+Import-Module (Join-Path $ModuleRoot "$ModuleName.psd1") -force
 
-$ModuleHelpPath = "$projectRoot\docs\Module"
-$PrivateFunctionHelpPath = "$projectRoot\docs\PrivateFunctions"
+$ModuleHelpPath = "$ProjectRoot\docs\Module"
+$PrivateFunctionHelpPath = "$ProjectRoot\docs\PrivateFunctions"
 $BaseURL = 'https://psraw.readthedocs.io/en/latest'
 $PrivateFunctionBaseURL = "$BaseURL/PrivateFunctions"
 $ModuleBaseURL = "$BaseURL/Module"
 
-. "$projectRoot\BuildTools\ModuleData-Helper.ps1"
-. "$projectRoot\BuildTools\BuildDocs-Helper.ps1"
+. "$ProjectRoot\BuildTools\ModuleData-Helper.ps1"
+. "$ProjectRoot\BuildTools\BuildDocs-Helper.ps1"
 
 
 $DefaultParams = @(
@@ -43,8 +43,8 @@ $DefaultParams = @(
 )
 
 
-Describe "Help tests for $moduleName" -Tags Documentation {
-    $functions = Get-Command -Module $moduleName -CommandType Function
+Describe "Help tests for $ModuleName" -Tags Documentation {
+    $functions = Get-Command -Module $ModuleName -CommandType Function
     foreach ($Function in $Functions) {
         $help = Get-Help $Function.name -Full -ErrorAction SilentlyContinue
         $helpText = $help | Out-String
@@ -77,7 +77,7 @@ Describe "Help tests for $moduleName" -Tags Documentation {
             }
         }
     }# End foreach
-    $PrivateFunctions = Get-ModulePrivateFunction -ModuleName $moduleName
+    $PrivateFunctions = Get-ModulePrivateFunction -ModuleName $ModuleName
     $PrivateHelpFiles = Get-ChildItem -Path $PrivateFunctionHelpPath -Filter '*.md' -ErrorAction SilentlyContinue
     foreach ($Function in $PrivateFunctions) {
         Context "$($Function.name) Private Function" {
@@ -103,7 +103,7 @@ Describe "Help tests for $moduleName" -Tags Documentation {
         }
     }
     $PublicHelpFiles = Get-ChildItem -Path $ModuleHelpPath -Filter '*.md' -ErrorAction SilentlyContinue
-    $ClassesAndEnums = Get-ModuleClass -ModuleName $moduleName
+    $ClassesAndEnums = Get-ModuleClass -ModuleName $ModuleName
     $Classes = $ClassesAndEnums.where( {$_.IsClass})
     foreach ($Class in $Classes) {
         $helpDoc = $PublicHelpFiles | Where-Object { $_.BaseName -eq "about_$($Class.Name)"}
