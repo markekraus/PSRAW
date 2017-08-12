@@ -24,10 +24,19 @@ When a `RedditOAuthToken` Token has expired, `Update-RedditOAuthToken`can be use
 
 ### -------------------------- EXAMPLE 1 --------------------------
 ```
+Update-RedditOAuthToken
+```
+
+Updates the session default OAuth Token
+
+### -------------------------- EXAMPLE 12--------------------------
+```
 $Token | Update-RedditOAuthToken
 ```
 
-### -------------------------- EXAMPLE 2 --------------------------
+Updates the passed OAuth Token.
+
+### -------------------------- EXAMPLE 3 --------------------------
 ```
 $Token | Update-RedditOAuthToken -Force
 ```
