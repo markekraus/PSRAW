@@ -27,13 +27,23 @@ Invoke-RedditRequest [-Uri] <Uri> [[-AccessToken] <RedditOAuthToken>] [[-Method]
 
 `Invoke-RedditRequest` returns a `RedditApiResponse` which contains the `RedditOAuthToken`, The response from the API, and a converted Content Object. The `RedditApiResponse` can then be used to create other module objects or consumed directly.
 
+`irr` is an alias imported for this command.
+
 ## EXAMPLES
 
 ### -------------------------- EXAMPLE 1 --------------------------
 ```
-$Token = Import-RedditOAuthToken 'C:\PSRAW\AccessToken.xml'
+Connect-Reddit
+irr https://oauth.reddit.com/api/v1/me
+```
+
+This example shows the quickest way to get up and running on the Reddit API. `irr` is an alias for `Invoke-RedditRequest` similar to `iwr` for `Invoke-WebRequest`.
+
+### -------------------------- EXAMPLE 2 --------------------------
+```
+Import-RedditOAuthToken 'C:\PSRAW\AccessToken.xml'
 $Uri = 'https://oauth.reddit.com/api/v1/me'
-$Response = $Token | Invoke-RedditRequest -Uri $Uri
+$Response = Invoke-RedditRequest -Uri $Uri
 ```
 
 This example demonstrates how to import a `RedditOAuthToken` that was previously exported with `Export-RedditOAuthToken` and then using that token to make an authenticated API request to `https://oauth.reddit.com/api/v1/me` with `Invoke-RedditRequest`.
@@ -42,25 +52,27 @@ The `RedditOAuthToken` does not need to be refreshed before calling `Invoke-Redd
 
 This method is similar to what can be done within automation scripts.
 
-### -------------------------- EXAMPLE 2 --------------------------
+### -------------------------- EXAMPLE 3 --------------------------
 ```
 $ClientCredential = Get-Credential
+$UserCredential = Get-Credential
 $Params = @{
-    Installed = $True
-    Name = 'PSRAW Example App'
-    Description = 'My Reddit Bot!'
+    Script           = $True
+    Name             = 'PSRAW Example App'
+    Description      = 'My Reddit Bot!'
     ClientCredential = $ClientCredential
-    RedirectUri = 'https://adataum/ouath?'
-    UserAgent = 'windows:PSRAW:v0.0.0.1 (by /u/markekraus)'
+    UserCredential   = $UserCredential
+    RedirectUri      = 'https://adataum/ouath?'
+    UserAgent        = 'windows:PSRAW:v0.0.0.1 (by /u/markekraus)'
 }
 $RedditApp = New-RedditApplication @Params
-$Token = $RedditApp | Request-RedditOAuthToken -Code
+$RedditApp | Request-RedditOAuthToken -Script
 $Uri = 'https://oauth.reddit.com/message/inbox'
-$Response = $Token | Invoke-RedditRequest -Uri $Uri
+$Response = Invoke-RedditRequest -Uri $Uri
 $Messages = $response.ContentObject.data.children.data
 ```
 
-This example demonstrates the entire process from scratch to retrieve messages from the Reddit user's inbox. Firs a `RedditApplication` is created. The `RedditApplication` is the authorized and a `RedditOAuthToken` is created. `Invoke-RedditRequest` is then used to make an authenticated query to `https://oauth.reddit.com/message/inbox`. The resulting response is then parsed into the `$Messages` variable.
+This example demonstrates the entire process from scratch to retrieve messages from the Reddit user's inbox. First a `RedditApplication` is created. The `RedditApplication` is the authorized and a `RedditOAuthToken` is created. `Invoke-RedditRequest` is then used to make an authenticated query to `https://oauth.reddit.com/message/inbox`. The resulting response is then parsed into the `$Messages` variable.
 
 For automation, the creation of the `RedditApplication` and `RedditOAuthToken` are one time actions done in an interactive shell. The `RedditOAuthToken` is then exported once and then re-imported in the actual automation scripts. But this example is provided to show the entire process un broken.
 

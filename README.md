@@ -46,27 +46,28 @@ A new streamlined way of getting up and running with PSRAW has been added. The `
 
 Having to manually pass the OAuth token around was repetitive and painful, especially when working in the console. `Connect-Reddit`, `Import-RedditOAuthToken`, `Update-RedditOAuthToken` (with the `-SetDeafult` parameter), and `Set-RedditDefaultOAuthToken` can now all be used to set the default OAuth token for your session. To see the current Default OAuth Token you can use `Get-RedditDefaultOAuthToken`. All commands that accept an `-AccessToken` parameter ar now no longer mandatory and will use the Default Token if one is not provided. This allows you to continue using multiple identities via multiple `RedditOAuthToken` objects while still making it easier to use PSRAW with a single identity.
 
-For this and all news items see the [Project News](tree/master/docs/Project/News.md) page.
+For this and all news items see the [Project News](https://psraw.readthedocs.io/en/latest/Project/News/) page.
 
 ## Release Notes
-[Release Notes](tree/master/RELEASE.md)
+[Release Notes](https://psraw.readthedocs.io/en/latest/RELEASE/)
 
 ## Change Log
-[Change Log](tree/master/docs/ChangeLog.md)
+[Change Log](https://psraw.readthedocs.io/en/latest/ChangeLog/)
 
 # Features
+* Compatible with PowerShell Core on Windows (currently not cross-platform)
 * In-memory and at-rest security of the Access Token, Refresh Token, Client Secret, and User Password. 
 * PowerShell v5 Classes for Reddit objects
-* Easy OAuth authorization process with a WinForms authentication popup for applicable grant flows
+* Easy OAuth authorization process
 * No "Mystery DLL's" required. The entire OAuth authorization, token request, and token refresh process is written in native PowerShell
 * Export and Import Access Tokens between sessions allowing you to authorize an application once and reuse the token until the refresh token has been revoked. Great for automation!
 * No hassle Access Token Refreshing! Calls to `Invoke-RedditRequest` (and all the functions that call it) automatically track the renewal needs for your Access Tokens and will automatically refresh them when needed.
-* Build in Rate Limit monitoring, detection, and cooldown
+* Built in Rate Limit monitoring, detection, and cooldown
 * Rigorously tested code
 * Thorough Online and In-Console Help Documentation
 
 # Contributing to the PSRAW Project
-PSRAW is a community module made by the community for the community. However, the goal of this project is to maintain high quality best practice code and high quality documentation. We encourage community contributions but there are several considerations to be aware of before contributing. For more information see the [Contributing to PSRAW](tree/master/docs/Project/Contributing.md) document.
+PSRAW is a community module made by the community for the community. However, the goal of this project is to maintain high quality best practice code and high quality documentation. We encourage community contributions but there are several considerations to be aware of before contributing. For more information see the [Contributing to PSRAW](https://psraw.readthedocs.io/en/latest/Project/Contributing/) document.
 
 # Using PSRAW
 
@@ -93,4 +94,4 @@ Get-Help about_RedditOAuthToken
 ```
 
 ## Quickstart
-To see a quick example of how to use PSRAW see the [Quickstart Example](tree/master/docs/Examples/Quickstart.md) document.
+To see a quick example of how to use PSRAW see the [Quickstart Example](https://psraw.readthedocs.io/en/latest/Examples/Quickstart/) document.

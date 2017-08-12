@@ -6,7 +6,7 @@ copyright: "PSRAW is licensed under the <a href='https://github.com/markekraus/P
 pages:
   - Home: index.md
   - PSRAW Project:
-    - Contributing to PSRAW: Project/Contributing.md
+    - Contributing: Project/Contributing.md
     - Project News: Project/News.md
   - Change Log: ChangeLog.md
   - Module Help:
@@ -47,6 +47,5 @@ pages:
     - Request-RedditOAuthTokenPassword: PrivateFunctions/Request-RedditOAuthTokenPassword.md
     - Wait-RedditApiRateLimit: PrivateFunctions/Wait-RedditApiRateLimit.md
   - Examples:
-    - System.Object[]: Examples/ConsoleQuickStart.md
     - Quicker Quickstart Example for 2.0: Examples/Quickstart.md
 

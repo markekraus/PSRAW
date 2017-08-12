@@ -468,7 +468,7 @@ Definition: String ToString()
 ## Example 1
 
 ```powershell
-$result = Invoke-RedditRequest -Uri 'https://oauth.reddit.com/api/info?id=t1_dl8o3mb' -AccessToken $Token
+$result = Invoke-RedditRequest -Uri 'https://oauth.reddit.com/api/info?id=t1_dl8o3mb'
 $Comment = [RedditComment]::New($Token,$Result.ContentObject.data.children[0])
 ```
 

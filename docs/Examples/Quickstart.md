@@ -104,8 +104,8 @@ For more information about the available grant flows see [Request-RedditOAuthTok
 ```powershell
 $TokenExportPath = 'C:\PSRAW\MyToken.xml'
 
-$Token = $RedditApp | Request-RedditOAuthToken -Script
-$Token | Export-RedditOAuthToken -Path $TokenExportPath
+$RedditApp | Request-RedditOAuthToken -Script
+Export-RedditOAuthToken -Path $TokenExportPath
 ```
 
 > **NOTE**
@@ -117,7 +117,7 @@ Now that the application has been authorized and we have an Access Token, we can
 
 ```powershell
 $Uri = 'https://oauth.reddit.com/message/inbox'
-$Response = $Token | Invoke-RedditRequest -Uri $Uri
+$Response = Invoke-RedditRequest -Uri $Uri
 $Messages = $response.ContentObject.data.children.data
 ```
 
@@ -155,10 +155,10 @@ $RedditApp | Export-RedditApplication -Path $AppExportPath
 
 $TokenExportPath = 'C:\PSRAW\MyToken.xml'
 
-$Token = $RedditApp | Request-RedditOAuthToken -Script
-$Token | Export-RedditOAuthToken -Path $TokenExportPath
+$RedditApp | Request-RedditOAuthToken -Script
+Export-RedditOAuthToken -Path $TokenExportPath
 
 $Uri = 'https://oauth.reddit.com/message/inbox'
-$Response = $Token | Invoke-RedditRequest -Uri $Uri
+$Response = Invoke-RedditRequest -Uri $Uri
 $Messages = $response.ContentObject.data.children.data
 ```
