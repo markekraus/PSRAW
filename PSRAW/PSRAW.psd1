@@ -19,7 +19,7 @@
     RootModule             = 'PSRAW.psm1'
 	
     # Version number of this module.
-    ModuleVersion          = '1.0.15.14'
+    ModuleVersion          = '2.0.0.0'
 	
     # ID used to uniquely identify this module
     GUID                   = '92c8f916-4890-45eb-a3e7-592f5b5b3f24'
@@ -76,7 +76,7 @@
     NestedModules          = @()
 	
     # Functions to export from this module
-    FunctionsToExport      = @('Invoke-RedditRequest','Export-RedditApplication','Import-RedditApplication','New-RedditApplication','Export-RedditOAuthToken','Get-RedditOAuthScope','Import-RedditOAuthToken','Request-RedditOAuthToken','Update-RedditOAuthToken')
+    FunctionsToExport      = @('Invoke-RedditRequest','Export-RedditApplication','Import-RedditApplication','New-RedditApplication','Connect-Reddit','Export-RedditOAuthToken','Get-RedditDefaultOAuthToken','Get-RedditOAuthScope','Import-RedditOAuthToken','Request-RedditOAuthToken','Set-RedditDefaultOAuthToken','Update-RedditOAuthToken')
 	
     # Cmdlets to export from this module
     CmdletsToExport        = @()

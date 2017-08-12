@@ -60,4 +60,3 @@ Static: False
 [https://www.reddit.com/wiki/api](https://www.reddit.com/wiki/api)
 
 [https://psraw.readthedocs.io/](https://psraw.readthedocs.io/)
-

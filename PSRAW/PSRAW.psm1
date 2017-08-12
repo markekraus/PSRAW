@@ -54,3 +54,12 @@ foreach ($FunctionFile in $FunctionFiles) {
         Export-ModuleMember -Alias $Aliases.PositionalArguments.value
     }        
 }
+
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute(
+    "PSUseDeclaredVarsMoreThanAssignments", 
+    "",
+    Justification = 'PsrawSettings is a module settings variable consumed in module functions'
+)]
+$PsrawSettings = @{
+    AccessToken = [RedditOAuthToken]::new()
+}

@@ -1,5 +1,6 @@
 ---
 external help file: PSRAW-help.xml
+Module Name: PSRAW
 online version: https://psraw.readthedocs.io/en/latest/Module/Invoke-RedditRequest
 schema: 2.0.0
 ---
@@ -12,7 +13,7 @@ Performs an authenticated APi request against the Reddit API.
 ## SYNTAX
 
 ```
-Invoke-RedditRequest [-AccessToken] <RedditOAuthToken> [-Uri] <Uri> [[-Method] <WebRequestMethod>]
+Invoke-RedditRequest [-Uri] <Uri> [[-AccessToken] <RedditOAuthToken>] [[-Method] <WebRequestMethod>]
  [[-Body] <Object>] [[-Headers] <IDictionary>] [[-TimeoutSec] <Int32>] [[-ContentType] <String>] [-WhatIf]
  [-Confirm] [<CommonParameters>]
 ```
@@ -73,10 +74,10 @@ Type: RedditOAuthToken
 Parameter Sets: (All)
 Aliases: 
 
-Required: True
+Required: False
 Position: 0
 Default value: None
-Accept pipeline input: True (ByPropertyName, ByValue)
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -178,7 +179,7 @@ Aliases:
 Required: True
 Position: 1
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByPropertyName, ByValue)
 Accept wildcard characters: False
 ```
 

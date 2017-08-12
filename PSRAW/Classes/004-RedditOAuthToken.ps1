@@ -32,7 +32,9 @@ Class RedditOAuthToken {
     hidden [Microsoft.PowerShell.Commands.WebRequestSession]$Session = [Microsoft.PowerShell.Commands.WebRequestSession]::new()
     static [string] $AuthBaseURL = 'https://www.reddit.com/api/v1/access_token'
 
-    RedditOAuthToken () {}
+    RedditOAuthToken () {
+        $This.GUID = [System.Guid]::Empty
+    }
 
     RedditOAuthToken (
         [RedditOAuthGrantType]$GrantType, 

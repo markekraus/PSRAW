@@ -1,5 +1,6 @@
 ---
 external help file: PSRAW-help.xml
+Module Name: PSRAW
 online version: https://psraw.readthedocs.io/en/latest/Module/Update-RedditOAuthToken
 schema: 2.0.0
 ---
@@ -12,8 +13,8 @@ Refresh a `RedditOAuthToken`
 ## SYNTAX
 
 ```
-Update-RedditOAuthToken -AccessToken <RedditOAuthToken[]> [-Force] [-PassThru] [-WhatIf] [-Confirm]
- [<CommonParameters>]
+Update-RedditOAuthToken [-AccessToken <RedditOAuthToken[]>] [-Force] [-PassThru] [-SetDefault] [-WhatIf]
+ [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -50,7 +51,7 @@ Type: RedditOAuthToken[]
 Parameter Sets: (All)
 Aliases: Token
 
-Required: True
+Required: False
 Position: Named
 Default value: None
 Accept pipeline input: True (ByPropertyName, ByValue)
@@ -74,6 +75,21 @@ Accept wildcard characters: False
 
 ### -PassThru
 By default, this function does not return any data. The `-PassThru` parameter will place the updated `RedditOAuthToken` into the output stream to either be stored in another variable or placed in the pipeline and consumed by other functions.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: 
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SetDefault
+If set, the updated token will be set as the session default OAuth Token
 
 ```yaml
 Type: SwitchParameter

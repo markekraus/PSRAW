@@ -1,5 +1,6 @@
 ---
 external help file: PSRAW-help.xml
+Module Name: PSRAW
 online version: https://psraw.readthedocs.io/en/latest/Module/Export-RedditApplication
 schema: 2.0.0
 ---

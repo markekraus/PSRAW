@@ -1,5 +1,6 @@
 ---
 external help file: PSRAW-help.xml
+Module Name: PSRAW
 online version: https://psraw.readthedocs.io/en/latest/Module/New-RedditApplication
 schema: 2.0.0
 ---
@@ -14,21 +15,22 @@ Creates a `RedditApplication` object
 ### Script (Default)
 ```
 New-RedditApplication [-Script] [-Name <String>] -ClientCredential <PSCredential> -RedirectUri <Uri>
- -UserAgent <String> [-Scope <RedditOAuthScope[]>] [-Description <String>] -UserCredential <PSCredential>
+ [-UserAgent <String>] [-Scope <RedditOAuthScope[]>] [-Description <String>] -UserCredential <PSCredential>
  [-GUID <Guid>] [<CommonParameters>]
 ```
 
 ### WebApp
 ```
 New-RedditApplication [-WebApp] [-Name <String>] -ClientCredential <PSCredential> -RedirectUri <Uri>
- -UserAgent <String> [-Scope <RedditOAuthScope[]>] [-Description <String>] [-UserCredential <PSCredential>]
+ [-UserAgent <String>] [-Scope <RedditOAuthScope[]>] [-Description <String>] [-UserCredential <PSCredential>]
  [-GUID <Guid>] [<CommonParameters>]
 ```
 
 ### Installed
 ```
 New-RedditApplication [-Installed] [-Name <String>] -ClientCredential <PSCredential> -RedirectUri <Uri>
- -UserAgent <String> [-Scope <RedditOAuthScope[]>] [-Description <String>] [-GUID <Guid>] [<CommonParameters>]
+ [-UserAgent <String>] [-Scope <RedditOAuthScope[]>] [-Description <String>] [-GUID <Guid>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -216,7 +218,7 @@ Type: String
 Parameter Sets: (All)
 Aliases: 
 
-Required: True
+Required: False
 Position: Named
 Default value: None
 Accept pipeline input: False

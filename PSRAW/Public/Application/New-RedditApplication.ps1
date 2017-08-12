@@ -69,13 +69,13 @@ function New-RedditApplication {
         [uri]$RedirectUri,
         
         [Parameter(ParameterSetName = 'Installed',
-            Mandatory = $true)]
+            Mandatory = $False)]
         [Parameter(ParameterSetName = 'WebApp',
-            Mandatory = $true)]
+            Mandatory = $False)]
         [Parameter(ParameterSetName = 'Script',
-            Mandatory = $true)]
+            Mandatory = $False)]
         [ValidateNotNullOrEmpty()]
-        [string]$UserAgent,
+        [string]$UserAgent = 'PowerShell:PSRAW:2.0 (by /u/markekraus)',
         
         [Parameter(ParameterSetName = 'Installed',
             Mandatory = $False,

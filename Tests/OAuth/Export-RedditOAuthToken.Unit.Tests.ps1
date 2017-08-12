@@ -11,83 +11,87 @@
     .DESCRIPTION
         Export-RedditOAuthToken Function unit tests
 #>
-$projectRoot = Resolve-Path "$PSScriptRoot\..\.."
-$moduleRoot = Split-Path (Resolve-Path "$projectRoot\*\*.psd1")
-$moduleName = Split-Path $moduleRoot -Leaf
-Remove-Module -Force $moduleName  -ErrorAction SilentlyContinue
-Import-Module (Join-Path $moduleRoot "$moduleName.psd1") -force
+$ProjectRoot = Resolve-Path "$PSScriptRoot\..\.."
+$ModuleRoot = Split-Path (Resolve-Path "$ProjectRoot\*\*.psd1")
+$ModuleName = Split-Path $ModuleRoot -Leaf
+Remove-Module -Force $ModuleName  -ErrorAction SilentlyContinue
+Import-Module (Join-Path $ModuleRoot "$ModuleName.psd1") -force
+$Module = Get-Module -Name $ModuleName
 
 $Command = 'Export-RedditOAuthToken'
 
-$ClientId = '54321'
-$ClientSecret = '08239842-a6f5-4fe5-ab4c-4592084ad44e'
-$SecClientSecret = $ClientSecret | ConvertTo-SecureString -AsPlainText -Force 
-$ClientCredential = [pscredential]::new($ClientId, $SecClientSecret)
-
-$UserId = 'reddituser'
-$UserSecret = '08239842-a6f5-4fe5-ab4c-4592084ad44f'
-$SecUserSecret = $UserSecret | ConvertTo-SecureString -AsPlainText -Force 
-$UserCredential = [pscredential]::new($UserId, $SecUserSecret)
-
-$TokenId = 'access_token'
-$TokenSecret = '08239842-a6f5-4fe5-ab4c-4592084ad44g'
-$SecTokenSecret = $TokenSecret | ConvertTo-SecureString -AsPlainText -Force 
-$TokenCredential = [pscredential]::new($TokenId, $SecTokenSecret)
-
-$ExportFile = '{0}\RedditApplicationExport-{1}.xml' -f $env:TEMP, [guid]::NewGuid().toString()
-$TokenExportFile = '{0}\RedditTokenExport-{1}.xml' -f $env:TEMP, [guid]::NewGuid().toString()
-
-$Application = [RedditApplication]@{
-    Name             = 'TestApplication'
-    Description      = 'This is only a test'
-    RedirectUri      = 'https://localhost/'
-    UserAgent        = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
-    Scope            = 'read'
-    ClientCredential = $ClientCredential
-    UserCredential   = $UserCredential
-    Type             = 'Script'
-    ExportPath       = $ExportFile 
+function InitVariables {
+    $ClientId = '54321'
+    $ClientSecret = '08239842-a6f5-4fe5-ab4c-4592084ad44e'
+    $SecClientSecret = $ClientSecret | ConvertTo-SecureString -AsPlainText -Force 
+    $ClientCredential = [pscredential]::new($ClientId, $SecClientSecret)
+    
+    $UserId = 'reddituser'
+    $UserSecret = '08239842-a6f5-4fe5-ab4c-4592084ad44f'
+    $SecUserSecret = $UserSecret | ConvertTo-SecureString -AsPlainText -Force 
+    $UserCredential = [pscredential]::new($UserId, $SecUserSecret)
+    
+    $TokenId = 'access_token'
+    $TokenSecret = '08239842-a6f5-4fe5-ab4c-4592084ad44g'
+    $SecTokenSecret = $TokenSecret | ConvertTo-SecureString -AsPlainText -Force 
+    $TokenCredential = [pscredential]::new($TokenId, $SecTokenSecret)
+    
+    $ExportFile = '{0}\RedditApplicationExport-{1}.xml' -f $TestDrive, [guid]::NewGuid().toString()
+    $TokenExportFile = '{0}\RedditTokenExport-{1}.xml' -f $TestDrive, [guid]::NewGuid().toString()
+    
+    $Application = [RedditApplication]@{
+        Name             = 'TestApplication'
+        Description      = 'This is only a test'
+        RedirectUri      = 'https://localhost/'
+        UserAgent        = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
+        Scope            = 'read'
+        ClientCredential = $ClientCredential
+        UserCredential   = $UserCredential
+        Type             = 'Script'
+        ExportPath       = $ExportFile 
+    }
+    
+    $TokenScript = [RedditOAuthToken]@{
+        Application        = $Application
+        IssueDate          = Get-Date
+        ExpireDate         = (Get-Date).AddHours(1)
+        LastApiCall        = Get-Date
+        ExportPath         = $TokenExportFile
+        Scope              = $Application.Scope
+        GUID               = [guid]::NewGuid()
+        Notes              = 'This is a test token'
+        TokenType          = 'bearer'
+        GrantType          = 'Password'
+        RateLimitUsed      = 0
+        RateLimitRemaining = 60
+        RateLimitRest      = 60
+        TokenCredential    = $TokenCredential
+    }
+    
+    $ParameterSets = @(
+        @{
+            Name   = 'Path'
+            Params = @{
+                Path        = $TokenExportFile
+                AccessToken = $TokenScript
+            }
+        }
+        @{
+            Name   = 'LiteralPath'
+            Params = @{
+                LiteralPath = $TokenExportFile
+                AccessToken = $TokenScript
+            }
+        }
+        @{
+            Name   = 'ExportPath'
+            Params = @{
+                AccessToken = $TokenScript
+            }
+        }
+    )
 }
 
-$TokenScript = [RedditOAuthToken]@{
-    Application        = $Application
-    IssueDate          = Get-Date
-    ExpireDate         = (Get-Date).AddHours(1)
-    LastApiCall        = Get-Date
-    ExportPath         = $TokenExportFile
-    Scope              = $Application.Scope
-    GUID               = [guid]::NewGuid()
-    Notes              = 'This is a test token'
-    TokenType          = 'bearer'
-    GrantType          = 'Password'
-    RateLimitUsed      = 0
-    RateLimitRemaining = 60
-    RateLimitRest      = 60
-    TokenCredential    = $TokenCredential
-}
-
-$ParameterSets = @(
-    @{
-        Name   = 'Path'
-        Params = @{
-            Path        = $TokenExportFile
-            AccessToken = $TokenScript
-        }
-    }
-    @{
-        Name   = 'LiteralPath'
-        Params = @{
-            LiteralPath = $TokenExportFile
-            AccessToken = $TokenScript
-        }
-    }
-    @{
-        Name   = 'ExportPath'
-        Params = @{
-            AccessToken = $TokenScript
-        }
-    }
-)
 
 function MyTest {
     foreach ($ParameterSet in $ParameterSets) {
@@ -98,7 +102,7 @@ function MyTest {
     }
     It "Exports a valid XML file." {
         Test-Path -Path $TokenExportFile | Should Be $True
-        $xml = New-Object System.Xml.XmlDocument
+        $xml = [System.Xml.XmlDocument]::new()
         {$xml.Load($TokenExportFile)} | should not throw
     }
     It "Does not store secrets in plaintext" {
@@ -109,19 +113,23 @@ function MyTest {
         }
         Select-String @Params | should be $null
     }
+    It "Exports the default Token when one is not supplied" {
+        & $Module { $PsrawSettings.AccessToken = $TokenScript }
+        { & $Command -Path $TokenExportFile -ErrorAction Stop } | Should not throw
+    }
 }
 
 Describe "$command Unit" -Tags Unit {
-    $CommandPresent = Get-Command -Name $Command -Module $moduleName -ErrorAction SilentlyContinue
+    $CommandPresent = Get-Command -Name $Command -Module $ModuleName -ErrorAction SilentlyContinue
     if (-not $CommandPresent) {
-        Write-Warning "'$command' was not found in '$moduleName' during pre-build tests. It may not yet have been added the module. Unit tests will be skipped until after build."
+        Write-Warning "'$command' was not found in '$ModuleName' during pre-build tests. It may not yet have been added the module. Unit tests will be skipped until after build."
         return
     }
+    . InitVariables
     MyTest
 }
 
 Describe "$command Build" -Tags Build {
+    . InitVariables
     MyTest
 }
-
-Remove-Item -Force -Path $TokenExportFile -ErrorAction SilentlyContinue

@@ -1,5 +1,6 @@
 ---
 external help file: PSRAW-help.xml
+Module Name: PSRAW
 online version: https://psraw.readthedocs.io/en/latest/Module/Import-RedditOAuthToken
 schema: 2.0.0
 ---
@@ -7,22 +8,22 @@ schema: 2.0.0
 # Import-RedditOAuthToken
 
 ## SYNOPSIS
-Imports a `RedditOAuthToken` object from an XML file.
+Imports a `RedditOAuthToken` object from an XML file and sets it as the session default OAuth Token
 
 ## SYNTAX
 
 ### Path (Default)
 ```
-Import-RedditOAuthToken -Path <String[]> [-WhatIf] [-Confirm] [<CommonParameters>]
+Import-RedditOAuthToken -Path <String[]> [-PassThru] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### LiteralPath
 ```
-Import-RedditOAuthToken -LiteralPath <String[]> [-WhatIf] [-Confirm] [<CommonParameters>]
+Import-RedditOAuthToken -LiteralPath <String[]> [-PassThru] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Allows you to import a `RedditOAuthToken` object from an XML file that was previously exported via `Export-RedditOAuthToken`. This allows you to share the same Reddit application between multiple scripts. This function is a wrapper for `Import-Clixml`. 
+Allows you to import a `RedditOAuthToken` object from an XML file that was previously exported via `Export-RedditOAuthToken` sets it as the session default OAuth Token. This allows you to share the same Reddit application between multiple scripts. This function is a wrapper for `Import-Clixml`. 
 
 User Password, Client Secret, Access Token, and Refresh Token stored in the `RedditOAuthToken` object are stored as secure strings and are not visible as plaintext in the export file. This also means that a `RedditOAuthToken` object exported by one user cannot be imported by another user on the same computer nor can it be imported by the same user on a different computer. It can only be imported by the same user on the same computer.
 
@@ -34,12 +35,17 @@ New `RedditOAuthToken` objects can be created manually or with `Request-RedditOA
 
 ### -------------------------- EXAMPLE 1 --------------------------
 ```
-$Token = Import-RedditOAuthToken -Path 'c:\PSRAW\RedditOAuthToken.xml'
+Import-RedditOAuthToken -Path 'c:\PSRAW\RedditOAuthToken.xml'
 ```
 
 ### -------------------------- EXAMPLE 3 --------------------------
 ```
-$Token = Import-RedditOAuthToken -LiteralPath 'c:\PSRAW\RedditOAuthToken[1].xml'
+Import-RedditOAuthToken -LiteralPath 'c:\PSRAW\RedditOAuthToken.xml'
+```
+
+### -------------------------- EXAMPLE 4 --------------------------
+```
+$Token = Import-RedditOAuthToken -LiteralPath 'c:\PSRAW\RedditOAuthToken.xml' -PassThru
 ```
 
 ## PARAMETERS
@@ -53,6 +59,21 @@ Parameter Sets: LiteralPath
 Aliases: 
 
 Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -PassThru
+By default this command does not return any data. When `-PassThru` is used, the `RedditOAuthToken` that is imported is passed to the pipeline.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: 
+
+Required: False
 Position: Named
 Default value: None
 Accept pipeline input: False

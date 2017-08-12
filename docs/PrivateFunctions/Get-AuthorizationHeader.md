@@ -1,5 +1,6 @@
 ---
 external help file: 
+Module Name: 
 online version: https://psraw.readthedocs.io/en/latest/PrivateFunctions/Get-AuthorizationHeader
 schema: 2.0.0
 ---
