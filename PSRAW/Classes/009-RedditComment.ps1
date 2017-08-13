@@ -36,8 +36,9 @@ Class RedditComment : RedditDataObject {
     [string]$name
     [string]$num_reports
     [string]$parent_id
+    [PSObject]$ParentObject
     [string]$removal_reason
-    [PSObject[]]$replies
+    [RedditComment[]]$replies
     [string[]]$report_reasons
     [bool]$saved
     [long]$score
@@ -53,12 +54,24 @@ Class RedditComment : RedditDataObject {
     hidden [RedditOAuthToken]$AccessToken  
     static [string] $ApiEndpointUri = 'https://oauth.reddit.com/api/info?id=t1_{0}'
     RedditComment () { }
+    RedditComment ([String]$String) { $This = $Null }
     RedditComment ([RedditThing]$RedditThing) {
         $This.AccessToken = Get-RedditTokenOrDefault $RedditThing.AccessToken
         $Data = $RedditThing.data
         $DataProperties = $Data.psobject.Properties.name
         $ClassProperties = $This.psobject.Properties.name
         foreach ($Property in $DataProperties) {
+            if(
+                $Property -eq 'replies' -and 
+                [string]::IsNullOrEmpty($Data.replies)
+            ){
+                continue
+            }
+            If($Property -eq 'replies'){
+                    $Listing = [RedditThing]$Data.replies
+                    $This.replies = $Listing.RedditData.Items
+                    continue
+            }
             if ($Property -in $ClassProperties) {
                 $This.$Property = $Data.$Property
                 continue

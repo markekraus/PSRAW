@@ -42,13 +42,13 @@ function Resolve-RedditDataObject {
         [RedditThing]$RedditThing,
 
         [parameter(
-            ParameterSetName = 'PSCustomObject',
+            ParameterSetName = 'PSObject',
             Mandatory = $true,
             Position = 0,
             ValueFromPipelineByPropertyName = $true,
             ValueFromPipeline = $true
         )]
-        [System.Management.Automation.PSCustomObject]$PSCustomObject,
+        [PSObject]$PSObject,
 
 
         [parameter(
@@ -66,7 +66,7 @@ function Resolve-RedditDataObject {
             ValueFromPipeline = $false
         )]
         [parameter(
-            ParameterSetName = 'PSCustomObject',
+            ParameterSetName = 'PSObject',
             Mandatory = $false,
             Position = 1,
             ValueFromPipelineByPropertyName = $true,
@@ -109,16 +109,15 @@ function Resolve-RedditDataObject {
                 }
                 Break
             }
-            'PSCustomObject'    { 
-                $DataObject = [RedditThing]$PSCustomObject
-                $DataObjectKind = $PSCustomObject.Kind
+            'PSObject'    { 
+                $RedditThing = [RedditThing]$PSObject
+                $DataObjectKind = $PSObject.Kind
                 Break
             }
         }
         $AccessToken = Get-RedditTokenOrDefault $AccessToken
         $RedditThing.AccessToken = $AccessToken
-        $Class = $DataObjectKindMap[$DataObjectKind]
-        $EvalString = '[{0}]::new($RedditThing)' -f $Class 
-        Invoke-Expression -Command  $EvalString
+        $Class = $DataObjectKindMap["$DataObjectKind"]
+        New-Object -TypeName $Class -ArgumentList $RedditThing
     }
 }

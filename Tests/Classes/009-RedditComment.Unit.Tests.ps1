@@ -6,10 +6,10 @@
      Edited on:     6/02/2017
      Created by:    Mark Kraus
      Organization: 	
-     Filename:     RedditComment.Unit.Tests.ps1
+     Filename:     RedditListing.Unit.Tests.ps1
     
     .DESCRIPTION
-        Unit Tests for RedditComment Class
+        Unit Tests for RedditListing Class
 #>
 $ProjectRoot = Resolve-Path "$PSScriptRoot\..\.."
 $ModuleRoot = Split-Path (Resolve-Path "$ProjectRoot\*\*.psd1")
@@ -17,7 +17,7 @@ $ModuleName = Split-Path $ModuleRoot -Leaf
 Remove-Module -Force $ModuleName  -ErrorAction SilentlyContinue
 Import-Module (Join-Path $ModuleRoot "$ModuleName.psd1") -force
 
-$Class = 'RedditComment'
+$Class = 'RedditListing'
 
 $CommentJSON = @'
 {
@@ -120,62 +120,62 @@ Function MyTest {
         RateLimitRest      = 60
         TokenCredential    = $TokenCredential.psobject.copy()
     }
-    It 'Creates a RedditComment from a RedditAccessToken and an object' {
+    It 'Creates a RedditListing from a RedditAccessToken and an object' {
         $Object = ConvertFrom-Json $CommentJSON 
-        $RedditComment = [RedditComment]::new($TokenScript, $Object)
-        $RedditComment.subreddit_id | should be 't5_abc12'
-        $RedditComment.link_id | should be 't3_def345'
-        $RedditComment.user_reports[0].reason | should be 'Stupid Comment'
-        $RedditComment.user_reports[0].count | should be 2
-        $RedditComment.id | should be 'ghij678'
-        $RedditComment.gilded | should be 0
-        $RedditComment.score | should be -2
-        $RedditComment.report_reasons[0] | should be 'This attribute is deprecated. Please use mod_reports and user_reports instead.'
-        $RedditComment.author | should be 'StupidUser'
-        $RedditComment.parent_id| should be 't3_ghij677'
-        $RedditComment.body | should be 'Stupid Comment!'
-        $RedditComment.mod_reports[0].reason | should be 'Really Stupid Comment'
-        $RedditComment.mod_reports[0].moderator | should be 'markekraus'
-        $RedditComment.created.unix | should be 1496196740.0
+        $RedditListing = [RedditListing]::new($TokenScript, $Object)
+        $RedditListing.subreddit_id | should be 't5_abc12'
+        $RedditListing.link_id | should be 't3_def345'
+        $RedditListing.user_reports[0].reason | should be 'Stupid Comment'
+        $RedditListing.user_reports[0].count | should be 2
+        $RedditListing.id | should be 'ghij678'
+        $RedditListing.gilded | should be 0
+        $RedditListing.score | should be -2
+        $RedditListing.report_reasons[0] | should be 'This attribute is deprecated. Please use mod_reports and user_reports instead.'
+        $RedditListing.author | should be 'StupidUser'
+        $RedditListing.parent_id| should be 't3_ghij677'
+        $RedditListing.body | should be 'Stupid Comment!'
+        $RedditListing.mod_reports[0].reason | should be 'Really Stupid Comment'
+        $RedditListing.mod_reports[0].moderator | should be 'markekraus'
+        $RedditListing.created.unix | should be 1496196740.0
     }
-    It 'Creates a RedditComment from a RedditAccessToken and an object' {
+    It 'Creates a RedditListing from a RedditAccessToken and an object' {
         $Object = ConvertFrom-Json $CommentJSON 
-        $RedditComment = [RedditComment]::new($TokenScript, $Object)
-        $RedditComment.subreddit_id | should be 't5_abc12'
-        $RedditComment.link_id | should be 't3_def345'
-        $RedditComment.user_reports[0].reason | should be 'Stupid Comment'
-        $RedditComment.user_reports[0].count | should be 2
-        $RedditComment.id | should be 'ghij678'
-        $RedditComment.gilded | should be 0
-        $RedditComment.score | should be -2
-        $RedditComment.report_reasons[0] | should be 'This attribute is deprecated. Please use mod_reports and user_reports instead.'
-        $RedditComment.author | should be 'StupidUser'
-        $RedditComment.parent_id| should be 't3_ghij677'
-        $RedditComment.body | should be 'Stupid Comment!'
-        $RedditComment.mod_reports[0].reason | should be 'Really Stupid Comment'
-        $RedditComment.mod_reports[0].moderator | should be 'markekraus'
-        $RedditComment.created.unix | should be 1496196740.0
+        $RedditListing = [RedditListing]::new($TokenScript, $Object)
+        $RedditListing.subreddit_id | should be 't5_abc12'
+        $RedditListing.link_id | should be 't3_def345'
+        $RedditListing.user_reports[0].reason | should be 'Stupid Comment'
+        $RedditListing.user_reports[0].count | should be 2
+        $RedditListing.id | should be 'ghij678'
+        $RedditListing.gilded | should be 0
+        $RedditListing.score | should be -2
+        $RedditListing.report_reasons[0] | should be 'This attribute is deprecated. Please use mod_reports and user_reports instead.'
+        $RedditListing.author | should be 'StupidUser'
+        $RedditListing.parent_id| should be 't3_ghij677'
+        $RedditListing.body | should be 'Stupid Comment!'
+        $RedditListing.mod_reports[0].reason | should be 'Really Stupid Comment'
+        $RedditListing.mod_reports[0].moderator | should be 'markekraus'
+        $RedditListing.created.unix | should be 1496196740.0
     }
     It 'Automatically adds new properties' {
         $Object = ConvertFrom-Json $CommentJSON 
         $Object.data | Add-Member -MemberType NoteProperty -Name 'Testy' -Value 'TestTest'
-        $RedditComment = [RedditComment]::new($TokenScript, $Object)
-        $RedditComment.Testy | should be 'TestTest'
+        $RedditListing = [RedditListing]::new($TokenScript, $Object)
+        $RedditListing.Testy | should be 'TestTest'
     }
     It 'Has a working GetApiEndpointUri() method' {
         $Object = ConvertFrom-Json $CommentJSON 
-        $RedditComment = [RedditComment]::new($TokenScript, $Object)
-        $RedditComment.GetApiEndpointUri() | should be 'https://oauth.reddit.com/api/info?id=t1_ghij678'
+        $RedditListing = [RedditListing]::new($TokenScript, $Object)
+        $RedditListing.GetApiEndpointUri() | should be 'https://oauth.reddit.com/api/info?id=t1_ghij678'
     }
     It 'Has a working GetFullName() method' {
         $Object = ConvertFrom-Json $CommentJSON 
-        $RedditComment = [RedditComment]::new($TokenScript, $Object)
-        $RedditComment.GetFullName() | should be 't1_ghij678'
+        $RedditListing = [RedditListing]::new($TokenScript, $Object)
+        $RedditListing.GetFullName() | should be 't1_ghij678'
     }
     It 'Has a working ToString() method' {
         $Object = ConvertFrom-Json $CommentJSON 
-        $RedditComment = [RedditComment]::new($TokenScript, $Object)
-        $RedditComment.ToString() | should be 'Stupid Comment!'
+        $RedditListing = [RedditListing]::new($TokenScript, $Object)
+        $RedditListing.ToString() | should be 'Stupid Comment!'
     }
 }
 

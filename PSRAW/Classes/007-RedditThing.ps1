@@ -14,32 +14,32 @@
 Class RedditThing {
     hidden [RedditOAuthToken]$AccessToken
     [RedditThingKind]$Kind
-    [RedditDataObject]$Data
+    [PSObject]$Data
     [string]$Name
     [string]$Id
-    [PSObject]$Parent
+    [PSObject]$ParentObject
+    [RedditDataObject]$RedditData
     RedditThing () {}
-    RedditThing ([RedditApiResponse]$Response) {
-        $this.Kind = $Response.ContentObject.Kind
-        $This.Name = $Response.ContentObject.Name
-        $This.Id = $Response.ContentObject.Id
-        $This.Parent = $Response
-        $This.AccessToken = Get-RedditTokenOrDefault $Response.AccessToken
-        $Params = @{
-            RedditThing = $this
-            AccessToken = $This.AccessToken
-        }
-        $This.Data = Resolve-RedditDataObject @Params
-    }
-    RedditThing ([System.Management.Automation.PSCustomObject]$Object) {
+    RedditThing ([PSObject]$Object) {
         $this.Kind = $Object.Kind
         $This.Name = $Object.Name
         $This.Id = $Object.Id
+        $This.Data = $Object.Data
         $This.AccessToken = Get-RedditTokenOrDefault $Object.AccessToken
         $Params = @{
             RedditThing = $this
             AccessToken = $This.AccessToken
         }
-        $This.Data = Resolve-RedditDataObject @Params
+        $This.RedditData = Resolve-RedditDataObject @Params
+        $This.RedditData.ParentObject = $This
+    }
+    static [RedditThing[]] CreateFrom([RedditApiResponse]$Response) {
+        $RedditThings = foreach($Object in $Response.ContentObject){
+            $RedditThing = [RedditThing]::New($Object)
+            $RedditThing.AccessToken = Get-RedditTokenOrDefault $Response.AccessToken
+            $RedditThing.ParentObject = $Response
+            $RedditThing
+        }
+        Return $RedditThings
     }
 }

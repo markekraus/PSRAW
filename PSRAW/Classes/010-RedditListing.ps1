@@ -17,7 +17,8 @@ Class RedditListing : RedditDataObject {
     [string]$Modhash
     [RedditThing[]]$Children
     [RedditThingKind[]]$ChildKinds
-    [RedditThing]$ParentThing
+    [PSObject]$ParentObject
+    [RedditDataObject[]]$Items
     Static [RedditThingKind]$RedditThingKind = 'Listing'
     hidden [RedditOAuthToken]$AccessToken
     RedditListing () { }
@@ -33,8 +34,9 @@ Class RedditListing : RedditDataObject {
         $This.After = $RedditThing.Data.After
         $This.Modhash = $RedditThing.Data.Modhash
         $This.Children = [RedditThing[]]$RedditThing.Data.children
-        $This.ParentThing = $RedditThing
+        $This.ParentObject = $RedditThing
         $This.ChildKinds = $This.Children.Kind
-        $This.AccessToken = Get-RedditTokenOrDefault $RedditThing.AccessToken   
+        $This.AccessToken = Get-RedditTokenOrDefault $RedditThing.AccessToken
+        $This.Items = $This.Children.RedditData
     }
 }
