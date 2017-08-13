@@ -11,7 +11,7 @@
     .DESCRIPTION
         RedditComment Class
 #>
-Class RedditComment {
+Class RedditComment : RedditDataObject {
     [string]$approved_by
     [bool]$archived
     [string]$author
@@ -50,13 +50,12 @@ Class RedditComment {
     [long]$ups
     [RedditUserReport[]]$user_reports
     [RedditThingPrefix]$Prefix = 't1'
+    hidden [RedditOAuthToken]$AccessToken  
     static [string] $ApiEndpointUri = 'https://oauth.reddit.com/api/info?id=t1_{0}'
-    hidden [RedditOAuthToken]$AccessToken
-
     RedditComment () { }
-    RedditComment ([RedditOAuthToken]$AccessToken, [PSCustomObject]$Object) {
-        $This.AccessToken = $AccessToken
-        $Data = $Object.data
+    RedditComment ([RedditThing]$RedditThing) {
+        $This.AccessToken = Get-RedditTokenOrDefault $RedditThing.AccessToken
+        $Data = $RedditThing.data
         $DataProperties = $Data.psobject.Properties.name
         $ClassProperties = $This.psobject.Properties.name
         foreach ($Property in $DataProperties) {
@@ -70,7 +69,6 @@ Class RedditComment {
                 Value      = $Data.$Property
             }
             $This | Add-Member @params
-            
         }
     }
 
