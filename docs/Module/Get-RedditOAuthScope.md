@@ -1,6 +1,6 @@
 ---
 external help file: PSRAW-help.xml
-Module Name: PSRAW
+Module Name: psraw
 online version: https://psraw.readthedocs.io/en/latest/Module/Get-RedditOAuthScope
 schema: 2.0.0
 ---

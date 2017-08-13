@@ -1511,6 +1511,7 @@ $Token | Export-RedditOAuthToken</dev:code>
       <maml:para>`Invoke-RedditRequest` Requires a `RedditOAuthToken` in order to perform the authenticated API request. To create `RedditOAuthToken` see the help info for `Request-RedditOAuthToken`.</maml:para>
       <maml:para>`Invoke-RedditRequest` is essentially a wrapper for `Invoke-WebRequest` to ease the burden of authentication, Rate Limit monitoring, and Access Token renewal. </maml:para>
       <maml:para>`Invoke-RedditRequest` returns a `RedditApiResponse` which contains the `RedditOAuthToken`, The response from the API, and a converted Content Object. The `RedditApiResponse` can then be used to create other module objects or consumed directly.</maml:para>
+      <maml:para>`irr` is an alias imported for this command.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -1786,9 +1787,17 @@ $Token | Export-RedditOAuthToken</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-        <dev:code>$Token = Import-RedditOAuthToken 'C:\PSRAW\AccessToken.xml'
+        <dev:code>Connect-Reddit
+irr https://oauth.reddit.com/api/v1/me</dev:code>
+        <dev:remarks>
+          <maml:para>This example shows the quickest way to get up and running on the Reddit API. `irr` is an alias for `Invoke-RedditRequest` similar to `iwr` for `Invoke-WebRequest`.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
+        <dev:code>Import-RedditOAuthToken 'C:\PSRAW\AccessToken.xml'
 $Uri = 'https://oauth.reddit.com/api/v1/me'
-$Response = $Token | Invoke-RedditRequest -Uri $Uri</dev:code>
+$Response = Invoke-RedditRequest -Uri $Uri</dev:code>
         <dev:remarks>
           <maml:para>This example demonstrates how to import a `RedditOAuthToken` that was previously exported with `Export-RedditOAuthToken` and then using that token to make an authenticated API request to `https://oauth.reddit.com/api/v1/me` with `Invoke-RedditRequest`.</maml:para>
           <maml:para>The `RedditOAuthToken` does not need to be refreshed before calling `Invoke-RedditRequest`. `Invoke-RedditRequest` will attempt to refresh expired Access Tokens before making any API calls.</maml:para>
@@ -1796,23 +1805,25 @@ $Response = $Token | Invoke-RedditRequest -Uri $Uri</dev:code>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
+        <maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
         <dev:code>$ClientCredential = Get-Credential
+$UserCredential = Get-Credential
 $Params = @{
-    Installed = $True
-    Name = 'PSRAW Example App'
-    Description = 'My Reddit Bot!'
+    Script           = $True
+    Name             = 'PSRAW Example App'
+    Description      = 'My Reddit Bot!'
     ClientCredential = $ClientCredential
-    RedirectUri = 'https://adataum/ouath?'
-    UserAgent = 'windows:PSRAW:v0.0.0.1 (by /u/markekraus)'
+    UserCredential   = $UserCredential
+    RedirectUri      = 'https://adataum/ouath?'
+    UserAgent        = 'windows:PSRAW:v0.0.0.1 (by /u/markekraus)'
 }
 $RedditApp = New-RedditApplication @Params
-$Token = $RedditApp | Request-RedditOAuthToken -Code
+$RedditApp | Request-RedditOAuthToken -Script
 $Uri = 'https://oauth.reddit.com/message/inbox'
-$Response = $Token | Invoke-RedditRequest -Uri $Uri
+$Response = Invoke-RedditRequest -Uri $Uri
 $Messages = $response.ContentObject.data.children.data</dev:code>
         <dev:remarks>
-          <maml:para>This example demonstrates the entire process from scratch to retrieve messages from the Reddit user's inbox. Firs a `RedditApplication` is created. The `RedditApplication` is the authorized and a `RedditOAuthToken` is created. `Invoke-RedditRequest` is then used to make an authenticated query to `https://oauth.reddit.com/message/inbox`. The resulting response is then parsed into the `$Messages` variable.</maml:para>
+          <maml:para>This example demonstrates the entire process from scratch to retrieve messages from the Reddit user's inbox. First a `RedditApplication` is created. The `RedditApplication` is the authorized and a `RedditOAuthToken` is created. `Invoke-RedditRequest` is then used to make an authenticated query to `https://oauth.reddit.com/message/inbox`. The resulting response is then parsed into the `$Messages` variable.</maml:para>
           <maml:para>For automation, the creation of the `RedditApplication` and `RedditOAuthToken` are one time actions done in an interactive shell. The `RedditOAuthToken` is then exported once and then re-imported in the actual automation scripts. But this example is provided to show the entire process un broken.</maml:para>
         </dev:remarks>
       </command:example>
@@ -3153,13 +3164,20 @@ $Token = New-RedditApplication @Params | Request-RedditOAuthToken -Script -PassT
     <command:examples>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-        <dev:code>$Token | Update-RedditOAuthToken</dev:code>
+        <dev:code>Update-RedditOAuthToken</dev:code>
         <dev:remarks>
-          <maml:para></maml:para>
+          <maml:para>Updates the session default OAuth Token</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
+        <maml:title>-------------------------- EXAMPLE 12--------------------------</maml:title>
+        <dev:code>$Token | Update-RedditOAuthToken</dev:code>
+        <dev:remarks>
+          <maml:para>Updates the passed OAuth Token.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
         <dev:code>$Token | Update-RedditOAuthToken -Force</dev:code>
         <dev:remarks>
           <maml:para>This example demonstrates using the `-Force` parameter for initiate a token refresh on a token that has not yet expired.</maml:para>

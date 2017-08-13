@@ -1,4 +1,4 @@
-# Version 2.0.0.1 (2017-08-12)
+# Version 2.0.0.0 (2017-08-13)
 ## Module Manifest
 
 * All `RequiredAssemblies` have been removed

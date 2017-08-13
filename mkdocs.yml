@@ -6,8 +6,9 @@ copyright: "PSRAW is licensed under the <a href='https://github.com/markekraus/P
 pages:
   - Home: index.md
   - PSRAW Project:
-    - Contributing: Project/Contributing.md
+    - Contributing to PSRAW: Project/Contributing.md
     - Project News: Project/News.md
+  - Release Notes: RELEASE.md
   - Change Log: ChangeLog.md
   - Module Help:
     - PSRAW: Module/PSRAW.md
