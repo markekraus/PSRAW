@@ -1,5 +1,6 @@
 ---
 external help file: PSRAW-help.xml
+Module Name: PSRAW
 online version: https://psraw.readthedocs.io/en/latest/Module/Update-RedditOAuthToken
 schema: 2.0.0
 ---
@@ -12,36 +13,39 @@ Refresh a `RedditOAuthToken`
 ## SYNTAX
 
 ```
-Update-RedditOAuthToken -AccessToken <RedditOAuthToken[]> [-Force] [-PassThru] [-WhatIf] [-Confirm]
- [<CommonParameters>]
+Update-RedditOAuthToken [-AccessToken <RedditOAuthToken[]>] [-Force] [-PassThru] [-SetDefault] [-WhatIf]
+ [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 When a `RedditOAuthToken` Token has expired, `Update-RedditOAuthToken`can be used to refresh the Access Token. Depending on the grant method used to request the `RedditOAuthToken` with `Request-RedditOAuthToken`, either a refresh will be performed or a new grant flow will be initiated. 
 
-This function must be run in an interactive session for tokens requested with the `Implicit` grant method. The user will be required to reauthorize the application with the provided GUI browser. All other grant methods can be refreshed with this function in non-interactive sessions.
-
-> **PowerShell ISE Compatibility Issue**
-> 
-> There is currently a bug in some versions of PowerShell ISE that result in the ISE becoming unresponsive when `WinForms` elements are used. This is an upstream bug and cannot be fixed within this module. To work around this, run this command from the PowerShell Console only and not from the ISE when using `Implicit` tokens.
-
 ## EXAMPLES
 
 ### -------------------------- EXAMPLE 1 --------------------------
 ```
-PS C:\> $Token | Update-RedditOAuthToken
+Update-RedditOAuthToken
 ```
 
-### -------------------------- EXAMPLE 2 --------------------------
+Updates the session default OAuth Token
+
+### -------------------------- EXAMPLE 12--------------------------
 ```
-PS C:\> $Token | Update-RedditOAuthToken -Force
+$Token | Update-RedditOAuthToken
+```
+
+Updates the passed OAuth Token.
+
+### -------------------------- EXAMPLE 3 --------------------------
+```
+$Token | Update-RedditOAuthToken -Force
 ```
 
 This example demonstrates using the `-Force` parameter for initiate a token refresh on a token that has not yet expired.
 
 ### -------------------------- EXAMPLE 2 --------------------------
 ```
-PS C:\> $NewExpireDate = $Token | Update-RedditOAuthToken -PassThru | Select-Object -Expand ExpireDate
+$NewExpireDate = $Token | Update-RedditOAuthToken -PassThru | Select-Object -Expand ExpireDate
 ```
 
 This example demonstrates using the `-PassThru` parameter to send the updated `RedditOAuthToken` to the pipeline. The `ExpireDate` property is then expanded and stored in `$NewExpireDate`.
@@ -56,7 +60,7 @@ Type: RedditOAuthToken[]
 Parameter Sets: (All)
 Aliases: Token
 
-Required: True
+Required: False
 Position: Named
 Default value: None
 Accept pipeline input: True (ByPropertyName, ByValue)
@@ -80,6 +84,21 @@ Accept wildcard characters: False
 
 ### -PassThru
 By default, this function does not return any data. The `-PassThru` parameter will place the updated `RedditOAuthToken` into the output stream to either be stored in another variable or placed in the pipeline and consumed by other functions.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: 
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SetDefault
+If set, the updated token will be set as the session default OAuth Token
 
 ```yaml
 Type: SwitchParameter
@@ -136,8 +155,6 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### RedditOAuthToken
 
 ## NOTES
-There is currently a bug in some versions of PowerShell ISE that result in the ISE becoming unresponsive when `WinForms` elements are used. This is an upstream bug and cannot be fixed within this module. To work around this, run this command from the PowerShell Console only and not from the ISE when using `Implicit` tokens.
-
 For complete documentation visit [https://psraw.readthedocs.io/](https://psraw.readthedocs.io/)
 
 For more information about registering Reddit Apps, Reddit's API, or Reddit OAuth see:

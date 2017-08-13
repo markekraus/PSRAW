@@ -12,17 +12,17 @@
         Invoke-RedditRequest Function unit tests
 #>
 
-$projectRoot = Resolve-Path "$PSScriptRoot\..\.."
-$moduleRoot = Split-Path (Resolve-Path "$projectRoot\*\*.psd1")
-$moduleName = Split-Path $moduleRoot -Leaf
-Remove-Module -Force $moduleName  -ErrorAction SilentlyContinue
-Import-Module (Join-Path $moduleRoot "$moduleName.psd1") -force
+$ProjectRoot = Resolve-Path "$PSScriptRoot\..\.."
+$ModuleRoot = Split-Path (Resolve-Path "$ProjectRoot\*\*.psd1")
+$ModuleName = Split-Path $ModuleRoot -Leaf
+Remove-Module -Force $ModuleName  -ErrorAction SilentlyContinue
+Import-Module (Join-Path $ModuleRoot "$ModuleName.psd1") -force
 
 #region insanity
 # For whatever reason, pester chokes trying to mock Update-RedditOAuthToken
 # So, we remove it from the module and replace it with a script scope function
 # We later mock that function too because it wont work without the mock either
-$module = Get-Module $moduleName
+$module = Get-Module $ModuleName
 & $module {
     Get-ChildItem function:\ | 
         Where-Object {$_.name -like 'Update-RedditOAuthToken'} | 
@@ -84,11 +84,6 @@ Function MyTest {
     $SecTokenSecret = $TokenSecret | ConvertTo-SecureString -AsPlainText -Force 
     $TokenCredential = [pscredential]::new($TokenId, $SecTokenSecret)
 
-    $RefreshId = 'refresh_token'
-    $RefreshSecret = '76543'
-    $SecRefreshSecret = $RefreshSecret | ConvertTo-SecureString -AsPlainText -Force 
-    $RefreshCredential = [pscredential]::new($RefreshId, $SecRefreshSecret)
-
     $ApplicationScript = [RedditApplication]@{
         Name             = 'TestApplication'
         Description      = 'This is only a test'
@@ -99,7 +94,7 @@ Function MyTest {
         UserCredential   = $UserCredential
         Type             = 'Script'
     }
-    $TokenCode = [RedditOAuthToken]@{
+    $TokenScript = [RedditOAuthToken]@{
         Application        = $ApplicationScript
         IssueDate          = (Get-Date).AddHours(-2)
         ExpireDate         = (Get-Date).AddHours(-1)
@@ -107,12 +102,11 @@ Function MyTest {
         Scope              = $ApplicationScript.Scope
         GUID               = [guid]::NewGuid()
         TokenType          = 'bearer'
-        GrantType          = 'Authorization_Code'
+        GrantType          = 'Password'
         RateLimitUsed      = 0
         RateLimitRemaining = 60
         RateLimitRest      = 60
         TokenCredential    = $TokenCredential.psobject.copy()
-        RefreshCredential  = $RefreshCredential.psobject.copy()
     }
     $TokenBadUpdate = [RedditOAuthToken]@{
         Application        = $ApplicationScript
@@ -123,28 +117,45 @@ Function MyTest {
         Scope              = $ApplicationScript.Scope
         GUID               = [guid]::NewGuid()
         TokenType          = 'bearer'
-        GrantType          = 'Authorization_Code'
+        GrantType          = 'Password'
         RateLimitUsed      = 0
         RateLimitRemaining = 60
         RateLimitRest      = 60
         TokenCredential    = $TokenCredential.psobject.copy()
-        RefreshCredential  = $RefreshCredential.psobject.copy()
     }
-    $Global:Uri = 'https://oauth.reddit.com/api/v1/me'
-    $Global:UriBad = 'https://oauth.reddit.com/no/lo/existo'
-    $Global:UriRaw = 'https://oauth.reddit.com/raw'
+
+    <#
+    {
+        "comment_karma": 0, 
+        "created": 1389649907.0, 
+        "created_utc": 1389649907.0, 
+        "has_mail": false, 
+        "has_mod_mail": false, 
+        "has_verified_email": null, 
+        "id": "1", 
+        "is_gold": false, 
+        "is_mod": true, 
+        "link_karma": 1, 
+        "name": "reddit_bot", 
+        "over_18": true
+    }
+    #>
+    $Global:Uri = 'http://urlecho.appspot.com/echo?status=200&Content-Type=application%2Fjson&body=%7B%0A%20%20%20%20%22comment_karma%22%3A%200%2C%20%0A%20%20%20%20%22created%22%3A%201389649907.0%2C%20%0A%20%20%20%20%22created_utc%22%3A%201389649907.0%2C%20%0A%20%20%20%20%22has_mail%22%3A%20false%2C%20%0A%20%20%20%20%22has_mod_mail%22%3A%20false%2C%20%0A%20%20%20%20%22has_verified_email%22%3A%20null%2C%20%0A%20%20%20%20%22id%22%3A%20%221%22%2C%20%0A%20%20%20%20%22is_gold%22%3A%20false%2C%20%0A%20%20%20%20%22is_mod%22%3A%20true%2C%20%0A%20%20%20%20%22link_karma%22%3A%201%2C%20%0A%20%20%20%20%22name%22%3A%20%22reddit_bot%22%2C%20%0A%20%20%20%20%22over_18%22%3A%20true%0A%7D'
+    $Global:UriBad = 'http://urlecho.appspot.com/echo?status=404&Content-Type=text%2Fhtml&body=Bad%20Page!'
+    $Global:UriRaw = 'http://urlecho.appspot.com/echo?status=200&Content-Type=text%2Fhtml&body=Hello%20world!'
+    $Global:UriDefaultToken = 'https://httpbin.org/get'
     $ParameterSets = @(
         @{
             Name   = 'Uri Only'
             Params = @{
-                AccessToken = $TokenCode
+                AccessToken = $TokenScript
                 Uri         = $Uri
             }
         }
         @{
             Name   = 'Get'
             Params = @{
-                AccessToken = $TokenCode
+                AccessToken = $TokenScript
                 Uri         = $Uri
                 Method      = 'Get'
             }
@@ -152,7 +163,7 @@ Function MyTest {
         @{
             Name   = 'Post Body'
             Params = @{
-                AccessToken = $TokenCode
+                AccessToken = $TokenScript
                 Uri         = $Uri
                 Method      = 'Post'
                 Body        = @{
@@ -163,7 +174,7 @@ Function MyTest {
         @{
             Name   = 'Headers'
             Params = @{
-                AccessToken = $TokenCode
+                AccessToken = $TokenScript
                 Uri         = $Uri
                 Headers     = @{
                     'x-narwhals' = 'bacon'
@@ -173,66 +184,20 @@ Function MyTest {
         @{
             Name   = 'Timeout'
             Params = @{
-                AccessToken = $TokenCode
+                AccessToken = $TokenScript
                 Uri         = $Uri
                 TimeoutSec  = '2'
             }
         }
     )
     $Global:InvokeWebRequest = Get-Command 'Invoke-WebRequest'
-    $Params = @{
-        CommandName     = 'Invoke-WebRequest'
-        ModuleName      = $moduleName 
-        ParameterFilter = {$Uri -eq $Global:Uri}
-        MockWith        = {
-            $Result = [PSCustomObject]@{
-                Headers = @{
-                    Date                    = Get-Date
-                    'x-ratelimit-remaining' = 59
-                    'x-ratelimit-used'      = 1
-                    'x-ratelimit-reset'     = 30
-                    'Content-Type'          = 'application/json'
-                }
-                Content = $Global:JSON
-            }
-            return $Result
-        }
+    Mock -CommandName Invoke-WebRequest -ModuleName $ModuleName -MockWith {
+        & $Global:InvokeWebRequest -Uri $Uri
     }
-    Mock @Params 
-
-    $Params = @{
-        CommandName     = 'Invoke-WebRequest'
-        ModuleName      = $moduleName 
-        ParameterFilter = {$Uri -eq $Global:UriRaw}
-        MockWith        = {
-            $Result = [PSCustomObject]@{
-                Headers = @{
-                    Date                    = Get-Date
-                    'x-ratelimit-remaining' = 59
-                    'x-ratelimit-used'      = 1
-                    'x-ratelimit-reset'     = 30
-                    'Content-Type'          = 'text/plain'
-                }
-                Content = 'This is some text; it is only some text.'
-            }
-            return $Result
-        }
-    }
-    Mock @Params
-
-    $Params = @{
-        CommandName     = 'Invoke-WebRequest'
-        ModuleName      = $moduleName 
-        ParameterFilter = {$Uri -eq $Global:UriBad}
-        MockWith        = {
-            & $Global:InvokeWebRequest -Uri 'https://oauth.reddit.com/api/v1/me' -ErrorAction 'Stop'
-        }
-    }
-    Mock @Params
     
     $Params = @{
         CommandName     = 'Update-RedditOAuthToken'
-        ModuleName      = $moduleName
+        ModuleName      = $ModuleName
         ParameterFilter = {$AccessToken.Notes -notlike 'badupdate'}
         MockWith        = { }
     }
@@ -240,7 +205,7 @@ Function MyTest {
 
     $Params = @{
         CommandName     = 'Update-RedditOAuthToken'
-        ModuleName      = $moduleName
+        ModuleName      = $ModuleName
         ParameterFilter = {$AccessToken.Notes -like 'badupdate'}
         MockWith        = { Write-Error 'Bad' }
     }
@@ -254,7 +219,7 @@ Function MyTest {
     }
     $Params = @{
         CommandName = 'Wait-RedditApiRateLimit'
-        ModuleName  = $moduleName 
+        ModuleName  = $ModuleName 
     }
     Mock @Params -MockWith {
         $null = $null
@@ -271,6 +236,15 @@ Function MyTest {
         $LocalParams = $ParameterSets[0].Params
         {& $Command @LocalParams -WhatIf -ErrorAction Stop } | should not throw
     }
+    It "Has an irr alias" {
+        $LocalParams = $ParameterSets[0].Params
+        { irr @LocalParams -ErrorAction Stop } | should not throw
+    }
+    It "Uses the Default token when one is not supplied" {
+        $Global:TokenScript = $TokenScript
+        & $Module { $PsrawSettings.AccessToken = $Global:TokenScript }
+        { & $Command -Uri $UriDefaultToken } | Should Not Throw
+    }
     It 'Handles Token Refresh errors gracefully' {
         $LocalParams = @{
             AccessToken = $TokenBadUpdate
@@ -282,7 +256,7 @@ Function MyTest {
     }
     It "Handles Invoke-WebRequest errors gracefully" {
         $LocalParams = @{
-            AccessToken = $TokenCode
+            AccessToken = $TokenScript
             Uri         = $UriBad
         }
         Try { & $Command @LocalParams -ErrorAction Stop } 
@@ -291,16 +265,16 @@ Function MyTest {
     }
     It "Handles Handles non-JSON responses" {
         $LocalParams = @{
-            AccessToken = $TokenCode
+            AccessToken = $TokenScript
             Uri         = $UriRaw
         }
         { & $Command @LocalParams -ErrorAction Stop } | Should not Throw
     }
 }
 Describe "$command Unit" -Tags Unit {
-    $CommandPresent = Get-Command -Name $Command -Module $moduleName -ErrorAction SilentlyContinue
+    $CommandPresent = Get-Command -Name $Command -Module $ModuleName -ErrorAction SilentlyContinue
     if (-not $CommandPresent) {
-        Write-Warning "'$command' was not found in '$moduleName' during pre-build tests. It may not yet have been added the module. Unit tests will be skipped until after build."
+        Write-Warning "'$command' was not found in '$ModuleName' during pre-build tests. It may not yet have been added the module. Unit tests will be skipped until after build."
         return
     }
     MyTest

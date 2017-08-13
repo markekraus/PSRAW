@@ -1,5 +1,6 @@
 ---
 external help file: PSRAW-help.xml
+Module Name: PSRAW
 online version: https://psraw.readthedocs.io/en/latest/Module/New-RedditApplication
 schema: 2.0.0
 ---
@@ -11,43 +12,42 @@ Creates a `RedditApplication` object
 
 ## SYNTAX
 
-### WebApp (Default)
+### Script (Default)
 ```
-New-RedditApplication [-WebApp] -Name <String> -ClientCredential <PSCredential> -RedirectUri <Uri>
- -UserAgent <String> -Scope <RedditOAuthScope[]> [-Description <String>] [-UserCredential <PSCredential>]
+New-RedditApplication [-Script] [-Name <String>] -ClientCredential <PSCredential> -RedirectUri <Uri>
+ [-UserAgent <String>] [-Scope <RedditOAuthScope[]>] [-Description <String>] -UserCredential <PSCredential>
  [-GUID <Guid>] [<CommonParameters>]
 ```
 
-### Script
+### WebApp
 ```
-New-RedditApplication [-Script] -Name <String> -ClientCredential <PSCredential> -RedirectUri <Uri>
- -UserAgent <String> -Scope <RedditOAuthScope[]> [-Description <String>] -UserCredential <PSCredential>
+New-RedditApplication [-WebApp] [-Name <String>] -ClientCredential <PSCredential> -RedirectUri <Uri>
+ [-UserAgent <String>] [-Scope <RedditOAuthScope[]>] [-Description <String>] [-UserCredential <PSCredential>]
  [-GUID <Guid>] [<CommonParameters>]
 ```
 
 ### Installed
 ```
-New-RedditApplication [-Installed] -Name <String> -ClientCredential <PSCredential> -RedirectUri <Uri>
- -UserAgent <String> -Scope <RedditOAuthScope[]> [-Description <String>] [-GUID <Guid>] [<CommonParameters>]
+New-RedditApplication [-Installed] [-Name <String>] -ClientCredential <PSCredential> -RedirectUri <Uri>
+ [-UserAgent <String>] [-Scope <RedditOAuthScope[]>] [-Description <String>] [-GUID <Guid>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Creates a [RedditApplication](https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication) object containing data used by various cmdltes to define the parameters of the App registered on Reddit. This does not make any calls to Reddit or perform any online lookups.
+Creates a [RedditApplication](https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication) object containing data used by various cmdlets to define the parameters of the App registered on Reddit. This does not make any calls to Reddit or perform any online lookups.
 
 ## EXAMPLES
 
 ### -------------------------- EXAMPLE 1 --------------------------
 ```
 $ClientCredential = Get-Credential
-$Scope = Get-RedditOAuthScope | Where-Object {$_.Scope -like '*wiki*'} 
 $Params = @{
-    WebApp = $True
-    Name = 'Connect-Reddit'
-    Description = 'My Reddit Bot!'
+    WebApp           = $True
+    Name             = 'Connect-Reddit'
+    Description      = 'My Reddit Bot!'
     ClientCredential = $ClientCredential
-    RedirectUri = 'https://adataum/ouath?'
-    UserAgent = 'windows:connect-reddit:v0.0.0.1 (by /u/markekraus)'
-    Scope = $Scope
+    RedirectUri      = 'https://adataum/ouath?'
+    UserAgent        = 'windows:connect-reddit:v0.0.0.1 (by /u/markekraus)'
 }
 $RedditApp = New-RedditApplication @Params
 ```
@@ -56,16 +56,14 @@ $RedditApp = New-RedditApplication @Params
 ```
 $ClientCredential = Get-Credential
 $UserCredential = Get-Credential
-$Scope = Get-RedditOAuthScope | Where-Object {$_.Scope -like '*wiki*'} 
 $Params = @{
-    Script = $True
-    Name = 'Connect-Reddit'
-    Description = 'My Reddit Bot!'
+    Script           = $True
+    Name             = 'Connect-Reddit'
+    Description      = 'My Reddit Bot!'
     ClientCredential = $ClientCredential
-    UserCredential = $UserCredential
-    RedirectUri = 'https://adataum/ouath?'
-    UserAgent = 'windows:connect-reddit:v0.0.0.1 (by /u/markekraus)'
-    Scope = $Scope
+    UserCredential   = $UserCredential
+    RedirectUri      = 'https://adataum/ouath?'
+    UserAgent        = 'windows:connect-reddit:v0.0.0.1 (by /u/markekraus)'
 }
 $RedditApp = New-RedditApplication @Params
 ```
@@ -73,15 +71,13 @@ $RedditApp = New-RedditApplication @Params
 ### -------------------------- EXAMPLE 3 --------------------------
 ```
 $ClientCredential = Get-Credential
-$Scope = Get-RedditOAuthScope | Where-Object {$_.Scope -like '*wiki*'} 
 $Params = @{
-    Installed = $True
-    Name = 'PSRAW Example App'
-    Description = 'My Reddit Bot!'
+    Installed        = $True
+    Name             = 'PSRAW Example App'
+    Description      = 'My Reddit Bot!'
     ClientCredential = $ClientCredential
-    RedirectUri = 'https://adataum/ouath?'
-    UserAgent = 'windows:PSRAW:v0.0.0.1 (by /u/markekraus)'
-    Scope = $Scope
+    RedirectUri      = 'https://adataum/ouath?'
+    UserAgent        = 'windows:PSRAW:v0.0.0.1 (by /u/markekraus)'
 }
 $RedditApp = New-RedditApplication @Params
 ```
@@ -89,7 +85,7 @@ $RedditApp = New-RedditApplication @Params
 ## PARAMETERS
 
 ### -ClientCredential
-A PScredential object containing the Client ID as the Username and the Client Secret as the password. For 'Installed' Apps which have no Client Secret, the password will be ignored.
+A `PScredential` object containing the Client ID as the Username and the Client Secret as the password. For 'Installed' Apps which have no Client Secret, the password will be ignored.
 
 ```yaml
 Type: PSCredential
@@ -156,7 +152,7 @@ Type: String
 Parameter Sets: (All)
 Aliases: AppName
 
-Required: True
+Required: False
 Position: Named
 Default value: None
 Accept pipeline input: False
@@ -179,14 +175,14 @@ Accept wildcard characters: False
 ```
 
 ### -Scope
-Array of [RedditOAuthScope](https://psraw.readthedocs.io/en/latest/Module/about_RedditOAuthScope)'s that this Reddit App requires. You can see the available scopes with [Get-RedditOAuthScope](https://psraw.readthedocs.io/en/latest/Module/Get-RedditOAuthScope).
+The `-Scope` parameter has been deprecated as all grant flows supported by this module no longer require a scope when requesting OAuth Access Tokens. teh default scope is `*`.
 
 ```yaml
 Type: RedditOAuthScope[]
 Parameter Sets: (All)
 Aliases: 
 
-Required: True
+Required: False
 Position: Named
 Default value: None
 Accept pipeline input: False
@@ -222,21 +218,6 @@ Type: String
 Parameter Sets: (All)
 Aliases: 
 
-Required: True
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -UserCredential
-PScredential containing the Reddit Username and Password for the Developer of a Script App.
-
-```yaml
-Type: PSCredential
-Parameter Sets: WebApp
-Aliases: Credential
-
 Required: False
 Position: Named
 Default value: None
@@ -244,12 +225,27 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -UserCredential
+`PScredential` containing the Reddit Username and Password for the Developer of a Script App.
+
 ```yaml
 Type: PSCredential
 Parameter Sets: Script
 Aliases: Credential
 
 Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+```yaml
+Type: PSCredential
+Parameter Sets: WebApp
+Aliases: Credential
+
+Required: False
 Position: Named
 Default value: None
 Accept pipeline input: False
@@ -295,10 +291,6 @@ For more information about registering Reddit Apps, Reddit's API, or Reddit OAut
 [New-RedditApplication](https://psraw.readthedocs.io/en/latest/Module/New-RedditApplication)
 
 [about_RedditApplication](https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication)
-
-[Get-RedditOAuthScope](https://psraw.readthedocs.io/en/latest/Module/Get-RedditOAuthScope)
-
-[about_RedditOAuthScope](https://psraw.readthedocs.io/en/latest/Module/about_RedditOAuthScope)
 
 [https://github.com/reddit/reddit/wiki/API](https://github.com/reddit/reddit/wiki/API)
 

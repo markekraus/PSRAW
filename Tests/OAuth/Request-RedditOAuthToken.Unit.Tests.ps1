@@ -11,15 +11,76 @@
     .DESCRIPTION
         Request-RedditOAuthToken Function unit tests
 #>
-$projectRoot = Resolve-Path "$PSScriptRoot\..\.."
-$moduleRoot = Split-Path (Resolve-Path "$projectRoot\*\*.psd1")
-$moduleName = Split-Path $moduleRoot -Leaf
-Remove-Module -Force $moduleName  -ErrorAction SilentlyContinue
-Import-Module (Join-Path $moduleRoot "$moduleName.psd1") -force
-Import-Module (Join-Path $moduleRoot "$moduleName.psd1") -force -Scope Global
+$ProjectRoot = Resolve-Path "$PSScriptRoot\..\.."
+$ModuleRoot = Split-Path (Resolve-Path "$ProjectRoot\*\*.psd1")
+$ModuleName = Split-Path $ModuleRoot -Leaf
+Remove-Module -Force $ModuleName  -ErrorAction SilentlyContinue
+Import-Module (Join-Path $ModuleRoot "$ModuleName.psd1") -force
+Import-Module (Join-Path $ModuleRoot "$ModuleName.psd1") -force -Scope Global
 
 $Command = 'Request-RedditOAuthToken'
 $TypeName = 'RedditOAuthToken'
+
+#region insanity
+# For whatever reason, pester chokes trying to mock 
+# Request-RedditOAuthTokenInstalled
+# Request-RedditOAuthTokenPassword
+# Request-RedditOAuthTokenClient 
+# So, we remove them from the module and replace it with a script scope function
+# We later mock that function too because it wont work without the mock either
+$module = Get-Module $ModuleName
+& $module {
+    $Commands = @(
+        'Request-RedditOAuthTokenInstalled'
+        'Request-RedditOAuthTokenPassword' 
+        'Request-RedditOAuthTokenClient'
+    )
+    foreach ($RemoveCom in $Commands) {
+        Get-ChildItem function:\ | 
+            Where-Object {$_.name -like $RemoveCom} | 
+            Remove-Item -Force -Confirm:$false
+        Get-ChildItem function:\ | 
+            Where-Object {$_.name -like $RemoveCom} | 
+            Remove-Item -Force -Confirm:$false
+    }
+}
+function Request-RedditOAuthTokenInstalled {
+    [CmdletBinding()]
+    param (
+        [Parameter(
+            ValueFromPipeline = $true,
+            ValueFromRemainingArguments = $true
+        )]
+        [Object[]]
+        $Params
+    )
+    process { }
+}
+function Request-RedditOAuthTokenPassword {
+    [CmdletBinding()]
+    param (
+        [Parameter(
+            ValueFromPipeline = $true,
+            ValueFromRemainingArguments = $true
+        )]
+        [Object[]]
+        $Params
+    )
+    process {   }
+}
+function Request-RedditOAuthTokenClient {
+    [CmdletBinding()]
+    param (
+        [Parameter(
+            ValueFromPipeline = $true,
+            ValueFromRemainingArguments = $true
+        )]
+        [Object[]]
+        $Params
+    )
+    process {   }
+}
+#endregion insanity
 
 $ClientId = '54321'
 $ClientSecret = '12345'
@@ -65,36 +126,6 @@ $ApplicationInstalled = [RedditApplication]@{
 }
 $ParameterSets = @(
     @{
-        Name   = 'Code/Script'
-        Params = @{
-            Application = $ApplicationScript
-            Code        = $True
-        }
-    }
-    @{
-        Name   = 'Code/Script/State'
-        Params = @{
-            Application = $ApplicationScript
-            Code        = $True
-            State       = 'MyState'
-        }
-    }
-    @{
-        Name   = 'Code/WebApp'
-        Params = @{
-            Application = $ApplicationWebApp
-            Code        = $True
-        }
-    }
-    @{
-        Name   = 'Code/WebApp/State'
-        Params = @{
-            Application = $ApplicationWebApp
-            Code        = $True
-            State       = 'MyState'
-        }
-    }
-    @{
         Name   = 'Script/Script'
         Params = @{
             Application = $ApplicationScript
@@ -130,62 +161,43 @@ $ParameterSets = @(
             DeviceID    = 'MyDeviceID'
         }
     }
-    @{
-        Name   = 'Implicit/Installed'
-        Params = @{
-            Application = $ApplicationInstalled
-            Implicit    = $True
-        }
-    }
-    @{
-        Name   = 'Implicit/Installed/State'
-        Params = @{
-            Application = $ApplicationInstalled
-            Implicit    = $True
-            State       = 'MyState'
-        }
-    }
 )
 Function MyTest {
-    Mock -CommandName Request-RedditOAuthTokenInstalled -ModuleName $moduleName -MockWith {
-        $Result = [pscustomobject]@{
-            Content = '{"access_token": "34567", "token_type": "bearer", "device_id": "MyDeviceID", "expires_in": 3600, "scope": "*"}'
-            Headers = @{
-                'Content-Type' = 'application/json'
-            }
-        }
-        return $Result
+    Mock -CommandName Request-RedditOAuthTokenInstalled -ModuleName $ModuleName -MockWith {
+        # {"access_token": "34567", "token_type": "bearer", "device_id": "MyDeviceID", "expires_in": 3600, "scope": "*"}
+        $EchoUriInstalled = 'http://urlecho.appspot.com/echo?status=200&Content-Type=application%2Fjson&body=%7B%22access_token%22%3A%20%2234567%22%2C%20%22token_type%22%3A%20%22bearer%22%2C%20%22device_id%22%3A%20%22MyDeviceID%22%2C%20%22expires_in%22%3A%203600%2C%20%22scope%22%3A%20%22*%22%7D'
+        $Response = Invoke-WebRequest -UseBasicParsing -Uri $EchoUriInstalled
+        $Global:EchoResponseInstalled = [RedditOAuthResponse]@{
+            Response    = $Response
+            RequestDate = $Response.Headers.Date[0]
+            Content     = $Response.Content
+            ContentType = 'application/json'
+        } 
+        return $Global:EchoResponseInstalled
     }
-    Mock -CommandName Request-RedditOAuthTokenCode -ModuleName $moduleName -MockWith {
-        $Result = [pscustomobject]@{
-            Content = '{"access_token": "34567", "token_type": "bearer", "expires_in": 3600, "refresh_token": "76543", "scope": "read"}'
-            Headers = @{
-                'Content-Type' = 'application/json'
-            }
-        }
-        return $Result
+    Mock -CommandName Request-RedditOAuthTokenPassword -ModuleName $ModuleName -MockWith {
+        # {"access_token": "34567", "token_type": "bearer", "expires_in": 3600, "scope": "*"}
+        $EchoUriPassword = 'http://urlecho.appspot.com/echo?status=200&Content-Type=application%2Fjson&body=%7B%22access_token%22%3A%20%2234567%22%2C%20%22token_type%22%3A%20%22bearer%22%2C%20%22expires_in%22%3A%203600%2C%20%22scope%22%3A%20%22*%22%7D'
+        $Response = Invoke-WebRequest -UseBasicParsing -Uri $EchoUriPassword
+        $Global:EchoResponsePassword = [RedditOAuthResponse]@{
+            Response    = $Response
+            RequestDate = $Response.Headers.Date[0]
+            Content     = $Response.Content
+            ContentType = 'application/json'
+        } 
+        return $Global:EchoResponsePassword 
     }
-    Mock -CommandName Request-RedditOAuthTokenPassword -ModuleName $moduleName -MockWith {
-        $Result = [pscustomobject]@{
-            Content = '{"access_token": "34567", "token_type": "bearer", "expires_in": 3600, "scope": "*"}'
-            Headers = @{
-                'Content-Type' = 'application/json'
-            }
-        }
-        return $Result
-    }
-    Mock -CommandName Request-RedditOAuthTokenClient -ModuleName $moduleName -MockWith {
-        $Result = [pscustomobject]@{
-            Content = '{"access_token": "34567", "token_type": "bearer", "expires_in": 3600, "scope": "*"}'
-            Headers = @{
-                'Content-Type' = 'application/json'
-            }
-        }
-        return $Result
-    }
-    Mock -CommandName Request-RedditOAuthTokenImplicit -ModuleName $moduleName -MockWith {
-        $Result = [System.Uri]('{0}#access_token=34567&token_type=bearer&state={1}&expires_in=3600&scope=read' -f $Application.RedirectUri, $State)
-        return $Result
+    Mock -CommandName Request-RedditOAuthTokenClient -ModuleName $ModuleName -MockWith {
+        # '{"access_token": "34567", "token_type": "bearer", "expires_in": 3600, "scope": "*"}
+        $EchoUriClient = 'http://urlecho.appspot.com/echo?status=200&Content-Type=application%2Fjson&body=%7B%22access_token%22%3A%20%2234567%22%2C%20%22token_type%22%3A%20%22bearer%22%2C%20%22expires_in%22%3A%203600%2C%20%22scope%22%3A%20%22*%22%7D'
+        $Response = Invoke-WebRequest -UseBasicParsing -Uri $EchoUriClient
+        $Global:EchoResponseClient = [RedditOAuthResponse]@{
+            Response    = $Response
+            RequestDate = $Response.Headers.Date[0]
+            Content     = $Response.Content
+            ContentType = 'application/json'
+        } 
+        return $Global:EchoResponseClient
     }
     foreach ($ParameterSet in $ParameterSets) {
         It "'$($ParameterSet.Name)' Parameter set does not have errors" {
@@ -196,17 +208,17 @@ Function MyTest {
     It "Emits a $TypeName Object" {
         (Get-Command $Command).OutputType.Name.where( { $_ -eq $TypeName }) | Should be $TypeName
     }
-    It "Returns a $TypeName Object" {
+    It "Returns a $TypeName Object with PassThru" {
         $LocalParams = $ParameterSets[0].Params.psobject.Copy()
-        $Object = & $Command @LocalParams | Select-Object -First 1
+        $Object = & $Command @LocalParams -PassThru | Select-Object -First 1
         $Object.psobject.typenames.where( { $_ -eq $TypeName }) | Should be $TypeName
     }
     
 }
 Describe "$command Unit" -Tags Unit {
-    $CommandPresent = Get-Command -Name $Command -Module $moduleName -ErrorAction SilentlyContinue
+    $CommandPresent = Get-Command -Name $Command -Module $ModuleName -ErrorAction SilentlyContinue
     if (-not $CommandPresent) {
-        Write-Warning "'$command' was not found in '$moduleName' during pre-build tests. It may not yet have been added the module. Unit tests will be skipped until after build."
+        Write-Warning "'$command' was not found in '$ModuleName' during pre-build tests. It may not yet have been added the module. Unit tests will be skipped until after build."
         return
     }
     MyTest

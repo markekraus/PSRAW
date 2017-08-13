@@ -19,7 +19,7 @@ Permanent
     until a user or developer revokes the authorization for the application. When
     `Permanent` Access Tokens are "renewed" the do not require a new grant flow
     and the Refresh Token will be used to request a new Access Token.
-    `Permanent` can only be used with `Code` and `Script` methods.
+    `Permanent` is currently not support in PSRAW.
 
 Temporary
     Requests for temporary OAuth Access Tokens will not issue Refresh Tokens and
@@ -30,16 +30,13 @@ Temporary
 
 EXAMPLES
 Permanent
-    Import-Module PSRAW
     $Permanent = [RedditOAuthDuration]::Permanent
 
 Temporary
-    Import-Module PSRAW
     $Temporary = [RedditOAuthDuration]::Temporary
 
 SEE ALSO
     about_RedditApplication
-    about_RedditOAuthCode
     about_RedditOAuthToken
     New-RedditApplication
     Request-RedditOAuthToken

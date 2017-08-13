@@ -52,10 +52,17 @@ function Get-ModuleClass {
                 Write-Error "Module '$Name' not found"
                 continue
             }
-            [System.AppDomain]::CurrentDomain.
+            $DynamicClassAttribute = 
+            [System.Management.Automation.DynamicClassImplementationAssemblyAttribute]
+            [AppDomain]::
+            CurrentDomain.
             GetAssemblies().
-            gettypes().
-            where( {$_.Assembly.Modules[0].ScopeName -match "$Name" -and $_.IsPublic })
+            where( {
+                    $_.GetCustomAttributes($true).TypeId -contains $DynamicClassAttribute -and 
+                    $_.FullName -match $Name
+                }).
+            GetTypes().
+            where( {$_.IsPublic})
         }
     }
 }

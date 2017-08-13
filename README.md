@@ -9,8 +9,9 @@
     - [What Is Reddit?](#what-is-reddit)
     - [What is PSRAW?](#what-is-psraw)
 - [News](#news)
-    - [May 2017](#may-2017)
-        - [Core Functionality Milestone Reached!](#core-functionality-milestone-reached)
+    - [PSRAW 2.0 - PowerShell Core Compatibility Refactor](#psraw-20---powershell-core-compatibility-refactor)
+        - [Connect-Reddit Command](#connect-reddit-command)
+        - [Default OAuth Access Token](#default-oauth-access-token)
     - [Release Notes](#release-notes)
     - [Change Log](#change-log)
 - [Features](#features)
@@ -30,40 +31,43 @@ This module was created by Mark Kraus as new iteration of the [ConnectReddit](ht
 
 # News
 
-## May 2017
+## PSRAW 2.0 - PowerShell Core Compatibility Refactor
+Many Many changes have been made to the module to make it compatible with PowerShell Core. The 2.0 release is a major version and many breaking changes will be introduced. Chief among them are the removal of the `Code` and `Implicit` grant flows. These grant flows required a GUI and GUI is not possible in PowerShell Core. In the future we will investigate bringing these grant flows back through CLI means. The current estimates for doing so would set this project back even further. We would rather provide the "Base" functionality release before tackling the additional grant flows. For most use cases for this module, the `Script` grant flow should be sufficient.
 
-### Core Functionality Milestone Reached!
-Release of version 1.1.0.0 brings all the core functionality of PSRAW to production quality. This includes all core functionalities such as OAuth Grant flows for all Grant Flows supported by Reddit, Access Token lifecycle management for all Grant Flows, application & token import/export, and Authenticated API access. All the pieces are now available to begin development on the wrapper functions and Reddit based classes. 
+With 2.0, PSRAW is now fully compatible with PowerShell Core and 6.0.0 (tested on 6.0.0-beta.5). However, it is still not cross-platform compatible and will only work on Windows. Currently, PowerShell Core on other platforms lacks support for `SecureString`s which PSRAW makes extensive use of for in-memory and at rest secrets (such as your Reddit Password). The PowerShell team is targeting 6.1 for inclusion/replacement of `SecureString`s on Linux. If there is enough demand or if the PowerShell team's goal post shifts too far into the future, we will investigate rolling our own cross-platform solution.
 
-This release does not include any wrapper functions. Future releases will include functions and classes which will make it easier to query, submit, and manage data on Reddit through the API. For this release, what *is* provided is an easy means to make authenticated calls to the API. This done through an `Invoke-WebRequest`-like function `Invoke-RedditRequest`. It handles automatic Rate Limit monitoring & remediation as well as Access Token lifecycle management. You create your application once and request an OAuth Access Token with `Request-RedditOAuthToken` once, and then `Invoke-RedditRequest` will handle the rest with each API call. 
+Besides default OAuth Tokens and `Connect-Reddit`, this release will not add any additional functionality for users. Most of the changes are taking place "under the hood". The underlying class structures for upcoming functionality (such as retrieving comments) are being added but with no current functionality. If you begin using these classes in your projects please note that their shape and functionality may change dramatically in coming minor versions.
 
-Need to use the Access Token in another script or in the same script later in a different (or unattended) session? `Export-RedditOAuthToken` and `Import-RedditOAuthToken` provide an effortless and secure means to do so.
+### Connect-Reddit Command
 
-This is the "core" of this module. From here it is now possible for us to build all the wrapper functions and classes to make the Reddit API PowerShell-friendly. The next minor version release will be the "Base" functionality release. This will include functions and classes to create, delete, read, and reply to subreddit posts, private messages, and comments. 
+A new streamlined way of getting up and running with PSRAW has been added. The `Connect-Reddit` command simplifies and consolidates the steps needed to begin accessing the API. You can either run it without any parameters to get interactive prompts to enter the required information, or you can pass the client credentials, user credentials, and redirect URI as parameters and be prompted for only what is missing. `Connect-Reddit` will then use that information to create a default `RedditApplication` and request a `RedditOAuthToken`. 
 
-Between this release and the base functionality release, new features will be added in a backwards compatible way. My hope is that there will be no breaking changes. I believe the  core code is in a flexible enough position to achieve that. If there are breaking changes introduced, they will be announced here. In any case, if you plan to include this in production code, v1.1.0.0 should be stable but I would caution against automatic upgrades until v1.2.0.0.
+### Default OAuth Access Token
 
-For this and all news items see the [Project News](tree/master/docs/Project/News.md) page.
+Having to manually pass the OAuth token around was repetitive and painful, especially when working in the console. `Connect-Reddit`, `Import-RedditOAuthToken`, `Update-RedditOAuthToken` (with the `-SetDeafult` parameter), and `Set-RedditDefaultOAuthToken` can now all be used to set the default OAuth token for your session. To see the current Default OAuth Token you can use `Get-RedditDefaultOAuthToken`. All commands that accept an `-AccessToken` parameter ar now no longer mandatory and will use the Default Token if one is not provided. This allows you to continue using multiple identities via multiple `RedditOAuthToken` objects while still making it easier to use PSRAW with a single identity.
+
+For this and all news items see the [Project News](https://psraw.readthedocs.io/en/latest/Project/News/) page.
 
 ## Release Notes
-[Release Notes](tree/master/RELEASE.md)
+[Release Notes](https://psraw.readthedocs.io/en/latest/RELEASE/)
 
 ## Change Log
-[Change Log](tree/master/docs/ChangeLog.md)
+[Change Log](https://psraw.readthedocs.io/en/latest/ChangeLog/)
 
 # Features
+* Compatible with PowerShell Core on Windows (currently not cross-platform)
 * In-memory and at-rest security of the Access Token, Refresh Token, Client Secret, and User Password. 
 * PowerShell v5 Classes for Reddit objects
-* Easy OAuth authorization process with a WinForms authentication popup for applicable grant flows
+* Easy OAuth authorization process
 * No "Mystery DLL's" required. The entire OAuth authorization, token request, and token refresh process is written in native PowerShell
 * Export and Import Access Tokens between sessions allowing you to authorize an application once and reuse the token until the refresh token has been revoked. Great for automation!
 * No hassle Access Token Refreshing! Calls to `Invoke-RedditRequest` (and all the functions that call it) automatically track the renewal needs for your Access Tokens and will automatically refresh them when needed.
-* Build in Rate Limit monitoring, detection, and cooldown
+* Built in Rate Limit monitoring, detection, and cooldown
 * Rigorously tested code
 * Thorough Online and In-Console Help Documentation
 
 # Contributing to the PSRAW Project
-PSRAW is a community module made by the community for the community. However, the goal of this project is to maintain high quality best practice code and high quality documentation. We encourage community contributions but there are several considerations to be aware of before contributing. For more information see the [Contributing to PSRAW](tree/master/docs/Project/Contributing.md) document.
+PSRAW is a community module made by the community for the community. However, the goal of this project is to maintain high quality best practice code and high quality documentation. We encourage community contributions but there are several considerations to be aware of before contributing. For more information see the [Contributing to PSRAW](https://psraw.readthedocs.io/en/latest/Project/Contributing/) document.
 
 # Using PSRAW
 
@@ -90,4 +94,4 @@ Get-Help about_RedditOAuthToken
 ```
 
 ## Quickstart
-To see a quick example of how to use PSRAW see the [Quickstart Example](tree/master/docs/Examples/Quickstart.md) document.
+To see a quick example of how to use PSRAW see the [Quickstart Example](https://psraw.readthedocs.io/en/latest/Examples/Quickstart/) document.

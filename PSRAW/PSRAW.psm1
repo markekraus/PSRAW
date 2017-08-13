@@ -2,7 +2,7 @@
     
      Created with: 	SAPIEN Technologies, Inc., PowerShell Studio 2017 v5.4.139
      Created on:   	4/23/2017 9:22 AM
-     Edited On:     5/10/2017
+     Edited On:     8/03/2017
      Created by:   	Mark Kraus
      Organization: 	
      Filename:     	PSRAW.psm1
@@ -10,7 +10,13 @@
      Module Name: PSRAW
     
 #>
-Using assembly 'System.Web'
+
+# v6 Invoke-WebRequest uses strict header validation by default and introduced a 
+# SkipHeaderValidation Switch Parameter. Reddit requires a non-compliant 
+# User-Agent format. Setting this Default Parameter value allows for backwards 
+# compatibility with 5.1 without having to introduce version check logic before 
+# each Invoke-WebRequest call.
+$PSDefaultParameterValues['Invoke-WebRequest:SkipHeaderValidation'] = $True
 
 $functionFolders = @('Enums','Classes','Public','Private' )
 ForEach ($folder in $functionFolders)
@@ -47,4 +53,13 @@ foreach ($FunctionFile in $FunctionFiles) {
     if ($Aliases.PositionalArguments.value) {
         Export-ModuleMember -Alias $Aliases.PositionalArguments.value
     }        
+}
+
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute(
+    "PSUseDeclaredVarsMoreThanAssignments", 
+    "",
+    Justification = 'PsrawSettings is a module settings variable consumed in module functions'
+)]
+$PsrawSettings = @{
+    AccessToken = [RedditOAuthToken]::new()
 }

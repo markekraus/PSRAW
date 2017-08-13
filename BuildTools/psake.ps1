@@ -40,6 +40,14 @@ Properties {
     If ($ENV:BHBranchName -eq "master" -and $ENV:BHCommitMessage -match '!deploy') {
         $GalleryVersion = Get-NextPSGalleryVersion -Name $ModuleName
         $BuildVersion = [version]::New($CurrentVersion.Major, ($CurrentVersion.Minor + 1), 0, 0)
+        if(
+            $CurrentVersion.Minor    -eq 0 -and
+            $CurrentVersion.Build    -eq 0 -and
+            $CurrentVersion.Revision -eq 0
+         ){
+             #This is a major version release, don't molest the the version
+             $BuildVersion = $CurrentVersion 
+        }
         If ($GalleryVersion -gt $BuildVersion) {
             $BuildVersion = $GalleryVersion
         }
@@ -48,10 +56,7 @@ Properties {
     $ReleaseNotes = "$ProjectRoot\RELEASE.md"
     $ChangeLog = "$ProjectRoot\docs\ChangeLog.md"
     $MkdcosYmlHeader = "$ProjectRoot\Config\header-mkdocs.yml"
-    # Exclude GUI files from coverage tests because they cannot be unit tested.
-    $CodeCoverageExclude = @(
-        'Show-RedditOAuthWindow.ps1'
-    )
+    $CodeCoverageExclude = @()
 }
 
 Task Default -Depends PostDeploy
@@ -74,7 +79,7 @@ Task UnitTests -Depends Init {
     $Parameters = @{
         Script       = "$ProjectRoot\Tests"
         PassThru     = $true
-        Tag          = 'Unit'
+        Tag          = 'PreBuild'
         OutputFormat = 'NUnitXml'
         OutputFile   = "$ProjectRoot\$TestFile"
         Show         = 'Fails'
@@ -93,9 +98,8 @@ Task UnitTests -Depends Init {
     "`n"
 }
 
-Task Build -Depends UnitTests {
+Task Build -Depends Init {
     $lines
-    
     if (Test-Path "$ModuleFolder\Public\") {
         "Populating AliasesToExport and FunctionsToExport"
         # Load the module, read the exported functions and aliases, update the psd1
@@ -175,15 +179,15 @@ Task Build -Depends UnitTests {
     Update-Metadata -Path $env:BHPSModuleManifest -PropertyName ReleaseNotes -Value $ReleaseText
     
     # Update the ChangeLog with the current release notes
-    $releaseparameters = @{
+    $ReleaseParameters = @{
         Path        = $ReleaseNotes
         ErrorAction = 'SilentlyContinue'
     }
-    $changeparameters = @{
+    $ChangeParameters = @{
         Path        = $ChangeLog
         ErrorAction = 'SilentlyContinue'
     }
-    (Get-Content @releaseparameters), "`r`n`r`n", (Get-Content @changeparameters) | Set-Content $ChangeLog
+    (Get-Content @ReleaseParameters), "`r`n`r`n", (Get-Content @ChangeParameters) | Set-Content $ChangeLog
     "`n"
 }
 
@@ -288,7 +292,10 @@ Task BuildDocs -depends CodeCoverage {
 
 Task TestDocs -Depends BuildDocs {
     $lines
-    if ($ENV:BHBranchName -like 'develop') {
+    if (
+        $ENV:BHBranchName -like 'develop' -or 
+        $ENV:BHBranchName -like 'CoreRefactor'
+    ) {
         'Skipping develop branch'
         return
     }

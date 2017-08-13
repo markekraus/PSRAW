@@ -16,7 +16,7 @@ Requests for permanent OAuth Access Tokens will issue an OAuth Refresh Token. Ac
 
 When `Permanent` Access Tokens are "renewed" the do not require a new grant flow and the Refresh Token will be used to request a new Access Token.
 
-`Permanent` can only be used with `Code` and `Script` methods.
+`Permanent` is currently not support in PSRAW.
 
 ## Temporary
 Requests for temporary OAuth Access Tokens will not issue Refresh Tokens and when they expire the user will need to authorize the applications again. Access Tokens are valid for 60 minutes. 
@@ -28,21 +28,17 @@ When `Temporary` Access Tokens are "renewed" a new grant flow is started.
 # EXAMPLES
 ## Permanent
 ```powershell
-Import-Module PSRAW
 $Permanent = [RedditOAuthDuration]::Permanent
 ```
 
 ## Temporary
 ```powershell
-Import-Module PSRAW
 $Temporary = [RedditOAuthDuration]::Temporary
 ```
 
 # SEE ALSO
 
 [about_RedditApplication](https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication)
-
-[about_RedditOAuthCode](https://psraw.readthedocs.io/en/latest/Module/about_RedditOAuthCode)
 
 [about_RedditOAuthToken](https://psraw.readthedocs.io/en/latest/Module/about_RedditOAuthToken)
 

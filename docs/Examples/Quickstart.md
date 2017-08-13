@@ -1,4 +1,32 @@
-# Quickstart Example
+# Quicker Quickstart Example for 2.0
+
+In PSRAW 2.0, the `Connect-Reddit` command was introduced to make getting up and running in PSRAW even easier. This is great for One-Off projects or just messing around on the console. It streamlines the entire OAuth Process to a single command. You still need to [register a Script Application on Reddit](#register-a-script-application-on-reddit) before you can use PSRAW. `Connect-Reddit` will prompt you for the Client ID, Client Secret, Redirect URI, your Reddit Username, and Reddit Password. It will then take care of creating a `RedditApplication` and requesting an OAuth Token.
+
+The following code will authenticate you and retrieve your reddit user details.
+
+```powershell
+Import-Module PSRAW
+Connect-Reddit
+irr https://oauth.reddit.com/api/v1/me |
+    Select-Object -ExpandProperty ContentObject
+Export-RedditOAuthToken C:\PSRAW\MyApp.xml
+```
+
+The `irr` alias for `Invoke-RedditRequest` has been added to work similar to what `irw` does for `Invoke-WebRequest`. PSRAW now also sets a default OAuth access token for the duration of your PowerShell session so you no longer need to explicitly pass the access token. But, if you are working with multiple identities, you can still create/request them manually and pass them to the various commands that accept them.
+
+With the above example you have exported your OAuth Access token to `C:\PSRAW\MyApp.xml`. Now you can import it in future sessions and skip the `Connect-Reddit` step.
+
+```powershell
+Import-Module PSRAW
+Import-RedditOAuthToken C:\PSRAW\MyApp.xml
+irr https://oauth.reddit.com/api/v1/me |
+    Select-Object -ExpandProperty ContentObject
+```
+
+`Import-RedditOAuthToken` now sets the imported OAuth Token as the default token for the session. No need to worry about the stored OAuth Token being expired as `Invoke-RedditRequest` manages your OAuth toke lifecycle for you with every request you make to the API.
+
+
+# Traditional Quickstart Example
 
 This example will demonstrate how to create a Script based Reddit app, authenticate it, and Retrieve your inbox messages.
 
@@ -51,9 +79,6 @@ $UserCredential = Get-Credential
 $RedirectUri = 'https://127.0.0.1'
 $AppExportPath = 'C:\PSRAW\MyApp.xml'
 $UserAgent = 'windows:markekraus-PSRAW:v0.0.0.1 (by /u/markekraus)'
-
-$Scopes = Get-RedditOAuthScope | 
-    Where-Object {$_.Scope -in 'privatemessage', 'read'}
 $Params = @{
     Script           = $True
     Name             = "markekraus's PSRAW App"
@@ -62,7 +87,6 @@ $Params = @{
     UserCredential   = $UserCredential
     RedirectUri      = $RedirectUri
     UserAgent        = $UserAgent 
-    Scope            = $Scopes
 }
 $RedditApp = New-RedditApplication @Params
 $RedditApp | Export-RedditApplication -Path $AppExportPath
@@ -80,8 +104,8 @@ For more information about the available grant flows see [Request-RedditOAuthTok
 ```powershell
 $TokenExportPath = 'C:\PSRAW\MyToken.xml'
 
-$Token = $RedditApp | Request-RedditOAuthToken -Script
-$Token | Export-RedditOAuthToken -Path $TokenExportPath
+$RedditApp | Request-RedditOAuthToken -Script
+Export-RedditOAuthToken -Path $TokenExportPath
 ```
 
 > **NOTE**
@@ -93,7 +117,7 @@ Now that the application has been authorized and we have an Access Token, we can
 
 ```powershell
 $Uri = 'https://oauth.reddit.com/message/inbox'
-$Response = $Token | Invoke-RedditRequest -Uri $Uri
+$Response = Invoke-RedditRequest -Uri $Uri
 $Messages = $response.ContentObject.data.children.data
 ```
 
@@ -117,8 +141,6 @@ $RedirectUri = 'https://127.0.0.1'
 $AppExportPath = 'C:\PSRAW\MyApp.xml'
 $UserAgent = 'windows:markekraus-PSRAW:v0.0.0.1 (by /u/markekraus)'
 
-$Scopes = Get-RedditOAuthScope | 
-    Where-Object {$_.Scope -in 'privatemessage', 'read'}
 $Params = @{
     Script           = $True
     Name             = "markekraus's PSRAW App"
@@ -127,17 +149,16 @@ $Params = @{
     UserCredential   = $UserCredential
     RedirectUri      = $RedirectUri
     UserAgent        = $UserAgent 
-    Scope            = $Scopes
 }
 $RedditApp = New-RedditApplication @Params
 $RedditApp | Export-RedditApplication -Path $AppExportPath
 
 $TokenExportPath = 'C:\PSRAW\MyToken.xml'
 
-$Token = $RedditApp | Request-RedditOAuthToken -Script
-$Token | Export-RedditOAuthToken -Path $TokenExportPath
+$RedditApp | Request-RedditOAuthToken -Script
+Export-RedditOAuthToken -Path $TokenExportPath
 
 $Uri = 'https://oauth.reddit.com/message/inbox'
-$Response = $Token | Invoke-RedditRequest -Uri $Uri
+$Response = Invoke-RedditRequest -Uri $Uri
 $Messages = $response.ContentObject.data.children.data
 ```

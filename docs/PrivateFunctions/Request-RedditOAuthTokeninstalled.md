@@ -1,5 +1,6 @@
 ---
 external help file: 
+Module Name: 
 online version: https://psraw.readthedocs.io/en/latest/PrivateFunctions/Request-RedditOAuthTokenInstalled
 schema: 2.0.0
 ---
@@ -19,7 +20,7 @@ Request-RedditOAuthTokenInstalled [-Application] <RedditApplication> [[-DeviceID
 ## DESCRIPTION
 Requests an OAuth Access Token from Reddit using the `installed_client` grant flow. This method allows `Installed` applications to gain anonymous unprivileged access to the OAuth APIs using only the application's Client ID and a Device ID. For more information on this grant method see the `Installed` parameter description for `Request-RedditOAuthToken`.
 
-This function is essentially a convenience wrapper for `Invoke-WebRequest` and returns a `Microsoft.PowerShell.Commands.BasicHtmlWebResponseObject` that results from the Auth Token Request.
+This function is essentially a convenience wrapper for `Invoke-WebRequest` and returns a `RedditOAuthResponse` that results from the Auth Token Request.
 
 This function is not intended for direct usage by the module consumer and is not exported by the module. Documentation is provided for developers and contributors.
 
@@ -92,7 +93,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### Microsoft.PowerShell.Commands.BasicHtmlWebResponseObject
+### RedditOAuthResponse
 
 ## NOTES
 This function is called by
@@ -103,18 +104,19 @@ This function is called by
 This Function calls 
 
 * [Get-AuthorizationHeader](https://psraw.readthedocs.io/en/latest/Module/Get-AuthorizationHeader)
+* [Get-HttpResponseContentType](https://psraw.readthedocs.io/en/latest/PrivateFunctions/Get-HttpResponseContentType)
 
 ## RELATED LINKS
 
 [https://psraw.readthedocs.io/en/latest/PrivateFunctions/Request-RedditOAuthTokenInstalled](https://psraw.readthedocs.io/en/latest/PrivateFunctions/Request-RedditOAuthTokenInstalled)
+
+[RedditOAuthResponse](https://psraw.readthedocs.io/en/latest/Module/RedditOAuthResponse)
 
 [about_RedditApplication](https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication)
 
 [about_RedditOAuthToken](https://psraw.readthedocs.io/en/latest/Module/about_RedditOAuthToken)
 
 [Get-AuthorizationHeader](https://psraw.readthedocs.io/en/latest/Module/Get-AuthorizationHeader)
-
-[https://psraw.readthedocs.io/en/latest/PrivateFunctions/Request-RedditOAuthCode](https://psraw.readthedocs.io/en/latest/PrivateFunctions/Request-RedditOAuthCode)
 
 [Request-RedditOAuthToken](https://psraw.readthedocs.io/en/latest/Module/Request-RedditOAuthToken)
 

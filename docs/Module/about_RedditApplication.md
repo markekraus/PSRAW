@@ -5,7 +5,7 @@
 Describes the RedditApplication Class
 
 # LONG DESCRIPTION
-The `RedditApplication` class is used to define the parameters of an application which access the Reddit API. The `RedditApplication` class becomes embedded in the `RedditOAuthToken` class after an OAuth Access token is requested. It is also embedded in `RedditOAuthCode` objects when an Authorization Code is requested. A single application may be used by multiple users or by a single user multiple times. Each user requires their own Access Token and a single user can have multiple Access Token. The `RedditApplication` class makes it possible to define an application’s parameters once and then reuse it multiple times in multiple Access Tokens for multiple users. 
+The `RedditApplication` class is used to define the parameters of an application which access the Reddit API. The `RedditApplication` class becomes embedded in the `RedditOAuthToken` class after an OAuth Access token is requested. A single application may be used by multiple users or by a single user multiple times. Each user requires their own Access Token and a single user can have multiple Access Token. The `RedditApplication` class makes it possible to define an application’s parameters once and then reuse it multiple times in multiple Access Tokens for multiple users. 
 
 A `RedditApplication` class houses the Client ID and Client Secret as defined at https://ssl.reddit.com/prefs/apps . The `Name` and `Description` of the `RedditApplication` do not need to match what is registered with Reddit. They are provided along with the `GUID` property as a convenience to identify your applications.
 
@@ -146,12 +146,12 @@ Static: False
 ```
 
 ## Scope
-The Scope property is an array of `RedditOAuthScope` objects which list the scopes for which the Application will request access to. To get all valid scopes use `Get-RedditOAuthScope`. For more information see the help topic for `Get-RedditOAuthScope`.
+The Scope property has been deprecated as all grant flows supported by the module no longer require a scope.
 
 ```yaml
 Name: Scope
 Type: RedditOAuthScope[]
-Hidden: False
+Hidden: True
 Static: False
 ```
 
@@ -209,16 +209,6 @@ Static: False
 
 
 # Methods
-## _GetAuthorizationUrl(RedditOAuthResponseType ResponseType, RedditOAuthDuration Duration, String State, String AuthBaseUrl)
-The `_GetAuthorizationUrl` hidden method is used to generate an authorization request URL by the `GetAuthorizationUrl` method overloads. It combines the Base URL, Client ID, Response Type, Duration, Redirect URI, and Scope to to provide a URL used for requesting authorization from Reddit.
-
-```yaml
-Name: _GetAuthorizationUrl
-Return Type: String
-Hidden: True
-Static: False
-Definition: hidden String _GetAuthorizationUrl(RedditOAuthResponseType ResponseType, RedditOAuthDuration Duration, String State, String AuthBaseUrl)
-```
 
 ## _init(System.Collections.Hashtable InitHash)
 The `_init` hidden method is used by the constructors to initialize the class. This way class initialization code can be maintained in a single method instead of each individual constructor. It performs several checks to ensure that required properties are provided and will throw `System.ArgumentException` exceptions if the requirements are not met.
@@ -229,86 +219,6 @@ Return Type: Void
 Hidden: True
 Static: False
 Definition: hidden Void _init(System.Collections.Hashtable InitHash)
-```
-
-## GetAuthorizationUrl(RedditOAuthResponseType ResponseType, RedditOAuthDuration Duration, String State)
-The `GetAuthorizationUrl` method is used to generate an authorization request URL. The default URL will be constructed with following:
-
-```yaml
-Base URL: [RedditApplication]::AuthBaseURL
-response_type: $ResponseType
-duration: $Duration
-state: $State
-```
-
-These will be passed to the `_GetAuthorizationUrl` method which will generate the URL based on attributes from the `RedditApplication` instance.
-
-```yaml
-Name: GetAuthorizationUrl
-Return Type: String
-Hidden: False
-Static: False
-Definition: String GetAuthorizationUrl(RedditOAuthResponseType ResponseType, RedditOAuthDuration Duration, String State)
-```
-
-## GetAuthorizationUrl(RedditOAuthResponseType ResponseType, RedditOAuthDuration Duration, String State, String AuthBaseURL)
-The `GetAuthorizationUrl` method is used to generate an authorization request URL. The default URL will be constructed with following:
-
-```yaml
-Base URL: $AuthBaseURL
-response_type: $ResponseType
-duration: $Duration
-state: $State
-```
-
-These will be passed to the `_GetAuthorizationUrl` method which will generate the URL based on attributes from the `RedditApplication` instance.
-
-```yaml
-Name: GetAuthorizationUrl
-Return Type: String
-Hidden: False
-Static: False
-Definition: String GetAuthorizationUrl(RedditOAuthResponseType ResponseType, RedditOAuthDuration Duration, String State, String AuthBaseURL)
-```
-
-## GetAuthorizationUrl()
-The `GetAuthorizationUrl` method is used to generate an authorization request URL. The default URL will be constructed with following:
-
-```yaml
-Base URL: [RedditApplication]::AuthBaseURL
-response_type: Code
-duration: Permanent
-state: [guid]::NewGuid().toString()
-```
-
-These will be passed to the `_GetAuthorizationUrl` method which will generate the URL based on attributes from the `RedditApplication` instance.
-
-```yaml
-Name: GetAuthorizationUrl
-Return Type: String
-Hidden: False
-Static: False
-Definition: String GetAuthorizationUrl()
-```
-
-## GetAuthorizationUrl(RedditOAuthResponseType ResponseType, RedditOAuthDuration Duration)
-The `GetAuthorizationUrl` method is used to generate an authorization request URL. The default URL will be constructed with following:
-
-```yaml
-Base URL: [RedditApplication]::AuthBaseURL
-response_type: $ResponseType
-duration: $Duration
-state: [guid]::NewGuid().toString()
-```
-
-These will be passed to the `_GetAuthorizationUrl` method which will generate the URL based on attributes from the `RedditApplication` instance.
-
-```yaml
-Name: GetAuthorizationUrl
-Return Type: String
-Hidden: False
-Static: False
-Definition: String GetAuthorizationUrl(RedditOAuthResponseType ResponseType, RedditOAuthDuration Duration)
 ```
 
 ## GetClientSecret()
@@ -341,13 +251,12 @@ Definition: String GetUserPassword()
 Import-Module PSRAW
 $ClientCredential = Get-Credential
 $App = [RedditApplication]@{
-     Name = 'TestApplication'
-     Description = 'This is only a test'
-     RedirectUri = 'https://localhost/'
-     UserAgent = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
-     Scope = 'read'
+     Name             = 'TestApplication'
+     Description      = 'This is only a test'
+     RedirectUri      = 'https://localhost/'
+     UserAgent        = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
      ClientCredential = $ClientCredential
-     Type = 'WebApp'
+     Type             = 'WebApp'
  }
 ```
 
@@ -357,14 +266,14 @@ Import-Module PSRAW
 $UserCredential = Get-Credential
 $ClientCredential = Get-Credential
 $App = [RedditApplication]@{
-    Name = 'TestApplication'
-    Description = 'This is only a test'
-    RedirectUri = 'https://localhost/'
-    UserAgent = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
-    Scope = 'read'
+    Name             = 'TestApplication'
+    Description      = 'This is only a test'
+    RedirectUri      = 'https://localhost/'
+    UserAgent        = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
+    Scope            = 'read'
     ClientCredential = $ClientCredential
-    UserCredential = $UserCredential
-    Type = 'Script'
+    UserCredential   = $UserCredential
+    Type             = 'Script'
 }
 ```
 
@@ -373,21 +282,18 @@ $App = [RedditApplication]@{
 Import-Module PSRAW
 $ClientCredential = Get-Credential
 $App = [RedditApplication]@{
-     Name = 'TestApplication'
-     Description = 'This is only a test'
-     RedirectUri = 'https://localhost/'
-     UserAgent = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
-     Scope = 'read'
+     Name             = 'TestApplication'
+     Description      = 'This is only a test'
+     RedirectUri      = 'https://localhost/'
+     UserAgent        = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
      ClientCredential = $ClientCredential
-     Type = 'Installed'
+     Type             = 'Installed'
  }
 ```
 
 # SEE ALSO
 
 [about_RedditApplicationType](https://psraw.readthedocs.io/en/latest/Module/about_RedditApplicationType)
-
-[about_RedditOAuthCode](https://psraw.readthedocs.io/en/latest/Module/about_RedditOAuthCode)
 
 [about_RedditOAuthDuration](https://psraw.readthedocs.io/en/latest/Module/about_RedditOAuthDuration)
 

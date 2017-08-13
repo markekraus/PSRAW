@@ -12,13 +12,13 @@
         Wait-RedditApiRateLimit Function unit tests
 #>
 
-$projectRoot = Resolve-Path "$PSScriptRoot\..\.."
-$moduleRoot = Split-Path (Resolve-Path "$projectRoot\*\*.psd1")
-$moduleName = Split-Path $moduleRoot -Leaf
-Remove-Module -Force $moduleName  -ErrorAction SilentlyContinue
-Import-Module (Join-Path $moduleRoot "$moduleName.psd1") -force
+$ProjectRoot = Resolve-Path "$PSScriptRoot\..\.."
+$ModuleRoot = Split-Path (Resolve-Path "$ProjectRoot\*\*.psd1")
+$ModuleName = Split-Path $ModuleRoot -Leaf
+Remove-Module -Force $ModuleName  -ErrorAction SilentlyContinue
+Import-Module (Join-Path $ModuleRoot "$ModuleName.psd1") -force
 
-InModuleScope $moduleName {    
+InModuleScope $ModuleName {    
     $Command = 'Wait-RedditApiRateLimit'
     $TypeName = 'System.Void'
 
@@ -37,11 +37,6 @@ InModuleScope $moduleName {
         $TokenSecret = '34567'
         $SecTokenSecret = $TokenSecret | ConvertTo-SecureString -AsPlainText -Force 
         $TokenCredential = [pscredential]::new($TokenId, $SecTokenSecret)
-
-        $RefreshId = 'refresh_token'
-        $RefreshSecret = '76543'
-        $SecRefreshSecret = $RefreshSecret | ConvertTo-SecureString -AsPlainText -Force 
-        $RefreshCredential = [pscredential]::new($RefreshId, $SecRefreshSecret)
 
         $ApplicationScript = [RedditApplication]@{
             Name             = 'TestApplication'
@@ -62,12 +57,11 @@ InModuleScope $moduleName {
             Scope              = $ApplicationScript.Scope
             GUID               = [guid]::NewGuid()
             TokenType          = 'bearer'
-            GrantType          = 'Authorization_Code'
+            GrantType          = 'Password'
             RateLimitUsed      = 0
             RateLimitRemaining = 60
             RateLimitRest      = 60
             TokenCredential    = $TokenCredential.psobject.copy()
-            RefreshCredential  = $RefreshCredential.psobject.copy()
         }
 
         $ParameterSets = @(
@@ -120,9 +114,9 @@ InModuleScope $moduleName {
         }
     }
     Describe "$command Unit" -Tags Unit {
-        $CommandPresent = Get-Command -Name $Command -Module $moduleName -ErrorAction SilentlyContinue
+        $CommandPresent = Get-Command -Name $Command -Module $ModuleName -ErrorAction SilentlyContinue
         if (-not $CommandPresent) {
-            Write-Warning "'$command' was not found in '$moduleName' during pre-build tests. It may not yet have been added the module. Unit tests will be skipped until after build."
+            Write-Warning "'$command' was not found in '$ModuleName' during pre-build tests. It may not yet have been added the module. Unit tests will be skipped until after build."
             return
         }
         MyTest

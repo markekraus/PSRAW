@@ -28,17 +28,7 @@ Creates an empty `RedditOAuthToken` object.
 [RedditOAuthToken]::new()
 ```
 
-## RedditOAuthToken(RedditOAuthGrantType GrantType, RedditApplication Application, Object Response)
-Creates `RedditOAuthToken` object from the provided `RedditOAuthGrantType`, `RedditApplication`, and either a `system.uri` or a `Microsoft.PowerShell.Commands.WebResponseObject` shaped object. Depending on the grant flow used, the Access Token will be provided in a JSON response or in the fragment part of a URI. This constructor builds the `RedditOAuthToken` from the data provided in those responses.
-
-```powershell
-[RedditOAuthToken]::new(
-    [RedditOAuthGrantType]$GrantType, 
-    [RedditApplication]$Application, 
-    [Object]$Response
-)
-```
-
+## RedditOAuthToken(RedditOAuthGrantType GrantType, RedditApplication Application, RedditOAuthResponse Response)
 
 # Properties
 ## Application
@@ -171,16 +161,6 @@ Hidden: False
 Static: False
 ```
 
-## RefreshCredential
-A `PSCredential` object to house the OAuth Refresh Token.
-
-```yaml
-Name: RefreshCredential
-Type: System.Management.Automation.PSCredential
-Hidden: True
-Static: False
-```
-
 ## Scope
 An array of `RedditOAuthScope` objects representing the OAuth scopes for which this Access Token is valid.
 
@@ -245,17 +225,6 @@ Static: False
 Definition: DateTime GetRateLimitReset()
 ```
 
-## GetRefreshToken()
-Retrieves the plain-text OAuth Refresh Token from the `RefreshCredential` property.
-
-```yaml
-Name: GetRefreshToken
-Return Type: String
-Hidden: False
-Static: False
-Definition: String GetRefreshToken()
-```
-
 ## IsExpired()
 Returns `$True` if the token is expired
 Returns `$False` if the token is not expired.
@@ -280,16 +249,7 @@ Static: False
 Definition: Boolean IsRateLimited()
 ```
 
-## Refresh(Object Response)
-Refreshes the `RedditOAuthToken` properties when a token refresh has been performed. The response will be either a `system.uri` or a `Microsoft.PowerShell.Commands.WebResponseObject` shaped object. Depending on the grant flow used, the refreshed Access Token will be provided in a JSON response or in the fragment part of a URI.
-
-```yaml
-Name: Refresh
-Return Type: Void
-Hidden: False
-Static: False
-Definition: Void Refresh(Object Response)
-```
+## Refresh(RedditOAuthResponse Response)
 
 ## Reserialize(Object Object)
 Used to reserialize a deserialized `RedditOAuthToken` object. This is called by `Import-RedditOAuthToken` after the object has been imported from XML.
@@ -328,15 +288,16 @@ Definition: Void UpdateRateLimit(Object Response)
 
 ## Create New Instance With Constructor
 ```powershell
-Import-Module PSRAW
 $Application = Import-RedditApplication -Path 'c:\MyApp.xml'
- $Params = @{
+$Params = @{
     Uri             = [RedditOAuthToken]::AuthBaseURL
+    UserAgent       = $Application.UserAgent
+    Method          = 'POST'
+    UseBasicParsing = $true
     Body            = @{
         grant_type = 'https://oauth.reddit.com/grants/installed_client'
         device_id  = [guid]::NewGuid().ToString()
     }
-    UserAgent       = $Application.UserAgent
     Headers         = @{
         Authorization = 'Basic {0}' -f (
             [System.Convert]::ToBase64String(
@@ -347,8 +308,6 @@ $Application = Import-RedditApplication -Path 'c:\MyApp.xml'
             )
         )
     }
-    Method          = 'POST'
-    UseBasicParsing = $true
 }
 $Result = Invoke-WebRequest @Params
 $Token =  [RedditOAuthToken]::New('Installed', $Application, $Result)

@@ -1,5 +1,6 @@
 ---
 external help file: 
+Module Name: 
 online version: https://psraw.readthedocs.io/en/latest/PrivateFunctions/Wait-RedditApiRateLimit
 schema: 2.0.0
 ---
@@ -25,7 +26,7 @@ This function is not intended for direct usage by the module consumer and is not
 
 ### -------------------------- EXAMPLE 1 --------------------------
 ```
-PS C:\> $AccessToken | Wait-RedditApiRateLimit
+$AccessToken | Wait-RedditApiRateLimit
 ```
 
 This example shows how `Invoke-GraphRequest` calls `Wait-RedditApiRateLimit`

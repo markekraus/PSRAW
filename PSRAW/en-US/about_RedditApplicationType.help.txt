@@ -27,15 +27,12 @@ WebApp
 
 EXAMPLES
 WebApp
-    Import-Module PSRAW
     $WebApp = [RedditApplicationType]::WebApp
 
 Script
-    Import-Module PSRAW
     $Script = [RedditApplicationType]::Script
 
 installed
-    Import-Module PSRAW
     $Installed= [RedditApplicationType]::Installed
 
 SEE ALSO

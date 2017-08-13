@@ -35,30 +35,11 @@ function Request-RedditOAuthToken {
         [switch]$Client,
         
         [Parameter(
-            ParameterSetName = 'Code',
-            Mandatory = $true
-        )]
-        [switch]$Code,
-        
-        [Parameter(
             ParameterSetName = 'Script',
             Mandatory = $true
         )]
         [switch]$Script,
         
-        [Parameter(
-            ParameterSetName = 'Implicit',
-            Mandatory = $true
-        )]
-        [switch]$Implicit,
-        
-        [Parameter(
-            ParameterSetName = 'Implicit',
-            Mandatory = $true,
-            ValueFromPipeline = $true,
-            ValueFromPipelineByPropertyName = $true,
-            Position = 0
-        )]
         [Parameter(
             ParameterSetName = 'Installed',
             Mandatory = $true,
@@ -80,13 +61,6 @@ function Request-RedditOAuthToken {
             ValueFromPipelineByPropertyName = $true,
             Position = 0
         )]
-        [Parameter(
-            ParameterSetName = 'Code',
-            Mandatory = $true,
-            ValueFromPipeline = $true,
-            ValueFromPipelineByPropertyName = $true,
-            Position = 0
-        )]
         [RedditApplication]$Application,
         
         
@@ -97,20 +71,8 @@ function Request-RedditOAuthToken {
             Position = 1
         )]
         [string]$DeviceID = [guid]::NewGuid().toString(),
-        
-        [Parameter(
-            ParameterSetName = 'Implicit',
-            Mandatory = $false,
-            ValueFromPipelineByPropertyName = $true,
-            Position = 1
-        )]
-        [Parameter(
-            ParameterSetName = 'Code',
-            Mandatory = $false,
-            ValueFromPipelineByPropertyName = $true,
-            Position = 1
-        )]
-        [string]$State = [guid]::NewGuid().toString()
+
+        [switch]$PassThru
     )
     
     process {
@@ -123,15 +85,6 @@ function Request-RedditOAuthToken {
                     DeviceID    = $DeviceID
                 }  
                 $Result = Request-RedditOAuthTokenInstalled @Params
-                Break
-            }
-            'Code' { 
-                $GrantType = [RedditOAuthGrantType]::Authorization_Code
-                $Params = @{
-                    Application = $Application
-                    State       = $State
-                }  
-                $Result = Request-RedditOAuthTokenCode @Params
                 Break
             }
             'Script' { 
@@ -150,16 +103,11 @@ function Request-RedditOAuthToken {
                 $Result = Request-RedditOAuthTokenClient @Params
                 Break
             }
-            'Implicit' { 
-                $GrantType = [RedditOAuthGrantType]::Implicit
-                $Params = @{
-                    Application = $Application
-                    State       = $State
-                }  
-                $Result = Request-RedditOAuthTokenImplicit @Params
-                Break
-            }
         }
-        [RedditOAuthToken]::New($GrantType, $Application, $Result)
+        $Token = [RedditOAuthToken]::New($GrantType, $Application, $Result)
+        $Token | Set-RedditDefaultOAuthToken
+        if ($PassThru) {
+            $Token
+        }
     }
 }

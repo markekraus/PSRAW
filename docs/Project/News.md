@@ -1,5 +1,22 @@
 # Project News
 
+## August 2017
+
+### PSRAW 2.0 - PowerShell Core Compatibility Refactor
+Many Many changes have been made to the module to make it compatible with PowerShell Core. The 2.0 release is a major version and many breaking changes will be introduced. Chief among them are the removal of the `Code` and `Implicit` grant flows. These grant flows required a GUI and GUI is not possible in PowerShell Core. In the future we will investigate bringing these grant flows back through CLI means. The current estimates for doing so would set this project back even further. We would rather provide the "Base" functionality release before tackling the additional grant flows. For most use cases for this module, the `Script` grant flow should be sufficient.
+
+With 2.0, PSRAW is now fully compatible with PowerShell Core and 6.0.0 (tested on 6.0.0-beta.5). However, it is still not cross-platform compatible and will only work on Windows. Currently, PowerShell Core on other platforms lacks support for `SecureString`s which PSRAW makes extensive use of for in-memory and at rest secrets (such as your Reddit Password). The PowerShell team is targeting 6.1 for inclusion/replacement of `SecureString`s on Linux. If there is enough demand or if the PowerShell team's goal post shifts too far into the future, we will investigate rolling our own cross-platform solution.
+
+Besides default OAuth Tokens and `Connect-Reddit`, this release will not add any additional functionality for users. Most of the changes are taking place "under the hood". The underlying class structures for upcoming functionality (such as retrieving comments) are being added but with no current functionality. If you begin using these classes in your projects please note that their shape and functionality may change dramatically in coming minor versions.
+
+#### Connect-Reddit Command
+
+A new streamlined way of getting up and running with PSRAW has been added. The `Connect-Reddit` command simplifies and consolidates the steps needed to begin accessing the API. You can either run it without any parameters to get interactive prompts to enter the required information, or you can pass the client credentials, user credentials, and redirect URI as parameters and be prompted for only what is missing. `Connect-Reddit` will then use that information to create a default `RedditApplication` and request a `RedditOAuthToken`. 
+
+#### Default OAuth Access Token
+
+Having to manually pass the OAuth token around was repetitive and painful, especially when working in the console. `Connect-Reddit`, `Import-RedditOAuthToken`, `Update-RedditOAuthToken` (with the `-SetDeafult` parameter), and `Set-RedditDefaultOAuthToken` can now all be used to set the default OAuth token for your session. To see the current Default OAuth Token you can use `Get-RedditDefaultOAuthToken`. All commands that accept an `-AccessToken` parameter ar now no longer mandatory and will use the Default Token if one is not provided. This allows you to continue using multiple identities via multiple `RedditOAuthToken` objects while still making it easier to use PSRAW with a single identity.
+
 ## May 2017
 
 ### Core Functionality Milestone Reached!
