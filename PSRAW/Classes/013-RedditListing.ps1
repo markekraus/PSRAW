@@ -3,10 +3,10 @@
     
      Created with: 	Plaster
      Created on:   	8/13/2017 10:10 AM
-     Edited on:     8/13/2017
+     Edited on:     8/17/2017
      Created by:   	Mark Kraus
      Organization: 	 
-     Filename:     	010-RedditListing.ps1
+     Filename:     	013-RedditListing.ps1
     
     .DESCRIPTION
         RedditListing Class

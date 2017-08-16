@@ -58,6 +58,7 @@ Class RedditComment : RedditDataObject {
     RedditComment ([RedditThing]$RedditThing) {
         $This.AccessToken = Get-RedditTokenOrDefault $RedditThing.AccessToken
         $Data = $RedditThing.data
+        $This.Id = $Data.Id
         $DataProperties = $Data.psobject.Properties.name
         $ClassProperties = $This.psobject.Properties.name
         foreach ($Property in $DataProperties) {
@@ -68,9 +69,22 @@ Class RedditComment : RedditDataObject {
                 continue
             }
             If($Property -eq 'replies'){
-                    $Listing = [RedditThing]$Data.replies
-                    $This.replies = $Listing.RedditData.Items
-                    continue
+                $Thing = [RedditThing]$Data.replies
+                if($Thing -is 'RedditListing'){
+                    $This.replies = $Thing.RedditData.Items
+                }
+                if($Thing -is 'RedditMore'){
+                    $This.replies = foreach($Child in $Thing.Children){
+                        [RedditComment]@{
+                            Id = $Child
+                            parent_id = $Data.id
+                        }
+                    }
+                }
+                foreach($Reply in $This.Replies){
+                    $Reply.ParentObject = $This
+                }   
+                continue
             }
             if ($Property -in $ClassProperties) {
                 $This.$Property = $Data.$Property
@@ -85,6 +99,27 @@ Class RedditComment : RedditDataObject {
         }
     }
 
+    hidden [void] _initReplies ([PSobject]$Replies){
+        if([string]::IsNullOrEmpty($Replies)){
+            return
+        }
+        $Thing = [RedditThing]$Replies
+        if($Thing -is 'RedditListing'){
+            $This.replies = $Thing.RedditData.Items
+        }
+        if($Thing -is 'RedditMore'){
+            $This.replies = foreach($Child in $Thing.Children){
+                [RedditComment]@{
+                    Id = $Child
+                    parent_id = $This.id
+                }
+            }
+        }
+        foreach($Reply in $This.Replies){
+            $Reply.ParentObject = $This
+        }   
+    }
+
     [String] GetApiEndpointUri () {
         return ([RedditComment]::ApiEndpointUri -f $This.id)
     }
@@ -94,4 +129,7 @@ Class RedditComment : RedditDataObject {
     [String] ToString () {
         return $This.body
     }
+
+    #TODO add HasData() to detect if this was a "more" comment
+    #TODO add UpdateData() to retrieve comment data
 }
