@@ -48,32 +48,7 @@ function Resolve-RedditDataObject {
             ValueFromPipelineByPropertyName = $true,
             ValueFromPipeline = $true
         )]
-        [PSObject]$PSObject,
-
-
-        [parameter(
-            ParameterSetName = 'RedditAPIResponse',
-            Mandatory = $false,
-            Position = 1,
-            ValueFromPipelineByPropertyName = $true,
-            ValueFromPipeline = $false
-        )]
-        [parameter(
-            ParameterSetName = 'RedditThing',
-            Mandatory = $false,
-            Position = 1,
-            ValueFromPipelineByPropertyName = $true,
-            ValueFromPipeline = $false
-        )]
-        [parameter(
-            ParameterSetName = 'PSObject',
-            Mandatory = $false,
-            Position = 1,
-            ValueFromPipelineByPropertyName = $true,
-            ValueFromPipeline = $false
-        )]
-        [AllowNull()]
-        [RedditOAuthToken]$AccessToken
+        [PSObject]$PSObject
 
     )
     Begin {
@@ -97,26 +72,17 @@ function Resolve-RedditDataObject {
             'RedditAPIResponse' { 
                 $RedditThing =  [RedditThing]$RedditApiResponse.ContentObject 
                 $DataObjectKind = $RedditApiResponse.ContentObject.Kind
-                if(-not $AccessToken){
-                    $AccessToken = $RedditApiResponse.AccessToken
-                }
                 Break
             }
             'RedditThing'    { 
                 $DataObjectKind = $RedditThing.Kind
-                if(-not $AccessToken){
-                    $AccessToken = $RedditThing.AccessToken
-                }
                 Break
             }
             'PSObject'    { 
                 $RedditThing = [RedditThing]$PSObject
-                $DataObjectKind = $PSObject.Kind
                 Break
             }
         }
-        $AccessToken = Get-RedditTokenOrDefault $AccessToken
-        $RedditThing.AccessToken = $AccessToken
         $Class = $DataObjectKindMap["$DataObjectKind"]
         New-Object -TypeName $Class -ArgumentList $RedditThing
     }

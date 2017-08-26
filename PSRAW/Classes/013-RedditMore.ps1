@@ -18,6 +18,7 @@ Class RedditMore : RedditDataObject {
     [string]$Name
     [string]$Parent_Id
     [PSObject]$ParentObject
+    [RedditThingKind]$Kind = 'More'
     Static [RedditThingKind]$RedditThingKind = 'More'
     RedditMore () { }
     RedditMore ([RedditThing]$RedditThing){

@@ -36,6 +36,7 @@ Class RedditSubreddit : RedditDataObject {
     [PSObject]$icon_size
     [String]$id
     [String]$key_color
+    [RedditThingKind]$Kind = 't5'
     [String]$lang
     [Boolean]$link_flair_enabled
     [String]$name
@@ -73,12 +74,10 @@ Class RedditSubreddit : RedditDataObject {
     [Boolean]$wiki_enabled
     [PSObject]$ParentObject
     [RedditThingPrefix]$Prefix = 't5'
-    hidden [RedditOAuthToken]$AccessToken  
     static [string] $ApiEndpointUri = 'https://oauth.reddit.com/api/info?id=t5_{0}'
     RedditSubreddit () { }
     RedditSubreddit ([String]$String) { $This = $Null }
     RedditSubreddit ([RedditThing]$RedditThing) {
-        $This.AccessToken = Get-RedditTokenOrDefault $RedditThing.AccessToken
         $Data = $RedditThing.data
         $DataProperties = $Data.psobject.Properties.name
         $ClassProperties = $This.psobject.Properties.name
@@ -105,4 +104,7 @@ Class RedditSubreddit : RedditDataObject {
     [String] ToString () {
         return $This.body
     }
+
+    # TODO Add Hasdata()
+    # TODO Add UpdateData()
 }

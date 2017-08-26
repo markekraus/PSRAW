@@ -77,12 +77,10 @@ Class RedditLink : RedditDataObject {
     [String]$whitelist_status
     [PSObject]$ParentObject
     [RedditThingPrefix]$Prefix = 't3'
-    hidden [RedditOAuthToken]$AccessToken  
     static [string] $ApiEndpointUri = 'https://oauth.reddit.com/api/info?id=t3_{0}'
     RedditLink () { }
     RedditLink ([String]$String) { $This = $Null }
     RedditLink ([RedditThing]$RedditThing) {
-        $This.AccessToken = Get-RedditTokenOrDefault $RedditThing.AccessToken
         $Data = $RedditThing.data
         $DataProperties = $Data.psobject.Properties.name
         $ClassProperties = $This.psobject.Properties.name
@@ -113,4 +111,7 @@ Class RedditLink : RedditDataObject {
             $This.title
         
     }
+
+    # TODO Add HasData()
+    # Add UpdateData()
 }

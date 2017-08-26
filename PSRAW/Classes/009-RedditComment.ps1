@@ -30,9 +30,11 @@ Class RedditComment : RedditDataObject {
     [bool]$edited
     [long]$gilded
     [string]$id
+    [RedditThingKind]$Kind = 't1'
     [string]$likes
     [string]$link_id
     [RedditModReport[]]$mod_reports
+    hidden [RedditDataObject]$MoreObject
     [string]$name
     [string]$num_reports
     [string]$parent_id
@@ -51,39 +53,17 @@ Class RedditComment : RedditDataObject {
     [long]$ups
     [RedditUserReport[]]$user_reports
     [RedditThingPrefix]$Prefix = 't1'
-    hidden [RedditOAuthToken]$AccessToken  
     static [string] $ApiEndpointUri = 'https://oauth.reddit.com/api/info?id=t1_{0}'
+    static [RedditThingKind]$RedditThingKind = 't1'
     RedditComment () { }
     RedditComment ([String]$String) { $This = $Null }
     RedditComment ([RedditThing]$RedditThing) {
-        $This.AccessToken = Get-RedditTokenOrDefault $RedditThing.AccessToken
         $Data = $RedditThing.data
         $This.Id = $Data.Id
         $DataProperties = $Data.psobject.Properties.name
         $ClassProperties = $This.psobject.Properties.name
         foreach ($Property in $DataProperties) {
-            if(
-                $Property -eq 'replies' -and 
-                [string]::IsNullOrEmpty($Data.replies)
-            ){
-                continue
-            }
             If($Property -eq 'replies'){
-                $Thing = [RedditThing]$Data.replies
-                if($Thing -is 'RedditListing'){
-                    $This.replies = $Thing.RedditData.Items
-                }
-                if($Thing -is 'RedditMore'){
-                    $This.replies = foreach($Child in $Thing.Children){
-                        [RedditComment]@{
-                            Id = $Child
-                            parent_id = $Data.id
-                        }
-                    }
-                }
-                foreach($Reply in $This.Replies){
-                    $Reply.ParentObject = $This
-                }   
                 continue
             }
             if ($Property -in $ClassProperties) {
@@ -97,27 +77,7 @@ Class RedditComment : RedditDataObject {
             }
             $This | Add-Member @params
         }
-    }
-
-    hidden [void] _initReplies ([PSobject]$Replies){
-        if([string]::IsNullOrEmpty($Replies)){
-            return
-        }
-        $Thing = [RedditThing]$Replies
-        if($Thing -is 'RedditListing'){
-            $This.replies = $Thing.RedditData.Items
-        }
-        if($Thing -is 'RedditMore'){
-            $This.replies = foreach($Child in $Thing.Children){
-                [RedditComment]@{
-                    Id = $Child
-                    parent_id = $This.id
-                }
-            }
-        }
-        foreach($Reply in $This.Replies){
-            $Reply.ParentObject = $This
-        }   
+        $This._initReplies($Data.replies)
     }
 
     [String] GetApiEndpointUri () {
@@ -130,6 +90,60 @@ Class RedditComment : RedditDataObject {
         return $This.body
     }
 
+    [bool] HasMore(){
+        return ($null -ne $This.MoreObject)
+    }
+
+    hidden [void] _initReplies ([Object]$Replies){
+        if($Replies -is [string] -and [string]::IsNullOrEmpty($Replies)){
+            return
+        }
+        $List = [system.collections.generic.list[RedditComment]]::new()
+        $Thing = [RedditThing]$Replies
+        if($Thing.Kind -eq 'Listing'){
+            foreach($ReplyComment in $Thing.RedditData.GetComments()){
+                $List.Add($ReplyComment)
+            }
+            foreach($ReplyID in $Thing.RedditData.GetMores().Children){
+                $ReplyComment = [RedditComment]@{
+                    id                      = $ReplyID
+                    name                    = 't1_{0}' -f $ReplyID
+                    parent_id               = $This.name
+                    link_id                 = $This.link_id
+                    subreddit               = $This.subreddit
+                    subreddit_id            = $This.subreddit_id
+                    subreddit_name_prefixed = $This.subreddit_name_prefixed
+                }
+                $List.Add($ReplyComment)
+            }
+        }
+        if($Thing.kind -eq 'More' -and $Thing.RedditData.Count -eq 0){
+                $This.MoreObject = $Thing.RedditData
+        }
+        if($Thing.kind -eq 'More' -and $Thing.RedditData.Count -gt 0){
+            foreach($ReplyID in $Thing.RedditData.Children){
+                $ReplyComment = [RedditComment]@{
+                    id                      = $ReplyID
+                    name                    = 't1_{0}' -f $ReplyID
+                    parent_id               = $This.name
+                    link_id                 = $This.link_id
+                    subreddit               = $This.subreddit
+                    subreddit_id            = $This.subreddit_id
+                    subreddit_name_prefixed = $This.subreddit_name_prefixed
+                }
+                $List.Add($ReplyComment)
+            }
+        }
+        $This.replies = $List
+        foreach($Reply in $This.Replies){
+            $Reply.ParentObject = $This
+        }   
+    }
+
+    #[string] GetPermalink() {
+    #    get submission link info
+    #    append comemnt id
+    #}
     #TODO add HasData() to detect if this was a "more" comment
     #TODO add UpdateData() to retrieve comment data
 }

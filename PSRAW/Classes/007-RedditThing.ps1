@@ -12,7 +12,6 @@
         RedditThing Class
 #>
 Class RedditThing {
-    hidden [RedditOAuthToken]$AccessToken
     [RedditThingKind]$Kind
     [PSObject]$Data
     [string]$Name
@@ -25,18 +24,12 @@ Class RedditThing {
         $This.Name = $Object.Name
         $This.Id = $Object.Id
         $This.Data = $Object.Data
-        $This.AccessToken = Get-RedditTokenOrDefault $Object.AccessToken
-        $Params = @{
-            RedditThing = $this
-            AccessToken = $This.AccessToken
-        }
-        $This.RedditData = Resolve-RedditDataObject @Params
+        $This.RedditData = Resolve-RedditDataObject -RedditThing $this
         $This.RedditData.ParentObject = $This
     }
     static [RedditThing[]] CreateFrom([RedditApiResponse]$Response) {
         $RedditThings = foreach($Object in $Response.ContentObject){
             $RedditThing = [RedditThing]::New($Object)
-            $RedditThing.AccessToken = Get-RedditTokenOrDefault $Response.AccessToken
             $RedditThing.ParentObject = $Response
             $RedditThing
         }

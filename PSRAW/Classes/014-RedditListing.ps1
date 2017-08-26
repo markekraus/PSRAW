@@ -6,7 +6,7 @@
      Edited on:     8/17/2017
      Created by:   	Mark Kraus
      Organization: 	 
-     Filename:     	013-RedditListing.ps1
+     Filename:     	014-RedditListing.ps1
     
     .DESCRIPTION
         RedditListing Class
@@ -19,8 +19,8 @@ Class RedditListing : RedditDataObject {
     [RedditThingKind[]]$ChildKinds
     [PSObject]$ParentObject
     [RedditDataObject[]]$Items
+    [RedditThingKind]$Kind = 'Listing'
     Static [RedditThingKind]$RedditThingKind = 'Listing'
-    hidden [RedditOAuthToken]$AccessToken
     RedditListing () { }
     RedditListing ([RedditThing]$RedditThing){
         if($RedditThing.Kind -ne $This::RedditThingKind){
@@ -35,8 +35,19 @@ Class RedditListing : RedditDataObject {
         $This.Modhash = $RedditThing.Data.Modhash
         $This.Children = [RedditThing[]]$RedditThing.Data.children
         $This.ParentObject = $RedditThing
-        $This.ChildKinds = $This.Children.Kind
-        $This.AccessToken = Get-RedditTokenOrDefault $RedditThing.AccessToken
+        $This.ChildKinds = $This.Children.Kind | Select-Object -Unique
         $This.Items = $This.Children.RedditData
+    }
+
+    [RedditComment[]] GetComments() {
+        return ($This.Items | Where-Object {$_ -is 'RedditComment'})
+    }
+
+    [RedditMore[]] GetMores() {
+        return ($This.Items | Where-Object {$_ -is 'RedditMore'})
+    }
+
+    [RedditLink[]] GetLinks() {
+        return ($This.Items | Where-Object {$_ -is 'RedditLink'})
     }
 }
