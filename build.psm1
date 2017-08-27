@@ -209,8 +209,9 @@ Function Start-PSRAWPester {
         [switch]$ThrowOnFailure
     )
     $lines
-    Publish-TestTools
     Find-Dotnet
+    Publish-TestTools
+    Import-PSRAWModule
 
     Write-Host "Starting WebListener on port $WebListenerPort"
     $Null = Start-WebListener -HttpPort $WebListenerPort -ErrorAction Stop
@@ -268,6 +269,22 @@ Function Start-PSRAWPester {
     Write-Host " "
 }
 
+function Import-PSRAWModule {
+    Write-Host "Locading module $moduleFolder/$moduleName.psd1"
+    Import-Module "$moduleFolder/$moduleName.psd1"
+}
+
+$lines = '----------------------------------------------------------------------'
+$dotnetCLIChannel = "release"
+$dotnetCLIRequiredVersion = "2.0.0"
+$TestModulePathSeparator = [System.IO.Path]::PathSeparator
+$Environment = Get-EnvironmentInformation
+$PSVersion = $PSVersionTable.PSVersion.Major
+$ProjectRoot = $PSScriptRoot
+$moduleFolder = "$ProjectRoot/PSRAW"
+$moduleRoot = "$ProjectRoot/PSRAW"
+$moduleName = "PSRAW"
+
 # adds auto loading for Build and Test Functions
 $BuildModulePath = Join-Path $PSScriptRoot "BuildTools/Modules"
 if ( $env:PSModulePath -notcontains $TestModulePath ) {
@@ -277,11 +294,3 @@ $TestModulePath = Join-Path $PSScriptRoot "Tests/tools/Modules"
 if ( $env:PSModulePath -notcontains $TestModulePath ) {
     $env:PSModulePath = $TestModulePath+$TestModulePathSeparator+$($env:PSModulePath)
 }
-
-
-$lines = '----------------------------------------------------------------------'
-$TestModulePathSeparator = [System.IO.Path]::PathSeparator
-$Environment = Get-EnvironmentInformation
-$PSVersion = $PSVersionTable.PSVersion.Major
-$ProjectRoot = $PSScriptRoot
-$moduleFolder = "$ProjectRoot/PSRAW"

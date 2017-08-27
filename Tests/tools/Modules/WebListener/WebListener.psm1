@@ -47,7 +47,8 @@ function Start-WebListener
         $appDll              = 'WebListener.dll'
         $initCompleteMessage = 'Now listening on'
         
-        $binPath = Join-Path $MyInvocation.MyCommand.Module.ModuleBase 'bin'
+        $modulePath = $MyInvocation.MyCommand.Module.ModuleBase
+        $binPath = Resolve-Path $modulePath/../../WebListener/Bin
         $timeOut = (get-date).AddSeconds($initTimeoutSeconds)        
         $Job = Start-Job {
             Push-Location $using:binPath

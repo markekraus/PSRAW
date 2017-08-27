@@ -12,14 +12,12 @@
         Invoke-RedditRequest Function unit tests
 #>
 
-$ProjectRoot = Resolve-Path "$PSScriptRoot\..\.."
-$ModuleRoot = Split-Path (Resolve-Path "$ProjectRoot\*\*.psd1")
-$ModuleName = Split-Path $ModuleRoot -Leaf
-Remove-Module -Force $ModuleName  -ErrorAction SilentlyContinue
-Import-Module (Join-Path $ModuleRoot "$ModuleName.psd1") -force
-Import-Module $ProjectRoot/Tests/tools/WebListener/WebListener.psd1
-Import-Module $ProjectRoot/BuildTools/DotnetHelper.psm1
-Find-Dotnet
+#$ProjectRoot = Resolve-Path "$PSScriptRoot\..\.."
+#$ModuleRoot = Split-Path (Resolve-Path "$ProjectRoot\*\*.psd1")
+#$ModuleName = Split-Path $ModuleRoot -Leaf
+#Remove-Module -Force $ModuleName  -ErrorAction SilentlyContinue
+#Import-Module (Join-Path $ModuleRoot "$ModuleName.psd1") -force
+Import-PSRAWModule
 $Null = Start-WebListener
 
 #region insanity
@@ -313,4 +311,3 @@ Remove-Variable -Name JSON -Scope Global -Force -ErrorAction SilentlyContinue
 Remove-Variable -Name Uri -Scope Global -Force -ErrorAction SilentlyContinue
 Remove-Variable -Name UriBad -Scope Global -Force -ErrorAction SilentlyContinue
 Remove-Variable -Name InvokeWebRequest -Scope Global -Force -ErrorAction SilentlyContinue
-Stop-WebListener -ErrorAction SilentlyContinue
