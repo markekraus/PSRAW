@@ -230,7 +230,7 @@ Task Test -Depends BuildTestTools {
         Tag          = 'Build'
         Show         = 'Fails'
     }    
-    $TestResults = Invoke-Pester @parameters 
+    $TestResults = Start-PSRAWPester @parameters 
     
     # In Appveyor?  Upload our tests! #Abstract this into a function?
     If ($ENV:BHBuildSystem -eq 'AppVeyor') {

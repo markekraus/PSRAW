@@ -157,3 +157,131 @@ function script:Start-NativeExecution([scriptblock]$sb, [switch]$IgnoreExitcode)
         $script:ErrorActionPreference = $backupEAP
     }
 }
+
+Function Publish-TestTools {
+    $DotnetExists = Test-DotnetExists
+    $DotNetVersion = [string]::Empty
+    if ($DotNetExists) {
+        $DotNetVersion = (dotnet --version)
+    }
+    if (!$DotNetExists -or $DotNetVersion -ne $DotnetCLIRequiredVersion) {
+        if(!$dotNetExistis) {
+            "dotnet not present. Installing dotnet."
+        }
+        else {
+            "dotnet out of date ($dotNetVersion). Updating dotnet."
+        }
+        Install-Dotnet -Channel $DotnetCLIChannel -Version $DotnetCLIRequiredVersion
+    }
+    else {
+        "dotnet is already installed. Skipping installation."
+    }
+    Find-Dotnet
+    $Tools = @(
+        "$ProjectRoot/Tests/tools/WebListener"
+    )
+
+    foreach ($Tool in $Tools){
+        Push-Location $tool
+        try {
+            dotnet publish --output bin --configuration Release
+            $toolPath = Join-Path -Path $tool -ChildPath "bin"
+            if ( $env:PATH -notcontains $toolPath ) {
+                $env:PATH = '{0}{1}{2}' -f $toolPath, [System.IO.Path]::PathSeparator, $($env:PATH)
+            }
+        } finally {
+            Pop-Location
+        }
+    }
+}
+
+Function Start-PSRAWPester {
+    param(
+        [string]$WebListenerPort = 8080,
+        [string[]]$ExcludeTag = 'Exclude',
+        [string[]]$Tag = "Build",
+        [string[]]$Path = "$ProjectRoot/Tests/",
+        [string[]]$Show = 'All',
+        [string]$OutputFormat = "NUnitXml",
+        [string]$OutputFile = "pester-tests.xml",
+        [object[]]$CodeCoverage = (Get-ChildItem -Recurse -Path $moduleFolder -Include  '*.ps1', '*.psm1' ),
+        [switch]$PassThru,
+        [switch]$ThrowOnFailure
+    )
+    $lines
+    Publish-TestTools
+    Find-Dotnet
+
+    Write-Host "Starting WebListener on port $WebListenerPort"
+    $Null = Start-WebListener -HttpPort $WebListenerPort -ErrorAction Stop
+
+    Write-Host "Running pester tests at '$path' with tag '$($Tag -join ''', ''')' and ExcludeTag '$($ExcludeTag -join ''', ''')'" 
+
+    # Gather test results. Store them in a variable and file
+    $Timestamp = 
+    $TestFile = 
+    $parameters = @{
+        Script       = "$ProjectRoot\Tests"
+        PassThru     = $true
+        OutputFormat = $OutputFormat
+        OutputFile   = "pester-tests.xml"
+        Tag          = $Tag
+        Show         = $Show
+        CodeCoverage = $CodeCoverage
+    }
+    $TestResults = Invoke-Pester @parameters 
+
+    If($PassThru){
+        $TestResults 
+    }
+    
+    Write-Host "Stopping WebListener"
+    Stop-WebListener
+    
+    $CoveragePercent = $TestResults.CodeCoverage.NumberOfCommandsExecuted / $TestResults.CodeCoverage.NumberOfCommandsAnalyzed
+    Write-Host " "
+    Write-Host "Code coverage report"
+    Write-Host ("   Files:             {0:N0}" -f $TestResults.CodeCoverage.NumberOfFilesAnalyzed)
+    Write-Host ("   Commands Analyzed: {0:N0}" -f $TestResults.CodeCoverage.NumberOfCommandsAnalyzed)
+    Write-Host ("   Commands Hit:      {0:N0}" -f $TestResults.CodeCoverage.NumberOfCommandsExecuted)
+    Write-Host ("   Commands Missed:   {0:N0}" -f $TestResults.CodeCoverage.NumberOfCommandsMissed)
+    Write-Host ("   Coverage:          {0:P2}" -f $CoveragePercent)
+    Write-Host " "
+    Write-Host "Missed Commands:"
+    $TestResults.CodeCoverage.MissedCommands | Select-Object @{
+        Name       = 'File'
+        Expression = {
+            $_.file.replace($ProjectRoot, '') -replace '^\\', ''
+        }
+    }, line, function, command | Out-String | Out-Host
+    if ($CoveragePercent -lt 0.90) {
+        $Message = "Coverage {0:P2} is below 90%" -f $CoveragePercent
+        if($ThrowOnFailure.IsPresent){ Write-Error $Message}
+        else{Write-Warning $Message}
+    }
+    if ($TestResults.FailedCount -gt 0) {
+        Write-Host " "
+        $Message = "Failed '$($TestResults.FailedCount)' tests"
+        if($ThrowOnFailure.IsPresent){ Write-Error $Message}
+        else{Write-Warning $Message}
+    }
+    Write-Host " "
+}
+
+# adds auto loading for Build and Test Functions
+$BuildModulePath = Join-Path $PSScriptRoot "BuildTools/Modules"
+if ( $env:PSModulePath -notcontains $TestModulePath ) {
+    $env:PSModulePath = $TestModulePath+$TestModulePathSeparator+$($env:PSModulePath)
+}
+$TestModulePath = Join-Path $PSScriptRoot "Tests/tools/Modules"
+if ( $env:PSModulePath -notcontains $TestModulePath ) {
+    $env:PSModulePath = $TestModulePath+$TestModulePathSeparator+$($env:PSModulePath)
+}
+
+
+$lines = '----------------------------------------------------------------------'
+$TestModulePathSeparator = [System.IO.Path]::PathSeparator
+$Environment = Get-EnvironmentInformation
+$PSVersion = $PSVersionTable.PSVersion.Major
+$ProjectRoot = $PSScriptRoot
+$moduleFolder = "$ProjectRoot/PSRAW"
