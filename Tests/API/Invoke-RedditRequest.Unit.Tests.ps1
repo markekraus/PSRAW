@@ -68,7 +68,7 @@ $Global:JSON = @'
 }
 '@
 
-Function MyTest {    
+function Get-ApplicationScript {
     $ClientId = '54321'
     $ClientSecret = '12345'
     $SecClientSecret = $ClientSecret | ConvertTo-SecureString -AsPlainText -Force 
@@ -79,12 +79,7 @@ Function MyTest {
     $SecUserSecret = $UserSecret | ConvertTo-SecureString -AsPlainText -Force 
     $UserCredential = [pscredential]::new($UserId, $SecUserSecret)
 
-    $TokenId = 'access_token'
-    $TokenSecret = '34567'
-    $SecTokenSecret = $TokenSecret | ConvertTo-SecureString -AsPlainText -Force 
-    $TokenCredential = [pscredential]::new($TokenId, $SecTokenSecret)
-
-    $ApplicationScript = [RedditApplication]@{
+    [RedditApplication]@{
         Name             = 'TestApplication'
         Description      = 'This is only a test'
         RedirectUri      = 'https://localhost/'
@@ -94,21 +89,42 @@ Function MyTest {
         UserCredential   = $UserCredential
         Type             = 'Script'
     }
-    $TokenScript = [RedditOAuthToken]@{
+}
+Function Get-TokenScript {
+   
+    $ApplicationScript = Get-ApplicationScript
+    
+    $TokenId = 'access_token'
+    $TokenSecret = '34567'
+    $SecTokenSecret = $TokenSecret | ConvertTo-SecureString -AsPlainText -Force 
+    $TokenCredential = [pscredential]::new($TokenId, $SecTokenSecret)
+
+    [RedditOAuthToken]@{
         Application        = $ApplicationScript
-        IssueDate          = (Get-Date).AddHours(-2)
-        ExpireDate         = (Get-Date).AddHours(-1)
+        IssueDate          = (Get-Date).AddMinutes(-13)
+        ExpireDate         = (Get-Date).AddHours(1)
         LastApiCall        = Get-Date
         Scope              = $ApplicationScript.Scope
         GUID               = [guid]::NewGuid()
         TokenType          = 'bearer'
         GrantType          = 'Password'
         RateLimitUsed      = 0
-        RateLimitRemaining = 60
-        RateLimitRest      = 60
-        TokenCredential    = $TokenCredential.psobject.copy()
+        RateLimitRemaining = 300
+        RateLimitRest      = 99999
+        TokenCredential    = $TokenCredential
     }
-    $TokenBadUpdate = [RedditOAuthToken]@{
+}
+
+function Get-TokenBad {
+
+    $ApplicationScript = Get-ApplicationScript
+
+    $TokenId = 'access_token'
+    $TokenSecret = '34567'
+    $SecTokenSecret = $TokenSecret | ConvertTo-SecureString -AsPlainText -Force 
+    $TokenCredential = [pscredential]::new($TokenId, $SecTokenSecret)
+
+    [RedditOAuthToken]@{
         Application        = $ApplicationScript
         Notes              = 'badupdate'
         IssueDate          = (Get-Date).AddHours(-2)
@@ -121,8 +137,12 @@ Function MyTest {
         RateLimitUsed      = 0
         RateLimitRemaining = 60
         RateLimitRest      = 60
-        TokenCredential    = $TokenCredential.psobject.copy()
+        TokenCredential    = $TokenCredential
     }
+}
+Function MyTest {    
+    
+    
 
     <#
     {
@@ -148,14 +168,14 @@ Function MyTest {
         @{
             Name   = 'Uri Only'
             Params = @{
-                AccessToken = $TokenScript
+                AccessToken = Get-TokenScript
                 Uri         = $Uri
             }
         }
         @{
             Name   = 'Get'
             Params = @{
-                AccessToken = $TokenScript
+                AccessToken = Get-TokenScript
                 Uri         = $Uri
                 Method      = 'Get'
             }
@@ -163,7 +183,7 @@ Function MyTest {
         @{
             Name   = 'Post Body'
             Params = @{
-                AccessToken = $TokenScript
+                AccessToken = Get-TokenScript
                 Uri         = $Uri
                 Method      = 'Post'
                 Body        = @{
@@ -174,7 +194,7 @@ Function MyTest {
         @{
             Name   = 'Headers'
             Params = @{
-                AccessToken = $TokenScript
+                AccessToken = Get-TokenScript
                 Uri         = $Uri
                 Headers     = @{
                     'x-narwhals' = 'bacon'
@@ -184,7 +204,7 @@ Function MyTest {
         @{
             Name   = 'Timeout'
             Params = @{
-                AccessToken = $TokenScript
+                AccessToken = Get-TokenScript
                 Uri         = $Uri
                 TimeoutSec  = '2'
             }
@@ -211,16 +231,18 @@ Function MyTest {
     }
     Mock @Params
     
+    $Params = @{
+        CommandName = 'Wait-RedditApiRateLimit'
+        ModuleName  = $ModuleName 
+    }
+
     foreach ($ParameterSet in $ParameterSets) {
         It "'$($ParameterSet.Name)' Parameter set does not have errors" {
             $LocalParams = $ParameterSet.Params
             { & $Command @LocalParams -ErrorAction Stop } | Should not throw
         }
     }
-    $Params = @{
-        CommandName = 'Wait-RedditApiRateLimit'
-        ModuleName  = $ModuleName 
-    }
+    
     Mock @Params -MockWith {
         $null = $null
     }
@@ -241,13 +263,13 @@ Function MyTest {
         { irr @LocalParams -ErrorAction Stop } | should not throw
     }
     It "Uses the Default token when one is not supplied" {
-        $Global:TokenScript = $TokenScript
-        & $Module { $PsrawSettings.AccessToken = $Global:TokenScript }
+        $TokenScript = Get-TokenScript
+        Set-RedditDefaultOAuthToken -AccessToken $TokenScript 
         { & $Command -Uri $UriDefaultToken } | Should Not Throw
     }
     It 'Handles Token Refresh errors gracefully' {
         $LocalParams = @{
-            AccessToken = $TokenBadUpdate
+            AccessToken = Get-TokenBad
             Uri         = $Uri
         }
         Try { & $Command @LocalParams -ErrorAction Stop } 
@@ -256,7 +278,7 @@ Function MyTest {
     }
     It "Handles Invoke-WebRequest errors gracefully" {
         $LocalParams = @{
-            AccessToken = $TokenScript
+            AccessToken = Get-TokenScript
             Uri         = $UriBad
         }
         Try { & $Command @LocalParams -ErrorAction Stop } 
@@ -265,7 +287,7 @@ Function MyTest {
     }
     It "Handles Handles non-JSON responses" {
         $LocalParams = @{
-            AccessToken = $TokenScript
+            AccessToken = Get-TokenScript
             Uri         = $UriRaw
         }
         { & $Command @LocalParams -ErrorAction Stop } | Should not Throw

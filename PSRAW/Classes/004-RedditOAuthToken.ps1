@@ -70,7 +70,7 @@ Class RedditOAuthToken {
         return ($This.LastApiCall).AddSeconds($This.RateLimitRest)
     }
 
-    [bool]IsRateLimited() {
+    [bool] IsRateLimited() {
         $Now = Get-date
         $Reset = $This.GetRateLimitReset()
         if ($now -ge $Reset) {
