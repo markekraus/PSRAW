@@ -57,9 +57,12 @@ Properties {
     $ChangeLog = "$ProjectRoot\docs\ChangeLog.md"
     $MkdcosYmlHeader = "$ProjectRoot\Config\header-mkdocs.yml"
     $CodeCoverageExclude = @()
+    $Environment = Get-EnvironmentInformation
+    $DotnetCLIChannel = "release"
+    $DotnetCLIRequiredVersion = "2.0.0"
 }
 
-Task Default -Depends PostDeploy
+Task Default -Depends Init, Build, Test, CodeCoverage, BuildDocs, TestDocs, Deploy, PostDeploy
 
 Task Init {
     $lines
@@ -68,35 +71,13 @@ Task Init {
     Get-Item ENV:BH* | Format-List
     "`n"
     "Current Version: $CurrentVersion`n"
-    "Build Version: $BuildVersion`n"    
+    "Build Version: $BuildVersion`n"
+    "Environment:"
+    $Environment
+    Find-Dotnet
 }
 
-Task UnitTests -Depends Init {
-    $lines
-    "Running Pre-build unit tests`n"
-    $Timestamp = Get-date -uformat "%Y%m%d-%H%M%S"
-    $TestFile = "TestResults_PS$PSVersion`_$TimeStamp.xml"
-    $Parameters = @{
-        Script       = "$ProjectRoot\Tests"
-        PassThru     = $true
-        Tag          = 'PreBuild'
-        OutputFormat = 'NUnitXml'
-        OutputFile   = "$ProjectRoot\$TestFile"
-        Show         = 'Fails'
-    }
-    $TestResults = Invoke-Pester @Parameters
-    "`n"
-    If ($ENV:BHBuildSystem -eq 'AppVeyor') {
-        "Uploading $ProjectRoot\$TestFile to AppVeyor"
-        "JobID: $env:APPVEYOR_JOB_ID"
-        (New-Object 'System.Net.WebClient').UploadFile("https://ci.appveyor.com/api/testresults/nunit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path "$ProjectRoot\$TestFile"))
-    }
-    Remove-Item "$ProjectRoot\$TestFile" -Force -ErrorAction SilentlyContinue
-    if ($TestResults.FailedCount -gt 0) {
-        Write-Error "Failed '$($TestResults.FailedCount)' tests, build failed"
-    }
-    "`n"
-}
+
 
 Task Build -Depends Init {
     $lines
@@ -191,9 +172,52 @@ Task Build -Depends Init {
     "`n"
 }
 
-Task Test -Depends Build {
+Task EnsureDotnet -Depends Init {
+    $DotnetExists = Test-DotnetExists
+    $DotNetVersion = [string]::Empty
+    if ($DotNetExists) {
+        $DotNetVersion = (dotnet --version)
+    }
+    if (!$DotNetExists -or $DotNetVersion -ne $DotnetCLIRequiredVersion) {
+        if(!$dotNetExistis) {
+            "dotnet not present. Installing dotnet."
+        }
+        else {
+            "dotnet out of date ($dotNetVersion). Updating dotnet."
+        }
+        Install-Dotnet -Channel $DotnetCLIChannel -Version $DotnetCLIRequiredVersion
+    }
+    else {
+        "dotnet is already installed. Skipping installation."
+    }
+}
+
+Task BuildTestTools -Depends EnsureDotnet {
+    Find-Dotnet
+    $Tools = @(
+        "$ProjectRoot/Tests/tools/WebListener"
+    )
+
+    foreach ($Tool in $Tools){
+        Push-Location $tool
+        try {
+            dotnet publish --output bin --configuration Release
+            $toolPath = Join-Path -Path $tool -ChildPath "bin"
+            if ( $env:PATH -notcontains $toolPath ) {
+                $env:PATH = '{0}{1}{2}' -f $toolPath, [System.IO.Path]::PathSeparator, $($env:PATH)
+            }
+        } finally {
+            Pop-Location
+        }
+    }
+}
+
+Task Test -Depends BuildTestTools {
     $lines
     "`n`tSTATUS: Testing with PowerShell $PSVersion"
+
+    "Starting WebListener"
+    $Listener = Start-WebListener -HttpPort 8080
     
     # Gather test results. Store them in a variable and file
     $Timestamp = Get-date -uformat "%Y%m%d-%H%M%S"
@@ -225,7 +249,7 @@ Task Test -Depends Build {
     "`n"
 }
 
-Task CodeCoverage -depends Test {
+Task CodeCoverage {
     $lines
     $Params = @{
         path    = $ModuleFolder 
@@ -243,7 +267,6 @@ Task CodeCoverage -depends Test {
     }
     $PesterResults = Invoke-Pester @Params
     If ($ENV:BHBuildSystem -eq 'AppVeyor') {
-        . "$ProjectRoot\BuildTools\CodeCovIo-Helper.ps1"
         $Params = @{
             CodeCoverage = $PesterResults.CodeCoverage 
             RepoRoot     = $ProjectRoot
@@ -273,7 +296,7 @@ Task CodeCoverage -depends Test {
     "`n"
 }
 
-Task BuildDocs -depends CodeCoverage {
+Task BuildDocs {
     $lines
     Start-Job -FilePath "$ProjectRoot\BuildTools\BuildDocs.ps1" -ArgumentList @(
         $env:BHPSModuleManifest
@@ -290,7 +313,7 @@ Task BuildDocs -depends CodeCoverage {
     "`n"
 }
 
-Task TestDocs -Depends BuildDocs {
+Task TestDocs {
     $lines
     if (
         $ENV:BHBranchName -like 'develop' -or 
@@ -324,7 +347,7 @@ Task TestDocs -Depends BuildDocs {
     "`n"
 }
 
-Task Deploy -Depends TestDocs {
+Task Deploy {
     $lines
     
     # Gate deployment
@@ -349,7 +372,7 @@ Task Deploy -Depends TestDocs {
     "`n"
 }
 
-Task PostDeploy -depends Deploy {
+Task PostDeploy {
     $lines
     if ($ENV:APPVEYOR_REPO_PROVIDER -notlike 'github') {
         "Repo provider '$ENV:APPVEYOR_REPO_PROVIDER'. Skipping PostDeploy"

@@ -24,9 +24,13 @@ if ($ENV:BHBuildSystem -eq 'AppVeyor') {
 Install-Module -Scope $ModuleInstallScope Psake, PSDeploy, BuildHelpers, platyPS, PSScriptAnalyzer -force
 Install-Module -Scope $ModuleInstallScope Pester -Force -SkipPublisherCheck
 Import-Module Psake, BuildHelpers, platyPS, PSScriptAnalyzer
+Import-Module $PSScriptRoot/DotnetHelper.psm1
+Import-Module $PSScriptRoot/CodeCovIoHelper.psm1
+Import-Module $PSScriptRoot/../Tests/tools/WebListener/WebListener.psd1
 
 
-Set-BuildEnvironment 
+
+Set-BuildEnvironment -ErrorAction SilentlyContinue
 
 Invoke-psake -buildFile .\BuildTools\psake.ps1 -taskList $Task -nologo
 exit ([int](-not $psake.build_success))

@@ -1,5 +1,9 @@
 # See http://www.appveyor.com/docs/appveyor-yml for many more options
-version: 1.0.0.{build}
+cache:
+  - '%LocalAppData%\Microsoft\dotnet -> appveyor.yml'
+  - '%HOMEDRIVE%%HOMEPATH%\.nuget\packages -> appveyor.yml'
+
+version: 2.0.0.{build}
 skip_tags: true
 environment:
   NugetApiKey:

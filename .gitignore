@@ -23,3 +23,30 @@ ehthumbs.db
 
 # VS Code
 .vscode
+
+bin/
+obj/
+apps/
+
+# Ignore executables
+*.exe
+*.msi
+*.appx
+
+# Ignore binaries and symbols
+*.pdb
+*.dll
+
+# Ignore packages
+*.deb
+*.zip
+*.rpm
+*.pkg
+*.nupkg
+
+
+# dotnet cli install/uninstall scripts
+dotnet-install.ps1
+dotnet-install.sh
+dotnet-uninstall-pkgs.sh
+dotnet-uninstall-debian-packages.sh
