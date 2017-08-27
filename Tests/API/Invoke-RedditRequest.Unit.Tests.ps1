@@ -17,6 +17,10 @@ $ModuleRoot = Split-Path (Resolve-Path "$ProjectRoot\*\*.psd1")
 $ModuleName = Split-Path $ModuleRoot -Leaf
 Remove-Module -Force $ModuleName  -ErrorAction SilentlyContinue
 Import-Module (Join-Path $ModuleRoot "$ModuleName.psd1") -force
+Import-Module $ProjectRoot/Tests/tools/WebListener/WebListener.psd1
+Import-Module $ProjectRoot/BuildTools/DotnetHelper.psm1
+Find-Dotnet
+$Null = Start-WebListener
 
 #region insanity
 # For whatever reason, pester chokes trying to mock Update-RedditOAuthToken
@@ -160,10 +164,10 @@ Function MyTest {
         "over_18": true
     }
     #>
-    $Global:Uri = 'http://urlecho.appspot.com/echo?status=200&Content-Type=application%2Fjson&body=%7B%0A%20%20%20%20%22comment_karma%22%3A%200%2C%20%0A%20%20%20%20%22created%22%3A%201389649907.0%2C%20%0A%20%20%20%20%22created_utc%22%3A%201389649907.0%2C%20%0A%20%20%20%20%22has_mail%22%3A%20false%2C%20%0A%20%20%20%20%22has_mod_mail%22%3A%20false%2C%20%0A%20%20%20%20%22has_verified_email%22%3A%20null%2C%20%0A%20%20%20%20%22id%22%3A%20%221%22%2C%20%0A%20%20%20%20%22is_gold%22%3A%20false%2C%20%0A%20%20%20%20%22is_mod%22%3A%20true%2C%20%0A%20%20%20%20%22link_karma%22%3A%201%2C%20%0A%20%20%20%20%22name%22%3A%20%22reddit_bot%22%2C%20%0A%20%20%20%20%22over_18%22%3A%20true%0A%7D'
-    $Global:UriBad = 'http://urlecho.appspot.com/echo?status=404&Content-Type=text%2Fhtml&body=Bad%20Page!'
-    $Global:UriRaw = 'http://urlecho.appspot.com/echo?status=200&Content-Type=text%2Fhtml&body=Hello%20world!'
-    $Global:UriDefaultToken = 'https://httpbin.org/get'
+    $Global:Uri = Get-WebListenerUrl -Test 'User'
+    $Global:UriBad = Get-WebListenerUrl -Test 'StatusCode' -Query @{StatusCode=404}
+    $Global:UriRaw = Get-WebListenerUrl -Test 'Echo' -Query @{statuscode=200; 'Content-Type' = 'text/plain'; Body = 'Hello World'}
+    $Global:UriDefaultToken = Get-WebListenerUrl -Test 'Get'
     $ParameterSets = @(
         @{
             Name   = 'Uri Only'
@@ -309,3 +313,4 @@ Remove-Variable -Name JSON -Scope Global -Force -ErrorAction SilentlyContinue
 Remove-Variable -Name Uri -Scope Global -Force -ErrorAction SilentlyContinue
 Remove-Variable -Name UriBad -Scope Global -Force -ErrorAction SilentlyContinue
 Remove-Variable -Name InvokeWebRequest -Scope Global -Force -ErrorAction SilentlyContinue
+Stop-WebListener -ErrorAction SilentlyContinue

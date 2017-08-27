@@ -118,7 +118,7 @@ function Invoke-RedditRequest {
         catch {
             $response = $_.Exception.Response
             $ResponseBody = $_.ErrorDetails.Message
-            if ($Response.GetType().FullName -like 'System.Net.HttpWebResponse') {
+            if ($null -ne $response -and $Response.GetType().FullName -like 'System.Net.HttpWebResponse') {
                 $Stream = $response.GetResponseStream()
                 $Stream.Position = 0
                 $StreamReader = New-Object System.IO.StreamReader $Stream

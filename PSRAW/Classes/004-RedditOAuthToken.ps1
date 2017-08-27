@@ -71,8 +71,15 @@ Class RedditOAuthToken {
     }
 
     [bool] IsRateLimited() {
-        $Now = Get-date
+        if(
+            $This.RateLimitRemaining -eq 0 -and
+            $This.RateLimitUsed      -eq 0 -and
+            $This.RateLimitRest      -eq 0
+        ){
+            return $False
+        }
         $Reset = $This.GetRateLimitReset()
+        $Now = Get-date
         if ($now -ge $Reset) {
             return $False
         }

@@ -93,7 +93,8 @@ function Get-WebListenerUrl {
     [CmdletBinding()]
     [OutputType([Uri])]
     param (
-        [String]$Test
+        [String]$Test,
+        [System.Collections.IDictionary]$Query
     )
     process {
         $runningListener = Get-WebListener
@@ -106,6 +107,15 @@ function Get-WebListenerUrl {
         $Uri.Port = $runningListener.HttpPort
         $Uri.Scheme = 'Http'
         $Uri.Path = $Test
+        $QueryString = ''
+        foreach($key in $Query.Keys)
+        {
+            $QueryString = '{0}{1}={2}&' -f
+                $QueryString,
+                $key,
+                [System.Net.WebUtility]::UrlEncode($Query[$key])
+        }
+        $Uri.Query = $QueryString
         return [Uri]$Uri.ToString()
     }
 }
