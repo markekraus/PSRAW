@@ -200,18 +200,18 @@ Function Start-PSRAWPester {
         [string]$WebListenerPort = 8080,
         [string[]]$ExcludeTag = 'Exclude',
         [string[]]$Tag = "Build",
+        [Alias('Script')]
         [string[]]$Path = "$ProjectRoot/Tests/",
         [string[]]$Show = 'All',
         [string]$OutputFormat = "NUnitXml",
         [string]$OutputFile = "pester-tests.xml",
-        [object[]]$CodeCoverage = (Get-ChildItem -Recurse -Path $moduleFolder -Include  '*.ps1', '*.psm1' ),
+        [object[]]$CodeCoverage,
         [switch]$PassThru,
         [switch]$ThrowOnFailure
     )
-    $lines
-    Find-Dotnet
-    Publish-TestTools
-    Import-PSRAWModule
+    Write-host $lines
+    Find-Dotnet | Out-Host
+    Publish-TestTools | Out-Host
 
     Write-Host "Starting WebListener on port $WebListenerPort"
     $Null = Start-WebListener -HttpPort $WebListenerPort -ErrorAction Stop
@@ -222,7 +222,7 @@ Function Start-PSRAWPester {
     $Timestamp = 
     $TestFile = 
     $parameters = @{
-        Script       = "$ProjectRoot\Tests"
+        Script       = $Path
         PassThru     = $true
         OutputFormat = $OutputFormat
         OutputFile   = "pester-tests.xml"
@@ -236,29 +236,30 @@ Function Start-PSRAWPester {
         $TestResults 
     }
     
-    Write-Host "Stopping WebListener"
-    Stop-WebListener
-    
+    if($null -ne $CodeCoverage){
     $CoveragePercent = $TestResults.CodeCoverage.NumberOfCommandsExecuted / $TestResults.CodeCoverage.NumberOfCommandsAnalyzed
-    Write-Host " "
-    Write-Host "Code coverage report"
-    Write-Host ("   Files:             {0:N0}" -f $TestResults.CodeCoverage.NumberOfFilesAnalyzed)
-    Write-Host ("   Commands Analyzed: {0:N0}" -f $TestResults.CodeCoverage.NumberOfCommandsAnalyzed)
-    Write-Host ("   Commands Hit:      {0:N0}" -f $TestResults.CodeCoverage.NumberOfCommandsExecuted)
-    Write-Host ("   Commands Missed:   {0:N0}" -f $TestResults.CodeCoverage.NumberOfCommandsMissed)
-    Write-Host ("   Coverage:          {0:P2}" -f $CoveragePercent)
-    Write-Host " "
-    Write-Host "Missed Commands:"
-    $TestResults.CodeCoverage.MissedCommands | Select-Object @{
-        Name       = 'File'
-        Expression = {
-            $_.file.replace($ProjectRoot, '') -replace '^\\', ''
+        Write-Host " "
+        Write-Host "Code coverage Details"
+        Write-Host ("   Files:             {0:N0}" -f $TestResults.CodeCoverage.NumberOfFilesAnalyzed)
+        Write-Host ("   Commands Analyzed: {0:N0}" -f $TestResults.CodeCoverage.NumberOfCommandsAnalyzed)
+        Write-Host ("   Commands Hit:      {0:N0}" -f $TestResults.CodeCoverage.NumberOfCommandsExecuted)
+        Write-Host ("   Commands Missed:   {0:N0}" -f $TestResults.CodeCoverage.NumberOfCommandsMissed)
+        Write-Host ("   Coverage:          {0:P2}" -f $CoveragePercent)
+        Write-Host " "
+        <#
+        Write-Host "Missed Commands:"
+        $TestResults.CodeCoverage.MissedCommands | Select-Object @{
+            Name       = 'File'
+            Expression = {
+                $_.file.replace($ProjectRoot, '') -replace '^\\', ''
+            }
+        }, line, function, command | Out-String | Out-Host
+        if ($CoveragePercent -lt 0.90) {
+            $Message = "Coverage {0:P2} is below 90%" -f $CoveragePercent
+            if($ThrowOnFailure.IsPresent){ Write-Error $Message}
+            else{Write-Warning $Message}
         }
-    }, line, function, command | Out-String | Out-Host
-    if ($CoveragePercent -lt 0.90) {
-        $Message = "Coverage {0:P2} is below 90%" -f $CoveragePercent
-        if($ThrowOnFailure.IsPresent){ Write-Error $Message}
-        else{Write-Warning $Message}
+        #>
     }
     if ($TestResults.FailedCount -gt 0) {
         Write-Host " "
@@ -267,12 +268,30 @@ Function Start-PSRAWPester {
         else{Write-Warning $Message}
     }
     Write-Host " "
+    Write-Host "Stopping WebListener"
+    Stop-WebListener
 }
 
 function Import-PSRAWModule {
+    param([switch]$Force)
     Write-Host "Locading module $moduleFolder/$moduleName.psd1"
-    Import-Module "$moduleFolder/$moduleName.psd1"
+    Import-Module "$moduleFolder/$moduleName.psd1" -Global -Force:$($Force.IsPresent)
 }
+
+function Get-ModulePath {
+    Resolve-Path "$moduleFolder/$moduleName.psd1"
+}
+
+function Get-ModuleName {
+   $moduleName
+}
+
+function Get-ModuleRoot {
+    $moduleRoot
+ }
+function Get-ProjectRoot {
+    $ProjectRoot
+ }
 
 $lines = '----------------------------------------------------------------------'
 $dotnetCLIChannel = "release"

@@ -50,3 +50,5 @@ dotnet-install.ps1
 dotnet-install.sh
 dotnet-uninstall-pkgs.sh
 dotnet-uninstall-debian-packages.sh
+
+pester-tests.xml

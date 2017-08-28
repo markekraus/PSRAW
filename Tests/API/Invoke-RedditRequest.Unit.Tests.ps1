@@ -17,7 +17,12 @@
 #$ModuleName = Split-Path $ModuleRoot -Leaf
 #Remove-Module -Force $ModuleName  -ErrorAction SilentlyContinue
 #Import-Module (Join-Path $ModuleRoot "$ModuleName.psd1") -force
-Import-PSRAWModule
+$ProjectRoot = Get-ProjectRoot
+$ModuleRoot  = Get-ModuleRoot
+$ModulePath  = Get-ModulePath
+$ModuleName  = Get-ModuleName
+Remove-Module $ModuleName -Force -ErrorAction SilentlyContinue
+Import-Module -force $ModulePath
 $Null = Start-WebListener
 
 #region insanity
