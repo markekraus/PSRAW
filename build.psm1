@@ -274,7 +274,6 @@ Function Start-PSRAWPester {
 
 function Import-PSRAWModule {
     param([switch]$Force)
-    Write-Host "Locading module $moduleFolder/$moduleName.psd1"
     Import-Module "$moduleFolder/$moduleName.psd1" -Global -Force:$($Force.IsPresent)
 }
 
@@ -293,6 +292,13 @@ function Get-ProjectRoot {
     $ProjectRoot
  }
 
+ function Initialize-PSRAWTest {
+     New-Variable -Scope 1 -Name ModuleName -value $moduleName
+     New-Variable -Scope 1 -Name ModuleRoot -value $moduleRoot
+     New-Variable -Scope 1 -Name ModulePath -value $modulePath
+     New-Variable -Scope 1 -Name ProjectRoot -value $ProjectRoot
+ }
+
 $lines = '----------------------------------------------------------------------'
 $dotnetCLIChannel = "release"
 $dotnetCLIRequiredVersion = "2.0.0"
@@ -301,8 +307,9 @@ $Environment = Get-EnvironmentInformation
 $PSVersion = $PSVersionTable.PSVersion.Major
 $ProjectRoot = $PSScriptRoot
 $moduleFolder = "$ProjectRoot/PSRAW"
-$moduleRoot = "$ProjectRoot/PSRAW"
+$moduleRoot = $moduleFolder
 $moduleName = "PSRAW"
+$modulePath = "$moduleFolder/$moduleName.psd1"
 
 # adds auto loading for Build and Test Functions
 $BuildModulePath = Join-Path $PSScriptRoot "BuildTools/Modules"
@@ -312,4 +319,80 @@ if ( $env:PSModulePath -notcontains $TestModulePath ) {
 $TestModulePath = Join-Path $PSScriptRoot "Tests/tools/Modules"
 if ( $env:PSModulePath -notcontains $TestModulePath ) {
     $env:PSModulePath = $TestModulePath+$TestModulePathSeparator+$($env:PSModulePath)
+}
+
+
+#Test Functions 
+
+function Get-ApplicationScript {
+    $ClientId = '54321'
+    $ClientSecret = '12345'
+    $SecClientSecret = $ClientSecret | ConvertTo-SecureString -AsPlainText -Force 
+    $ClientCredential = [pscredential]::new($ClientId, $SecClientSecret)
+
+    $UserId = 'reddituser'
+    $UserSecret = 'password'
+    $SecUserSecret = $UserSecret | ConvertTo-SecureString -AsPlainText -Force 
+    $UserCredential = [pscredential]::new($UserId, $SecUserSecret)
+
+    [RedditApplication]@{
+        Name             = 'TestApplication'
+        Description      = 'This is only a test'
+        RedirectUri      = 'https://localhost/'
+        UserAgent        = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
+        Scope            = 'read'
+        ClientCredential = $ClientCredential
+        UserCredential   = $UserCredential
+        Type             = 'Script'
+    }
+}
+Function Get-TokenScript {
+   
+    $ApplicationScript = Get-ApplicationScript
+    
+    $TokenId = 'access_token'
+    $TokenSecret = '34567'
+    $SecTokenSecret = $TokenSecret | ConvertTo-SecureString -AsPlainText -Force 
+    $TokenCredential = [pscredential]::new($TokenId, $SecTokenSecret)
+
+    [RedditOAuthToken]@{
+        Application        = $ApplicationScript
+        IssueDate          = (Get-Date).AddMinutes(-13)
+        ExpireDate         = (Get-Date).AddHours(1)
+        LastApiCall        = Get-Date
+        Scope              = $ApplicationScript.Scope
+        GUID               = [guid]::NewGuid()
+        TokenType          = 'bearer'
+        GrantType          = 'Password'
+        RateLimitUsed      = 0
+        RateLimitRemaining = 300
+        RateLimitRest      = 99999
+        TokenCredential    = $TokenCredential
+    }
+}
+
+function Get-TokenBad {
+
+    $ApplicationScript = Get-ApplicationScript
+
+    $TokenId = 'access_token'
+    $TokenSecret = '34567'
+    $SecTokenSecret = $TokenSecret | ConvertTo-SecureString -AsPlainText -Force 
+    $TokenCredential = [pscredential]::new($TokenId, $SecTokenSecret)
+
+    [RedditOAuthToken]@{
+        Application        = $ApplicationScript
+        Notes              = 'badupdate'
+        IssueDate          = (Get-Date).AddHours(-2)
+        ExpireDate         = (Get-Date).AddHours(-1)
+        LastApiCall        = Get-Date
+        Scope              = $ApplicationScript.Scope
+        GUID               = [guid]::NewGuid()
+        TokenType          = 'bearer'
+        GrantType          = 'Password'
+        RateLimitUsed      = 0
+        RateLimitRemaining = 60
+        RateLimitRest      = 60
+        TokenCredential    = $TokenCredential
+    }
 }

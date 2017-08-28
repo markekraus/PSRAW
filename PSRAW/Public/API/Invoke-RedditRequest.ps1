@@ -76,10 +76,10 @@ function Invoke-RedditRequest {
         if (-not $PSCmdlet.ShouldProcess("$Uri")) {
             return
         }
-        $AccessToken | Wait-RedditApiRateLimit
+        Wait-RedditApiRateLimit -AccessToken $AccessToken
         try {
             Write-Verbose "Performing token refresh"
-            $AccessToken | Update-RedditOAuthToken -ErrorAction Stop
+            Update-RedditOAuthToken -ErrorAction Stop -AccessToken $AccessToken
         }
         Catch {
             $ErrorMessage = "Unable to refresh Access Token '{0}'" -f $AccessToken.GUID
