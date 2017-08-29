@@ -327,17 +327,30 @@ if ( $env:PSModulePath -notcontains $moduleRoot ) {
 
 #Test Functions 
 
-function Get-ApplicationScript {
+Function Get-ClientCredential {
     $ClientId = '54321'
     $ClientSecret = '08239842-a6f5-4fe5-ab4c-4592084ad44e'
     $SecClientSecret = $ClientSecret | ConvertTo-SecureString -AsPlainText -Force 
-    $ClientCredential = [pscredential]::new($ClientId, $SecClientSecret)
+    [pscredential]::new($ClientId, $SecClientSecret)
+}
 
+Function Get-UserCredential {
     $UserId = 'reddituser'
     $UserSecret = '08239842-a6f5-4fe5-ab4c-4592084ad44f'
     $SecUserSecret = $UserSecret | ConvertTo-SecureString -AsPlainText -Force 
-    $UserCredential = [pscredential]::new($UserId, $SecUserSecret)
+    [pscredential]::new($UserId, $SecUserSecret)
+}
 
+Function Get-TokenCredential {
+    $TokenId = 'access_token'
+    $TokenSecret = '34567'
+    $SecTokenSecret = $TokenSecret | ConvertTo-SecureString -AsPlainText -Force 
+    [pscredential]::new($TokenId, $SecTokenSecret)
+}
+
+function Get-ApplicationScript {
+    $ClientCredential = Get-ClientCredential
+    $UserCredential   = Get-UserCredential
     [RedditApplication]@{
         Name             = 'TestApplication'
         Description      = 'This is only a test'
@@ -350,14 +363,8 @@ function Get-ApplicationScript {
     }
 }
 Function Get-TokenScript {
-   
     $ApplicationScript = Get-ApplicationScript
-    
-    $TokenId = 'access_token'
-    $TokenSecret = '34567'
-    $SecTokenSecret = $TokenSecret | ConvertTo-SecureString -AsPlainText -Force 
-    $TokenCredential = [pscredential]::new($TokenId, $SecTokenSecret)
-
+    $TokenCredential   = Get-TokenCredential
     [RedditOAuthToken]@{
         Application        = $ApplicationScript
         IssueDate          = (Get-Date).AddMinutes(-13)
@@ -377,12 +384,7 @@ Function Get-TokenScript {
 function Get-TokenBad {
 
     $ApplicationScript = Get-ApplicationScript
-
-    $TokenId = 'access_token'
-    $TokenSecret = '34567'
-    $SecTokenSecret = $TokenSecret | ConvertTo-SecureString -AsPlainText -Force 
-    $TokenCredential = [pscredential]::new($TokenId, $SecTokenSecret)
-
+    $TokenCredential   = Get-TokenCredential
     [RedditOAuthToken]@{
         Application        = $ApplicationScript
         Notes              = 'badupdate'

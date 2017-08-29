@@ -11,94 +11,61 @@
     .DESCRIPTION
         Unit Tests for New-RedditApplication
 #>
-
-$ProjectRoot = Resolve-Path "$PSScriptRoot\..\.."
-$ModuleRoot = Split-Path (Resolve-Path "$ProjectRoot\*\*.psd1")
-$ModuleName = Split-Path $ModuleRoot -Leaf
-Remove-Module -Force $ModuleName  -ErrorAction SilentlyContinue
-Import-Module (Join-Path $ModuleRoot "$ModuleName.psd1") -force
-
-$Command = 'New-RedditApplication'
-$TypeName = 'RedditApplication'
-
-$ClientId = '54321'
-$ClientSecret = '12345'
-$SecClientSecret = $ClientSecret | ConvertTo-SecureString -AsPlainText -Force 
-$ClientCredential = [pscredential]::new($ClientId, $SecClientSecret)
-
-$UserId = 'reddituser'
-$UserSecret = 'password'
-$SecUserSecret = $UserSecret | ConvertTo-SecureString -AsPlainText -Force 
-$UserCredential = [pscredential]::new($UserId, $SecUserSecret)
-
-$ParameterSets = @(
-    @{
-        Name   = 'WebApp'
-        Params = @{
-            Name             = 'TestApplication'
-            Description      = 'This is only a test'
-            RedirectUri      = 'https://localhost/'
-            UserAgent        = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
-            Scope            = 'read'
-            ClientCredential = $ClientCredential
-            WebApp           = $True
-        }
+Describe "New-RedditApplication Build" -Tags Build,Unit {
+    BeforeAll {
+        Initialize-PSRAWTest
+        Remove-Module $ModuleName -Force -ErrorAction SilentlyContinue
+        Import-Module -force $ModulePath
+        $TestCases = @(
+            @{
+                Name   = 'WebApp'
+                Params = @{
+                    Name             = 'TestApplication'
+                    Description      = 'This is only a test'
+                    RedirectUri      = 'https://localhost/'
+                    UserAgent        = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
+                    Scope            = 'read'
+                    ClientCredential = Get-ClientCredential
+                    WebApp           = $True
+                }
+            }
+            @{
+                Name   = 'Script'
+                Params = @{
+                    Name             = 'TestApplication'
+                    Description      = 'This is only a test'
+                    RedirectUri      = 'https://localhost/'
+                    UserAgent        = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
+                    Scope            = 'read'
+                    ClientCredential = Get-ClientCredential
+                    UserCredential   = Get-UserCredential
+                    Script           = $True
+                }
+            }
+            @{
+                Name   = 'Installed'
+                Params = @{
+                    Name             = 'TestApplication'
+                    Description      = 'This is only a test'
+                    RedirectUri      = 'https://localhost/'
+                    UserAgent        = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
+                    Scope            = 'read'
+                    ClientCredential = Get-ClientCredential
+                    Installed        = $True
+                }
+            }
+        )
     }
-    @{
-        Name   = 'Script'
-        Params = @{
-            Name             = 'TestApplication'
-            Description      = 'This is only a test'
-            RedirectUri      = 'https://localhost/'
-            UserAgent        = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
-            Scope            = 'read'
-            ClientCredential = $ClientCredential
-            UserCredential   = $UserCredential
-            Script           = $True
-        }
+    It "'<Name>' Parameter set does not have errors" -TestCases $TestCases {
+        param($Name,$Params)
+        { New-RedditApplication @Params -ErrorAction Stop } | Should not throw
     }
-    @{
-        Name   = 'Installed'
-        Params = @{
-            Name             = 'TestApplication'
-            Description      = 'This is only a test'
-            RedirectUri      = 'https://localhost/'
-            UserAgent        = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
-            Scope            = 'read'
-            ClientCredential = $ClientCredential
-            Installed        = $True
-        }
+    It "Emits a 'RedditApplication' Object" {
+        (Get-Command New-RedditApplication).OutputType.Name.where( { $_ -eq 'RedditApplication' }) | Should be 'RedditApplication'
     }
-)
-
-
-function MyTest {
-    foreach ($ParameterSet in $ParameterSets) {
-
-        It "'$($ParameterSet.Name)' Parameter set does not have errors" {
-            $LocalParams = $ParameterSet.Params
-            { & $Command @LocalParams -ErrorAction Stop } | Should not throw
-        }
+    It "Returns a 'RedditApplication' Object" {
+        $LocalParams = $TestCases[0].Params.psobject.Copy()
+        $Object = New-RedditApplication @LocalParams | Select-Object -First 1
+        $Object.psobject.typenames.where( { $_ -eq 'RedditApplication' }) | Should be 'RedditApplication'
     }
-    It "Emits a $TypeName Object" {
-        (Get-Command $Command).OutputType.Name.where( { $_ -eq $TypeName }) | Should be $TypeName
-    }
-    It "Returns a $TypeName Object" {
-        $LocalParams = $ParameterSets[0].Params.psobject.Copy()
-        $Object = & $Command @LocalParams | Select-Object -First 1
-        $Object.psobject.typenames.where( { $_ -eq $TypeName }) | Should be $TypeName
-    }
-}
-
-Describe "$command Unit" -Tags Unit {
-    $CommandPresent = Get-Command -Name $Command -Module $ModuleName -ErrorAction SilentlyContinue
-    if (-not $CommandPresent) {
-        Write-Warning "'$command' was not found in '$ModuleName' during pre-build tests. It may not yet have been added the module. Unit tests will be skipped until after build."
-        return
-    }
-    MyTest
-}
-
-Describe "$command Build" -Tags Build {
-    MyTest
 }
