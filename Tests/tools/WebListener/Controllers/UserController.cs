@@ -11,24 +11,25 @@ namespace mvc.Controllers
 {
     public class UserController : Controller
     {
+        static public Hashtable userObject = new Hashtable
+        {
+            {"comment_karma"     , 0}, 
+            {"created"           , 1389649907.0}, 
+            {"created_utc"       , 1389649907.0}, 
+            {"has_mail"          , false}, 
+            {"has_mod_mail"      , false}, 
+            {"has_verified_email", null}, 
+            {"id"                , "1"}, 
+            {"is_gold"           , false}, 
+            {"is_mod"            , true}, 
+            {"link_karma"        , 1}, 
+            {"name"              ,"reddit_bot"}, 
+            {"over_18"           , true}
+        };
+
         public JsonResult Index()
         {
-            Hashtable output = new Hashtable
-            {
-                {"comment_karma"     , 0}, 
-                {"created"           , 1389649907.0}, 
-                {"created_utc"       , 1389649907.0}, 
-                {"has_mail"          , false}, 
-                {"has_mod_mail"      , false}, 
-                {"has_verified_email", null}, 
-                {"id"                , "1"}, 
-                {"is_gold"           , false}, 
-                {"is_mod"            , true}, 
-                {"link_karma"        , 1}, 
-                {"name"              ,"reddit_bot"}, 
-                {"over_18"           , true}
-            };
-            return Json(output);
+            return Json(userObject);
         }
         public IActionResult Error()
         {
