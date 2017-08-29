@@ -12,116 +12,60 @@
         Wait-RedditApiRateLimit Function unit tests
 #>
 
-$ProjectRoot = Resolve-Path "$PSScriptRoot\..\.."
-$ModuleRoot = Split-Path (Resolve-Path "$ProjectRoot\*\*.psd1")
-$ModuleName = Split-Path $ModuleRoot -Leaf
-Remove-Module -Force $ModuleName  -ErrorAction SilentlyContinue
-Import-Module (Join-Path $ModuleRoot "$ModuleName.psd1") -force
-
-InModuleScope $ModuleName {    
-    $Command = 'Wait-RedditApiRateLimit'
-    $TypeName = 'System.Void'
-
-    Function MyTest {
-        $ClientId = '54321'
-        $ClientSecret = '12345'
-        $SecClientSecret = $ClientSecret | ConvertTo-SecureString -AsPlainText -Force 
-        $ClientCredential = [pscredential]::new($ClientId, $SecClientSecret)
-
-        $UserId = 'reddituser'
-        $UserSecret = 'password'
-        $SecUserSecret = $UserSecret | ConvertTo-SecureString -AsPlainText -Force 
-        $UserCredential = [pscredential]::new($UserId, $SecUserSecret)
-
-        $TokenId = 'access_token'
-        $TokenSecret = '34567'
-        $SecTokenSecret = $TokenSecret | ConvertTo-SecureString -AsPlainText -Force 
-        $TokenCredential = [pscredential]::new($TokenId, $SecTokenSecret)
-
-        $ApplicationScript = [RedditApplication]@{
-            Name             = 'TestApplication'
-            Description      = 'This is only a test'
-            RedirectUri      = 'https://localhost/'
-            UserAgent        = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
-            Scope            = 'read'
-            ClientCredential = $ClientCredential
-            UserCredential   = $UserCredential
-            Type             = 'Script'
-        }
-
-        $TokenCode = [RedditOAuthToken]@{
-            Application        = $ApplicationScript
-            IssueDate          = (Get-Date).AddHours(-2)
-            ExpireDate         = (Get-Date).AddHours(-1)
-            LastApiCall        = Get-Date
-            Scope              = $ApplicationScript.Scope
-            GUID               = [guid]::NewGuid()
-            TokenType          = 'bearer'
-            GrantType          = 'Password'
-            RateLimitUsed      = 0
-            RateLimitRemaining = 60
-            RateLimitRest      = 60
-            TokenCredential    = $TokenCredential.psobject.copy()
-        }
-
-        $ParameterSets = @(
+Describe "Wait-RedditApiRateLimit" -Tags Unit,Build {
+    Initialize-PSRAWTest
+    Remove-Module $ModuleName -Force -ErrorAction SilentlyContinue
+    Import-Module -force $ModulePath
+    
+    InModuleScope $ModuleName {
+        $TestCases = @(
             @{
                 Name   = 'Code'
                 Params = @{
-                    AccessToken = $TokenCode
+                    AccessToken = Get-TokenScript
                 }
             }
             @{
                 Name   = 'Sleep'
                 Params = @{
-                    AccessToken     = $TokenCode
+                    AccessToken     = Get-TokenScript
                     MaxSleepSeconds = 300
                 }
             }
         )
-        foreach ($ParameterSet in $ParameterSets) {
-            It "'$($ParameterSet.Name)' Parameter set does not have errors" {
-                $LocalParams = $ParameterSet.Params
-                { & $Command @LocalParams -ErrorAction Stop } | Should not throw
-            }
+        It "'<Name>' Parameter set does not have errors" -TestCases $TestCases {
+            Param($Name,$Params)
+            { Wait-RedditApiRateLimit @Params -ErrorAction Stop } | Should Not throw
         }
-        It "Emits a $TypeName Object" {
-            (Get-Command $Command).OutputType.Name.where( { $_ -eq $TypeName }) | Should be $TypeName
+        It "Emits a 'System.Void' Object" {
+            (Get-Command Wait-RedditApiRateLimit).OutputType.Name.where( { $_ -eq 'System.Void' }) | Should Be 'System.Void'
         }
         It "Sleeps when the Token is Rate Limited" {
-            $TokenCode.RateLimitRemaining = 0
-            $TokenCode.RateLimitRest = 3
+            $AccessToken = Get-TokenScript
+            $AccessToken.RateLimitRemaining = 0
+            $AccessToken.RateLimitRest = 3
             Measure-Command {
-                $TokenCode.LastApiCall = Get-Date
-                $TokenCode | & $Command 
+                $AccessToken.LastApiCall = Get-Date
+                $AccessToken | Wait-RedditApiRateLimit 
             } | Select-Object -ExpandProperty TotalSeconds | Should BeGreaterThan 2
         }
         It "Sleeps only until MaxSleepSeconds" {
-            $TokenCode.RateLimitRemaining = 0
-            $TokenCode.RateLimitRest = 5
+            $AccessToken = Get-TokenScript
+            $AccessToken.RateLimitRemaining = 0
+            $AccessToken.RateLimitRest = 5
             Measure-Command {
-                $TokenCode.LastApiCall = Get-Date
-                $TokenCode | & $Command -MaxSleepSeconds 3
+                $AccessToken.LastApiCall = Get-Date
+                $AccessToken | Wait-RedditApiRateLimit -MaxSleepSeconds 3
             } | Select-Object -ExpandProperty TotalSeconds | Should BeLessThan 5
         }
         It "Supports WhatIf" {
-            $TokenCode.RateLimitRemaining = 0
-            $TokenCode.RateLimitRest = 5
+            $AccessToken = Get-TokenScript
+            $AccessToken.RateLimitRemaining = 0
+            $AccessToken.RateLimitRest = 5
             Measure-Command {
-                $TokenCode.LastApiCall = Get-Date
-                $TokenCode | & $Command -WhatIf
+                $AccessToken.LastApiCall = Get-Date
+                $AccessToken | Wait-RedditApiRateLimit -WhatIf
             } | Select-Object -ExpandProperty TotalSeconds | Should BeLessThan 1
         }
-    }
-    Describe "$command Unit" -Tags Unit {
-        $CommandPresent = Get-Command -Name $Command -Module $ModuleName -ErrorAction SilentlyContinue
-        if (-not $CommandPresent) {
-            Write-Warning "'$command' was not found in '$ModuleName' during pre-build tests. It may not yet have been added the module. Unit tests will be skipped until after build."
-            return
-        }
-        MyTest
-    }
-    Describe "$command Build" -Tags Build {
-        MyTest
     }
 }
