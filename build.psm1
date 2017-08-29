@@ -293,10 +293,10 @@ function Get-ProjectRoot {
  }
 
  function Initialize-PSRAWTest {
-     Set-Variable -Scope 1 -Name ModuleName -value $script:moduleName
-     Set-Variable -Scope 1 -Name ModuleRoot -value $script:moduleRoot
-     Set-Variable -Scope 1 -Name ModulePath -value $script:modulePath
-     Set-Variable -Scope 1 -Name ProjectRoot -value $script:ProjectRoot
+     New-Variable -Scope 1 -Name ModuleName -value  $moduleName
+     New-Variable -Scope 1 -Name ModuleRoot -value  $moduleRoot
+     New-Variable -Scope 1 -Name ModulePath -value  $modulePath
+     New-Variable -Scope 1 -Name ProjectRoot -value $ProjectRoot
  }
 
 $lines = '----------------------------------------------------------------------'
@@ -329,12 +329,12 @@ if ( $env:PSModulePath -notcontains $moduleRoot ) {
 
 function Get-ApplicationScript {
     $ClientId = '54321'
-    $ClientSecret = '12345'
+    $ClientSecret = '08239842-a6f5-4fe5-ab4c-4592084ad44e'
     $SecClientSecret = $ClientSecret | ConvertTo-SecureString -AsPlainText -Force 
     $ClientCredential = [pscredential]::new($ClientId, $SecClientSecret)
 
     $UserId = 'reddituser'
-    $UserSecret = 'password'
+    $UserSecret = '08239842-a6f5-4fe5-ab4c-4592084ad44f'
     $SecUserSecret = $UserSecret | ConvertTo-SecureString -AsPlainText -Force 
     $UserCredential = [pscredential]::new($UserId, $SecUserSecret)
 

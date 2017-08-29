@@ -11,94 +11,52 @@
     .DESCRIPTION
         Export-RedditApplication Function unit tests
 #>
-$ProjectRoot = Resolve-Path "$PSScriptRoot\..\.."
-$ModuleRoot = Split-Path (Resolve-Path "$ProjectRoot\*\*.psd1")
-$ModuleName = Split-Path $ModuleRoot -Leaf
-Remove-Module -Force $ModuleName  -ErrorAction SilentlyContinue
-Import-Module (Join-Path $ModuleRoot "$ModuleName.psd1") -force
 
-$Command = 'Export-RedditApplication'
-
-$ClientId = '54321'
-$ClientSecret = '08239842-a6f5-4fe5-ab4c-4592084ad44e'
-$SecClientSecret = $ClientSecret | ConvertTo-SecureString -AsPlainText -Force 
-$ClientCredential = [pscredential]::new($ClientId, $SecClientSecret)
-
-$UserId = 'reddituser'
-$UserSecret = '08239842-a6f5-4fe5-ab4c-4592084ad44f'
-$SecUserSecret = $UserSecret | ConvertTo-SecureString -AsPlainText -Force 
-$UserCredential = [pscredential]::new($UserId, $SecUserSecret)
-
-$ExportFile = '{0}\RedditApplicationExport-{1}.xml' -f $env:TEMP, [guid]::NewGuid().toString()
-
-$Application = [RedditApplication]@{
-    Name             = 'TestApplication'
-    Description      = 'This is only a test'
-    RedirectUri      = 'https://localhost/'
-    UserAgent        = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
-    Scope            = 'read'
-    ClientCredential = $ClientCredential
-    UserCredential   = $UserCredential
-    Type             = 'Script'
-    ExportPath       = $ExportFile 
-}
-
-$ParameterSets = @(
-    @{
-        Name   = 'Path'
-        Params = @{
-            Path        = $ExportFile
-            Application = $Application
-        }
+Describe "Export-RedditApplication" -Tags Build,Unit {
+    BeforeAll {
+        Initialize-PSRAWTest
+        Remove-Module $ModuleName -Force -ErrorAction SilentlyContinue
+        Import-Module -force $ModulePath
+        $ExportFile = '{0}\RedditApplicationExport-{1}.xml' -f $TestDrive, [guid]::NewGuid().toString()
+        $Application = Get-ApplicationScript
+        $Application.ExportPath = $ExportFile
+        $TestCases = @(
+            @{
+                Name   = 'Path'
+                Params = @{
+                    Path        = $ExportFile
+                    Application = $Application
+                }
+            }
+            @{
+                Name   = 'LiteralPath'
+                Params = @{
+                    LiteralPath = $ExportFile
+                    Application = $Application
+                }
+            }
+            @{
+                Name   = 'ExportPath'
+                Params = @{
+                    Application = $Application
+                }
+            }
+        )
     }
-    @{
-        Name   = 'LiteralPath'
-        Params = @{
-            LiteralPath = $ExportFile
-            Application = $Application
-        }
-    }
-    @{
-        Name   = 'ExportPath'
-        Params = @{
-            Application = $Application
-        }
-    }
-)
-
-function MyTest {
-    foreach ($ParameterSet in $ParameterSets) {
-        It "'$($ParameterSet.Name)' Parameter set does not have errors" {
-            $LocalParams = $ParameterSet.Params
-            { & $Command @LocalParams -ErrorAction Stop } | Should not throw
-        }
+    It "'<Name>' Parameter set does not have errors" -TestCases $TestCases {
+        param($Name,$Params)
+        { & Export-RedditApplication @Params -ErrorAction Stop } | Should not throw
     }
     It "Exports a valid XML file." {
+        Export-RedditApplication -Application $Application -Path $ExportFile
         Test-Path -Path $ExportFile | Should Be $True
         $xml = New-Object System.Xml.XmlDocument
         {$xml.Load($ExportFile)} | should not throw
     }
     It "Does not store secrets in plaintext" {
-        $Params = @{
-            Path        = $ExportFile
-            SimpleMatch = $true
-            Pattern     = '08239842-a6f5-4fe5-ab4c-4592084ad44'
-        }
-        Select-String @Params | should be $null
+        Export-RedditApplication -Application $Application -Path $ExportFile
+        $ExportFile | Should Not Contain $Application.GetClientSecret()
+        $ExportFile | Should Not Contain $Application.GetUserPassword()
     }
 }
 
-Describe "$command Unit" -Tags Unit {
-    $CommandPresent = Get-Command -Name $Command -Module $ModuleName -ErrorAction SilentlyContinue
-    if (-not $CommandPresent) {
-        Write-Warning "'$command' was not found in '$ModuleName' during pre-build tests. It may not yet have been added the module. Unit tests will be skipped until after build."
-        return
-    }
-    MyTest
-}
-
-Describe "$command Build" -Tags Build {
-    MyTest
-}
-
-Remove-Item -Force -Path $ExportFile -ErrorAction SilentlyContinue
