@@ -12,7 +12,7 @@
         Invoke-RedditRequest Function unit tests
 #>
 
-Describe "Invoke-RedditRequest Build" -Tags Build, Unit {
+Describe "Invoke-RedditRequest" -Tags Build, Unit {
     BeforeAll {
         Initialize-PSRAWTest
         Remove-Module $ModuleName -Force -ErrorAction SilentlyContinue
