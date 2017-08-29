@@ -12,70 +12,56 @@
         Unit Tests for RedditApplication Class
 #>
 
-$ProjectRoot = Resolve-Path "$PSScriptRoot\..\.."
-$ModuleRoot = Split-Path (Resolve-Path "$ProjectRoot\*\*.psd1")
-$ModuleName = Split-Path $ModuleRoot -Leaf
-Remove-Module -Force $ModuleName  -ErrorAction SilentlyContinue
-Import-Module (Join-Path $ModuleRoot "$ModuleName.psd1") -force
-
-$Class = 'RedditApplication'
-
-$ClientId = '54321'
-$ClientSecret = '12345'
-$SecClientSecret = $ClientSecret | ConvertTo-SecureString -AsPlainText -Force 
-$ClientCredential = [pscredential]::new($ClientId, $SecClientSecret)
-
-$UserId = 'reddituser'
-$UserSecret = 'password'
-$SecUserSecret = $UserSecret | ConvertTo-SecureString -AsPlainText -Force 
-$UserCredential = [pscredential]::new($UserId, $SecUserSecret)
-
-$TestHashes = @(
-    @{
-        Name = 'WebApp'
-        Hash = @{
-            Name             = 'TestApplication'
-            Description      = 'This is only a test'
-            RedirectUri      = 'https://localhost/'
-            UserAgent        = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
-            Scope            = 'read'
-            ClientCredential = $ClientCredential
-            Type             = 'WebApp'
-        }
+Describe "[RedditApplication] Tests" -Tag Unit, Build {
+    BeforeAll {
+        Initialize-PSRAWTest
+        Remove-Module $ModuleName -Force -ErrorAction SilentlyContinue
+        Import-Module -force $ModulePath
+        $ClientCredential = Get-ClientCredential
+        $UserCredential   = Get-UserCredential
+        $TestCases= @(
+            @{
+                Name = 'WebApp'
+                Hash = @{
+                    Name             = 'TestApplication'
+                    Description      = 'This is only a test'
+                    RedirectUri      = 'https://localhost/'
+                    UserAgent        = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
+                    Scope            = 'read'
+                    ClientCredential = Get-ClientCredential
+                    Type             = 'WebApp'
+                }
+            }
+            @{
+                Name = 'Script'
+                Hash = @{
+                    Name             = 'TestApplication'
+                    Description      = 'This is only a test'
+                    RedirectUri      = 'https://localhost/'
+                    UserAgent        = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
+                    Scope            = 'read'
+                    ClientCredential = Get-ClientCredential
+                    UserCredential   = Get-UserCredential
+                    Type             = 'Script'
+                }
+            }
+            @{
+                Name = 'Installed'
+                Hash = @{
+                    Name             = 'TestApplication'
+                    Description      = 'This is only a test'
+                    RedirectUri      = 'https://localhost/'
+                    UserAgent        = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
+                    Scope            = 'read'
+                    ClientCredential = Get-ClientCredential
+                    Type             = 'Installed'
+                }
+            }
+        )
     }
-    @{
-        Name = 'Script'
-        Hash = @{
-            Name             = 'TestApplication'
-            Description      = 'This is only a test'
-            RedirectUri      = 'https://localhost/'
-            UserAgent        = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
-            Scope            = 'read'
-            ClientCredential = $ClientCredential
-            UserCredential   = $UserCredential
-            Type             = 'Script'
-        }
-    }
-    @{
-        Name = 'Installed'
-        Hash = @{
-            Name             = 'TestApplication'
-            Description      = 'This is only a test'
-            RedirectUri      = 'https://localhost/'
-            UserAgent        = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
-            Scope            = 'read'
-            ClientCredential = $ClientCredential
-            Type             = 'Installed'
-        }
-    }
-)
-
-
-Describe "[$Class] Tests" -Tag Unit, Build {
-    foreach ($TestHash in $TestHashes) {
-        It "Converts the '$($TestHash.Name)' hash" {
-            {[RedditApplication]$TestHash.Hash} | should not throw
-        }
+    It "Converts the '<Name>' hash" -TestCases $TestCases {
+        param($Name,$Hash)
+        {[RedditApplication]$Hash} | should not throw
     }
     It "Has a working Uber Constructor." {
         {
@@ -88,11 +74,12 @@ Describe "[$Class] Tests" -Tag Unit, Build {
                 [guid]::NewGuid(),
                 'c:\RedditApplication.xml',
                 'read',
-                $ClientCredential,
-                $UserCredential
+                (Get-ClientCredential),
+                (Get-UserCredential)
             )
         } | should not throw
     }
+
     $Application = [RedditApplication]::new('TestApplication',
         'This is only a test',
         'https://localhost/',
@@ -102,12 +89,13 @@ Describe "[$Class] Tests" -Tag Unit, Build {
         'c:\RedditApplication.xml',
         'read',
         $ClientCredential,
-        $UserCredential)
+        $UserCredential 
+    )
     It "Has a working GetClientSecret() method" {
-        $Application.GetClientSecret() | should be $ClientSecret
+        $Application.GetClientSecret() | should be $ClientCredential.GetNetworkCredential().Password
     }
     It "Has a working GetClientSecret() method" {
-        $Application.GetUserPassword() | should be $UserSecret
+        $Application.GetUserPassword() | should be $UserCredential.GetNetworkCredential().Password
     }
     It "Has a AuthBaseURL static property" {
         {[RedditApplication]::AuthBaseURL} | should not throw
@@ -127,8 +115,8 @@ Describe "[$Class] Tests" -Tag Unit, Build {
                 RedirectUri      = 'https://localhost/'
                 UserAgent        = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
                 Scope            = 'read'
-                ClientCredential = $ClientCredential
-                UserCredential   = $UserCredential
+                ClientCredential = Get-ClientCredential
+                UserCredential   = Get-UserCredential
             }
         } | Should Throw 
     }
@@ -141,7 +129,7 @@ Describe "[$Class] Tests" -Tag Unit, Build {
                 UserAgent      = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
                 Scope          = 'read'
                 Type           = 'Script'
-                UserCredential = $UserCredential
+                UserCredential = Get-UserCredential
             }
         } | Should Throw 
     }
@@ -153,8 +141,8 @@ Describe "[$Class] Tests" -Tag Unit, Build {
                 RedirectUri      = 'https://localhost/'
                 Scope            = 'read'
                 Type             = 'Script'
-                ClientCredential = $ClientCredential
-                UserCredential   = $UserCredential
+                ClientCredential = Get-ClientCredential
+                UserCredential   = Get-UserCredential
             }
         } | Should Throw 
     }
@@ -166,8 +154,8 @@ Describe "[$Class] Tests" -Tag Unit, Build {
                 UserAgent        = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
                 Scope            = 'read'
                 Type             = 'Script'
-                ClientCredential = $ClientCredential
-                UserCredential   = $UserCredential
+                ClientCredential = Get-ClientCredential
+                UserCredential   = Get-UserCredential
             }
         } | Should Throw 
     }
@@ -179,12 +167,12 @@ Describe "[$Class] Tests" -Tag Unit, Build {
                 RedirectUri      = 'https://localhost/'
                 UserAgent        = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
                 Type             = 'Script'
-                ClientCredential = $ClientCredential
-                UserCredential   = $UserCredential
+                ClientCredential = Get-ClientCredential
+                UserCredential   = Get-UserCredential
             }
         } | Should Throw 
     }
-    It "Converts a [PSObject] to [$Class]" {
+    It "Converts a [PSObject] to [RedditApplication]" {
         {
             [RedditApplication][pscustomobject]@{
                 Name             = 'TestApplication'
@@ -192,21 +180,21 @@ Describe "[$Class] Tests" -Tag Unit, Build {
                 RedirectUri      = 'https://localhost/'
                 UserAgent        = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
                 Scope            = 'read'
-                ClientCredential = $ClientCredential
-                UserCredential   = $UserCredential
+                ClientCredential = Get-ClientCredential
+                UserCredential   = Get-UserCredential
                 Type             = 'Script'
             }
         } | Should Not Throw
     }
-    It "Converts a [Object] to [$Class]" {
+    It "Converts a [Object] to [RedditApplication]" {
         $Hash = @{
             Name             = 'TestApplication'
             Description      = 'This is only a test'
             RedirectUri      = 'https://localhost/'
             UserAgent        = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
             Scope            = 'read'
-            ClientCredential = $ClientCredential
-            UserCredential   = $UserCredential
+            ClientCredential = Get-ClientCredential
+            UserCredential   = Get-UserCredential
             Type             = 'Script'
         }
         $Object = [System.Object]::New()
@@ -230,7 +218,7 @@ Describe "[$Class] Tests" -Tag Unit, Build {
                 RedirectUri      = 'https://localhost/'
                 UserAgent        = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
                 Scope            = 'read'
-                ClientCredential = $ClientCredential
+                ClientCredential = Get-ClientCredential
                 Type             = 'Script'
             }
         } | Should Throw "'UserCredential' required for 'Script' type"

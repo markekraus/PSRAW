@@ -158,7 +158,12 @@ function script:Start-NativeExecution([scriptblock]$sb, [switch]$IgnoreExitcode)
     }
 }
 
+$TestToolsPublished = $false
 Function Publish-TestTools {
+    if($Script:TestToolsPublished){
+        "Test Tools already published. Skipping."
+        return
+    }
     $DotnetExists = Test-DotnetExists
     $DotNetVersion = [string]::Empty
     if ($DotNetExists) {
@@ -191,6 +196,7 @@ Function Publish-TestTools {
             }
         } finally {
             Pop-Location
+            $Script:TestToolsPublished = $true
         }
     }
 }
