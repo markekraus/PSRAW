@@ -136,7 +136,7 @@ function Find-Dotnet() {
 Function Test-DotnetExists () {
     if(Get-Command dotnet -ErrorAction SilentlyContinue){
         $True
-    } 
+    }
     Else {
         $False
     }
@@ -222,11 +222,11 @@ Function Start-PSRAWPester {
     Write-Host "Starting WebListener on port $WebListenerPort"
     $Null = Start-WebListener -HttpPort $WebListenerPort -ErrorAction Stop
 
-    Write-Host "Running pester tests at '$path' with tag '$($Tag -join ''', ''')' and ExcludeTag '$($ExcludeTag -join ''', ''')'" 
+    Write-Host "Running pester tests at '$path' with tag '$($Tag -join ''', ''')' and ExcludeTag '$($ExcludeTag -join ''', ''')'"
 
     # Gather test results. Store them in a variable and file
-    $Timestamp = 
-    $TestFile = 
+    $Timestamp =
+    $TestFile =
     $parameters = @{
         Script       = $Path
         PassThru     = $true
@@ -236,12 +236,12 @@ Function Start-PSRAWPester {
         Show         = $Show
         CodeCoverage = $CodeCoverage
     }
-    $TestResults = Invoke-Pester @parameters 
+    $TestResults = Invoke-Pester @parameters
 
     If($PassThru){
-        $TestResults 
+        $TestResults
     }
-    
+
     if($null -ne $CodeCoverage){
     $CoveragePercent = $TestResults.CodeCoverage.NumberOfCommandsExecuted / $TestResults.CodeCoverage.NumberOfCommandsAnalyzed
         Write-Host " "
@@ -331,59 +331,83 @@ if ( $env:PSModulePath -notcontains $moduleRoot ) {
 }
 
 
-#Test Functions 
+#Test Functions
 
 Function Get-ClientCredential {
     $ClientId = '54321'
     $ClientSecret = '08239842-a6f5-4fe5-ab4c-4592084ad44e'
-    $SecClientSecret = $ClientSecret | ConvertTo-SecureString -AsPlainText -Force 
+    $SecClientSecret = $ClientSecret | ConvertTo-SecureString -AsPlainText -Force
     [pscredential]::new($ClientId, $SecClientSecret)
 }
 
 Function Get-UserCredential {
     $UserId = 'reddituser'
     $UserSecret = '08239842-a6f5-4fe5-ab4c-4592084ad44f'
-    $SecUserSecret = $UserSecret | ConvertTo-SecureString -AsPlainText -Force 
+    $SecUserSecret = $UserSecret | ConvertTo-SecureString -AsPlainText -Force
     [pscredential]::new($UserId, $SecUserSecret)
 }
 
+Function Get-TokenSecret {
+    '34567'
+}
 Function Get-TokenCredential {
     $TokenId = 'access_token'
-    $TokenSecret = '34567'
-    $SecTokenSecret = $TokenSecret | ConvertTo-SecureString -AsPlainText -Force 
+    $TokenSecret = Get-TokenSecret
+    $SecTokenSecret = $TokenSecret | ConvertTo-SecureString -AsPlainText -Force
     [pscredential]::new($TokenId, $SecTokenSecret)
 }
 
 function Get-ApplicationScript {
-    $ClientCredential = Get-ClientCredential
-    $UserCredential   = Get-UserCredential
     [RedditApplication]@{
         Name             = 'TestApplication'
         Description      = 'This is only a test'
         RedirectUri      = 'https://localhost/'
         UserAgent        = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
         Scope            = 'read'
-        ClientCredential = $ClientCredential
-        UserCredential   = $UserCredential
+        ClientCredential = Get-ClientCredential
+        UserCredential   = Get-UserCredential
         Type             = 'Script'
     }
 }
+
+function Get-ApplicationInstalled {
+    [RedditApplication] @{
+        Name             = 'TestApplication'
+        Description      = 'This is only a test'
+        RedirectUri      = 'https://localhost/'
+        UserAgent        = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
+        Scope            = 'read'
+        ClientCredential = Get-ClientCredential
+        Type             = 'Installed'
+    }
+}
+
+function Get-ApplicationWebApp {
+    [RedditApplication]@{
+        Name             = 'TestApplication'
+        Description      = 'This is only a test'
+        RedirectUri      = 'https://localhost/'
+        UserAgent        = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
+        Scope            = 'read'
+        ClientCredential = Get-ClientCredential
+        Type             = 'WebApp'
+    }
+}
+
 Function Get-TokenScript {
-    $ApplicationScript = Get-ApplicationScript
-    $TokenCredential   = Get-TokenCredential
     [RedditOAuthToken]@{
-        Application        = $ApplicationScript
+        Application        = Get-ApplicationScript
         IssueDate          = (Get-Date).AddMinutes(-13)
         ExpireDate         = (Get-Date).AddHours(1)
         LastApiCall        = Get-Date
-        Scope              = $ApplicationScript.Scope
+        Scope              = '*'
         GUID               = [guid]::NewGuid()
         TokenType          = 'bearer'
         GrantType          = 'Password'
         RateLimitUsed      = 0
         RateLimitRemaining = 300
         RateLimitRest      = 99999
-        TokenCredential    = $TokenCredential
+        TokenCredential    = Get-TokenCredential
     }
 }
 
