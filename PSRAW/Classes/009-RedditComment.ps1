@@ -1,13 +1,13 @@
-<#	
+<#
     .NOTES
-    
+
      Created with: 	Plaster
      Created on:   	6/1/2017 4:50 AM
      Edited on:     6/1/2017
      Created by:   	Mark Kraus
-     Organization: 	 
+     Organization:
      Filename:     	009-RedditComment.ps1
-    
+
     .DESCRIPTION
         RedditComment Class
 #>
@@ -56,7 +56,6 @@ Class RedditComment : RedditDataObject {
     static [string] $ApiEndpointUri = 'https://oauth.reddit.com/api/info?id=t1_{0}'
     static [RedditThingKind]$RedditThingKind = 't1'
     RedditComment () { }
-    RedditComment ([String]$String) { $This = $Null }
     RedditComment ([RedditThing]$RedditThing) {
         $Data = $RedditThing.data
         $This.Id = $Data.Id
@@ -72,7 +71,7 @@ Class RedditComment : RedditDataObject {
             }
             $Params = @{
                 MemberType = 'NoteProperty'
-                Name       = $Property 
+                Name       = $Property
                 Value      = $Data.$Property
             }
             $This | Add-Member @params
@@ -137,7 +136,7 @@ Class RedditComment : RedditDataObject {
         $This.replies = $List
         foreach($Reply in $This.Replies){
             $Reply.ParentObject = $This
-        }   
+        }
     }
 
     #[string] GetPermalink() {

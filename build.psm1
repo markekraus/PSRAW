@@ -299,10 +299,10 @@ function Get-ProjectRoot {
  }
 
  function Initialize-PSRAWTest {
-     New-Variable -Scope 1 -Name ModuleName -value  $moduleName
-     New-Variable -Scope 1 -Name ModuleRoot -value  $moduleRoot
-     New-Variable -Scope 1 -Name ModulePath -value  $modulePath
-     New-Variable -Scope 1 -Name ProjectRoot -value $ProjectRoot
+     New-Variable -Scope 1 -Name ModuleName -value  $moduleName -Force
+     New-Variable -Scope 1 -Name ModuleRoot -value  $moduleRoot -Force
+     New-Variable -Scope 1 -Name ModulePath -value  $modulePath -Force
+     New-Variable -Scope 1 -Name ProjectRoot -value $ProjectRoot -Force
  }
 
 $lines = '----------------------------------------------------------------------'

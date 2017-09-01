@@ -1,191 +1,146 @@
-<#	
+<#
     .NOTES
-    
+
      Created with:  VSCode
      Created on:    6/02/2017 4:50 AM
-     Edited on:     6/02/2017
+     Edited on:     9/02/2017
      Created by:    Mark Kraus
-     Organization: 	
-     Filename:     RedditListing.Unit.Tests.ps1
-    
+     Organization:
+     Filename:     009-RedditComment.Unit.Tests.ps1
+
     .DESCRIPTION
-        Unit Tests for RedditListing Class
+        Unit Tests for RedditComment Class
 #>
-$ProjectRoot = Resolve-Path "$PSScriptRoot\..\.."
-$ModuleRoot = Split-Path (Resolve-Path "$ProjectRoot\*\*.psd1")
-$ModuleName = Split-Path $ModuleRoot -Leaf
-Remove-Module -Force $ModuleName  -ErrorAction SilentlyContinue
-Import-Module (Join-Path $ModuleRoot "$ModuleName.psd1") -force
-
-$Class = 'RedditListing'
-
-$CommentJSON = @'
-{
-    "kind": "t1",
-    "data": {
-            "subreddit_id": "t5_abc12",
-        "banned_by": null,
-        "removal_reason": null,
-        "link_id": "t3_def345",
-        "likes": null,
-        "replies": "",
-        "user_reports": [
-                [
-                    "Stupid Comment",
-                2
-            ]
-        ],
-        "saved": false,
-        "id": "ghij678",
-        "gilded": 0,
-        "archived": false,
-        "score": -2,
-        "report_reasons": [
-                "This attribute is deprecated. Please use mod_reports and user_reports instead."
-        ],
-        "author": "StupidUser",
-        "parent_id": "t3_ghij677",
-        "subreddit_name_prefixed": "r/SubReddit",
-        "approved_by": null,
-        "controversiality": 0,
-        "body": "Stupid Comment!",
-        "edited": false,
-        "author_flair_css_class": null,
-        "downs": 0,
-        "body_html": "&lt;div class=\"md\"&gt;&lt;p&gt;stupid comment!&lt;/p&gt;\n&lt;/div&gt;",
-        "can_gild": true,
-        "removed": false,
-        "approved": false,
-        "name": "t1_ghij678",
-        "score_hidden": false,
-        "num_reports": 3,
-        "stickied": false,
-        "created": 1496196740.0,
-        "subreddit": "SubReddit",
-        "author_flair_text": null,
-        "spam": false,
-        "created_utc": 1496167940.0,
-        "distinguished": null,
-        "ignore_reports": false,
-        "mod_reports": [
-                [
-                    "Really Stupid Comment",
-                "markekraus"
-            ]
-        ],
-        "subreddit_type": "public",
-        "ups": -2
+Describe "[RedditComment] Build Tests" -Tag Build, Unit {
+    BeforeAll {
+        Initialize-PSRAWTest
+        Remove-Module $ModuleName -Force -ErrorAction SilentlyContinue
+        Import-Module -force $ModulePath
+        $TokenScript = Get-TokenScript
+        $Uri = Get-WebListenerUrl -Test 'Submission/Nested'
+        $Submission = Invoke-RedditRequest -Uri $Uri -AccessToken $TokenScript
+        # Single comment with no replies
+        $Comment1 = [RedditThing]$Submission.ContentObject[1].data.children[1]
+        # Single comment with a complex reply hierarchy
+        $Comment2 = [RedditThing]$Submission.ContentObject[1].data.children[0]
+        # Single Comment with Single Reply
+        $Comment3 = [RedditThing]$Submission.ContentObject[1].data.children[2]
+        # Listing of single comment
+        $Listing = [PSCustomObject]@{
+            kind = 'Listing'
+            data = [PSCustomObject]@{
+                children = [object[]]@($Submission.ContentObject[1].data.children[1])
+                after    = ''
+                before   = ''
+            }
+        }
+        $EmptyMore = [PSCustomObject]@{
+            kind = 'more'
+            data = [PSCustomObject]@{
+                count = 0
+            }
+        }
+        $More = [PSCustomObject]@{
+            kind = 'more'
+            data = [PSCustomObject]@{
+                count    = 1
+                children = @('12345')
+            }
+        }
+        $MoreListing = [PSCustomObject]@{
+            kind = 'Listing'
+            data = [PSCustomObject]@{
+                children = [object[]]@($More)
+                after    = ''
+                before   = ''
+            }
+        }
     }
-}
-'@
-
-
-Function MyTest {
-    $ClientId = '54321'
-    $ClientSecret = '12345'
-    $SecClientSecret = $ClientSecret | ConvertTo-SecureString -AsPlainText -Force 
-    $ClientCredential = [pscredential]::new($ClientId, $SecClientSecret)
-
-    $UserId = 'reddituser'
-    $UserSecret = 'password'
-    $SecUserSecret = $UserSecret | ConvertTo-SecureString -AsPlainText -Force 
-    $UserCredential = [pscredential]::new($UserId, $SecUserSecret)
-
-    $TokenId = 'access_token'
-    $TokenSecret = '34567'
-    $SecTokenSecret = $TokenSecret | ConvertTo-SecureString -AsPlainText -Force 
-    $TokenCredential = [pscredential]::new($TokenId, $SecTokenSecret)
-
-    $ApplicationScript = [RedditApplication]@{
-        Name             = 'TestApplication'
-        Description      = 'This is only a test'
-        RedirectUri      = 'https://localhost/'
-        UserAgent        = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
-        Scope            = 'read'
-        ClientCredential = $ClientCredential
-        UserCredential   = $UserCredential
-        Type             = 'Script'
+    Context "RedditComment ([RedditThing]`$RedditThing) constructor" {
+        It "Converts a RedditThing to a RedditComment" {
+            $Result = @{}
+            { $Result['Object'] = [RedditComment]::New($Comment1) } | Should Not Throw
+            $Result.Object.id | should be $Comment1.Data.Id
+        }
+        It "Automatically converts replies to RedditComments" {
+            $Result = @{}
+            { $Result['Object'] = [RedditComment]::New($Comment3) } | Should Not Throw
+            $Result.Object.Replies.Count | Should Be 1
+            $Result.Object.Replies[0].GetType().Name | Should Be 'RedditComment'
+        }
+        It "Converts a complex nested comment hierarchy" {
+            { [RedditComment]::New($Comment2) } | Should Not Throw
+        }
+        It "Automatically adds properties the class does not contain" {
+            $Comment = $Comment1.Psobject.Copy()
+            $Params = @{
+                MemberType = 'NoteProperty'
+                Name       = 'NewProperty'
+                Value      = 'TestValue'
+            }
+            $Comment.Data | Add-Member @Params
+            $Result = @{}
+            { $Result['Object'] = [RedditComment]::New($Comment) } | Should Not Throw
+            $Result.Object.NewProperty | Should be 'TestValue'
+        }
     }
-    $TokenScript = [RedditOAuthToken]@{
-        Application        = $ApplicationScript
-        IssueDate          = (Get-Date).AddHours(-2)
-        ExpireDate         = (Get-Date).AddHours(-1)
-        LastApiCall        = Get-Date
-        Scope              = $ApplicationScript.Scope
-        GUID               = [guid]::NewGuid()
-        TokenType          = 'bearer'
-        GrantType          = 'Password'
-        RateLimitUsed      = 0
-        RateLimitRemaining = 60
-        RateLimitRest      = 60
-        TokenCredential    = $TokenCredential.psobject.copy()
+    Context "Methods" {
+        It "Has a GetApiEndpointUri() Method" {
+            $Comment = [RedditComment]::New($Comment1)
+            $result = 'https://oauth.reddit.com/api/info?id=t1_{0}' -f $Comment1.Data.id
+            $Comment.GetApiEndpointUri() | Should Be $Result
+        }
+        It 'Has a GetFullName() method' {
+            $Comment = [RedditComment]::New($Comment1)
+            $Comment.GetFullName() | Should Be $Comment1.Data.name
+        }
+        It 'Has a ToString() method' {
+            $Comment = [RedditComment]::New($Comment1)
+            $Comment.ToString() | Should Be $Comment1.Data.body
+        }
+        It "Has a HasMore() method" {
+            $Comment = [RedditComment]::New($Comment1)
+            $Comment.HasMore() | Should Be $False
+            $Comment.MoreObject = ([RedditThing]$EmptyMore).RedditData
+            $Comment.HasMore() | Should Be $True
+        }
     }
-    It 'Creates a RedditListing from a RedditAccessToken and an object' {
-        $Object = ConvertFrom-Json $CommentJSON 
-        $RedditListing = [RedditListing]::new($TokenScript, $Object)
-        $RedditListing.subreddit_id | should be 't5_abc12'
-        $RedditListing.link_id | should be 't3_def345'
-        $RedditListing.user_reports[0].reason | should be 'Stupid Comment'
-        $RedditListing.user_reports[0].count | should be 2
-        $RedditListing.id | should be 'ghij678'
-        $RedditListing.gilded | should be 0
-        $RedditListing.score | should be -2
-        $RedditListing.report_reasons[0] | should be 'This attribute is deprecated. Please use mod_reports and user_reports instead.'
-        $RedditListing.author | should be 'StupidUser'
-        $RedditListing.parent_id| should be 't3_ghij677'
-        $RedditListing.body | should be 'Stupid Comment!'
-        $RedditListing.mod_reports[0].reason | should be 'Really Stupid Comment'
-        $RedditListing.mod_reports[0].moderator | should be 'markekraus'
-        $RedditListing.created.unix | should be 1496196740.0
+    context "_initReplies Method" {
+        It "Does nothing when supplied an empty string" {
+            $Comment = [RedditComment]::New($Comment1)
+            $Count = $Comment.replies.Count
+            { $Comment._initReplies('') } | Should Not Throw
+            $Comment.replies.count | Should be $Count
+        }
+        It "Adds a listing of replies" {
+            $Comment = [RedditComment]::New($Comment1)
+            $Count = $Comment.replies.Count
+            { $Comment._initReplies($Listing) } | Should Not Throw
+            $Comment.replies.Count | Should BeGreaterThan $Count
+        }
+        It "Adds a listing of Mores" {
+            $Comment = [RedditComment]::New($Comment1)
+            $Count = $Comment.replies.Count
+            { $Comment._initReplies($MoreListing) } | Should Not Throw
+            $Comment.replies.Count | Should BeGreaterThan $Count
+            $Comment.replies[0].id | Should Be $More.data.children[0]
+        }
+        It "Adds empty Mores" {
+            $Comment = [RedditComment]::New($Comment1)
+            { $Comment._initReplies($EmptyMore) } | Should Not Throw
+            $Comment.HasMore() | Should Be $True
+        }
+        It "Adds Mores" {
+            $Comment = [RedditComment]::New($Comment1)
+            $Count = $Comment.replies.Count
+            { $Comment._initReplies($More) } | Should Not Throw
+            $Comment.replies.Count | Should BeGreaterThan $Count
+            $Comment.replies[0].id | Should Be $More.data.children[0]
+        }
+        It "Sets the ParentObject of replies to the current instance" {
+            $Comment = [RedditComment]::New($Comment1)
+            $Comment._initReplies($Listing)
+            $Comment.replies[0].ParentObject.Id | Should Be $Comment.Id
+        }
     }
-    It 'Creates a RedditListing from a RedditAccessToken and an object' {
-        $Object = ConvertFrom-Json $CommentJSON 
-        $RedditListing = [RedditListing]::new($TokenScript, $Object)
-        $RedditListing.subreddit_id | should be 't5_abc12'
-        $RedditListing.link_id | should be 't3_def345'
-        $RedditListing.user_reports[0].reason | should be 'Stupid Comment'
-        $RedditListing.user_reports[0].count | should be 2
-        $RedditListing.id | should be 'ghij678'
-        $RedditListing.gilded | should be 0
-        $RedditListing.score | should be -2
-        $RedditListing.report_reasons[0] | should be 'This attribute is deprecated. Please use mod_reports and user_reports instead.'
-        $RedditListing.author | should be 'StupidUser'
-        $RedditListing.parent_id| should be 't3_ghij677'
-        $RedditListing.body | should be 'Stupid Comment!'
-        $RedditListing.mod_reports[0].reason | should be 'Really Stupid Comment'
-        $RedditListing.mod_reports[0].moderator | should be 'markekraus'
-        $RedditListing.created.unix | should be 1496196740.0
-    }
-    It 'Automatically adds new properties' {
-        $Object = ConvertFrom-Json $CommentJSON 
-        $Object.data | Add-Member -MemberType NoteProperty -Name 'Testy' -Value 'TestTest'
-        $RedditListing = [RedditListing]::new($TokenScript, $Object)
-        $RedditListing.Testy | should be 'TestTest'
-    }
-    It 'Has a working GetApiEndpointUri() method' {
-        $Object = ConvertFrom-Json $CommentJSON 
-        $RedditListing = [RedditListing]::new($TokenScript, $Object)
-        $RedditListing.GetApiEndpointUri() | should be 'https://oauth.reddit.com/api/info?id=t1_ghij678'
-    }
-    It 'Has a working GetFullName() method' {
-        $Object = ConvertFrom-Json $CommentJSON 
-        $RedditListing = [RedditListing]::new($TokenScript, $Object)
-        $RedditListing.GetFullName() | should be 't1_ghij678'
-    }
-    It 'Has a working ToString() method' {
-        $Object = ConvertFrom-Json $CommentJSON 
-        $RedditListing = [RedditListing]::new($TokenScript, $Object)
-        $RedditListing.ToString() | should be 'Stupid Comment!'
-    }
-}
-
-Describe "[$Class] Unit Tests" -Tag Unit {
-    if (-not ($Class -as [Type])) {
-        Write-Warning "'$class' was not found in '$ModuleName' during pre-build tests. It may not yet have been added the module. Unit tests will be skipped until after build."
-        return
-    }
-    MyTest
-}
-Describe "[$Class] Build Tests" -Tag Build {
-    MyTest
 }
