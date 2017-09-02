@@ -1,13 +1,13 @@
-<#	
+<#
     .NOTES
-    
+
      Created with: 	Plaster
      Created on:   	6/1/2017 4:50 AM
      Edited on:     6/1/2017
      Created by:   	Mark Kraus
-     Organization: 	 
+     Organization:
      Filename:     	009-RedditSubreddit.ps1
-    
+
     .DESCRIPTION
         RedditSubreddit Class
 #>
@@ -74,10 +74,18 @@ Class RedditSubreddit : RedditDataObject {
     [Boolean]$wiki_enabled
     [PSObject]$ParentObject
     [RedditThingPrefix]$Prefix = 't5'
+    static [RedditThingKind]$RedditThingKind = 't5'
     static [string] $ApiEndpointUri = 'https://oauth.reddit.com/api/info?id=t5_{0}'
-    RedditSubreddit () { }
-    RedditSubreddit ([String]$String) { $This = $Null }
+    RedditSubreddit () {
+    }
     RedditSubreddit ([RedditThing]$RedditThing) {
+        if($RedditThing.Kind -ne $This::RedditThingKind){
+            $Message = 'Unable to convert RedditThing of kind "{0}" to "{1}"' -f
+                $RedditThing.Kind,
+                $This.GetType().Name
+            $Exception = [System.InvalidCastException]::new($Message)
+            Throw $Exception
+        }
         $Data = $RedditThing.data
         $DataProperties = $Data.psobject.Properties.name
         $ClassProperties = $This.psobject.Properties.name
@@ -88,7 +96,7 @@ Class RedditSubreddit : RedditDataObject {
             }
             $Params = @{
                 MemberType = 'NoteProperty'
-                Name       = $Property 
+                Name       = $Property
                 Value      = $Data.$Property
             }
             $This | Add-Member @params
@@ -102,7 +110,7 @@ Class RedditSubreddit : RedditDataObject {
         return $This.name
     }
     [String] ToString () {
-        return $This.body
+        return ('{0}: {1}' -f $This.url, $This.title)
     }
 
     # TODO Add Hasdata()

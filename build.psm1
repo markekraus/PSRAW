@@ -160,7 +160,8 @@ function script:Start-NativeExecution([scriptblock]$sb, [switch]$IgnoreExitcode)
 
 $TestToolsPublished = $false
 Function Publish-TestTools {
-    if($Script:TestToolsPublished){
+    param([switch]$Force)
+    if ($Script:TestToolsPublished -and -not $Force.IsPresent) {
         "Test Tools already published. Skipping."
         return
     }
@@ -170,7 +171,7 @@ Function Publish-TestTools {
         $DotNetVersion = (dotnet --version)
     }
     if (!$DotNetExists -or $DotNetVersion -ne $DotnetCLIRequiredVersion) {
-        if(!$dotNetExistis) {
+        if (!$dotNetExistis) {
             "dotnet not present. Installing dotnet."
         }
         else {
@@ -186,7 +187,7 @@ Function Publish-TestTools {
         "$ProjectRoot/Tests/tools/WebListener"
     )
 
-    foreach ($Tool in $Tools){
+    foreach ($Tool in $Tools) {
         Push-Location $tool
         try {
             dotnet publish --output bin --configuration Release
@@ -194,7 +195,8 @@ Function Publish-TestTools {
             if ( $env:PATH -notcontains $toolPath ) {
                 $env:PATH = '{0}{1}{2}' -f $toolPath, [System.IO.Path]::PathSeparator, $($env:PATH)
             }
-        } finally {
+        }
+        finally {
             Pop-Location
             $Script:TestToolsPublished = $true
         }

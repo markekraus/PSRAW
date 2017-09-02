@@ -23,7 +23,16 @@ Describe "[RedditLink] Build Tests" -Tag Build, Unit {
         $Link1 = [RedditThing]$Submission.ContentObject[0].data.children[0]
         $Link2 = [RedditThing]$Submission2.ContentObject[0].data.children[0]
     }
+    Context "RedditLink () Constructor" {
+        it "Has a default constructor" {
+            { [RedditLink]::New() } | Should Not Throw
+        }
+    }
     Context "RedditLink ([RedditThing]`$RedditThing) Constructor" {
+        It "Throws when a RedditThing is not a Link" {
+            $Comment = [RedditThing]@{ Kind = 't1'}
+            { [RedditLink]::New($Comment) } | Should Throw 'Unable to convert RedditThing of kind "t1" to "RedditLink"'
+        }
         It "Converts a RedditThing to a RedditLink" {
             $Result = @{}
             { $Result['Object'] = [RedditLink]::New($Link1) } | Should Not Throw

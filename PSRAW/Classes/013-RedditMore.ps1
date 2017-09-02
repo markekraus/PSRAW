@@ -1,13 +1,13 @@
-<#	
+<#
     .NOTES
-    
+
      Created with: 	Plaster
      Created on:   	8/17/2017 4:24 AM
      Edited on:     8/17/2017
      Created by:   	Mark Kraus
-     Organization: 	 
-     Filename:     	010-RedditMore.ps1
-    
+     Organization:
+     Filename:     	013-RedditMore.ps1
+
     .DESCRIPTION
         RedditMore Class
 #>
@@ -32,6 +32,7 @@ Class RedditMore : RedditDataObject {
         $This.Children     = $RedditThing.Data.Children
         $This.Count        = $RedditThing.Data.Count
         $This.Name         = $RedditThing.Data.Name
+        $This.id         = $RedditThing.Data.id
         $This.Parent_Id    = $RedditThing.Data.parent_id
         $This.ParentObject = $RedditThing
     }

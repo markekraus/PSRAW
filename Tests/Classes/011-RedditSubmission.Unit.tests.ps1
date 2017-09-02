@@ -24,11 +24,14 @@ Describe "[RedditSubmission] Build Tests" -Tag Build, Unit {
         $Comment2 = $Submission1.ContentObject[1].data.children[1].data
         $Comment3 = $Submission1.ContentObject[1].data.children[2].data
     }
+    It "Has a default constructor" {
+        { [RedditSubmission]::New() } | Should Not Throw
+    }
     It "Converts a RedditApiResponse to RedditSubmission" {
         $Result = @{}
         { $Result['Object'] = [RedditSubmission]::New($Submission1) } | Should Not Throw
         $Result.Object.link.id | should Be $Link1.id
-        $Result.Object.Comments.Count | Should Be 3
+        $Result.Object.Comments.Count | Should Be 7
         $Result.Object.Comments[0].Id | Should Be $Comment1.Id
         $Result.Object.Comments[1].Id | Should Be $Comment2.Id
         $Result.Object.Comments[2].Id | Should Be $Comment3.Id

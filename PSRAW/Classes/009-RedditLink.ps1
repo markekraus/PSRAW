@@ -77,9 +77,17 @@ Class RedditLink : RedditDataObject {
     [String]$whitelist_status
     [PSObject]$ParentObject
     [RedditThingPrefix]$Prefix = 't3'
+    static [RedditThingKind]$RedditThingKind = 't3'
     static [string] $ApiEndpointUri = 'https://oauth.reddit.com/api/info?id=t3_{0}'
     RedditLink () { }
     RedditLink ([RedditThing]$RedditThing) {
+        if($RedditThing.Kind -ne $This::RedditThingKind){
+            $Message = 'Unable to convert RedditThing of kind "{0}" to "{1}"' -f
+                $RedditThing.Kind,
+                $This.GetType().Name
+            $Exception = [System.InvalidCastException]::new($Message)
+            Throw $Exception
+        }
         $Data = $RedditThing.data
         $DataProperties = $Data.psobject.Properties.name
         $ClassProperties = $This.psobject.Properties.name

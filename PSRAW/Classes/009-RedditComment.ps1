@@ -57,6 +57,13 @@ Class RedditComment : RedditDataObject {
     static [RedditThingKind]$RedditThingKind = 't1'
     RedditComment () { }
     RedditComment ([RedditThing]$RedditThing) {
+        if($RedditThing.Kind -ne $This::RedditThingKind){
+            $Message = 'Unable to convert RedditThing of kind "{0}" to "{1}"' -f
+                $RedditThing.Kind,
+                $This.GetType().Name
+            $Exception = [System.InvalidCastException]::new($Message)
+            Throw $Exception
+        }
         $Data = $RedditThing.data
         $This.Id = $Data.Id
         $DataProperties = $Data.psobject.Properties.name

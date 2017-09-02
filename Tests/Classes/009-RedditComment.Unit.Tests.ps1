@@ -56,7 +56,16 @@ Describe "[RedditComment] Build Tests" -Tag Build, Unit {
             }
         }
     }
+    Context "RedditComment () constructor" {
+        it "Has a default Constructor" {
+            { [RedditComment]::New() } | Should Not Throw
+        }
+    }
     Context "RedditComment ([RedditThing]`$RedditThing) constructor" {
+        It "Throws when a RedditThing is not a Comment" {
+            $Listing = [RedditThing]@{ Kind = 'listing'}
+            { [RedditComment]::New($Listing) } | Should Throw 'Unable to convert RedditThing of kind "listing" to "RedditComment"'
+        }
         It "Converts a RedditThing to a RedditComment" {
             $Result = @{}
             { $Result['Object'] = [RedditComment]::New($Comment1) } | Should Not Throw
