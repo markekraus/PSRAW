@@ -1,13 +1,13 @@
-<#	
+<#
     .NOTES
-    
+
      Created with: 	Plaster
      Created on:   	6/1/2017 4:50 AM
      Edited on:     6/1/2017
      Created by:   	Mark Kraus
-     Organization: 	 
+     Organization:
      Filename:     	009-RedditLink.ps1
-    
+
     .DESCRIPTION
         RedditLink Class
 #>
@@ -79,7 +79,6 @@ Class RedditLink : RedditDataObject {
     [RedditThingPrefix]$Prefix = 't3'
     static [string] $ApiEndpointUri = 'https://oauth.reddit.com/api/info?id=t3_{0}'
     RedditLink () { }
-    RedditLink ([String]$String) { $This = $Null }
     RedditLink ([RedditThing]$RedditThing) {
         $Data = $RedditThing.data
         $DataProperties = $Data.psobject.Properties.name
@@ -91,7 +90,7 @@ Class RedditLink : RedditDataObject {
             }
             $Params = @{
                 MemberType = 'NoteProperty'
-                Name       = $Property 
+                Name       = $Property
                 Value      = $Data.$Property
             }
             $This | Add-Member @params
@@ -109,7 +108,7 @@ Class RedditLink : RedditDataObject {
             $This.author,
             $This.subreddit_name_prefixed,
             $This.title
-        
+
     }
 
     # TODO Add HasData()
