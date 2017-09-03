@@ -19,7 +19,7 @@
     RootModule             = 'PSRAW.psm1'
 	
     # Version number of this module.
-    ModuleVersion          = '2.0.0.0'
+    ModuleVersion          = '2.0.0.7'
 	
     # ID used to uniquely identify this module
     GUID                   = '92c8f916-4890-45eb-a3e7-592f5b5b3f24'
@@ -63,7 +63,7 @@
 	
     # Script files (.ps1) that are run in the caller's environment prior to
     # importing this module
-    ScriptsToProcess       = @('Enums\RedditApplicationType.ps1','Enums\RedditOAuthDuration.ps1','Enums\RedditOAuthGrantType.ps1','Enums\RedditOAuthResponseType.ps1','Enums\RedditThingKind.ps1','Enums\RedditThingPrefix.ps1','Classes\001-RedditOAuthScope.ps1','Classes\002-RedditApplication.ps1','Classes\003-RedditOAuthResponse.ps1','Classes\004-RedditOAuthToken.ps1','Classes\005-RedditApiResponse.ps1','Classes\006-RedditDate.ps1','Classes\007-RedditThing.ps1','Classes\008-RedditModReport.ps1','Classes\008-RedditUserReport.ps1','Classes\009-RedditComment.ps1')
+    ScriptsToProcess       = @('Enums\RedditApplicationType.ps1','Enums\RedditOAuthDuration.ps1','Enums\RedditOAuthGrantType.ps1','Enums\RedditOAuthResponseType.ps1','Enums\RedditThingKind.ps1','Enums\RedditThingPrefix.ps1','Classes\001-RedditOAuthScope.ps1','Classes\002-RedditApplication.ps1','Classes\003-RedditOAuthResponse.ps1','Classes\004-RedditOAuthToken.ps1','Classes\005-RedditApiResponse.ps1','Classes\006-RedditDataObject.ps1','Classes\006-RedditDate.ps1','Classes\007-RedditThing.ps1','Classes\008-RedditHeaderSize.ps1','Classes\008-RedditModReport.ps1','Classes\008-RedditUserReport.ps1','Classes\009-RedditComment.ps1','Classes\009-RedditLink.ps1','Classes\011-RedditSubmission.ps1','Classes\012-RedditSubreddit.ps1','Classes\013-RedditMore.ps1','Classes\014-RedditListing.ps1')
 	
     # Type files (.ps1xml) to be loaded when importing this module
     TypesToProcess         = @()
@@ -76,7 +76,7 @@
     NestedModules          = @()
 	
     # Functions to export from this module
-    FunctionsToExport      = @('Invoke-RedditRequest','Export-RedditApplication','Import-RedditApplication','New-RedditApplication','Connect-Reddit','Export-RedditOAuthToken','Get-RedditDefaultOAuthToken','Get-RedditOAuthScope','Import-RedditOAuthToken','Request-RedditOAuthToken','Set-RedditDefaultOAuthToken','Update-RedditOAuthToken')
+    FunctionsToExport      = @('Invoke-RedditRequest','Resolve-RedditDataObject','Export-RedditApplication','Import-RedditApplication','New-RedditApplication','Connect-Reddit','Export-RedditOAuthToken','Get-RedditDefaultOAuthToken','Get-RedditOAuthScope','Import-RedditOAuthToken','Request-RedditOAuthToken','Set-RedditDefaultOAuthToken','Update-RedditOAuthToken')
 	
     # Cmdlets to export from this module
     CmdletsToExport        = @()
@@ -112,7 +112,7 @@
             IconUri      = 'http://i.imgur.com/4BCLgcx.png'
 			
             # ReleaseNotes of this module
-            ReleaseNotes = '# Version 2.0.0.0 (2017-08-13)
+            ReleaseNotes = '# Version 2.0.0.1 (2017-08-13)
 ## Module Manifest
 
 * All `RequiredAssemblies` have been removed
