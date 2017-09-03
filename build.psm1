@@ -233,7 +233,7 @@ Function Start-PSRAWPester {
         Script       = $Path
         PassThru     = $true
         OutputFormat = $OutputFormat
-        OutputFile   = "pester-tests.xml"
+        OutputFile   = $OutputFile
         Tag          = $Tag
         Exclude      = $ExcludeTag
         Show         = $Show

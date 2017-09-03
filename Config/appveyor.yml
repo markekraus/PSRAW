@@ -6,6 +6,7 @@ cache:
 version: 2.0.0.{build}
 skip_tags: true
 environment:
+  APPVEYOR_SAVE_CACHE_ON_ERROR: true
   NugetApiKey:
     secure: 3sC7bUSY534F4WnpYXlP7XyikulxbSpfLZgC3y37gA2OAeMp35la0zplVjiliOFn
   access_token:
