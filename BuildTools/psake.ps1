@@ -1,13 +1,13 @@
-<#	
+<#
 	.NOTES
-	
+
 	 Created with: 	VSCode
 	 Created on:   	4/23/2017
      Edited on::    5/11/2017
 	 Created by:   	Mark Kraus
-	 Organization: 	
+	 Organization:
 	 Filename:     	psake.ps1
-	
+
 	.DESCRIPTION
 		psake Build Automation
 #>
@@ -46,7 +46,7 @@ Properties {
             $CurrentVersion.Revision -eq 0
          ){
              #This is a major version release, don't molest the the version
-             $BuildVersion = $CurrentVersion 
+             $BuildVersion = $CurrentVersion
         }
         If ($GalleryVersion -gt $BuildVersion) {
             $BuildVersion = $GalleryVersion
@@ -77,8 +77,6 @@ Task Init {
     Find-Dotnet
 }
 
-
-
 Task Build -Depends Init {
     $lines
     if (Test-Path "$ModuleFolder\Public\") {
@@ -90,7 +88,7 @@ Task Build -Depends Init {
         $ExportAliases = @()
         foreach ($FunctionFile in $FunctionFiles) {
             "- Processing $($FunctionFile.FullName)"
-            $AST = [System.Management.Automation.Language.Parser]::ParseFile($FunctionFile.FullName, [ref]$null, [ref]$null)        
+            $AST = [System.Management.Automation.Language.Parser]::ParseFile($FunctionFile.FullName, [ref]$null, [ref]$null)
             $Functions = $AST.FindAll( {
                     $args[0] -is [System.Management.Automation.Language.FunctionDefinitionAst]
                 }, $true)
@@ -98,13 +96,13 @@ Task Build -Depends Init {
                 $ExportFunctions += $Functions.Name
             }
             $Aliases = $AST.FindAll( {
-                    $args[0] -is [System.Management.Automation.Language.AttributeAst] -and 
-                    $args[0].parent -is [System.Management.Automation.Language.ParamBlockAst] -and 
+                    $args[0] -is [System.Management.Automation.Language.AttributeAst] -and
+                    $args[0].parent -is [System.Management.Automation.Language.ParamBlockAst] -and
                     $args[0].TypeName.FullName -eq 'alias'
                 }, $true)
             if ($Aliases.PositionalArguments.value) {
                 $ExportAliases += $Aliases.PositionalArguments.value
-            }        
+            }
         }
         "- Running Update-MetaData -Path $env:BHPSModuleManifest -PropertyName FunctionsToExport -Value : `r`n  - {0}" -f ($ExportFunctions -Join "`r`n  - ")
         Update-MetaData -Path $env:BHPSModuleManifest -PropertyName FunctionsToExport -Value $ExportFunctions
@@ -114,7 +112,7 @@ Task Build -Depends Init {
     Else {
         "$ModuleFolder\Public\ not found. No public functions to import"
     }
-    
+
     "Populating ScriptsToProcess"
     # Scan the Enums and Classes folders and add all Files to ScriptsToProcess
     # These scripts will be loaded in the Global Scope upon module import
@@ -138,11 +136,11 @@ Task Build -Depends Init {
     else {
         "No scripts found to add to ScriptsToProcess"
     }
-    
+
     # Bump the module version
     "Updating Module version to $BuildVersion"
     Update-Metadata -Path $env:BHPSModuleManifest -PropertyName ModuleVersion -Value $BuildVersion
-    
+
     # Update release notes with Version info and set the PSD1 release notes
     $parameters = @{
         Path        = $ReleaseNotes
@@ -158,7 +156,7 @@ Task Build -Depends Init {
     $ReleaseText = $Header + $ReleaseText
     $ReleaseText | Set-Content $ReleaseNotes
     Update-Metadata -Path $env:BHPSModuleManifest -PropertyName ReleaseNotes -Value $ReleaseText
-    
+
     # Update the ChangeLog with the current release notes
     $ReleaseParameters = @{
         Path        = $ReleaseNotes
@@ -172,124 +170,56 @@ Task Build -Depends Init {
     "`n"
 }
 
-Task EnsureDotnet -Depends Init {
-    $DotnetExists = Test-DotnetExists
-    $DotNetVersion = [string]::Empty
-    if ($DotNetExists) {
-        $DotNetVersion = (dotnet --version)
-    }
-    if (!$DotNetExists -or $DotNetVersion -ne $DotnetCLIRequiredVersion) {
-        if(!$dotNetExistis) {
-            "dotnet not present. Installing dotnet."
-        }
-        else {
-            "dotnet out of date ($dotNetVersion). Updating dotnet."
-        }
-        Install-Dotnet -Channel $DotnetCLIChannel -Version $DotnetCLIRequiredVersion
-    }
-    else {
-        "dotnet is already installed. Skipping installation."
-    }
-}
-
-Task BuildTestTools -Depends EnsureDotnet {
-    Find-Dotnet
-    $Tools = @(
-        "$ProjectRoot/Tests/tools/WebListener"
-    )
-
-    foreach ($Tool in $Tools){
-        Push-Location $tool
-        try {
-            dotnet publish --output bin --configuration Release
-            $toolPath = Join-Path -Path $tool -ChildPath "bin"
-            if ( $env:PATH -notcontains $toolPath ) {
-                $env:PATH = '{0}{1}{2}' -f $toolPath, [System.IO.Path]::PathSeparator, $($env:PATH)
-            }
-        } finally {
-            Pop-Location
-        }
-    }
-}
-
-Task Test -Depends BuildTestTools {
+Task Test -depends Init {
     $lines
     "`n`tSTATUS: Testing with PowerShell $PSVersion"
-
-    "Starting WebListener"
-    $Listener = Start-WebListener -HttpPort 8080
-    
     # Gather test results. Store them in a variable and file
     $Timestamp = Get-date -uformat "%Y%m%d-%H%M%S"
     $TestFile = "TestResults_PS$PSVersion`_$TimeStamp.xml"
-    $parameters = @{
+    $Params = @{
+        path    = $ModuleFolder
+        Include = '*.ps1', '*.psm1'
+        Recurse = $True
+        Exclude = $CodeCoverageExclude
+    }
+    $CodeCoverageFiles = Get-ChildItem @Params
+    $Params = @{
         Script       = "$ProjectRoot\Tests"
         PassThru     = $true
         OutputFormat = 'NUnitXml'
         OutputFile   = "$ProjectRoot\$TestFile"
-        Tag          = 'Build'
+        Tag          = 'Unit'
         Show         = 'Fails'
-
-    }    
-    $TestResults = Start-PSRAWPester @parameters 
-    
+        CodeCoverage = $CodeCoverageFiles
+    }
+    $TestResults = Start-PSRAWPester @Params
+    If ($ENV:BHBuildSystem -eq 'AppVeyor') {
+        $Params = @{
+            CodeCoverage = $TestResults.CodeCoverage
+            RepoRoot     = $ProjectRoot
+        }
+        $CodeCovJsonPath = Export-CodeCovIoJson @Params
+        Invoke-UploadCoveCoveIoReport -Path $CodeCovJsonPath
+    }
     # In Appveyor?  Upload our tests! #Abstract this into a function?
     If ($ENV:BHBuildSystem -eq 'AppVeyor') {
         "Uploading $ProjectRoot\$TestFile to AppVeyor"
         "JobID: $env:APPVEYOR_JOB_ID"
         (New-Object 'System.Net.WebClient').UploadFile("https://ci.appveyor.com/api/testresults/nunit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path "$ProjectRoot\$TestFile"))
     }
-    
     Remove-Item "$ProjectRoot\$TestFile" -Force -ErrorAction SilentlyContinue
-    
-    " "
-}
-
-Task CodeCoverage {
-    $lines
+    # Run the remaining Non-Unit Build tests
     $Params = @{
-        path    = $ModuleFolder 
-        Include = '*.ps1', '*.psm1' 
-        Recurse = $True
-        Exclude = $CodeCoverageExclude
-    }
-    $CodeCoverageFiles = Get-ChildItem @Params
-    $Params = @{
-        CodeCoverage = $CodeCoverageFiles
-        PassThru     = $True
-        Tag          = 'unit '
-        show         = 'none'
         Script       = "$ProjectRoot\Tests"
+        PassThru     = $true
+        OutputFormat = 'NUnitXml'
+        OutputFile   = "$ProjectRoot\$TestFile"
+        Tag          = 'Build'
+        ExcludeTag   = 'Unit'
+        Show         = 'Fails'
     }
-    $PesterResults = Invoke-Pester @Params
-    If ($ENV:BHBuildSystem -eq 'AppVeyor') {
-        $Params = @{
-            CodeCoverage = $PesterResults.CodeCoverage 
-            RepoRoot     = $ProjectRoot
-        } 
-        $CodeCovJsonPath = Export-CodeCovIoJson @Params
-        Invoke-UploadCoveCoveIoReport -Path $CodeCovJsonPath
-    }
-    $CoveragePercent = $PesterResults.CodeCoverage.NumberOfCommandsExecuted / $PesterResults.CodeCoverage.NumberOfCommandsAnalyzed
+    $TestResults = Start-PSRAWPester @Params
     " "
-    "Code coverage report"
-    "   Files:             {0:N0}" -f $PesterResults.CodeCoverage.NumberOfFilesAnalyzed
-    "   Commands Analyzed: {0:N0}" -f $PesterResults.CodeCoverage.NumberOfCommandsAnalyzed
-    "   Commands Hit:      {0:N0}" -f $PesterResults.CodeCoverage.NumberOfCommandsExecuted
-    "   Commands Missed:   {0:N0}" -f $PesterResults.CodeCoverage.NumberOfCommandsMissed
-    "   Coverage:          {0:P2}" -f $CoveragePercent
-    " "
-    "Missed Commands:"
-    $PesterResults.CodeCoverage.MissedCommands | Select-Object @{
-        Name       = 'File'
-        Expression = {
-            $_.file.replace($ProjectRoot, '') -replace '^\\', ''
-        }
-    }, line, function, command | Out-String
-    if ($CoveragePercent -lt 0.90) {
-        Write-Error ("Build Failed. Coverage {0:P2} is below 90%" -f $CoveragePercent)
-    }
-    "`n"
 }
 
 Task BuildDocs {
@@ -312,7 +242,7 @@ Task BuildDocs {
 Task TestDocs {
     $lines
     if (
-        $ENV:BHBranchName -like 'develop' -or 
+        $ENV:BHBranchName -like 'develop' -or
         $ENV:BHBranchName -like 'CoreRefactor'
     ) {
         'Skipping develop branch'
@@ -329,40 +259,37 @@ Task TestDocs {
         OutputFile   = "$ProjectRoot\$TestFile"
         Show         = 'Fails'
     }
-    $TestResults = Invoke-Pester @Parameters
-    "`n"
+    $TestResults = Start-PSRAWPester @Parameters
+    " "
     If ($ENV:BHBuildSystem -eq 'AppVeyor') {
         "Uploading $ProjectRoot\$TestFile to AppVeyor"
         "JobID: $env:APPVEYOR_JOB_ID"
         (New-Object 'System.Net.WebClient').UploadFile("https://ci.appveyor.com/api/testresults/nunit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path "$ProjectRoot\$TestFile"))
     }
     Remove-Item "$ProjectRoot\$TestFile" -Force -ErrorAction SilentlyContinue
-    if ($TestResults.FailedCount -gt 0) {
-        Write-Error "Failed '$($TestResults.FailedCount)' tests, build failed"
-    }
-    "`n"
+    " "
 }
 
 Task Deploy {
     $lines
-    
+
     # Gate deployment
     if (
-        $ENV:BHBuildSystem -ne 'Unknown' -and 
-        $ENV:BHBranchName -eq "master" -and 
+        $ENV:BHBuildSystem -ne 'Unknown' -and
+        $ENV:BHBranchName -eq "master" -and
         $ENV:BHCommitMessage -match '!deploy'
     ) {
         $Params = @{
             Path  = $ProjectRoot
             Force = $true
         }
-        
+
         Invoke-PSDeploy @Verbose @Params
     }
     else {
-        "Skipping deployment: To deploy, ensure that...`n" + 
-        "`t* You are in a known build system (Current: $ENV:BHBuildSystem)`n" + 
-        "`t* You are committing to the master branch (Current: $ENV:BHBranchName) `n" + 
+        "Skipping deployment: To deploy, ensure that...`n" +
+        "`t* You are in a known build system (Current: $ENV:BHBuildSystem)`n" +
+        "`t* You are committing to the master branch (Current: $ENV:BHBranchName) `n" +
         "`t* Your commit message includes !deploy (Current: $ENV:BHCommitMessage)"
     }
     "`n"
@@ -377,49 +304,49 @@ Task PostDeploy {
     If ($ENV:BHBuildSystem -eq 'AppVeyor') {
         "git config --global credential.helper store"
         cmd /c "git config --global credential.helper store 2>&1"
-        
+
         Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
-        
+
         "git config --global user.email"
         cmd /c "git config --global user.email ""$($ModuleName)-$($ENV:BHBranchName)-$($ENV:BHBuildSystem)@markekraus.com"" 2>&1"
-        
+
         "git config --global user.name"
         cmd /c "git config --global user.name ""AppVeyor"" 2>&1"
-        
+
         "git config --global core.autocrlf true"
         cmd /c "git config --global core.autocrlf true 2>&1"
     }
-    
+
     "git checkout $ENV:BHBranchName"
     cmd /c "git checkout $ENV:BHBranchName 2>&1"
-    
+
     "git add -A"
     cmd /c "git add -A 2>&1"
-    
+
     "git commit -m"
     cmd /c "git commit -m ""AppVeyor post-build commit[ci skip]"" 2>&1"
-    
+
     "git status"
     cmd /c "git status 2>&1"
     # Do not recommit to staging so that clean pull request can be performed
-    if ( 
-        $ENV:BHCommitMessage -notmatch '!skiprecommit' -and 
+    if (
+        $ENV:BHCommitMessage -notmatch '!skiprecommit' -and
         (
-            $ENV:BHCommitMessage -match '!forcerecommit' -or 
+            $ENV:BHCommitMessage -match '!forcerecommit' -or
             (
-                $ENV:BHBranchName -notlike "staging" -and 
+                $ENV:BHBranchName -notlike "staging" -and
                 $ENV:BHBranchName -notlike "develop"
-                
+
             )
         )
     ) {
         "git push origin $ENV:BHBranchName"
         cmd /c "git push origin $ENV:BHBranchName 2>&1"
-    }    
+    }
     # if this is a !deploy on master, create GitHub release
     if (
-        $ENV:BHBuildSystem -ne 'Unknown' -and 
-        $ENV:BHBranchName -eq "master" -and 
+        $ENV:BHBuildSystem -ne 'Unknown' -and
+        $ENV:BHBranchName -eq "master" -and
         $ENV:BHCommitMessage -match '!deploy'
     ) {
         "Publishing Release 'v$BuildVersion' to Github"

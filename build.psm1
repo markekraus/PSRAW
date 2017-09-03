@@ -489,3 +489,8 @@ function Get-TokenBad {
         TokenCredential    = $TokenCredential
     }
 }
+
+Function Start-PSRAWBuild {
+    Param([String]$Task = 'Default')
+    . .\BuildTools\build.ps1 -Task $Task
+}
