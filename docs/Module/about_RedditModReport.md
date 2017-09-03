@@ -11,6 +11,14 @@ The `RedditModReport` class is imported automatically when you import the PSRAW 
 
 
 # Constructors
+## RedditModReport()
+{{ Constructor Description Placeholder }}
+
+```powershell
+[RedditModReport]::new()
+```
+
+
 ## RedditModReport(Object[] InputObjects)
 Creates a `RedditModReport` from an array.
 

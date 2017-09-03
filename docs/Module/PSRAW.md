@@ -1,16 +1,16 @@
 ---
-Module Name: PSRAW
+Module Name: psraw
 Module Guid: 92c8f916-4890-45eb-a3e7-592f5b5b3f24
 Download Help Link: 
 Help Version: 0.0.1.0
 Locale: en-US
 ---
 
-# PSRAW Module
+# psraw Module
 ## Description
 PSRAW is a PowerShell Reddit API Wrapper Module providing full access to the Reddit API via PowerShell.
 
-## PSRAW Cmdlets
+## psraw Cmdlets
 ### [Connect-Reddit](Connect-Reddit.md)
 Authenticates to the Reddit API
 

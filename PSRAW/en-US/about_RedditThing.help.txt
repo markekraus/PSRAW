@@ -16,15 +16,12 @@ RedditThing()
 
     [RedditThing]::new()
 
+RedditThing(System.Management.Automation.PSObject Object)
+    {{ Constructor Description Placeholder }}
+
+    [RedditThing]::new([System.Management.Automation.PSObject]$Object)
+
 PROPERTIES
-AccessToken
-    The `RedditAccessToken` used to retrieve the reddit thing.
-
-    Name: AccessToken
-    Type: RedditOAuthToken
-    Hidden: False
-    Static: False
-
 Data
     The "Thing" being returned such as a listing, a comment, a submission, a
     subreddit, a user, etc.
@@ -70,7 +67,24 @@ Parent
     Hidden: False
     Static: False
 
+RedditData
+    {{ Property Description Placeholder }}
+
+    Name: RedditData
+    Type: RedditDataObject
+    Hidden: False
+    Static: False
+
 METHODS
+CreateFrom(RedditApiResponse Response)
+    {{ Method Description Placeholder }}
+
+    Name: CreateFrom
+    Return Type: RedditThing[]
+    Hidden: False
+    Static: True
+    Definition: static RedditThing[] CreateFrom(RedditApiResponse Response)
+
 EXAMPLES
 Example 1
     [RedditThing]@{

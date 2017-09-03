@@ -8,7 +8,6 @@ pages:
   - PSRAW Project:
     - Contributing to PSRAW: Project/Contributing.md
     - Project News: Project/News.md
-  - Release Notes: RELEASE.md
   - Change Log: ChangeLog.md
   - Module Help:
     - PSRAW: Module/PSRAW.md
@@ -16,14 +15,21 @@ pages:
     - about_RedditApplication: Module/about_RedditApplication.md
     - about_RedditApplicationType: Module/about_RedditApplicationType.md
     - about_RedditComment: Module/about_RedditComment.md
+    - about_RedditDataObject: Module/about_RedditDataObject.md
     - about_RedditDate: Module/about_RedditDate.md
+    - about_RedditHeaderSize: Module/about_RedditHeaderSize.md
+    - about_RedditLink: Module/about_RedditLink.md
+    - about_RedditListing: Module/about_RedditListing.md
     - about_RedditModReport: Module/about_RedditModReport.md
+    - about_RedditMore: Module/about_RedditMore.md
     - about_RedditOAuthDuration: Module/about_RedditOAuthDuration.md
     - about_RedditOAuthGrantType: Module/about_RedditOAuthGrantType.md
     - about_RedditOAuthResponse: Module/about_RedditOAuthResponse.md
     - about_RedditOAuthResponseType: Module/about_RedditOAuthResponseType.md
     - about_RedditOAuthScope: Module/about_RedditOAuthScope.md
     - about_RedditOAuthToken: Module/about_RedditOAuthToken.md
+    - about_RedditSubmission: Module/about_RedditSubmission.md
+    - about_RedditSubreddit: Module/about_RedditSubreddit.md
     - about_RedditThing: Module/about_RedditThing.md
     - about_RedditThingKind: Module/about_RedditThingKind.md
     - about_RedditThingPrefix: Module/about_RedditThingPrefix.md
@@ -38,6 +44,7 @@ pages:
     - Invoke-RedditRequest: Module/Invoke-RedditRequest.md
     - New-RedditApplication: Module/New-RedditApplication.md
     - Request-RedditOAuthToken: Module/Request-RedditOAuthToken.md
+    - Resolve-RedditDataObject: Module/Resolve-RedditDataObject.md
     - Set-RedditDefaultOAuthToken: Module/Set-RedditDefaultOAuthToken.md
     - Update-RedditOAuthToken: Module/Update-RedditOAuthToken.md
   - Private Functions:

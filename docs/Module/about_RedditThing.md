@@ -18,17 +18,15 @@ Creates an empty `RedditThing`
 ```
 
 
-# Properties
-## AccessToken
-The `RedditAccessToken` used to retrieve the reddit thing.
+## RedditThing(System.Management.Automation.PSObject Object)
+{{ Constructor Description Placeholder }}
 
-```yaml
-Name: AccessToken
-Type: RedditOAuthToken
-Hidden: False
-Static: False
+```powershell
+[RedditThing]::new([System.Management.Automation.PSObject]$Object)
 ```
 
+
+# Properties
 ## Data
 The "Thing" being returned such as a listing, a comment, a submission, a subreddit, a user, etc.
 
@@ -82,7 +80,30 @@ Static: False
 ```
 
 
+## RedditData
+{{ Property Description Placeholder }}
+
+```yaml
+Name: RedditData
+Type: RedditDataObject
+Hidden: False
+Static: False
+```
+
+
 # Methods
+
+## CreateFrom(RedditApiResponse Response)
+{{ Method Description Placeholder }}
+
+```yaml
+Name: CreateFrom
+Return Type: RedditThing[]
+Hidden: False
+Static: True
+Definition: static RedditThing[] CreateFrom(RedditApiResponse Response)
+```
+
 
 # EXAMPLES
 

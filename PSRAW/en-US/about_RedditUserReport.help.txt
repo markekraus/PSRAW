@@ -11,6 +11,11 @@ LONG DESCRIPTION
     PSRAW module.
 
 CONSTRUCTORS
+RedditUserReport()
+    {{ Constructor Description Placeholder }}
+
+    [RedditUserReport]::new()
+
 RedditUserReport(Object[] InputObjects)
     Creates `RedditUserReport` from an object array
 

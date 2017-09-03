@@ -11,6 +11,14 @@ The `RedditUserReport` Class is imported automatically when you import the PSRAW
 
 
 # Constructors
+## RedditUserReport()
+{{ Constructor Description Placeholder }}
+
+```powershell
+[RedditUserReport]::new()
+```
+
+
 ## RedditUserReport(Object[] InputObjects)
 Creates `RedditUserReport` from an object array
 

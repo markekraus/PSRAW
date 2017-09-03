@@ -10,6 +10,11 @@ LONG DESCRIPTION
     PSRAW module.
 
 CONSTRUCTORS
+RedditModReport()
+    {{ Constructor Description Placeholder }}
+
+    [RedditModReport]::new()
+
 RedditModReport(Object[] InputObjects)
     Creates a `RedditModReport` from an array.
 

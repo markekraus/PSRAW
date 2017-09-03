@@ -17,26 +17,15 @@ Default Constructor creates an empty `RedditComment` object.
 [RedditComment]::new()
 ```
 
-## RedditComment(RedditOAuthToken AccessToken, System.Management.Automation.PSObject Object)
-Creates a `RedditComment` object for the give `RedditOAuthToken` and `PSObject`. The Values from Properties on the `PSObject` will be used to populate the properties of the `RedditComment`.
+## RedditComment(RedditThing RedditThing)
+{{ Constructor Description Placeholder }}
 
 ```powershell
-[RedditComment]::new([RedditOAuthToken]$AccessToken, [System.Management.Automation.PSObject]$Object)
+[RedditComment]::new([RedditThing]$RedditThing)
 ```
 
 
 # Properties
-## AccessToken
-The Access Token used to request the comment.
-
-```yaml
-Name: AccessToken
-Type: RedditOAuthToken
-Hidden: True
-Static: False
-```
-
-
 ## ApiEndpointUri
 Static string containing a template URL to fetch information about comments.
 
@@ -227,6 +216,17 @@ Hidden: False
 Static: False
 ```
 
+## Kind
+{{ Property Description Placeholder }}
+
+```yaml
+Name: Kind
+Type: RedditThingKind
+Hidden: False
+Static: False
+```
+
+
 ## likes
 `true` if comment is liked (upvoted) by the user, `false` if comment is disliked (downvoted), null if the user has not voted or you are not logged in.
 
@@ -256,6 +256,17 @@ Type: RedditModReport[]
 Hidden: False
 Static: False
 ```
+
+## MoreObject
+{{ Property Description Placeholder }}
+
+```yaml
+Name: MoreObject
+Type: RedditDataObject
+Hidden: True
+Static: False
+```
+
 
 ## name
 Fullname of comment, e.g. `t1_c3v7f8u`
@@ -287,6 +298,17 @@ Hidden: False
 Static: False
 ```
 
+## ParentObject
+{{ Property Description Placeholder }}
+
+```yaml
+Name: ParentObject
+Type: System.Management.Automation.PSObject
+Hidden: False
+Static: False
+```
+
+
 ## Prefix
 The Reddit "Thing" type prefix. Should always be `t1`
 
@@ -296,6 +318,17 @@ Type: RedditThingPrefix
 Hidden: False
 Static: False
 ```
+
+## RedditThingKind
+{{ Property Description Placeholder }}
+
+```yaml
+Name: RedditThingKind
+Type: RedditThingKind
+Hidden: False
+Static: True
+```
+
 
 ## removal_reason
 Reason provided by moderator for removal of the comment.
@@ -429,6 +462,18 @@ Static: False
 
 
 # Methods
+## _initReplies(Object Replies)
+{{ Method Description Placeholder }}
+
+```yaml
+Name: _initReplies
+Return Type: Void
+Hidden: True
+Static: False
+Definition: hidden Void _initReplies(Object Replies)
+```
+
+
 ## GetApiEndpointUri()
 Returns the API endpoint URL for the comment.
 
@@ -450,6 +495,18 @@ Hidden: False
 Static: False
 Definition: String GetFullName()
 ```
+
+## HasMore()
+{{ Method Description Placeholder }}
+
+```yaml
+Name: HasMore
+Return Type: Boolean
+Hidden: False
+Static: False
+Definition: Boolean HasMore()
+```
+
 
 ## ToString()
 Overrides `ToString()` to return the contents of the the `Body` property.

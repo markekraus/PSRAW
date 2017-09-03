@@ -1,0 +1,144 @@
+﻿TOPIC
+    about_redditlisting
+
+SHORT DESCRIPTION
+    Describes the RedditListing Class
+
+LONG DESCRIPTION
+    {{ Long Description Placeholder }}
+
+CONSTRUCTORS
+RedditListing()
+    {{ Constructor Description Placeholder }}
+
+    [RedditListing]::new()
+
+RedditListing(RedditThing RedditThing)
+    {{ Constructor Description Placeholder }}
+
+    [RedditListing]::new([RedditThing]$RedditThing)
+
+PROPERTIES
+After
+    {{ Property Description Placeholder }}
+
+    Name: After
+    Type: String
+    Hidden: False
+    Static: False
+
+Before
+    {{ Property Description Placeholder }}
+
+    Name: Before
+    Type: String
+    Hidden: False
+    Static: False
+
+ChildKinds
+    {{ Property Description Placeholder }}
+
+    Name: ChildKinds
+    Type: RedditThingKind[]
+    Hidden: False
+    Static: False
+
+Children
+    {{ Property Description Placeholder }}
+
+    Name: Children
+    Type: RedditThing[]
+    Hidden: False
+    Static: False
+
+Items
+    {{ Property Description Placeholder }}
+
+    Name: Items
+    Type: RedditDataObject[]
+    Hidden: False
+    Static: False
+
+Kind
+    {{ Property Description Placeholder }}
+
+    Name: Kind
+    Type: RedditThingKind
+    Hidden: False
+    Static: False
+
+Modhash
+    {{ Property Description Placeholder }}
+
+    Name: Modhash
+    Type: String
+    Hidden: False
+    Static: False
+
+ParentObject
+    {{ Property Description Placeholder }}
+
+    Name: ParentObject
+    Type: System.Management.Automation.PSObject
+    Hidden: False
+    Static: False
+
+RedditThingKind
+    {{ Property Description Placeholder }}
+
+    Name: RedditThingKind
+    Type: RedditThingKind
+    Hidden: False
+    Static: True
+
+METHODS
+GetComments()
+    {{ Method Description Placeholder }}
+
+    Name: GetComments
+    Return Type: RedditComment[]
+    Hidden: False
+    Static: False
+    Definition: RedditComment[] GetComments()
+
+GetLinks()
+    {{ Method Description Placeholder }}
+
+    Name: GetLinks
+    Return Type: RedditLink[]
+    Hidden: False
+    Static: False
+    Definition: RedditLink[] GetLinks()
+
+GetMores()
+    {{ Method Description Placeholder }}
+
+    Name: GetMores
+    Return Type: RedditMore[]
+    Hidden: False
+    Static: False
+    Definition: RedditMore[] GetMores()
+
+EXAMPLES
+    {{ Code or descriptive examples of how to leverage the functions described.
+    }}
+
+NOTE
+    {{ Note Placeholder - Additional information that a user needs to know.}}
+
+TROUBLESHOOTING NOTE
+    {{ Troubleshooting Placeholder - Warns users of bugs}}
+    {{ Explains behavior that is likely to change with fixes }}
+
+SEE ALSO
+    {{ See also placeholder }}
+    {{ You can also list related articles, blogs, and video URLs. }}
+
+KEYWORDS
+    {{List alternate names or titles for this topic that readers might use.}}
+    - {{ Keyword Placeholder }}
+    - {{ Keyword Placeholder }}
+    - {{ Keyword Placeholder }}
+    - {{ Keyword Placeholder }}
+
+
