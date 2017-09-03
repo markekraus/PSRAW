@@ -301,10 +301,10 @@ function Get-ProjectRoot {
  }
 
  function Initialize-PSRAWTest {
-     New-Variable -Scope 1 -Name ModuleName -value  $moduleName -Force
-     New-Variable -Scope 1 -Name ModuleRoot -value  $moduleRoot -Force
-     New-Variable -Scope 1 -Name ModulePath -value  $modulePath -Force
-     New-Variable -Scope 1 -Name ProjectRoot -value $ProjectRoot -Force
+    New-Variable -Scope 1 -Name ModuleName -value  $moduleName -Force
+    New-Variable -Scope 1 -Name ModuleRoot -value  $moduleRoot -Force
+    New-Variable -Scope 1 -Name ModulePath -value  $modulePath -Force
+    New-Variable -Scope 1 -Name ProjectRoot -value $ProjectRoot -Force
  }
 
 $lines = '----------------------------------------------------------------------'
@@ -322,14 +322,14 @@ $modulePath = "$moduleFolder/$moduleName.psd1"
 # adds auto loading for Build and Test Functions
 $BuildModulePath = Join-Path $PSScriptRoot "BuildTools/Modules"
 if ( $env:PSModulePath -notcontains $BuildModulePath ) {
-    $env:PSModulePath = $TestModulePath+$TestModulePathSeparator+$($env:PSModulePath)
+    $env:PSModulePath = $BuildModulePath + $TestModulePathSeparator + $($env:PSModulePath)
 }
 $TestModulePath = Join-Path $PSScriptRoot "Tests/tools/Modules"
 if ( $env:PSModulePath -notcontains $TestModulePath ) {
-    $env:PSModulePath = $TestModulePath+$TestModulePathSeparator+$($env:PSModulePath)
+    $env:PSModulePath = $TestModulePath + $TestModulePathSeparator + $($env:PSModulePath)
 }
 if ( $env:PSModulePath -notcontains $moduleRoot ) {
-    $env:PSModulePath = $moduleRoot+$TestModulePathSeparator+$($env:PSModulePath)
+    $env:PSModulePath = $moduleRoot + $TestModulePathSeparator + $($env:PSModulePath)
 }
 
 

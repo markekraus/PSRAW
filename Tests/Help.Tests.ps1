@@ -1,50 +1,51 @@
-<#	
+<#
     .NOTES
-    
+
      Created with:  VSCode
      Created on:    04/23/2017 12:06 PM
      Edited on:     05/10/2017
      Created by:    Mark Kraus
-     Organization: 	
+     Organization:
      Filename:      Help.Tests.ps1
-    
+
     .DESCRIPTION
         Pester Test for proper help elements on module functions
 #>
-
-$ProjectRoot = Resolve-Path "$PSScriptRoot\.."
-$ModuleRoot = Split-Path (Resolve-Path "$ProjectRoot\*\*.psd1")
-$ModuleName = Split-Path $ModuleRoot -Leaf
-
-Import-Module (Join-Path $ModuleRoot "$ModuleName.psd1") -force
-
-$ModuleHelpPath = "$ProjectRoot\docs\Module"
-$PrivateFunctionHelpPath = "$ProjectRoot\docs\PrivateFunctions"
-$BaseURL = 'https://psraw.readthedocs.io/en/latest'
-$PrivateFunctionBaseURL = "$BaseURL/PrivateFunctions"
-$ModuleBaseURL = "$BaseURL/Module"
-
-. "$ProjectRoot\BuildTools\ModuleData-Helper.ps1"
-. "$ProjectRoot\BuildTools\BuildDocs-Helper.ps1"
-
-
-$DefaultParams = @(
-    'Verbose'
-    'Debug'
-    'ErrorAction'
-    'WarningAction'
-    'InformationAction'
-    'ErrorVariable'
-    'WarningVariable'
-    'InformationVariable'
-    'OutVariable'
-    'OutBuffer'
-    'PipelineVariable'
-)
-
-
-Describe "Help tests for $ModuleName" -Tags Documentation {
-    $functions = Get-Command -Module $ModuleName -CommandType Function
+Describe "Help tests for PSRAW" -Tags Documentation {
+    BeforeAll {
+        Initialize-PSRAWTest
+        Remove-Module $ModuleName -Force -ErrorAction SilentlyContinue
+        Import-Module -force $ModulePath
+        Import-Module -force $ModulePath -Global
+        $ModuleHelpPath = "$ProjectRoot\docs\Module"
+        $PrivateFunctionHelpPath = "$ProjectRoot\docs\PrivateFunctions"
+        $BaseURL = 'https://psraw.readthedocs.io/en/latest'
+        $PrivateFunctionBaseURL = "$BaseURL/PrivateFunctions"
+        $ModuleBaseURL = "$BaseURL/Module"
+        $functions = Get-Command -Module $ModuleName -CommandType Function
+        $PrivateFunctions = Get-ModulePrivateFunction -ModuleName $ModuleName
+        $PrivateHelpFiles = Get-ChildItem -Path $PrivateFunctionHelpPath -Filter '*.md' -ErrorAction SilentlyContinue
+        $PublicHelpFiles = Get-ChildItem -Path $ModuleHelpPath -Filter '*.md' -ErrorAction SilentlyContinue
+        $ClassesAndEnums = Get-ModuleClass -ModuleName $ModuleName
+        $Classes = $ClassesAndEnums.where( {$_.IsClass})
+        $Enums = $ClassesAndEnums.where( {$_.IsEnum})
+        $DefaultParams = @(
+            'Verbose'
+            'Debug'
+            'ErrorAction'
+            'WarningAction'
+            'InformationAction'
+            'ErrorVariable'
+            'WarningVariable'
+            'InformationVariable'
+            'OutVariable'
+            'OutBuffer'
+            'PipelineVariable'
+            'WhatIf'
+            'Confirm'
+        )
+    }
+    # Public Functions
     foreach ($Function in $Functions) {
         $help = Get-Help $Function.name -Full -ErrorAction SilentlyContinue
         $helpText = $help | Out-String
@@ -64,21 +65,15 @@ Describe "Help tests for $ModuleName" -Tags Documentation {
                 $help.examples | Should Not BeNullOrEmpty
             }
             foreach ($parameter in $help.parameters.parameter) {
-                if ($parameter -notmatch 'whatif|confirm') {
+                if ($parameter -notin $DefaultParams) {
                     it "Has a Parameter description for '$($parameter.name)'" {
                         $parameter.Description.text -join '' | Should Not BeNullOrEmpty
                     }
                 }
             }
-            it "Does not have Template artifacts" {
-                $Matches = $null
-                $null = $helpText -match '{{.*}}'
-                $Matches.count | should Be 0
-            }
         }
-    }# End foreach
-    $PrivateFunctions = Get-ModulePrivateFunction -ModuleName $ModuleName
-    $PrivateHelpFiles = Get-ChildItem -Path $PrivateFunctionHelpPath -Filter '*.md' -ErrorAction SilentlyContinue
+    }
+    # Private Functions
     foreach ($Function in $PrivateFunctions) {
         Context "$($Function.name) Private Function" {
             it "Has a HelpUri" {
@@ -90,21 +85,19 @@ Describe "Help tests for $ModuleName" -Tags Documentation {
             it "Has a help document" {
                 $helpDoc | should not BeNullOrEmpty
             }
-
             it "Does not have Template artifacts" {
                 $helpDoc.FullName | should not Contain '{{.*}}'
             }
-            $Parameters = $Function.Parameters.Values.Name | Where-Object {$_ -notin $DefaultParams}
+            $Parameters = $Function.Parameters.Values.Name |
+                Where-Object {$_ -notin $DefaultParams}
             foreach ($Parameter in $Parameters) {
                 it "Has a Parameter description for '$parameter'" {
                     $helpDoc.FullName | Should Contain ([regex]::Escape("### -$Parameter"))
                 }
-            }         
+            }
         }
     }
-    $PublicHelpFiles = Get-ChildItem -Path $ModuleHelpPath -Filter '*.md' -ErrorAction SilentlyContinue
-    $ClassesAndEnums = Get-ModuleClass -ModuleName $ModuleName
-    $Classes = $ClassesAndEnums.where( {$_.IsClass})
+    # Classes
     foreach ($Class in $Classes) {
         $helpDoc = $PublicHelpFiles | Where-Object { $_.BaseName -eq "about_$($Class.Name)"}
         $help = get-help "about_$($Class.Name)"  -ErrorAction SilentlyContinue | Where-Object {$_.name -eq "about_$($Class.Name)"}
@@ -132,14 +125,14 @@ Describe "Help tests for $ModuleName" -Tags Documentation {
             foreach ($Constructor in $Constructors) {
                 it "Has Constructor '$Constructor'" {
                     $helpDoc.FullName | should Contain ([regex]::Escape("## $Constructor"))
-                }                
+                }
             }
             it "Does not have Template artifacts" {
                 $helpDoc.FullName | should not Contain '{{.*}}'
             }
         }
     }
-    $Enums = $ClassesAndEnums.where( {$_.IsEnum})
+    # Enums
     foreach ($Enum in $Enums) {
         $helpDoc = $PublicHelpFiles | Where-Object { $_.BaseName -eq "about_$($Enum.Name)"}
         $help = get-help "about_$($Enum.Name)" -ErrorAction SilentlyContinue | Where-Object {$_.name -eq "about_$($Enum.Name)"}
@@ -161,5 +154,4 @@ Describe "Help tests for $ModuleName" -Tags Documentation {
             }
         }
     }
-
 }
