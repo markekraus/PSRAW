@@ -315,9 +315,9 @@ $Environment = Get-EnvironmentInformation
 $PSVersion = $PSVersionTable.PSVersion.Major
 $ProjectRoot = $PSScriptRoot
 $moduleName = "PSRAW"
-$moduleFolder = "$ProjectRoot/$moduleName"
+$moduleFolder = (Resolve-Path "$ProjectRoot/$moduleName" ).Path
 $moduleRoot = $moduleFolder
-$modulePath = "$moduleFolder/$moduleName.psd1"
+$modulePath = (Resolve-Path "$moduleFolder/$moduleName.psd1").Path
 
 # adds auto loading for Build and Test Functions
 $BuildModulePath = Join-Path $PSScriptRoot "BuildTools/Modules"

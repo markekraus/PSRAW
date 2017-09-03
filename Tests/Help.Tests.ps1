@@ -1,9 +1,10 @@
 <#
     .NOTES
+     Test must be run with Start-PSRAWPester
 
      Created with:  VSCode
      Created on:    04/23/2017 12:06 PM
-     Edited on:     05/10/2017
+     Edited on:     09/03/2017
      Created by:    Mark Kraus
      Organization:
      Filename:      Help.Tests.ps1
