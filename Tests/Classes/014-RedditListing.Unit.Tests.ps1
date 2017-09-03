@@ -1,9 +1,10 @@
 <#
     .NOTES
+     Test must be run with Start-PSRAWPester
 
      Created with:  VSCode
      Created on:    6/02/2017 4:50 AM
-     Edited on:     9/02/2017
+     Edited on:     9/03/2017
      Created by:    Mark Kraus
      Organization:
      Filename:     014-RedditListing.Unit.Tests.ps1
@@ -30,7 +31,8 @@ Describe "[RedditSubreddit] Build Tests" -Tag Build, Unit {
     Context 'RedditListing ([RedditThing]$RedditThing)' {
         It "Throws when a RedditThing is not a Listing" {
             $Comment = [RedditThing]@{ Kind = 't1'}
-            { [RedditListing]::New($Comment) } | Should Throw 'Unable to convert RedditThing of kind "t1" to "RedditListing"'
+            { [RedditListing]::New($Comment) } |
+                Should Throw 'Unable to convert RedditThing of kind "t1" to "RedditListing"'
         }
         It "Converts a RedditThing to a RedditListing" {
             $Result = @{}

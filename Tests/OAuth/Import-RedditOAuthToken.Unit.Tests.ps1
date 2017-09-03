@@ -1,5 +1,6 @@
 <#
     .NOTES
+     Test must be run with Start-PSRAWPester
 
      Created with:  VSCode
      Created on:    05/11/2017 4:41 AM

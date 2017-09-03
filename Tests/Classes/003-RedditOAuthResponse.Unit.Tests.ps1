@@ -1,13 +1,14 @@
-<#	
+<#
     .NOTES
-    
+     Test must be run with Start-PSRAWPester
+
      Created with:  VSCode
      Created on:    8/2/2017 4:51 PM
-     Edited on:     8/29/2017
+     Edited on:     09/03/2017
      Created by:    Mark Kraus
-     Organization: 	
+     Organization:
      Filename:     RedditOAuthResponse.Unit.Tests.ps1
-    
+
     .DESCRIPTION
         Unit Tests for RedditOAuthResponse Class
 #>
@@ -16,7 +17,7 @@ Describe "[RedditOAuthResponse] Tests" -Tag Unit, Build {
         Initialize-PSRAWTest
         Remove-Module $ModuleName -Force -ErrorAction SilentlyContinue
         Import-Module -force $ModulePath
-        $Uri      = Get-WebListenerUrl -Test Token
+        $Uri = Get-WebListenerUrl -Test Token
         $response = Invoke-WebRequest -UseBasicParsing -Uri $Uri
         $TestCases = @(
             @{
@@ -38,10 +39,10 @@ Describe "[RedditOAuthResponse] Tests" -Tag Unit, Build {
         )
     }
     It "Converts the '<Name>' hash" -TestCases $TestCases {
-        Param($Name,$Hash)
+        Param($Name, $Hash)
         {[RedditOAuthResponse]$Hash} | should not throw
     }
     It "Has a working default constructor" {
-        {[RedditOAuthResponse]::new()} | Should not throw        
+        {[RedditOAuthResponse]::new()} | Should not throw
     }
 }

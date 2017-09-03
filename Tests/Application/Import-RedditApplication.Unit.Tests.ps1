@@ -1,25 +1,26 @@
-<#	
+<#
     .NOTES
-    
+     Test must be run with Start-PSRAWPester
+
      Created with:  VSCode
      Created on:    05/01/2017 4:43 PM
-     Edited on:     05/20/2017
+     Edited on:     09/03/2017
      Created by:    Mark Kraus
-     Organization: 	
+     Organization:
      Filename:      Import-RedditApplication.Unit.Tests.ps1
-    
+
     .DESCRIPTION
         Import-RedditApplication Function unit tests
 #>
 Describe "Import-RedditApplication" -Tags Build, Unit {
-    BeforeAll{
+    BeforeAll {
         Initialize-PSRAWTest
         Remove-Module $ModuleName -Force -ErrorAction SilentlyContinue
         Import-Module -force $ModulePath
         $ExportFile = '{0}\RedditApplicationExport-{1}.xml' -f $TestDrive, [guid]::NewGuid().toString()
         $Application = Get-ApplicationScript
         $Application.ExportPath = $ExportFile
-        $Application | Export-Clixml -Path $ExportFile 
+        $Application | Export-Clixml -Path $ExportFile
         $TestCases = @(
             @{
                 Name   = 'Path'
@@ -36,7 +37,7 @@ Describe "Import-RedditApplication" -Tags Build, Unit {
         )
     }
     It "'<Name>' Parameter set does not have errors" -TestCases $TestCases {
-        param($Name,$Params)
+        param($Name, $Params)
         { Import-RedditApplication @Params -ErrorAction Stop } | Should not throw
     }
     It "Emits a 'RedditApplication' Object" {

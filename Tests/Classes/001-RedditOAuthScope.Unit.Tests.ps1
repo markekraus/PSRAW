@@ -1,13 +1,14 @@
-<#	
+<#
     .NOTES
-    
+     Test must be run with Start-PSRAWPester
+
      Created with:  VSCode
      Created on:    4/30/2017 10:15 AM
-     Edited on:     8/29/2017
+     Edited on:     9/03/2017
      Created by:    Mark Kraus
-     Organization: 	
+     Organization:
      Filename:     RedditOAuthScope.Unit.Tests.ps1
-    
+
     .DESCRIPTION
         Unit Tests for RedditOAuthScope Class
 #>
@@ -30,7 +31,7 @@ Describe "[RedditOAuthScope] Tests" -Tag Unit, Build {
         }
     )
     It "Converts the '<Name>' hash" -TestCases $TestCases {
-        param($Name,$Hash)
+        param($Name, $Hash)
         {[RedditOAuthScope]$Hash} | should not throw
     }
     It "Has a working Uber Constructor." {

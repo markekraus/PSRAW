@@ -1,9 +1,10 @@
 <#
     .NOTES
+     Test must be run with Start-PSRAWPester
 
      Created with:  VSCode
      Created on:    5/29/2017 9:26 PM
-     Edited on:     8/31/2017
+     Edited on:     9/02/2017
      Created by:    Mark Kraus
      Organization:
      Filename:     RedditThing.Unit.Tests.ps1

@@ -1,13 +1,13 @@
-<#	
+<#
     .NOTES
-    
+
      Created with: 	Plaster
      Created on:   	8/13/2017 12:55 PM
      Edited on:     8/13/2017
      Created by:   	Mark Kraus
-     Organization: 	 
+     Organization:
      Filename:     	Resolve-RedditDataObject.ps1
-    
+
     .DESCRIPTION
         Resolve-RedditDataObject Function
 #>
@@ -69,17 +69,18 @@ function Resolve-RedditDataObject {
             return
         }
         switch ($PSCmdlet.ParameterSetName) {
-            'RedditAPIResponse' { 
-                $RedditThing =  [RedditThing]$RedditApiResponse.ContentObject 
+            'RedditAPIResponse' {
+                $RedditThing = [RedditThing]$RedditApiResponse.ContentObject
                 $DataObjectKind = $RedditApiResponse.ContentObject.Kind
                 Break
             }
-            'RedditThing'    { 
+            'RedditThing' {
                 $DataObjectKind = $RedditThing.Kind
                 Break
             }
-            'PSObject'    { 
+            'PSObject' {
                 $RedditThing = [RedditThing]$PSObject
+                $DataObjectKind = $RedditThing.Kind
                 Break
             }
         }

@@ -1,17 +1,18 @@
-﻿<#	
+﻿<#
     .NOTES
-    
+     Test must be run with Start-PSRAWPester
+
      Created with:  VSCode
      Created on:    4/26/2017 04:40 AM
-     Edited on:     5/20/2017
+     Edited on:     9/03/2017
      Created by:    Mark Kraus
-     Organization: 	
+     Organization:
      Filename:      New-RedditApplication.Unit.Tests.ps1
-    
+
     .DESCRIPTION
         Unit Tests for New-RedditApplication
 #>
-Describe "New-RedditApplication Build" -Tags Build,Unit {
+Describe "New-RedditApplication Build" -Tags Build, Unit {
     BeforeAll {
         Initialize-PSRAWTest
         Remove-Module $ModuleName -Force -ErrorAction SilentlyContinue
@@ -57,7 +58,7 @@ Describe "New-RedditApplication Build" -Tags Build,Unit {
         )
     }
     It "'<Name>' Parameter set does not have errors" -TestCases $TestCases {
-        param($Name,$Params)
+        param($Name, $Params)
         { New-RedditApplication @Params -ErrorAction Stop } | Should not throw
     }
     It "Emits a 'RedditApplication' Object" {

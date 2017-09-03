@@ -397,15 +397,71 @@ function Get-ApplicationWebApp {
 }
 
 Function Get-TokenScript {
+    Param ([switch]$Expired)
+    $MinutesIssued = -13
+    $MinutesExpired = 60
+    If ($Expired.IsPresent) {
+        $MinutesIssued = -120
+        $MinutesExpired = -60
+    }
     [RedditOAuthToken]@{
         Application        = Get-ApplicationScript
-        IssueDate          = (Get-Date).AddMinutes(-13)
-        ExpireDate         = (Get-Date).AddHours(1)
+        IssueDate          = (Get-Date).AddMinutes($MinutesIssued)
+        ExpireDate         = (Get-Date).AddMinutes($MinutesExpired)
         LastApiCall        = Get-Date
         Scope              = '*'
         GUID               = [guid]::NewGuid()
         TokenType          = 'bearer'
         GrantType          = 'Password'
+        RateLimitUsed      = 0
+        RateLimitRemaining = 300
+        RateLimitRest      = 99999
+        TokenCredential    = Get-TokenCredential
+    }
+}
+
+Function Get-TokenInstalled {
+    Param ([switch]$Expired)
+    $MinutesIssued = -13
+    $MinutesExpired = 60
+    If ($Expired.IsPresent) {
+        $MinutesIssued = -120
+        $MinutesExpired = -60
+    }
+    [RedditOAuthToken]@{
+        Application        = Get-ApplicationInstalled
+        IssueDate          = (Get-Date).AddMinutes($MinutesIssued)
+        ExpireDate         = (Get-Date).AddMinutes($MinutesExpired)
+        LastApiCall        = Get-Date
+        Scope              = '*'
+        GUID               = [guid]::NewGuid()
+        TokenType          = 'bearer'
+        GrantType          = 'Installed_Client'
+        RateLimitUsed      = 0
+        RateLimitRemaining = 300
+        RateLimitRest      = 99999
+        TokenCredential    = Get-TokenCredential
+        DeviceID           = 'MyDeviceID'
+    }
+}
+
+Function Get-TokenClient {
+    Param ([switch]$Expired)
+    $MinutesIssued  = -13
+    $MinutesExpired = 60
+    If ($Expired.IsPresent) {
+        $MinutesIssued = -120
+        $MinutesExpired = -60
+    }
+    [RedditOAuthToken]@{
+        Application        = Get-ApplicationScript
+        IssueDate          = (Get-Date).AddMinutes($MinutesIssued)
+        ExpireDate         = (Get-Date).AddMinutes($MinutesExpired)
+        LastApiCall        = Get-Date
+        Scope              = $ApplicationScript.Scope
+        GUID               = [guid]::NewGuid()
+        TokenType          = 'bearer'
+        GrantType          = 'Client_Credentials'
         RateLimitUsed      = 0
         RateLimitRemaining = 300
         RateLimitRest      = 99999

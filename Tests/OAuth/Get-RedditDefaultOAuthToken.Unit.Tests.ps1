@@ -1,9 +1,10 @@
 <#
     .NOTES
+     Test must be run with Start-PSRAWPester
 
      Created with:  VSCode
      Created on:    8/12/2017 8:10 AM
-     Edited on:     8/12/2017
+     Edited on:     9/03/2017
      Created by:    Mark Kraus
      Organization:
      Filename:     Get-RedditDefaultOAuthToken.Unit.Tests.ps1

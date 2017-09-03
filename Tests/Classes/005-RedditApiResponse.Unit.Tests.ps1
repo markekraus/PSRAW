@@ -1,9 +1,10 @@
 <#
     .NOTES
+     Test must be run with Start-PSRAWPester
 
      Created with:  VSCode
      Created on:    5/20/2017 1:15 PM
-     Edited on:     5/20/2017
+     Edited on:     9/03/2017
      Created by:    Mark Kraus
      Organization:
      Filename:     RedditApiResponse.Unit.Tests.ps1

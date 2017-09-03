@@ -1,9 +1,10 @@
 ﻿<#
     .NOTES
+     Test must be run with Start-PSRAWPester
 
      Created with: 	VSCode
      Created on:   	4/23/2017 04:40 AM
-     Edited on:     4/23/2017
+     Edited on:     9/03/2017
      Created by:   	Mark Kraus
      Organization:
      Filename:     	Get-RedditOAuthScope.Unit.Tests.ps1

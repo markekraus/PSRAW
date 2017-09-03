@@ -1,22 +1,23 @@
-<#	
+<#
     .NOTES
-    
+     Test must be run with Start-PSRAWPester
+
      Created with:  VSCode
      Created on:    5/18/2017 06:19 PM
-     Edited on:     5/18/2017
+     Edited on:     9/01/2017
      Created by:    Mark Kraus
-     Organization: 	
+     Organization:
      Filename:      Wait-RedditApiRateLimit.Unit.Tests.ps1
-    
+
     .DESCRIPTION
         Wait-RedditApiRateLimit Function unit tests
 #>
 
-Describe "Wait-RedditApiRateLimit" -Tags Unit,Build {
+Describe "Wait-RedditApiRateLimit" -Tags Unit, Build {
     Initialize-PSRAWTest
     Remove-Module $ModuleName -Force -ErrorAction SilentlyContinue
     Import-Module -force $ModulePath
-    
+
     InModuleScope $ModuleName {
         $TestCases = @(
             @{
@@ -34,7 +35,7 @@ Describe "Wait-RedditApiRateLimit" -Tags Unit,Build {
             }
         )
         It "'<Name>' Parameter set does not have errors" -TestCases $TestCases {
-            Param($Name,$Params)
+            Param($Name, $Params)
             { Wait-RedditApiRateLimit @Params -ErrorAction Stop } | Should Not throw
         }
         It "Emits a 'System.Void' Object" {
@@ -46,7 +47,7 @@ Describe "Wait-RedditApiRateLimit" -Tags Unit,Build {
             $AccessToken.RateLimitRest = 3
             Measure-Command {
                 $AccessToken.LastApiCall = Get-Date
-                $AccessToken | Wait-RedditApiRateLimit 
+                $AccessToken | Wait-RedditApiRateLimit
             } | Select-Object -ExpandProperty TotalSeconds | Should BeGreaterThan 2
         }
         It "Sleeps only until MaxSleepSeconds" {

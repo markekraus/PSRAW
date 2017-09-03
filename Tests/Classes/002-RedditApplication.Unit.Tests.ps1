@@ -1,13 +1,14 @@
-<#	
+<#
     .NOTES
-    
+     Test must be run with Start-PSRAWPester
+
      Created with:  VSCode
      Created on:    4/28/2017 04:40 AM
-     Edited on:     5/20/2017
+     Edited on:     09/03/2017
      Created by:    Mark Kraus
-     Organization: 	
+     Organization:
      Filename:     RedditApplication.Unit.Tests.ps1
-    
+
     .DESCRIPTION
         Unit Tests for RedditApplication Class
 #>
@@ -18,8 +19,8 @@ Describe "[RedditApplication] Tests" -Tag Unit, Build {
         Remove-Module $ModuleName -Force -ErrorAction SilentlyContinue
         Import-Module -force $ModulePath
         $ClientCredential = Get-ClientCredential
-        $UserCredential   = Get-UserCredential
-        $TestCases= @(
+        $UserCredential = Get-UserCredential
+        $TestCases = @(
             @{
                 Name = 'WebApp'
                 Hash = @{
@@ -60,7 +61,7 @@ Describe "[RedditApplication] Tests" -Tag Unit, Build {
         )
     }
     It "Converts the '<Name>' hash" -TestCases $TestCases {
-        param($Name,$Hash)
+        param($Name, $Hash)
         {[RedditApplication]$Hash} | should not throw
     }
     It "Has a working Uber Constructor." {
@@ -89,7 +90,7 @@ Describe "[RedditApplication] Tests" -Tag Unit, Build {
         'c:\RedditApplication.xml',
         'read',
         $ClientCredential,
-        $UserCredential 
+        $UserCredential
     )
     It "Has a working GetClientSecret() method" {
         $Application.GetClientSecret() | should be $ClientCredential.GetNetworkCredential().Password
@@ -118,7 +119,7 @@ Describe "[RedditApplication] Tests" -Tag Unit, Build {
                 ClientCredential = Get-ClientCredential
                 UserCredential   = Get-UserCredential
             }
-        } | Should Throw 
+        } | Should Throw
     }
     It "Requires a ClientCredential" {
         {
@@ -131,7 +132,7 @@ Describe "[RedditApplication] Tests" -Tag Unit, Build {
                 Type           = 'Script'
                 UserCredential = Get-UserCredential
             }
-        } | Should Throw 
+        } | Should Throw
     }
     It "Requires a UserAgent" {
         {
@@ -144,7 +145,7 @@ Describe "[RedditApplication] Tests" -Tag Unit, Build {
                 ClientCredential = Get-ClientCredential
                 UserCredential   = Get-UserCredential
             }
-        } | Should Throw 
+        } | Should Throw
     }
     It "Requires a RedirectUri" {
         {
@@ -157,20 +158,20 @@ Describe "[RedditApplication] Tests" -Tag Unit, Build {
                 ClientCredential = Get-ClientCredential
                 UserCredential   = Get-UserCredential
             }
-        } | Should Throw 
+        } | Should Throw
     }
     It "Requires a Scope" {
         {
             [RedditApplication]@{
                 Name             = 'TestApplication'
-                Description      = 'This is only a test'                
+                Description      = 'This is only a test'
                 RedirectUri      = 'https://localhost/'
                 UserAgent        = 'windows:PSRAW-Unit-Tests:v1.0.0.0'
                 Type             = 'Script'
                 ClientCredential = Get-ClientCredential
                 UserCredential   = Get-UserCredential
             }
-        } | Should Throw 
+        } | Should Throw
     }
     It "Converts a [PSObject] to [RedditApplication]" {
         {

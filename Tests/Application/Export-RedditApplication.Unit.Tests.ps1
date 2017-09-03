@@ -1,18 +1,19 @@
-<#	
+<#
     .NOTES
-    
+     Test must be run with Start-PSRAWPester
+
      Created with:  VSCode
      Created on:    4/30/2017 1:22 PM
-     Edited on:     5/20/2017
+     Edited on:     9/03/2017
      Created by:    Mark Kraus
-     Organization: 	
+     Organization:
      Filename:      Export-RedditApplication.Unit.Tests.ps1
-    
+
     .DESCRIPTION
         Export-RedditApplication Function unit tests
 #>
 
-Describe "Export-RedditApplication" -Tags Build,Unit {
+Describe "Export-RedditApplication" -Tags Build, Unit {
     BeforeAll {
         Initialize-PSRAWTest
         Remove-Module $ModuleName -Force -ErrorAction SilentlyContinue
@@ -44,7 +45,7 @@ Describe "Export-RedditApplication" -Tags Build,Unit {
         )
     }
     It "'<Name>' Parameter set does not have errors" -TestCases $TestCases {
-        param($Name,$Params)
+        param($Name, $Params)
         { & Export-RedditApplication @Params -ErrorAction Stop } | Should not throw
     }
     It "Exports a valid XML file." {

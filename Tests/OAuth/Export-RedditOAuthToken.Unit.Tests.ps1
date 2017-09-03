@@ -1,9 +1,10 @@
 <#
     .NOTES
+     Test must be run with Start-PSRAWPester
 
      Created with:  VSCode
      Created on:    4/30/2017 1:22 PM
-     Edited on:     5/20/2017
+     Edited on:     9/03/2017
      Created by:    Mark Kraus
      Organization:
      Filename:      Export-RedditOAuthToken.Unit.Tests.ps1
@@ -67,7 +68,8 @@ Describe "Export-RedditOAuthToken Build" -Tags Build, Unit {
         }
         It "Exports the default Token when one is not supplied" {
             $TokenScript | Set-RedditDefaultOAuthToken
-            { Export-RedditOAuthToken -Path $TokenExportFile -ErrorAction Stop } | Should not throw
+            { Export-RedditOAuthToken -Path $TokenExportFile -ErrorAction Stop } |
+                Should not throw
         }
     }
 }

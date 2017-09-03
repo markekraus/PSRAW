@@ -1,5 +1,6 @@
 <#
     .NOTES
+     Test must be run with Start-PSRAWPester
 
      Created with:  VSCode
      Created on:    5/20/2017 1:34 PM
@@ -80,7 +81,9 @@ Describe "Invoke-RedditRequest" -Tags Build, Unit {
         { Invoke-RedditRequest @Params -ErrorAction Stop } | Should not throw
     }
     It "Emits a RedditApiResponse Object" {
-        (Get-Command Invoke-RedditRequest).OutputType.Name.where( { $_ -eq 'RedditApiResponse' }) | Should be 'RedditApiResponse'
+        (Get-Command Invoke-RedditRequest).
+        OutputType.Name.where( { $_ -eq 'RedditApiResponse' }) |
+            Should be 'RedditApiResponse'
     }
     It "Returns a 'RedditApiResponse' Object" {
         $LocalParams = @{
@@ -88,7 +91,8 @@ Describe "Invoke-RedditRequest" -Tags Build, Unit {
             Uri         = $Uri
         }
         $Object = Invoke-RedditRequest @LocalParams | Select-Object -First 1
-        $Object.psobject.typenames.where( { $_ -eq 'RedditApiResponse' }) | Should be 'RedditApiResponse'
+        $Object.psobject.typenames.where( { $_ -eq 'RedditApiResponse' }) |
+            Should be 'RedditApiResponse'
     }
     It "Supports WhatIf" {
         {Invoke-RedditRequest -Uri $Uri -WhatIf -ErrorAction Stop } | should not throw

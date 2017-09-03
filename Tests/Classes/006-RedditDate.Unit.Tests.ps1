@@ -1,9 +1,10 @@
 <#
     .NOTES
+     Test must be run with Start-PSRAWPester
 
      Created with:  VSCode
      Created on:    6/02/2017 4:28 AM
-     Edited on:     8/30/2017
+     Edited on:     09/02/2017
      Created by:    Mark Kraus
      Organization:
      Filename:     RedditDate.Unit.Tests.ps1
@@ -12,7 +13,7 @@
         Unit Tests for RedditDate Class
 #>
 
-Describe "[RedditDate] Build Tests" -Tag Build {
+Describe "[RedditDate] Build Tests" -Tag Build, Unit {
     BeforeAll {
         Initialize-PSRAWTest
         Remove-Module $ModuleName -Force -ErrorAction SilentlyContinue
