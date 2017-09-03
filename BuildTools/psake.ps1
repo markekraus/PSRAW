@@ -222,7 +222,7 @@ Task Test -depends Init {
     " "
 }
 
-Task BuildDocs {
+Task BuildDocs -depends Init {
     $lines
     Start-Job -FilePath "$ProjectRoot\BuildTools\BuildDocs.ps1" -ArgumentList @(
         $env:BHPSModuleManifest
@@ -239,7 +239,7 @@ Task BuildDocs {
     "`n"
 }
 
-Task TestDocs {
+Task TestDocs -depends Init {
     $lines
     if (
         $ENV:BHBranchName -like 'develop' -or
@@ -270,7 +270,7 @@ Task TestDocs {
     " "
 }
 
-Task Deploy {
+Task Deploy -depends Init {
     $lines
 
     # Gate deployment
@@ -295,7 +295,7 @@ Task Deploy {
     "`n"
 }
 
-Task PostDeploy {
+Task PostDeploy -depends Init {
     $lines
     if ($ENV:APPVEYOR_REPO_PROVIDER -notlike 'github') {
         "Repo provider '$ENV:APPVEYOR_REPO_PROVIDER'. Skipping PostDeploy"
