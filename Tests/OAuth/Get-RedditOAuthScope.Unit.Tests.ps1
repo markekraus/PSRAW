@@ -19,7 +19,11 @@ Describe "Get-RedditOAuthScope" -Tags Build, Unit {
         Remove-Module $ModuleName -Force -ErrorAction SilentlyContinue
         Import-Module -force $ModulePath
         # Tricks Get-RedditOAuthScope into using WebListener
+        $OriginalApiEndpointUri = [RedditOAuthScope]::ApiEndpointUri
         [RedditOAuthScope]::ApiEndpointUri = Get-WebListenerUrl -Test 'Scope'
+    }
+    AfterAll {
+        [RedditOAuthScope]::ApiEndpointUri = $OriginalApiEndpointUri
     }
     It 'Does not have errors when passed required parameters' {
         { Get-RedditOAuthScope -ErrorAction Stop } | Should not throw

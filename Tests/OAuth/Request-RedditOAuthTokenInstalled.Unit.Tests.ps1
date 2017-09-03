@@ -17,8 +17,12 @@ Describe "Request-RedditOAuthTokenInstalled" -Tag Build, Unit {
         Initialize-PSRAWTest
         Remove-Module $ModuleName -Force -ErrorAction SilentlyContinue
         Import-Module -force $ModulePath
+        $OriginalAuthBaseURL = [RedditOAuthToken]::AuthBaseURL
         # Tricks Request-RedditOAuthTokenInstalled into using WebListener
         [RedditOAuthToken]::AuthBaseURL = Get-WebListenerUrl -Test 'Token/Installed'
+    }
+    AfterAll {
+        [RedditOAuthToken]::AuthBaseURL = $OriginalAuthBaseURL
     }
     InModuleScope $ModuleName {
         Context "Test Cases" {

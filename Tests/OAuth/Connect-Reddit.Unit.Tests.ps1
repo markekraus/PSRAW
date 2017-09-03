@@ -17,8 +17,12 @@ Describe "Connect-Reddit" -Tags Build, Unit {
         Initialize-PSRAWTest
         Remove-Module $ModuleName -Force -ErrorAction SilentlyContinue
         Import-Module -force $ModulePath
+        $OriginalAuthBaseURL = [RedditOAuthToken]::AuthBaseURL
         # Tricks Request-RedditOAuthToken into using WebListener
         [RedditOAuthToken]::AuthBaseURL = Get-WebListenerUrl -Test 'Token'
+    }
+    AfterAll {
+        [RedditOAuthToken]::AuthBaseURL = $OriginalAuthBaseURL
     }
     Mock -CommandName Read-Host -ModuleName $ModuleName -MockWith {
         $ClientId = '54321'

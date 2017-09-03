@@ -17,6 +17,7 @@ Describe "Request-RedditOAuthToken" -Tags Build, Unit {
         Initialize-PSRAWTest
         Remove-Module $ModuleName -Force -ErrorAction SilentlyContinue
         Import-Module -force $ModulePath
+        $OriginalAuthBaseURL = [RedditOAuthToken]::AuthBaseURL
         $TestCases = @(
             @{
                 Name   = 'Script/Script'
@@ -64,6 +65,9 @@ Describe "Request-RedditOAuthToken" -Tags Build, Unit {
     BeforeEach {
         # Tricks the private functions to use WebListener
         [RedditOAuthToken]::AuthBaseURL = Get-WebListenerUrl -Test 'Token'
+    }
+    AfterAll {
+        [RedditOAuthToken]::AuthBaseURL = $OriginalAuthBaseURL
     }
     Context "Test Cases" {
         It "'<Name>' Parameter set does not have errors" -TestCases $TestCases {

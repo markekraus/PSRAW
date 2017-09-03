@@ -17,6 +17,7 @@ Describe "Update-RedditOAuthToken Build" -Tags Build, Unit {
         Initialize-PSRAWTest
         Remove-Module $ModuleName -Force -ErrorAction SilentlyContinue
         Import-Module -force $ModulePath
+        $OriginalAuthBaseURL = [RedditOAuthToken]::AuthBaseURL
         $TestCases = @(
             @{
                 Name   = 'Installed'
@@ -37,6 +38,9 @@ Describe "Update-RedditOAuthToken Build" -Tags Build, Unit {
                 }
             }
         )
+    }
+    AfterAll {
+        [RedditOAuthToken]::AuthBaseURL = $OriginalAuthBaseURL
     }
     BeforeEach {
         # Tricks the private functions to use WebListener

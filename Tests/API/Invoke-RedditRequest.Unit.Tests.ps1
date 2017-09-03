@@ -23,13 +23,16 @@ Describe "Invoke-RedditRequest" -Tags Build, Unit {
         $UriBad = Get-WebListenerUrl -Test 'StatusCode' -Query @{StatusCode = 404}
         $UriRaw = Get-WebListenerUrl -Test 'Echo' -Query @{StatusCode = 200; 'Content-Type' = 'text/plain'; Body = 'Hello World'}
         $UriDefaultToken = Get-WebListenerUrl -Test 'Get'
+        $OriginalAuthBaseURL = [RedditOAuthToken]::AuthBaseURL
     }
     BeforeEach {
         # Tricks Request-RedditOAuthToken into using WebListener
         [RedditOAuthToken]::AuthBaseURL = Get-WebListenerUrl -Test 'Token'
         $TokenScript = Get-TokenScript
     }
-
+    AfterAll {
+        [RedditOAuthToken]::AuthBaseURL = $OriginalAuthBaseURL
+    }
     $TestCases = @(
         @{
             Name   = 'Uri Only'

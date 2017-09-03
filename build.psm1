@@ -235,6 +235,7 @@ Function Start-PSRAWPester {
         OutputFormat = $OutputFormat
         OutputFile   = "pester-tests.xml"
         Tag          = $Tag
+        Exclude      = $ExcludeTag
         Show         = $Show
         CodeCoverage = $CodeCoverage
     }

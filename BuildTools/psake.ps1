@@ -62,7 +62,7 @@ Properties {
     $DotnetCLIRequiredVersion = "2.0.0"
 }
 
-Task Default -Depends Init, Build, Test, CodeCoverage, BuildDocs, TestDocs, Deploy, PostDeploy
+Task Default -Depends Init, Build, Test, BuildDocs, TestDocs, Deploy, PostDeploy
 
 Task Init {
     $lines
