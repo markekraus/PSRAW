@@ -209,6 +209,10 @@ Task Test -depends Init {
     }
     Remove-Item "$ProjectRoot\$TestFile" -Force -ErrorAction SilentlyContinue
     # Run the remaining Non-Unit Build tests
+    " "
+    $lines
+    $Timestamp = Get-date -uformat "%Y%m%d-%H%M%S"
+    $TestFile = "TestResults_PS$PSVersion`_$TimeStamp.xml"
     $Params = @{
         Script       = "$ProjectRoot\Tests"
         PassThru     = $true
@@ -219,6 +223,12 @@ Task Test -depends Init {
         Show         = 'Fails'
     }
     $TestResults = Start-PSRAWPester @Params
+    If ($ENV:BHBuildSystem -eq 'AppVeyor') {
+        "Uploading $ProjectRoot\$TestFile to AppVeyor"
+        "JobID: $env:APPVEYOR_JOB_ID"
+        (New-Object 'System.Net.WebClient').UploadFile("https://ci.appveyor.com/api/testresults/nunit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path "$ProjectRoot\$TestFile"))
+    }
+    Remove-Item "$ProjectRoot\$TestFile" -Force -ErrorAction SilentlyContinue
     " "
 }
 
