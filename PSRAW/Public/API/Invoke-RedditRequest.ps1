@@ -76,10 +76,10 @@ function Invoke-RedditRequest {
         if (-not $PSCmdlet.ShouldProcess("$Uri")) {
             return
         }
-        $AccessToken | Wait-RedditApiRateLimit
+        Wait-RedditApiRateLimit -AccessToken $AccessToken
         try {
             Write-Verbose "Performing token refresh"
-            $AccessToken | Update-RedditOAuthToken -ErrorAction Stop
+            Update-RedditOAuthToken -ErrorAction Stop -AccessToken $AccessToken
         }
         Catch {
             $ErrorMessage = "Unable to refresh Access Token '{0}'" -f $AccessToken.GUID
@@ -118,7 +118,7 @@ function Invoke-RedditRequest {
         catch {
             $response = $_.Exception.Response
             $ResponseBody = $_.ErrorDetails.Message
-            if ($Response.GetType().FullName -like 'System.Net.HttpWebResponse') {
+            if ($null -ne $response -and $Response.GetType().FullName -like 'System.Net.HttpWebResponse') {
                 $Stream = $response.GetResponseStream()
                 $Stream.Position = 0
                 $StreamReader = New-Object System.IO.StreamReader $Stream

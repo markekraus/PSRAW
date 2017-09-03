@@ -52,11 +52,9 @@ Remove-Module $ModuleName -Force -ea SilentlyContinue
 Import-Module $ModuleManifest -force -Global
 Import-Module $ModuleManifest -Force
 
-"Sourcing ModuleData-Helper..."
-. "$ProjectRoot\BuildTools\ModuleData-Helper.ps1"
+"Importing build.psm1 "
+Import-Module "$ProjectRoot\build.psm1"
 
-"Sourcing BuildDocs-Helper..."
-. "$ProjectRoot\BuildTools\BuildDocs-Helper.ps1"
 
 "Initializing YAML text..."
 $YMLtext = (Get-Content $HeaderMkDocsYml) -join "`n"
@@ -99,7 +97,7 @@ Update-MarkdownHelpModule @Params
 
 If ($PrivateDocs) {
     "Processing Private Functions..."
-    $PrivateFunctions = Get-ModulePrivateFunction -ModuleName $ModuleName    
+    $PrivateFunctions = Get-ModulePrivateFunction -ModuleName $ModuleName
     $PrivateHelp = Get-ChildItem $PrivateHelpPath -Filter '*.md' -ErrorAction SilentlyContinue
     foreach ($PrivateFunction in $PrivateFunctions) {
         $HelpDoc = $PrivateHelp | Where-Object {$_.basename -like $PrivateFunction.Name}
@@ -107,7 +105,7 @@ If ($PrivateDocs) {
         . ([scriptblock]::Create($FunctionDefinition))
         if (-not $HelpDoc) {
             $Params = @{
-                Command               = $PrivateFunction.name 
+                Command               = $PrivateFunction.name
                 Force                 = $true
                 AlphabeticParamsOrder = $true
                 OutputFolder          = $PrivateHelpPath
@@ -122,7 +120,7 @@ If ($PrivateDocs) {
         }
         Update-MarkdownHelp @Params
         Remove-Item "function:\$($PrivateFunction.name)" -ErrorAction SilentlyContinue
-    }    
+    }
 }
 
 if ($ClassDocs) {
@@ -131,7 +129,7 @@ if ($ClassDocs) {
     $AboutHelpDocs = Get-ChildItem -Path $ModuleHelpPath -Filter 'about_*.md'
     foreach ($Class in $Classes) {
         $HelpDoc = $AboutHelpDocs | Where-Object {$_.basename -like "about_$($Class.Name)"}
-        if ($HelpDoc) { 
+        if ($HelpDoc) {
             Update-ClassMarkdown -Class $Class -Path $HelpDoc.FullName
             continue
         }
@@ -146,9 +144,9 @@ if ($EnumDocs) {
     $AboutHelpDocs = Get-ChildItem -Path $ModuleHelpPath -Filter 'about_*.md'
     foreach ($Enum in $Enums) {
         $HelpDoc = $AboutHelpDocs | Where-Object {$_.basename -like "about_$($Enum.Name)"}
-        if ($HelpDoc) { 
+        if ($HelpDoc) {
             Update-EnumMarkdown -Enum $Enum -Path $HelpDoc.FullName
-            continue 
+            continue
         }
         $AboutPath = Join-Path $ModuleHelpPath "about_$($Enum.Name).md"
         EnumText $Enum | Set-Content -Path $AboutPath
@@ -161,12 +159,12 @@ if ($ModuleFiles) {
 }
 $Index = $ModuleFiles | Where-Object {$_.name -like "$ModuleName.md"}
 if ($Index) {
-    "Adding Index..." 
+    "Adding Index..."
     $Part = "    - {0}: Module/{1}" -f $ModuleName, $Index.Name
     $YMLText = "{0}{1}`n" -f $YMLText, $Part
 }
 "Populating YAML Module Documentation.."
-$ModuleFiles | 
+$ModuleFiles |
     Where-Object {$_.Name -notlike "$ModuleName.md"} |
     Sort-Object -Property 'Name' |
     foreach-object {
@@ -217,8 +215,8 @@ Get-ChildItem "$ModuleFolder\en-US" -Filter "about_*.txt" | Remove-Item -Force -
 
 "Generating External help..."
 $Params = @{
-    Path       = "$ModuleHelpPath" 
-    OutputPath = "$ModuleFolder\en-US" 
+    Path       = "$ModuleHelpPath"
+    OutputPath = "$ModuleFolder\en-US"
     Force      = $true
 }
 New-ExternalHelp @Params

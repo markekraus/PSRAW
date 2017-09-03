@@ -1,39 +1,46 @@
-<#	
+<#
     .NOTES
-    
+     Test must be run with Start-PSRAWPester
+
      Created with:  VSCode
      Created on:    6/02/2017 4:50 AM
-     Edited on:     6/02/2017
+     Edited on:     9/01/2017
      Created by:    Mark Kraus
-     Organization: 	
-     Filename:     RedditUserReport.Unit.Tests.ps1
-    
+     Organization:
+     Filename:     008-RedditUserReport.Unit.Tests.ps1
+
     .DESCRIPTION
         Unit Tests for RedditUserReport Class
 #>
-$ProjectRoot = Resolve-Path "$PSScriptRoot\..\.."
-$ModuleRoot = Split-Path (Resolve-Path "$ProjectRoot\*\*.psd1")
-$ModuleName = Split-Path $ModuleRoot -Leaf
-Remove-Module -Force $ModuleName  -ErrorAction SilentlyContinue
-Import-Module (Join-Path $ModuleRoot "$ModuleName.psd1") -force
 
-$Class = 'RedditUserReport'
+Describe "[RedditUserReport] Build Tests" -Tag Build, Unit {
+    BeforeAll {
+        Initialize-PSRAWTest
+        Remove-Module $ModuleName -Force -ErrorAction SilentlyContinue
+        Import-Module -force $ModulePath
 
-Function MyTest {
-    It 'Creates a RedditUserReport from an object collection' {
-        $RedditUserReport = [RedditUserReport]@('Breaks Rule 12', 3)
-        $RedditUserReport.Reason | should be 'Breaks Rule 12'
-        $RedditUserReport.Count | Should be 3
+        $TestCases = @(
+            @{
+                Name = 'TestHash'
+                Hash = @{
+                    Reason = 'Spam'
+                    Count  = 5
+                }
+            }
+        )
     }
-}
-
-Describe "[$Class] Unit Tests" -Tag Unit {
-    if (-not ($Class -as [Type])) {
-        Write-Warning "'$class' was not found in '$ModuleName' during pre-build tests. It may not yet have been added the module. Unit tests will be skipped until after build."
-        return
+    It "Converts the '<Name>' hash" -TestCases $TestCases {
+        param($Name, $Hash)
+        { [RedditUserReport]$Hash } | should not throw
     }
-    MyTest
-}
-Describe "[$Class] Build Tests" -Tag Build {
-    MyTest
+    It "Has a working default constructor" {
+        { [RedditUserReport]::New() } | Should not throw
+    }
+    It "Has a working ([Object[]]`$InputObjects) constructor" {
+        $Result = @{}
+        $InputObject = @('Breaks Rule 12', 5)
+        { $Result['object'] = [RedditUserReport]::New($InputObject) } | Should not throw
+        $Result['object'].Reason | Should Be 'Breaks Rule 12'
+        $Result['object'].Count  | Should Be 5
+    }
 }
