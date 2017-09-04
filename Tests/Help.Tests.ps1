@@ -50,6 +50,7 @@ Describe "Help tests for PSRAW" -Tags Documentation {
     foreach ($Function in $Functions) {
         $help = Get-Help $Function.name -Full -ErrorAction SilentlyContinue
         $helpText = $help | Out-String
+        $helpDoc = $PublicHelpFiles | Where-Object { $_.BaseName -eq $Function.name}
         Context "$($Function.name) Public Function" {
             it "Has a Valid HelpUri" {
                 $Function.HelpUri | Should Not BeNullOrEmpty
@@ -64,6 +65,9 @@ Describe "Help tests for PSRAW" -Tags Documentation {
             }
             it "Has an example" {
                 $help.examples | Should Not BeNullOrEmpty
+            }
+            it "Does not have Template artifacts" {
+                $helpDoc.FullName | should not Contain '{{.*}}'
             }
             foreach ($parameter in $help.parameters.parameter) {
                 if ($parameter -notin $DefaultParams) {
