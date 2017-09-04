@@ -5,19 +5,19 @@
 Describes the RedditSubmission Class
 
 # LONG DESCRIPTION
-{{ Long Description Placeholder }}
+A `RedditSubmission` object contains the link and comments returned from a Reddit submission.
 
 
 # Constructors
 ## RedditSubmission()
-{{ Constructor Description Placeholder }}
+Creates an empty `RedditSubmission` object
 
 ```powershell
 [RedditSubmission]::new()
 ```
 
 ## RedditSubmission(RedditApiResponse ApiResponse)
-{{ Constructor Description Placeholder }}
+Creates a `RedditSubmission` from a `RedditApiResponse` returned from `Invoke-RedditRequest`.
 
 ```powershell
 [RedditSubmission]::new([RedditApiResponse]$ApiResponse)
@@ -26,7 +26,7 @@ Describes the RedditSubmission Class
 
 # Properties
 ## Comments
-{{ Property Description Placeholder }}
+An array of comments in reply to the submission.
 
 ```yaml
 Name: Comments
@@ -36,7 +36,7 @@ Static: False
 ```
 
 ## Link
-{{ Property Description Placeholder }}
+The link or self-post of the submission.
 
 ```yaml
 Name: Link
@@ -48,32 +48,24 @@ Static: False
 
 # Methods
 
-# EXAMPLES
-{{ Code or descriptive examples of how to leverage the functions described. }}
-
-# NOTE
-{{ Note Placeholder - Additional information that a user needs to know.}}
-
-# TROUBLESHOOTING NOTE
-{{ Troubleshooting Placeholder - Warns users of bugs}}
-
-{{ Explains behavior that is likely to change with fixes }}
-
 # DERIVED FROM
 
 [RedditDataObject](https://psraw.readthedocs.io/en/latest/Module/about_RedditDataObject)
 
 # SEE ALSO
-{{ See also placeholder }}
 
-{{ You can also list related articles, blogs, and video URLs. }}
+[about_RedditSubmission](https://psraw.readthedocs.io/en/latest/Module/about_RedditSubmission)
 
-# KEYWORDS
-{{List alternate names or titles for this topic that readers might use.}}
+[about_RedditApiResponse](https://psraw.readthedocs.io/en/latest/Module/about_RedditApiResponse)
 
-- {{ Keyword Placeholder }}
-- {{ Keyword Placeholder }}
-- {{ Keyword Placeholder }}
-- {{ Keyword Placeholder }}
+[about_RedditComment](https://psraw.readthedocs.io/en/latest/Module/about_RedditComment)
 
+[about_RedditLink](https://psraw.readthedocs.io/en/latest/Module/about_RedditLink)
 
+[about_RedditDataObject](https://psraw.readthedocs.io/en/latest/Module/about_RedditDataObject)
+
+[https://www.reddit.com/wiki/api](https://www.reddit.com/wiki/api)
+
+[https://github.com/reddit/reddit/wiki/JSON](https://github.com/reddit/reddit/wiki/JSON)
+
+[https://psraw.readthedocs.io/](https://psraw.readthedocs.io/)
