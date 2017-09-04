@@ -7,8 +7,6 @@ Describes the RedditOAuthGrantType Enum
 # LONG DESCRIPTION
 The `RedditOAuthGrantType` enumerator contains the available grant types available for OAuth Access Tokens requests on Reddit. this is visible on `RedditOAuthToken` objects as the `GrantType` property. It is used by various functions in this module to determine the actions and endpoints required to request Access Tokens.
 
-The `RedditOAuthGrantType` Enumerator is imported automatically when you import the PSRAW module.
-
 # Fields
 
 ## Client_Credentials

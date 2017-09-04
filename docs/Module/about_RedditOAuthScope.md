@@ -5,11 +5,9 @@
 Describes the RedditOAuthScope Class
 
 # LONG DESCRIPTION
-The `RedditOAuthScope` Class is used to define OAuth Scopes for Reddit's API. All OAuth Access Tokens are limited in what functions they may perform. Scopes for an application define what the application can and cannot do on the API. 
+The `RedditOAuthScope` Class is used to define OAuth Scopes for Reddit's API. All OAuth Access Tokens are limited in what functions they may perform. Scopes for an application define what the application can and cannot do on the API.
 
 `RedditOAuthScope` objects can be created manually or you can retrieve all valid scopes with `Get-RedditOAuthScope`. `RedditOAuthScope` objects appear as properties on `RedditApplication` and `RedditOAuthToken` objects.
-
-The `RedditOAuthScope` class is imported automatically when you import the PSRAW module.
 
 # Constructors
 ## RedditOAuthScope()

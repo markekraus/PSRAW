@@ -17,7 +17,7 @@ Creates an empty `RedditThing`
 
 
 ## RedditThing(System.Management.Automation.PSObject Object)
-Creates a `RedditThing` form a `PSObject` converted from JSON Reddit API resonse.
+Creates a `RedditThing` form a `PSObject` converted from JSON Reddit API response.
 
 ```powershell
 [RedditThing]::new([System.Management.Automation.PSObject]$Object)

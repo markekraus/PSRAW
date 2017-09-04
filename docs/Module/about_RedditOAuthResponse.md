@@ -7,8 +7,6 @@ Describes the RedditOAuthResponse Class
 # LONG DESCRIPTION
 The `RedditOAuthResponse` Class encapsulates the responses from Reddit OAuth grant flows.
 
-The `RedditOAuthResponse` class is imported automatically when you import the PSRAW module.
-
 
 # Constructors
 ## RedditOAuthResponse()
@@ -83,7 +81,7 @@ Static: False
     Parameters  = $Params
     Content     = $Response.Content
     ContentType = $Response | Get-HttpResponseContentType
-} 
+}
 ```
 
 This is an example of how the `RedditOAuthResponse` class is used in `Request-RedditOAuthTokenPassword`.

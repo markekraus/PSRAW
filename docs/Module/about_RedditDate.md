@@ -7,8 +7,6 @@ Describes the RedditDate Class
 # LONG DESCRIPTION
 Reddit uses Unix Epoch dates in a Double. The `RedditDate` class provides easy translation between a Unix date and a `DateTime` object. This object does not automatically update after it is initialized.
 
-The `RedditDate` class is imported automatically when you import the PSRAW module.
-
 # Constructors
 ## RedditDate()
 Creates a `RedditDate` at the Unix Epoch.

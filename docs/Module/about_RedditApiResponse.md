@@ -7,8 +7,6 @@ Describes the RedditApiResponse Class
 # LONG DESCRIPTION
 The `RedditApiResponse` is returned by the `Invoke-RedditRequest` function. It is used to house the response from the Reddit API.
 
-The `RedditApiResponse` class is imported automatically when you import the PSRAW module.
-
 
 # Constructors
 ## RedditApiResponse()

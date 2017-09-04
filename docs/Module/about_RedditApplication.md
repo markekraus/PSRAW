@@ -5,15 +5,13 @@
 Describes the RedditApplication Class
 
 # LONG DESCRIPTION
-The `RedditApplication` class is used to define the parameters of an application which access the Reddit API. The `RedditApplication` class becomes embedded in the `RedditOAuthToken` class after an OAuth Access token is requested. A single application may be used by multiple users or by a single user multiple times. Each user requires their own Access Token and a single user can have multiple Access Token. The `RedditApplication` class makes it possible to define an application’s parameters once and then reuse it multiple times in multiple Access Tokens for multiple users. 
+The `RedditApplication` class is used to define the parameters of an application which access the Reddit API. The `RedditApplication` class becomes embedded in the `RedditOAuthToken` class after an OAuth Access token is requested. A single application may be used by multiple users or by a single user multiple times. Each user requires their own Access Token and a single user can have multiple Access Token. The `RedditApplication` class makes it possible to define an application’s parameters once and then reuse it multiple times in multiple Access Tokens for multiple users.
 
 A `RedditApplication` class houses the Client ID and Client Secret as defined at https://ssl.reddit.com/prefs/apps . The `Name` and `Description` of the `RedditApplication` do not need to match what is registered with Reddit. They are provided along with the `GUID` property as a convenience to identify your applications.
 
 A `RedditApplication` is required to request an OAuth Access Token with `Request-RedditOAuthToken`.
 
 You can create `RedditApplication` objects using the `New-RedditApplication` function
-
-The `RedditApplication` class is imported automatically when you import the PSRAW module.
 
 
 # Constructors
@@ -46,19 +44,19 @@ This constructor passes the provided `HashTable` to the `_init` method. This con
 ```
 
 ## RedditApplication(String Name, String Description, Uri RedirectUri, String UserAgent, RedditApplicationType Type, Guid GUID, String ExportPath, RedditOAuthScope[] Scope, System.Management.Automation.PSCredential ClientCredential, System.Management.Automation.PSCredential UserCredential)
-This constructor converts the arguments to a `HashTable` and passes them to the `_init` method. 
+This constructor converts the arguments to a `HashTable` and passes them to the `_init` method.
 
 ```powershell
 [RedditApplication]::new(
-    [String]$Name, 
-    [String]$Description, 
-    [Uri]$RedirectUri, 
-    [String]$UserAgent, 
-    [RedditApplicationType]$Type, 
-    [Guid]$GUID, 
-    [String]$ExportPath, 
-    [RedditOAuthScope[]]$Scope, 
-    [System.Management.Automation.PSCredential]$ClientCredential, 
+    [String]$Name,
+    [String]$Description,
+    [Uri]$RedirectUri,
+    [String]$UserAgent,
+    [RedditApplicationType]$Type,
+    [Guid]$GUID,
+    [String]$ExportPath,
+    [RedditOAuthScope[]]$Scope,
+    [System.Management.Automation.PSCredential]$ClientCredential,
     [System.Management.Automation.PSCredential]$UserCredential
 )
 ```

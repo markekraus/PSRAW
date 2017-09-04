@@ -5,11 +5,9 @@
 Describes the RedditApplicationType Enum
 
 # LONG DESCRIPTION
-The `RedditApplicationType` enumerator represents the available option for applications registered in Reddit. To register an application go to https://ssl.reddit.com/prefs/apps . `RedditApplicationType` is used by the Type property of the `RedditApplication` class. 
+The `RedditApplicationType` enumerator represents the available option for applications registered in Reddit. To register an application go to https://ssl.reddit.com/prefs/apps . `RedditApplicationType` is used by the Type property of the `RedditApplication` class.
 
 For more information on Reddit OAuth App Types see https://github.com/reddit/reddit/wiki/OAuth2-App-Types
-
-The `RedditApplicationType` Enumerator is imported automatically when you import the PSRAW module.
 
 
 # Fields
