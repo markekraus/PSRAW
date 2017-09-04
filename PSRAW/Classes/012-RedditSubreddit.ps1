@@ -22,8 +22,8 @@ Class RedditSubreddit : RedditDataObject {
     [PSObject]$banner_size
     [Boolean]$collapse_deleted_comments
     [long]$comment_score_hide_mins
-    [double]$created
-    [double]$created_utc
+    [RedditDate]$created
+    [RedditDate]$created_utc
     [String]$description
     [String]$description_html
     [String]$display_name
