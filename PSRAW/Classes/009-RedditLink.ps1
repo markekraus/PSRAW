@@ -72,7 +72,7 @@ Class RedditLink : RedditDataObject {
     [Double]$upvote_ratio
     [Uri]$url
     [RedditUserReport[]]$user_reports
-    [PSObject]$view_count
+    [Int64]$view_count
     [Boolean]$visited
     [String]$whitelist_status
     [PSObject]$ParentObject
