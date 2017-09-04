@@ -162,17 +162,15 @@ Definition: RedditMore[] GetMores()
 
 {{ Explains behavior that is likely to change with fixes }}
 
+# DERIVED FROM
+
+[about_RedditDataObject](https://psraw.readthedocs.io/en/latest/Module/Resolve-RedditDataObject)
+
 # SEE ALSO
-{{ See also placeholder }}
-
-{{ You can also list related articles, blogs, and video URLs. }}
-
-# KEYWORDS
-{{List alternate names or titles for this topic that readers might use.}}
-
-- {{ Keyword Placeholder }}
-- {{ Keyword Placeholder }}
-- {{ Keyword Placeholder }}
-- {{ Keyword Placeholder }}    
 
 
+[https://www.reddit.com/wiki/api](https://www.reddit.com/wiki/api)
+
+[https://github.com/reddit/reddit/wiki/JSON](https://github.com/reddit/reddit/wiki/JSON)
+
+[https://psraw.readthedocs.io/](https://psraw.readthedocs.io/)

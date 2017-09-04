@@ -119,6 +119,10 @@ Static: True
 
 {{ Explains behavior that is likely to change with fixes }}
 
+# DERIVED FROM
+
+[RedditDataObject](https://psraw.readthedocs.io/en/latest/Module/about_RedditDataObject)
+
 # SEE ALSO
 {{ See also placeholder }}
 
@@ -130,6 +134,6 @@ Static: True
 - {{ Keyword Placeholder }}
 - {{ Keyword Placeholder }}
 - {{ Keyword Placeholder }}
-- {{ Keyword Placeholder }}    
+- {{ Keyword Placeholder }}
 
 

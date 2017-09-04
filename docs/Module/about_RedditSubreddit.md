@@ -712,6 +712,10 @@ Definition: String ToString()
 
 {{ Explains behavior that is likely to change with fixes }}
 
+# DERIVED FROM
+
+[RedditDataObject](https://psraw.readthedocs.io/en/latest/Module/about_RedditDataObject)
+
 # SEE ALSO
 {{ See also placeholder }}
 
@@ -723,6 +727,6 @@ Definition: String ToString()
 - {{ Keyword Placeholder }}
 - {{ Keyword Placeholder }}
 - {{ Keyword Placeholder }}
-- {{ Keyword Placeholder }}    
+- {{ Keyword Placeholder }}
 
 
