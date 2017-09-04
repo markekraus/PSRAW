@@ -10,7 +10,7 @@ function Get-ModulePrivateFunction {
         [string[]]
         $ModuleName
     )
-    
+
     process {
         foreach ($Name in $ModuleName) {
             $Module = $null
@@ -23,8 +23,8 @@ function Get-ModulePrivateFunction {
             $ScriptBlock = {
                 $ExecutionContext.InvokeCommand.GetCommands('*', 'Function', $true)
             }
-            $PublicFunctions = $Module.ExportedCommands.GetEnumerator() | 
-                Select-Object -ExpandProperty Value | 
+            $PublicFunctions = $Module.ExportedCommands.GetEnumerator() |
+                Select-Object -ExpandProperty Value |
                 Select-Object -ExpandProperty Name
             & $Module $ScriptBlock | Where-Object {$_.Source -eq $Name -and $_.Name -notin $PublicFunctions}
         }
@@ -42,7 +42,7 @@ function Get-ModuleClass {
         [string[]]
         $ModuleName
     )
-    
+
     process {
         foreach ($Name in $ModuleName) {
             $Module = $null
@@ -52,17 +52,20 @@ function Get-ModuleClass {
                 Write-Error "Module '$Name' not found"
                 continue
             }
-            $DynamicClassAttribute = 
-            [System.Management.Automation.DynamicClassImplementationAssemblyAttribute]
+            $ModulePattern = $Module.ModuleBase.
+                Replace([System.IO.Path]::DirectorySeparatorChar, '.').
+                Replace([System.IO.Path]::VolumeSeparatorChar, '.')
+            $DynamicClassAttribute =
+                [System.Management.Automation.DynamicClassImplementationAssemblyAttribute]
             [AppDomain]::
-            CurrentDomain.
-            GetAssemblies().
-            where( {
-                    $_.GetCustomAttributes($true).TypeId -contains $DynamicClassAttribute -and 
-                    $_.FullName -match $Name
+                CurrentDomain.
+                GetAssemblies().
+                where({
+                    $_.GetCustomAttributes($true).TypeId -contains $DynamicClassAttribute -and
+                    $_.FullName -match $ModulePattern
                 }).
-            GetTypes().
-            where( {$_.IsPublic})
+                GetTypes().
+                where({ $_.IsPublic })
         }
     }
 }
