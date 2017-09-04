@@ -5,19 +5,19 @@
 Describes the RedditHeaderSize Class
 
 # LONG DESCRIPTION
-{{ Long Description Placeholder }}
+Represents the size of a Subreddit Header
 
 
 # Constructors
 ## RedditHeaderSize()
-{{ Constructor Description Placeholder }}
+Creates an empty `RedditHeaderSize`
 
 ```powershell
 [RedditHeaderSize]::new()
 ```
 
 ## RedditHeaderSize(Object[] InputObjects)
-{{ Constructor Description Placeholder }}
+Creates a `RedditHeaderSize` from an array where the first element is the width and the second element is the height. This is how the Reddit API returns the object.
 
 ```powershell
 [RedditHeaderSize]::new([Object[]]$InputObjects)
@@ -26,7 +26,7 @@ Describes the RedditHeaderSize Class
 
 # Properties
 ## Height
-{{ Property Description Placeholder }}
+The Height of the Header
 
 ```yaml
 Name: Height
@@ -36,7 +36,7 @@ Static: False
 ```
 
 ## Width
-{{ Property Description Placeholder }}
+The Width of the Header
 
 ```yaml
 Name: Width
@@ -48,28 +48,12 @@ Static: False
 
 # Methods
 
-# EXAMPLES
-{{ Code or descriptive examples of how to leverage the functions described. }}
-
-# NOTE
-{{ Note Placeholder - Additional information that a user needs to know.}}
-
-# TROUBLESHOOTING NOTE
-{{ Troubleshooting Placeholder - Warns users of bugs}}
-
-{{ Explains behavior that is likely to change with fixes }}
-
 # SEE ALSO
-{{ See also placeholder }}
 
-{{ You can also list related articles, blogs, and video URLs. }}
+[about_RedditHeaderSize](https://psraw.readthedocs.io/en/latest/Module/about_RedditHeaderSize)
 
-# KEYWORDS
-{{List alternate names or titles for this topic that readers might use.}}
+[about_RedditSubreddit](https://psraw.readthedocs.io/en/latest/Module/about_RedditSubreddit)
 
-- {{ Keyword Placeholder }}
-- {{ Keyword Placeholder }}
-- {{ Keyword Placeholder }}
-- {{ Keyword Placeholder }}    
+[https://www.reddit.com/wiki/api](https://www.reddit.com/wiki/api)
 
-
+[https://psraw.readthedocs.io/](https://psraw.readthedocs.io/)
