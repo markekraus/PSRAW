@@ -7,12 +7,10 @@ Describes the RedditModReport Class
 # LONG DESCRIPTION
 A moderator report for a comment or submission.
 
-The `RedditModReport` class is imported automatically when you import the PSRAW module.
-
 
 # Constructors
 ## RedditModReport()
-{{ Constructor Description Placeholder }}
+Creates an empty `RedditModReport` object.
 
 ```powershell
 [RedditModReport]::new()

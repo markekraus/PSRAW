@@ -7,12 +7,9 @@ Describes the RedditUserReport Class
 # LONG DESCRIPTION
 `RedditUserReport` represent reports made by a users on a link or comment. These will only be visible to subreddit moderators.
 
-The `RedditUserReport` Class is imported automatically when you import the PSRAW module.
-
-
 # Constructors
 ## RedditUserReport()
-{{ Constructor Description Placeholder }}
+Creates an empty `RedditUserReport` object.
 
 ```powershell
 [RedditUserReport]::new()

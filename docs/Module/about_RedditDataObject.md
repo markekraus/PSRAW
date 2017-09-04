@@ -29,14 +29,15 @@ Creates an empty `RedditDataObject`
 # DERIVED CLASSES
 * [RedditComment](https://psraw.readthedocs.io/en/latest/Module/about_RedditComment)
 * [RedditLink](https://psraw.readthedocs.io/en/latest/Module/about_RedditLink)
+* [RedditListing](https://psraw.readthedocs.io/en/latest/Module/about_RedditListing)
+* [RedditMore](https://psraw.readthedocs.io/en/latest/Module/about_RedditMore)
 * [RedditSubmission](https://psraw.readthedocs.io/en/latest/Module/about_RedditSubmission)
 * [RedditSubreddit](https://psraw.readthedocs.io/en/latest/Module/about_RedditSubreddit)
-* [RedditMore](https://psraw.readthedocs.io/en/latest/Module/about_RedditMore)
-* [RedditListing](https://psraw.readthedocs.io/en/latest/Module/about_RedditListing)
+
 
 # SEE ALSO
 
-[about_RedditDataObject](https://psraw.readthedocs.io/en/latest/Module/Resolve-RedditDataObject)
+[about_RedditDataObject](https://psraw.readthedocs.io/en/latest/Module/about_RedditDataObject)
 
 [about_RedditComment](https://psraw.readthedocs.io/en/latest/Module/about_RedditComment)
 
@@ -50,4 +51,11 @@ Creates an empty `RedditDataObject`
 
 [about_RedditListing](https://psraw.readthedocs.io/en/latest/Module/about_RedditListing)
 
+[Resolve-RedditdataObject](https://psraw.readthedocs.io/en/latest/Module/Resolve-RedditdataObject)
+
+[https://www.reddit.com/wiki/api](https://www.reddit.com/wiki/api)
+
+[https://github.com/reddit/reddit/wiki/JSON](https://github.com/reddit/reddit/wiki/JSON)
+
 [https://psraw.readthedocs.io/](https://psraw.readthedocs.io/)
+

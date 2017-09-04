@@ -151,7 +151,7 @@ Accept wildcard characters: False
 
 ## RELATED LINKS
 
-[https://psraw.readthedocs.io/en/latest/Module/Resolve-RedditdataObject](https://psraw.readthedocs.io/en/latest/Module/Resolve-RedditdataObject)
+[https://psraw.readthedocs.io/en/latest/Module/Resolve-RedditDataObject](https://psraw.readthedocs.io/en/latest/Module/Resolve-RedditDataObject)
 
 [about_RedditDataObject](https://psraw.readthedocs.io/en/latest/Module/about_RedditdataObject)
 

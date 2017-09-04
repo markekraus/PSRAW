@@ -88,4 +88,6 @@ $DateTime = ([RedditDate]'1501113600').Date
 
 [about_RedditDate](https://psraw.readthedocs.io/en/latest/Module/about_RedditDate)
 
+[https://www.reddit.com/wiki/api](https://www.reddit.com/wiki/api)
+
 [https://psraw.readthedocs.io/](https://psraw.readthedocs.io/)
