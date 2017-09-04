@@ -96,7 +96,7 @@ Class RedditComment : RedditDataObject {
         return $This.body
     }
 
-    [bool] HasMore(){
+    [bool] HasMoreReplies(){
         return ($null -ne $This.MoreObject)
     }
 
@@ -148,7 +148,7 @@ Class RedditComment : RedditDataObject {
 
     #[string] GetPermalink() {
     #    get submission link info
-    #    append comemnt id
+    #    append comment id
     #}
     #TODO add HasData() to detect if this was a "more" comment
     #TODO add UpdateData() to retrieve comment data

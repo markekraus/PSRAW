@@ -108,11 +108,11 @@ Describe "[RedditComment] Build Tests" -Tag Build, Unit {
             $Comment = [RedditComment]::New($Comment1)
             $Comment.ToString() | Should Be $Comment1.Data.body
         }
-        It "Has a HasMore() method" {
+        It "Has a HasMoreReplies() method" {
             $Comment = [RedditComment]::New($Comment1)
-            $Comment.HasMore() | Should Be $False
+            $Comment.HasMoreReplies() | Should Be $False
             $Comment.MoreObject = ([RedditThing]$EmptyMore).RedditData
-            $Comment.HasMore() | Should Be $True
+            $Comment.HasMoreReplies() | Should Be $True
         }
     }
     context "_initReplies Method" {
@@ -138,7 +138,7 @@ Describe "[RedditComment] Build Tests" -Tag Build, Unit {
         It "Adds empty Mores" {
             $Comment = [RedditComment]::New($Comment1)
             { $Comment._initReplies($EmptyMore) } | Should Not Throw
-            $Comment.HasMore() | Should Be $True
+            $Comment.HasMoreReplies() | Should Be $True
         }
         It "Adds Mores" {
             $Comment = [RedditComment]::New($Comment1)
