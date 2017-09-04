@@ -5,9 +5,7 @@
 Describes the RedditThing Class
 
 # LONG DESCRIPTION
-This is a meta-class used for objects returned from the reddit API. "Reddit Things" describe what the returned object is, such as a listing, a comment, a submission, a subreddit, a user, etc. 
-
-The `RedditThing` Class is imported automatically when you import the PSRAW module.
+This is a meta-class used for objects returned from the reddit API. "Reddit Things" describe what the returned object is, such as a listing, a comment, a submission, a subreddit, etc.
 
 # Constructors
 ## RedditThing()
@@ -19,7 +17,7 @@ Creates an empty `RedditThing`
 
 
 ## RedditThing(System.Management.Automation.PSObject Object)
-{{ Constructor Description Placeholder }}
+Creates a `RedditThing` form a `PSObject` converted from JSON Reddit API resonse.
 
 ```powershell
 [RedditThing]::new([System.Management.Automation.PSObject]$Object)
@@ -28,7 +26,7 @@ Creates an empty `RedditThing`
 
 # Properties
 ## Data
-The "Thing" being returned such as a listing, a comment, a submission, a subreddit, a user, etc.
+The "Thing" being returned such as a listing, a comment, a submission, a subreddit, etc.
 
 ```yaml
 Name: Data
@@ -69,8 +67,8 @@ Static: False
 ```
 
 
-## Parent
-If A Reddit Thing was a child of something like a listing, the `Parent` may contain the parent object.
+## ParentObject
+If A Reddit Thing was a child of something like a listing, the `ParentObject` may contain the parent object.
 
 ```yaml
 Name: Parent
@@ -81,7 +79,7 @@ Static: False
 
 
 ## RedditData
-{{ Property Description Placeholder }}
+A converted `RedditDataObject` of the `RedditThing`. For example, it the `RedditThing` is a comment, `RedditData` will contain the converted `RedditComment` object.
 
 ```yaml
 Name: RedditData
@@ -94,7 +92,7 @@ Static: False
 # Methods
 
 ## CreateFrom(RedditApiResponse Response)
-{{ Method Description Placeholder }}
+Generates `RedditThings` from a `RedditApiResponse` returned from `Invoke-RedditRequest`. A `RedditApiResponse` may contain multiple `RedditThings` in the response.
 
 ```yaml
 Name: CreateFrom
@@ -111,16 +109,24 @@ Definition: static RedditThing[] CreateFrom(RedditApiResponse Response)
 
 ```powershell
 [RedditThing]@{
-    AccessToken = $Token
     Kind        = 'Listing'
     Data        = $Object
 }
+```
+
+## Example 2
+
+```powershell
+$Response = Invoke-RedditRequest -Uri $Uri
+$Things = [RedditThing]::CreateFrom($Response)
 ```
 
 
 # SEE ALSO
 
 [about_RedditThing](https://psraw.readthedocs.io/en/latest/Module/about_RedditThing)
+
+[about_RedditApiResponse](https://psraw.readthedocs.io/en/latest/Module/about_RedditApiResponse)
 
 [Invoke-RedditRequest](https://psraw.readthedocs.io/en/latest/Module/Import-RedditRequest)
 

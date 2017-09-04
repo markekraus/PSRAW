@@ -5,12 +5,12 @@
 Describes the RedditDataObject Class
 
 # LONG DESCRIPTION
-{{ Long Description Placeholder }}
+Base Class for Reddit data Objects. This class is used only as a general base class and provide no functionality or features.
 
 
 # Constructors
 ## RedditDataObject()
-{{ Constructor Description Placeholder }}
+Creates an empty `RedditDataObject`
 
 ```powershell
 [RedditDataObject]::new()
@@ -22,27 +22,32 @@ Describes the RedditDataObject Class
 # Methods
 
 # EXAMPLES
-{{ Code or descriptive examples of how to leverage the functions described. }}
+```powershell
+[RedditDataObject]::new()
+```
 
-# NOTE
-{{ Note Placeholder - Additional information that a user needs to know.}}
-
-# TROUBLESHOOTING NOTE
-{{ Troubleshooting Placeholder - Warns users of bugs}}
-
-{{ Explains behavior that is likely to change with fixes }}
+# DERIVED CLASSES
+* [RedditComment](https://psraw.readthedocs.io/en/latest/Module/about_RedditComment)
+* [RedditLink](https://psraw.readthedocs.io/en/latest/Module/about_RedditLink)
+* [RedditSubmission](https://psraw.readthedocs.io/en/latest/Module/about_RedditSubmission)
+* [RedditSubreddit](https://psraw.readthedocs.io/en/latest/Module/about_RedditSubreddit)
+* [RedditMore](https://psraw.readthedocs.io/en/latest/Module/about_RedditMore)
+* [RedditListing](https://psraw.readthedocs.io/en/latest/Module/about_RedditListing)
 
 # SEE ALSO
-{{ See also placeholder }}
 
-{{ You can also list related articles, blogs, and video URLs. }}
+[about_RedditDataObject](https://psraw.readthedocs.io/en/latest/Module/Resolve-RedditDataObject)
 
-# KEYWORDS
-{{List alternate names or titles for this topic that readers might use.}}
+[about_RedditComment](https://psraw.readthedocs.io/en/latest/Module/about_RedditComment)
 
-- {{ Keyword Placeholder }}
-- {{ Keyword Placeholder }}
-- {{ Keyword Placeholder }}
-- {{ Keyword Placeholder }}    
+[about_RedditLink](https://psraw.readthedocs.io/en/latest/Module/about_RedditLink)
 
+[about_RedditSubmission](https://psraw.readthedocs.io/en/latest/Module/about_RedditSubmission)
 
+[about_RedditSubreddit](https://psraw.readthedocs.io/en/latest/Module/about_RedditSubreddit)
+
+[about_RedditMore](https://psraw.readthedocs.io/en/latest/Module/about_RedditMore)
+
+[about_RedditListing](https://psraw.readthedocs.io/en/latest/Module/about_RedditListing)
+
+[https://psraw.readthedocs.io/](https://psraw.readthedocs.io/)

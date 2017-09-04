@@ -114,6 +114,8 @@ This example demonstrates using a `RedditOAuthToken` to make an authenticated we
 
 # SEE ALSO
 
+[about_RedditApiResponse](https://psraw.readthedocs.io/en/latest/Module/about_RedditApiResponse)
+
 [about_RedditApplication](https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication)
 
 [about_RedditOAuthToken](https://psraw.readthedocs.io/en/latest/Module/about_RedditOAuthToken)
