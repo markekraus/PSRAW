@@ -5,19 +5,19 @@
 Describes the RedditSubreddit Class
 
 # LONG DESCRIPTION
-{{ Long Description Placeholder }}
+Contains information about a Reddit Subreddit.
 
 
 # Constructors
 ## RedditSubreddit()
-{{ Constructor Description Placeholder }}
+Creates an Empty `RedditSubreddit` object.
 
 ```powershell
 [RedditSubreddit]::new()
 ```
 
 ## RedditSubreddit(RedditThing RedditThing)
-{{ Constructor Description Placeholder }}
+Creates a `RedditSubreddit` object from a `RedditThing` containing a Subreddit returned from the Reddit API.
 
 ```powershell
 [RedditSubreddit]::new([RedditThing]$RedditThing)
@@ -26,7 +26,7 @@ Describes the RedditSubreddit Class
 
 # Properties
 ## accounts_active
-{{ Property Description Placeholder }}
+Th number of users active in last 15 minutes
 
 ```yaml
 Name: accounts_active
@@ -36,7 +36,7 @@ Static: False
 ```
 
 ## accounts_active_is_fuzzed
-{{ Property Description Placeholder }}
+Whether the number in `accounts_active` is "fuzzed" or not
 
 ```yaml
 Name: accounts_active_is_fuzzed
@@ -46,7 +46,7 @@ Static: False
 ```
 
 ## active_user_count
-{{ Property Description Placeholder }}
+unknown
 
 ```yaml
 Name: active_user_count
@@ -56,7 +56,7 @@ Static: False
 ```
 
 ## advertiser_category
-{{ Property Description Placeholder }}
+The category of advertising used in the the subreddit.
 
 ```yaml
 Name: advertiser_category
@@ -66,7 +66,7 @@ Static: False
 ```
 
 ## allow_images
-{{ Property Description Placeholder }}
+Whether or not the subreddit allows images
 
 ```yaml
 Name: allow_images
@@ -76,7 +76,7 @@ Static: False
 ```
 
 ## ApiEndpointUri
-{{ Property Description Placeholder }}
+The URL template use to generate the ApiEndpointUri for a subreddit.
 
 ```yaml
 Name: ApiEndpointUri
@@ -86,7 +86,7 @@ Static: True
 ```
 
 ## audience_target
-{{ Property Description Placeholder }}
+The audience types the subreddit targets.
 
 ```yaml
 Name: audience_target
@@ -96,7 +96,7 @@ Static: False
 ```
 
 ## banner_img
-{{ Property Description Placeholder }}
+Mobile banner image
 
 ```yaml
 Name: banner_img
@@ -106,7 +106,7 @@ Static: False
 ```
 
 ## banner_size
-{{ Property Description Placeholder }}
+Size of Mobile Banner Image
 
 ```yaml
 Name: banner_size
@@ -116,7 +116,7 @@ Static: False
 ```
 
 ## collapse_deleted_comments
-{{ Property Description Placeholder }}
+Whether or not deleted comments are collapsed.
 
 ```yaml
 Name: collapse_deleted_comments
@@ -126,7 +126,7 @@ Static: False
 ```
 
 ## comment_score_hide_mins
-{{ Property Description Placeholder }}
+Comments with a score below this will be hidden in the subreddit
 
 ```yaml
 Name: comment_score_hide_mins
@@ -136,17 +136,17 @@ Static: False
 ```
 
 ## created
-{{ Property Description Placeholder }}
+The localize time the subreddit was created.
 
 ```yaml
-Name: created
+Name: RedditDate
 Type: Double
 Hidden: False
 Static: False
 ```
 
 ## created_utc
-{{ Property Description Placeholder }}
+The UTC time the subreddit was created.
 
 ```yaml
 Name: created_utc
@@ -156,7 +156,7 @@ Static: False
 ```
 
 ## description
-{{ Property Description Placeholder }}
+The description of the subreddit
 
 ```yaml
 Name: description
@@ -166,7 +166,7 @@ Static: False
 ```
 
 ## description_html
-{{ Property Description Placeholder }}
+The HTML version of the description text.
 
 ```yaml
 Name: description_html
@@ -176,7 +176,7 @@ Static: False
 ```
 
 ## display_name
-{{ Property Description Placeholder }}
+The human name of the subreddit (without the prefix)
 
 ```yaml
 Name: display_name
@@ -186,7 +186,7 @@ Static: False
 ```
 
 ## display_name_prefixed
-{{ Property Description Placeholder }}
+The human name of the subreddit with the `r/` prefix
 
 ```yaml
 Name: display_name_prefixed
@@ -196,7 +196,7 @@ Static: False
 ```
 
 ## header_img
-{{ Property Description Placeholder }}
+The full URL to the header image
 
 ```yaml
 Name: header_img
@@ -206,7 +206,7 @@ Static: False
 ```
 
 ## header_size
-{{ Property Description Placeholder }}
+The width and height of the header image
 
 ```yaml
 Name: header_size
@@ -216,7 +216,7 @@ Static: False
 ```
 
 ## header_title
-{{ Property Description Placeholder }}
+The description of header image shown on hover
 
 ```yaml
 Name: header_title
@@ -226,7 +226,7 @@ Static: False
 ```
 
 ## hide_ads
-{{ Property Description Placeholder }}
+Whether or not the user has chosen to hide ads in ths subreddit.
 
 ```yaml
 Name: hide_ads
@@ -236,7 +236,7 @@ Static: False
 ```
 
 ## icon_img
-{{ Property Description Placeholder }}
+URL of the Mobile Icon for the subreddit
 
 ```yaml
 Name: icon_img
@@ -246,7 +246,7 @@ Static: False
 ```
 
 ## icon_size
-{{ Property Description Placeholder }}
+Size of the Mobile Icon for the subreddit
 
 ```yaml
 Name: icon_size
@@ -256,7 +256,7 @@ Static: False
 ```
 
 ## id
-{{ Property Description Placeholder }}
+The id of the subreddit
 
 ```yaml
 Name: id
@@ -266,7 +266,7 @@ Static: False
 ```
 
 ## key_color
-{{ Property Description Placeholder }}
+The key color for Mobile
 
 ```yaml
 Name: key_color
@@ -276,7 +276,7 @@ Static: False
 ```
 
 ## Kind
-{{ Property Description Placeholder }}
+The Kind of `RedditThing`. this should always be `t5`
 
 ```yaml
 Name: Kind
@@ -286,7 +286,7 @@ Static: False
 ```
 
 ## lang
-{{ Property Description Placeholder }}
+The language of the subreddit
 
 ```yaml
 Name: lang
@@ -296,7 +296,7 @@ Static: False
 ```
 
 ## link_flair_enabled
-{{ Property Description Placeholder }}
+Whether or not link flair is enabled
 
 ```yaml
 Name: link_flair_enabled
@@ -306,7 +306,7 @@ Static: False
 ```
 
 ## name
-{{ Property Description Placeholder }}
+The Reddit Fullname of the subreddit
 
 ```yaml
 Name: name
@@ -316,7 +316,7 @@ Static: False
 ```
 
 ## over18
-{{ Property Description Placeholder }}
+Whether or not the subreddit is NSFW
 
 ```yaml
 Name: over18
@@ -326,7 +326,7 @@ Static: False
 ```
 
 ## ParentObject
-{{ Property Description Placeholder }}
+The Parent Object of the subreddit. This could be a listing or a more.
 
 ```yaml
 Name: ParentObject
@@ -336,7 +336,7 @@ Static: False
 ```
 
 ## Prefix
-{{ Property Description Placeholder }}
+The prefix type. this should always be `t5`
 
 ```yaml
 Name: Prefix
@@ -346,7 +346,7 @@ Static: False
 ```
 
 ## public_description
-{{ Property Description Placeholder }}
+The public description shown in search results
 
 ```yaml
 Name: public_description
@@ -356,7 +356,7 @@ Static: False
 ```
 
 ## public_description_html
-{{ Property Description Placeholder }}
+The HTML version of the public description.
 
 ```yaml
 Name: public_description_html
@@ -366,7 +366,7 @@ Static: False
 ```
 
 ## public_traffic
-{{ Property Description Placeholder }}
+Whether or not the subreddit has made their traffic status public.
 
 ```yaml
 Name: public_traffic
@@ -376,7 +376,7 @@ Static: False
 ```
 
 ## quarantine
-{{ Property Description Placeholder }}
+Whether or not the subreddit has been quarantined.
 
 ```yaml
 Name: quarantine
@@ -386,7 +386,7 @@ Static: False
 ```
 
 ## RedditThingKind
-{{ Property Description Placeholder }}
+The kind. this should always be `t5`
 
 ```yaml
 Name: RedditThingKind
@@ -396,7 +396,7 @@ Static: True
 ```
 
 ## show_media
-{{ Property Description Placeholder }}
+Whether or not to show thumbnails in the subreddit.
 
 ```yaml
 Name: show_media
@@ -406,7 +406,7 @@ Static: False
 ```
 
 ## show_media_preview
-{{ Property Description Placeholder }}
+Whether or not to expand media previews on the comments page
 
 ```yaml
 Name: show_media_preview
@@ -416,7 +416,7 @@ Static: False
 ```
 
 ## spoilers_enabled
-{{ Property Description Placeholder }}
+Whether or not spoilers are enabled int he subreddit.
 
 ```yaml
 Name: spoilers_enabled
@@ -426,7 +426,7 @@ Static: False
 ```
 
 ## submission_type
-{{ Property Description Placeholder }}
+The submission types allowed in the subreddit.
 
 ```yaml
 Name: submission_type
@@ -436,7 +436,7 @@ Static: False
 ```
 
 ## submit_link_label
-{{ Property Description Placeholder }}
+The label on the submit link button
 
 ```yaml
 Name: submit_link_label
@@ -446,7 +446,7 @@ Static: False
 ```
 
 ## submit_text
-{{ Property Description Placeholder }}
+Text displayed on submission page.
 
 ```yaml
 Name: submit_text
@@ -456,7 +456,7 @@ Static: False
 ```
 
 ## submit_text_html
-{{ Property Description Placeholder }}
+HTML version of the submit_text
 
 ```yaml
 Name: submit_text_html
@@ -466,7 +466,7 @@ Static: False
 ```
 
 ## submit_text_label
-{{ Property Description Placeholder }}
+The label on the submit test button
 
 ```yaml
 Name: submit_text_label
@@ -476,7 +476,7 @@ Static: False
 ```
 
 ## subreddit_type
-{{ Property Description Placeholder }}
+The subreddit's type - one of "public", "private", "restricted", or in very special cases "gold_restricted" or "archived"
 
 ```yaml
 Name: subreddit_type
@@ -486,7 +486,7 @@ Static: False
 ```
 
 ## subscribers
-{{ Property Description Placeholder }}
+Number of subscribers to the subreddit.
 
 ```yaml
 Name: subscribers
@@ -496,7 +496,7 @@ Static: False
 ```
 
 ## suggested_comment_sort
-{{ Property Description Placeholder }}
+The suggested sort order for the subreddit.
 
 ```yaml
 Name: suggested_comment_sort
@@ -506,7 +506,7 @@ Static: False
 ```
 
 ## title
-{{ Property Description Placeholder }}
+The title of the subreddit.
 
 ```yaml
 Name: title
@@ -516,7 +516,7 @@ Static: False
 ```
 
 ## url
-{{ Property Description Placeholder }}
+The relative URL of the subreddit. Ex: "/r/pics/"
 
 ```yaml
 Name: url
@@ -526,7 +526,7 @@ Static: False
 ```
 
 ## user_can_flair_in_sr
-{{ Property Description Placeholder }}
+Whether or not the user can flair in the subreddit
 
 ```yaml
 Name: user_can_flair_in_sr
@@ -536,7 +536,7 @@ Static: False
 ```
 
 ## user_flair_css_class
-{{ Property Description Placeholder }}
+CSS class for the user's flair
 
 ```yaml
 Name: user_flair_css_class
@@ -546,7 +546,7 @@ Static: False
 ```
 
 ## user_flair_enabled_in_sr
-{{ Property Description Placeholder }}
+Whether or not the user's flair is enabled in the subreddit
 
 ```yaml
 Name: user_flair_enabled_in_sr
@@ -556,7 +556,7 @@ Static: False
 ```
 
 ## user_flair_text
-{{ Property Description Placeholder }}
+The text of the user's flair
 
 ```yaml
 Name: user_flair_text
@@ -566,7 +566,7 @@ Static: False
 ```
 
 ## user_has_favorited
-{{ Property Description Placeholder }}
+Whether or not the user has "favorited" the subreddit.
 
 ```yaml
 Name: user_has_favorited
@@ -576,7 +576,7 @@ Static: False
 ```
 
 ## user_is_banned
-{{ Property Description Placeholder }}
+Whether or not the user is banned from the subreddit.
 
 ```yaml
 Name: user_is_banned
@@ -586,7 +586,7 @@ Static: False
 ```
 
 ## user_is_contributor
-{{ Property Description Placeholder }}
+Whether or not the user is a contributor to the subreddit.
 
 ```yaml
 Name: user_is_contributor
@@ -596,7 +596,7 @@ Static: False
 ```
 
 ## user_is_moderator
-{{ Property Description Placeholder }}
+Whether or not the user is a moderator to the subreddit
 
 ```yaml
 Name: user_is_moderator
@@ -606,7 +606,7 @@ Static: False
 ```
 
 ## user_is_muted
-{{ Property Description Placeholder }}
+Whether or not the user is muted in the subreddit.
 
 ```yaml
 Name: user_is_muted
@@ -616,7 +616,7 @@ Static: False
 ```
 
 ## user_is_subscriber
-{{ Property Description Placeholder }}
+Whether or not the user is a subscriber of the subreddit.
 
 ```yaml
 Name: user_is_subscriber
@@ -626,7 +626,7 @@ Static: False
 ```
 
 ## user_sr_flair_enabled
-{{ Property Description Placeholder }}
+Whether or not user subreddit flair is enabled
 
 ```yaml
 Name: user_sr_flair_enabled
@@ -636,7 +636,7 @@ Static: False
 ```
 
 ## user_sr_theme_enabled
-{{ Property Description Placeholder }}
+Whether or not the subreddit theme is enabled by the user.
 
 ```yaml
 Name: user_sr_theme_enabled
@@ -646,7 +646,7 @@ Static: False
 ```
 
 ## whitelist_status
-{{ Property Description Placeholder }}
+What advertising the subreddit has been whitelisted for
 
 ```yaml
 Name: whitelist_status
@@ -656,7 +656,7 @@ Static: False
 ```
 
 ## wiki_enabled
-{{ Property Description Placeholder }}
+Whether or not the subreddit wiki is enabled.
 
 ```yaml
 Name: wiki_enabled
@@ -668,7 +668,7 @@ Static: False
 
 # Methods
 ## GetApiEndpointUri()
-{{ Method Description Placeholder }}
+Returns the API endpoint URL for the current instance.
 
 ```yaml
 Name: GetApiEndpointUri
@@ -679,7 +679,7 @@ Definition: String GetApiEndpointUri()
 ```
 
 ## GetFullName()
-{{ Method Description Placeholder }}
+Returns the Reddit Fllname for the instance.
 
 ```yaml
 Name: GetFullName
@@ -690,7 +690,7 @@ Definition: String GetFullName()
 ```
 
 ## ToString()
-{{ Method Description Placeholder }}
+Overrides `ToString()` to return the Subreddit name and title.
 
 ```yaml
 Name: ToString
@@ -700,33 +700,25 @@ Static: False
 Definition: String ToString()
 ```
 
-
-# EXAMPLES
-{{ Code or descriptive examples of how to leverage the functions described. }}
-
-# NOTE
-{{ Note Placeholder - Additional information that a user needs to know.}}
-
-# TROUBLESHOOTING NOTE
-{{ Troubleshooting Placeholder - Warns users of bugs}}
-
-{{ Explains behavior that is likely to change with fixes }}
-
 # DERIVED FROM
 
 [RedditDataObject](https://psraw.readthedocs.io/en/latest/Module/about_RedditDataObject)
 
 # SEE ALSO
-{{ See also placeholder }}
 
-{{ You can also list related articles, blogs, and video URLs. }}
+[about_RedditSubreddit](https://psraw.readthedocs.io/en/latest/Module/about_RedditSubreddit)
 
-# KEYWORDS
-{{List alternate names or titles for this topic that readers might use.}}
+[about_RedditComment](https://psraw.readthedocs.io/en/latest/Module/about_RedditComment)
 
-- {{ Keyword Placeholder }}
-- {{ Keyword Placeholder }}
-- {{ Keyword Placeholder }}
-- {{ Keyword Placeholder }}
+[about_RedditLink](https://psraw.readthedocs.io/en/latest/Module/about_RedditLink)
 
+[about_RedditThing](https://psraw.readthedocs.io/en/latest/Module/about_RedditThing)
+
+[about_RedditDataObject](https://psraw.readthedocs.io/en/latest/Module/about_RedditDataObject)
+
+[https://www.reddit.com/wiki/api](https://www.reddit.com/wiki/api)
+
+[https://github.com/reddit/reddit/wiki/JSON](https://github.com/reddit/reddit/wiki/JSON)
+
+[https://psraw.readthedocs.io/](https://psraw.readthedocs.io/)
 

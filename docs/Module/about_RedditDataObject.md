@@ -51,7 +51,7 @@ Creates an empty `RedditDataObject`
 
 [about_RedditListing](https://psraw.readthedocs.io/en/latest/Module/about_RedditListing)
 
-[Resolve-RedditdataObject](https://psraw.readthedocs.io/en/latest/Module/Resolve-RedditdataObject)
+[Resolve-RedditDataObject](https://psraw.readthedocs.io/en/latest/Module/Resolve-RedditDataObject)
 
 [https://www.reddit.com/wiki/api](https://www.reddit.com/wiki/api)
 
