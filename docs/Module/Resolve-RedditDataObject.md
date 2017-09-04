@@ -8,7 +8,7 @@ schema: 2.0.0
 # Resolve-RedditDataObject
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Resolves a `RedditDataObject` from another object
 
 ## SYNTAX
 
@@ -28,26 +28,44 @@ Resolve-RedditDataObject [-PSObject] <PSObject> [-WhatIf] [-Confirm]
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+This function is used by return the appropriate `RedditDataObject` (i.e. `RedditComment`) from various objects. This is used to raise a `RedditDataObject` up from the `RedditThing` meta-class that Reddit uses to encapsulate all objects such as comments, links, subreddits, lists, and mores. It is made public due to implementation limitations, but is not intended for public consumption. Do not call this function directly.
 
 ## EXAMPLES
 
 ### Example 1
 ```
-PS C:\> {{ Add example code here }}
+$Response = Invoke-RedditRequest -uri $uri
+$RedditComment = Resolve-RedditDataObject -RedditAPIResponse $Response
 ```
 
-{{ Add example description here }}
+Assuming `$uri` is a comment endpoint, this will convert the response from `Invoke-RedditRequest` into a `RedditComment` object.
+
+### Example 2
+```
+$Response = Invoke-RedditRequest -uri $uri
+$RedditComment = Resolve-RedditDataObject -PSObject $Response.ContentObject
+```
+
+Assuming `$uri` is a comment endpoint, this will convert the `ContentObject` from `Invoke-RedditRequest` into a `RedditComment` object.
+
+### Example 2
+```
+$Response = Invoke-RedditRequest -uri $uri
+$RedditThing = [RedditThing]$Response.ContentObject
+$RedditComment = Resolve-RedditDataObject -RedditThing $RedditThing
+```
+
+Converting a `RedditThing` into a `RedditComment`.
 
 ## PARAMETERS
 
 ### -PSObject
-{{Fill PSObject Description}}
+A PSObject of a `Thing` returned from the Reddit API and converted from JSON.
 
 ```yaml
 Type: PSObject
 Parameter Sets: PSObject
-Aliases: 
+Aliases:
 
 Required: True
 Position: 0
@@ -57,12 +75,12 @@ Accept wildcard characters: False
 ```
 
 ### -RedditApiResponse
-{{Fill RedditApiResponse Description}}
+A `RedditApiResponse` object returned from `Invoke-RedditRequest`
 
 ```yaml
 Type: RedditApiResponse
 Parameter Sets: RedditAPIResponse
-Aliases: 
+Aliases:
 
 Required: True
 Position: 0
@@ -72,12 +90,12 @@ Accept wildcard characters: False
 ```
 
 ### -RedditThing
-{{Fill RedditThing Description}}
+An existing `RedditThing` object.
 
 ```yaml
 Type: RedditThing
 Parameter Sets: RedditThing
-Aliases: 
+Aliases:
 
 Required: True
 Position: 0
@@ -120,8 +138,8 @@ Accept wildcard characters: False
 ## INPUTS
 
 ### RedditApiResponse
-RedditThing
-System.Management.Automation.PSObject
+### RedditThing
+### System.Management.Automation.PSObject
 
 
 ## OUTPUTS
@@ -135,3 +153,10 @@ System.Management.Automation.PSObject
 
 [https://psraw.readthedocs.io/en/latest/Module/Resolve-RedditdataObject](https://psraw.readthedocs.io/en/latest/Module/Resolve-RedditdataObject)
 
+[about_RedditDataObject](https://psraw.readthedocs.io/en/latest/Module/about_RedditdataObject)
+
+[about_RedditAPIResponse](https://psraw.readthedocs.io/en/latest/Module/about_RedditAPIResponse)
+
+[https://www.reddit.com/wiki/api](https://www.reddit.com/wiki/api)
+
+[https://psraw.readthedocs.io/](https://psraw.readthedocs.io/)
