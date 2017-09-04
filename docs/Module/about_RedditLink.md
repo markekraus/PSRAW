@@ -5,19 +5,19 @@
 Describes the RedditLink Class
 
 # LONG DESCRIPTION
-{{ Long Description Placeholder }}
+Represents a Reddit Link which can be either a Self-Post or a Link posted to a Subreddit.
 
 
 # Constructors
 ## RedditLink()
-{{ Constructor Description Placeholder }}
+Creates an Empty `RedditLink` object.
 
 ```powershell
 [RedditLink]::new()
 ```
 
 ## RedditLink(RedditThing RedditThing)
-{{ Constructor Description Placeholder }}
+Creates a `RedditLink` from a `RedditThing` representing a reddit Link returned from the API.
 
 ```powershell
 [RedditLink]::new([RedditThing]$RedditThing)
@@ -26,7 +26,7 @@ Describes the RedditLink Class
 
 # Properties
 ## ApiEndpointUri
-{{ Property Description Placeholder }}
+The API endpoint url template used to generate the the API endpoint where the Link can be retrieved.
 
 ```yaml
 Name: ApiEndpointUri
@@ -36,7 +36,7 @@ Static: True
 ```
 
 ## approved_at_utc
-{{ Property Description Placeholder }}
+The UTC time the link was approved by a moderator.
 
 ```yaml
 Name: approved_at_utc
@@ -46,7 +46,7 @@ Static: False
 ```
 
 ## approved_by
-{{ Property Description Placeholder }}
+The Moderator who approved the link.
 
 ```yaml
 Name: approved_by
@@ -56,7 +56,7 @@ Static: False
 ```
 
 ## archived
-{{ Property Description Placeholder }}
+If true, the link has been archived.
 
 ```yaml
 Name: archived
@@ -66,7 +66,7 @@ Static: False
 ```
 
 ## author
-{{ Property Description Placeholder }}
+The Reddit username of the author of the link.
 
 ```yaml
 Name: author
@@ -76,7 +76,7 @@ Static: False
 ```
 
 ## author_flair_css_class
-{{ Property Description Placeholder }}
+The flair CSS class for the author
 
 ```yaml
 Name: author_flair_css_class
@@ -86,7 +86,7 @@ Static: False
 ```
 
 ## author_flair_text
-{{ Property Description Placeholder }}
+The text for the author's flair.
 
 ```yaml
 Name: author_flair_text
@@ -96,7 +96,7 @@ Static: False
 ```
 
 ## banned_at_utc
-{{ Property Description Placeholder }}
+The UTC time the link was banned by a moderator.
 
 ```yaml
 Name: banned_at_utc
@@ -106,7 +106,7 @@ Static: False
 ```
 
 ## banned_by
-{{ Property Description Placeholder }}
+The username of the moderator who banned the link.
 
 ```yaml
 Name: banned_by
@@ -116,7 +116,7 @@ Static: False
 ```
 
 ## brand_safe
-{{ Property Description Placeholder }}
+This is true if Reddit has determined the subreddit the Link was posted in is safe for advertising.
 
 ```yaml
 Name: brand_safe
@@ -126,7 +126,7 @@ Static: False
 ```
 
 ## can_gild
-{{ Property Description Placeholder }}
+Whether or not this link can be "gilded" by giving the link author Reddit Gold.
 
 ```yaml
 Name: can_gild
@@ -136,7 +136,7 @@ Static: False
 ```
 
 ## can_mod_post
-{{ Property Description Placeholder }}
+Unknown
 
 ```yaml
 Name: can_mod_post
@@ -146,7 +146,7 @@ Static: False
 ```
 
 ## clicked
-{{ Property Description Placeholder }}
+Whether or not the link has been clicked by the user.
 
 ```yaml
 Name: clicked
@@ -156,7 +156,7 @@ Static: False
 ```
 
 ## contest_mode
-{{ Property Description Placeholder }}
+If true, the link has been set to Contest mode.  https://www.reddit.com/r/bestof2012/comments/159bww/introducing_contest_mode_a_tool_for_your_voting/
 
 ```yaml
 Name: contest_mode
@@ -166,7 +166,7 @@ Static: False
 ```
 
 ## created
-{{ Property Description Placeholder }}
+The localized time the link was created
 
 ```yaml
 Name: created
@@ -176,7 +176,7 @@ Static: False
 ```
 
 ## created_utc
-{{ Property Description Placeholder }}
+The UTC time the link was created
 
 ```yaml
 Name: created_utc
@@ -186,7 +186,7 @@ Static: False
 ```
 
 ## distinguished
-{{ Property Description Placeholder }}
+Whether or not the link has been distinguished by a moderator.
 
 ```yaml
 Name: distinguished
@@ -196,7 +196,7 @@ Static: False
 ```
 
 ## domain
-{{ Property Description Placeholder }}
+The domain of the URL the link was submitted for.
 
 ```yaml
 Name: domain
@@ -206,7 +206,7 @@ Static: False
 ```
 
 ## downs
-{{ Property Description Placeholder }}
+Number of DownVotes
 
 ```yaml
 Name: downs
@@ -216,7 +216,7 @@ Static: False
 ```
 
 ## edited
-{{ Property Description Placeholder }}
+The UNIX Time stamp the link has been edited or false
 
 ```yaml
 Name: edited
@@ -226,7 +226,7 @@ Static: False
 ```
 
 ## gilded
-{{ Property Description Placeholder }}
+The number of times the link has been gilded.
 
 ```yaml
 Name: gilded
@@ -236,7 +236,7 @@ Static: False
 ```
 
 ## hidden
-{{ Property Description Placeholder }}
+Whether or not the link has been hidden by the user.
 
 ```yaml
 Name: hidden
@@ -246,7 +246,7 @@ Static: False
 ```
 
 ## hide_score
-{{ Property Description Placeholder }}
+Whether or not the score is hidden.
 
 ```yaml
 Name: hide_score
@@ -256,7 +256,7 @@ Static: False
 ```
 
 ## id
-{{ Property Description Placeholder }}
+The ID of the link submission.
 
 ```yaml
 Name: id
@@ -266,7 +266,7 @@ Static: False
 ```
 
 ## is_self
-{{ Property Description Placeholder }}
+Whether or not the link is a self-post.
 
 ```yaml
 Name: is_self
@@ -276,7 +276,7 @@ Static: False
 ```
 
 ## is_video
-{{ Property Description Placeholder }}
+Whether or not the link is a video post.
 
 ```yaml
 Name: is_video
@@ -286,7 +286,7 @@ Static: False
 ```
 
 ## likes
-{{ Property Description Placeholder }}
+Whether the user likes (upvoted) the link or not
 
 ```yaml
 Name: likes
@@ -296,7 +296,7 @@ Static: False
 ```
 
 ## link_flair_css_class
-{{ Property Description Placeholder }}
+The CSS for the link's flair
 
 ```yaml
 Name: link_flair_css_class
@@ -306,7 +306,7 @@ Static: False
 ```
 
 ## link_flair_text
-{{ Property Description Placeholder }}
+The text for the link's flair.
 
 ```yaml
 Name: link_flair_text
@@ -316,7 +316,7 @@ Static: False
 ```
 
 ## locked
-{{ Property Description Placeholder }}
+Whether or not the link has been locked.
 
 ```yaml
 Name: locked
@@ -326,7 +326,7 @@ Static: False
 ```
 
 ## media
-{{ Property Description Placeholder }}
+An object containing information about the media in media posts.
 
 ```yaml
 Name: media
@@ -336,7 +336,7 @@ Static: False
 ```
 
 ## media_embed
-{{ Property Description Placeholder }}
+Object containing information about the embedded media in media posts.
 
 ```yaml
 Name: media_embed
@@ -346,7 +346,7 @@ Static: False
 ```
 
 ## mod_reports
-{{ Property Description Placeholder }}
+An array of reports made by Moderators on this link.
 
 ```yaml
 Name: mod_reports
@@ -356,7 +356,7 @@ Static: False
 ```
 
 ## name
-{{ Property Description Placeholder }}
+The reddit Fullname of the link.
 
 ```yaml
 Name: name
@@ -366,7 +366,7 @@ Static: False
 ```
 
 ## num_comments
-{{ Property Description Placeholder }}
+The number of comments the link has.
 
 ```yaml
 Name: num_comments
@@ -376,7 +376,7 @@ Static: False
 ```
 
 ## num_reports
-{{ Property Description Placeholder }}
+The number of reports the link has.
 
 ```yaml
 Name: num_reports
@@ -386,7 +386,7 @@ Static: False
 ```
 
 ## over_18
-{{ Property Description Placeholder }}
+Whether or not the link is NSFW.
 
 ```yaml
 Name: over_18
@@ -396,7 +396,8 @@ Static: False
 ```
 
 ## parent_whitelist_status
-{{ Property Description Placeholder }}
+Unknown
+
 
 ```yaml
 Name: parent_whitelist_status
@@ -406,7 +407,7 @@ Static: False
 ```
 
 ## ParentObject
-{{ Property Description Placeholder }}
+The Parent Object of this Link. It may be a listing or the API response.
 
 ```yaml
 Name: ParentObject
@@ -416,7 +417,7 @@ Static: False
 ```
 
 ## permalink
-{{ Property Description Placeholder }}
+The permalink to link.
 
 ```yaml
 Name: permalink
@@ -426,7 +427,7 @@ Static: False
 ```
 
 ## Prefix
-{{ Property Description Placeholder }}
+The prefix of the Reddit Thing this should always be `t3`
 
 ```yaml
 Name: Prefix
@@ -436,7 +437,7 @@ Static: False
 ```
 
 ## quarantine
-{{ Property Description Placeholder }}
+Whether or not the link has been quarantined.
 
 ```yaml
 Name: quarantine
@@ -446,7 +447,7 @@ Static: False
 ```
 
 ## RedditThingKind
-{{ Property Description Placeholder }}
+The Kind of Reddit Thing. this should always be `t3`
 
 ```yaml
 Name: RedditThingKind
@@ -456,7 +457,7 @@ Static: True
 ```
 
 ## removal_reason
-{{ Property Description Placeholder }}
+The reason the link was removed by a moderator.
 
 ```yaml
 Name: removal_reason
@@ -466,7 +467,7 @@ Static: False
 ```
 
 ## report_reasons
-{{ Property Description Placeholder }}
+Reasons the link has been reported.
 
 ```yaml
 Name: report_reasons
@@ -476,7 +477,7 @@ Static: False
 ```
 
 ## saved
-{{ Property Description Placeholder }}
+Whether or not the user has saved the link.
 
 ```yaml
 Name: saved
@@ -486,7 +487,7 @@ Static: False
 ```
 
 ## score
-{{ Property Description Placeholder }}
+The score of the link
 
 ```yaml
 Name: score
@@ -496,7 +497,7 @@ Static: False
 ```
 
 ## secure_media
-{{ Property Description Placeholder }}
+An object containing information about the secure media in a media post.
 
 ```yaml
 Name: secure_media
@@ -506,7 +507,7 @@ Static: False
 ```
 
 ## secure_media_embed
-{{ Property Description Placeholder }}
+Object containing information about the secure embedded media in a media post.
 
 ```yaml
 Name: secure_media_embed
@@ -516,7 +517,7 @@ Static: False
 ```
 
 ## selftext
-{{ Property Description Placeholder }}
+The text of a self-post.
 
 ```yaml
 Name: selftext
@@ -526,7 +527,7 @@ Static: False
 ```
 
 ## selftext_html
-{{ Property Description Placeholder }}
+The HTML version of the text in a self-post.
 
 ```yaml
 Name: selftext_html
@@ -536,7 +537,7 @@ Static: False
 ```
 
 ## spoiler
-{{ Property Description Placeholder }}
+Whether or not the link has been marked as a spoiler.
 
 ```yaml
 Name: spoiler
@@ -546,7 +547,7 @@ Static: False
 ```
 
 ## stickied
-{{ Property Description Placeholder }}
+Whether or not a mod as stickied the post in the subreddit.
 
 ```yaml
 Name: stickied
@@ -556,7 +557,7 @@ Static: False
 ```
 
 ## subreddit
-{{ Property Description Placeholder }}
+The name of the subreddit the link was posted in (without the prefix)
 
 ```yaml
 Name: subreddit
@@ -566,7 +567,7 @@ Static: False
 ```
 
 ## subreddit_id
-{{ Property Description Placeholder }}
+The Reddit Fullname of the subreddit
 
 ```yaml
 Name: subreddit_id
@@ -576,7 +577,7 @@ Static: False
 ```
 
 ## subreddit_name_prefixed
-{{ Property Description Placeholder }}
+The name of the subreddit prefixed with `r/`
 
 ```yaml
 Name: subreddit_name_prefixed
@@ -586,7 +587,7 @@ Static: False
 ```
 
 ## subreddit_type
-{{ Property Description Placeholder }}
+The type of subreddit (public, restricted, etc)
 
 ```yaml
 Name: subreddit_type
@@ -596,7 +597,7 @@ Static: False
 ```
 
 ## suggested_sort
-{{ Property Description Placeholder }}
+The suggested sort order for comments made to the link.
 
 ```yaml
 Name: suggested_sort
@@ -606,7 +607,7 @@ Static: False
 ```
 
 ## thumbnail
-{{ Property Description Placeholder }}
+Full url to the thumbnail for the post.
 
 ```yaml
 Name: thumbnail
@@ -616,7 +617,7 @@ Static: False
 ```
 
 ## title
-{{ Property Description Placeholder }}
+The title of the link post.
 
 ```yaml
 Name: title
@@ -626,7 +627,7 @@ Static: False
 ```
 
 ## ups
-{{ Property Description Placeholder }}
+The number of upvotes
 
 ```yaml
 Name: ups
@@ -636,7 +637,7 @@ Static: False
 ```
 
 ## upvote_ratio
-{{ Property Description Placeholder }}
+The ratio of upvotes to all votes.
 
 ```yaml
 Name: upvote_ratio
@@ -646,7 +647,7 @@ Static: False
 ```
 
 ## url
-{{ Property Description Placeholder }}
+The url of the link.
 
 ```yaml
 Name: url
@@ -656,7 +657,7 @@ Static: False
 ```
 
 ## user_reports
-{{ Property Description Placeholder }}
+An array of reports made by users against the link.
 
 ```yaml
 Name: user_reports
@@ -666,17 +667,17 @@ Static: False
 ```
 
 ## view_count
-{{ Property Description Placeholder }}
+The times the link has been viewed
 
 ```yaml
 Name: view_count
-Type: System.Management.Automation.PSObject
+Type: int64
 Hidden: False
 Static: False
 ```
 
 ## visited
-{{ Property Description Placeholder }}
+Whether or not the user has visited the link.
 
 ```yaml
 Name: visited
@@ -686,7 +687,7 @@ Static: False
 ```
 
 ## whitelist_status
-{{ Property Description Placeholder }}
+unknown
 
 ```yaml
 Name: whitelist_status
@@ -698,7 +699,7 @@ Static: False
 
 # Methods
 ## GetApiEndpointUri()
-{{ Method Description Placeholder }}
+Returns the API endpoint for the current instance.
 
 ```yaml
 Name: GetApiEndpointUri
@@ -709,7 +710,7 @@ Definition: String GetApiEndpointUri()
 ```
 
 ## GetFullName()
-{{ Method Description Placeholder }}
+Returns the Reddit Fullname for the current instance.
 
 ```yaml
 Name: GetFullName
@@ -720,7 +721,7 @@ Definition: String GetFullName()
 ```
 
 ## ToString()
-{{ Method Description Placeholder }}
+Overrides `ToString()` to return the subreddit, author, and link title.
 
 ```yaml
 Name: ToString
@@ -730,29 +731,20 @@ Static: False
 Definition: String ToString()
 ```
 
+# DERIVED FROM
 
-# EXAMPLES
-{{ Code or descriptive examples of how to leverage the functions described. }}
-
-# NOTE
-{{ Note Placeholder - Additional information that a user needs to know.}}
-
-# TROUBLESHOOTING NOTE
-{{ Troubleshooting Placeholder - Warns users of bugs}}
-
-{{ Explains behavior that is likely to change with fixes }}
+[RedditDataObject](https://psraw.readthedocs.io/en/latest/Module/about_RedditDataObject)
 
 # SEE ALSO
-{{ See also placeholder }}
 
-{{ You can also list related articles, blogs, and video URLs. }}
+[about_RedditLink](https://psraw.readthedocs.io/en/latest/Module/about_RedditLink)
 
-# KEYWORDS
-{{List alternate names or titles for this topic that readers might use.}}
+[about_RedditDataObject](https://psraw.readthedocs.io/en/latest/Module/Resolve-RedditDataObject)
 
-- {{ Keyword Placeholder }}
-- {{ Keyword Placeholder }}
-- {{ Keyword Placeholder }}
-- {{ Keyword Placeholder }}    
+[Contest Mode](https://www.reddit.com/r/bestof2012/comments/159bww/introducing_contest_mode_a_tool_for_your_voting/)
 
+[https://www.reddit.com/wiki/api](https://www.reddit.com/wiki/api)
 
+[https://github.com/reddit/reddit/wiki/JSON](https://github.com/reddit/reddit/wiki/JSON)
+
+[https://psraw.readthedocs.io/](https://psraw.readthedocs.io/)
