@@ -7,8 +7,6 @@ Describes the RedditComment Class
 # LONG DESCRIPTION
 The `RedditComment` class houses a comment returned from the Reddit API.
 
-The `RedditComment` class is imported automatically when you import the PSRAW module.
-
 # Constructors
 ## RedditComment()
 Default Constructor creates an empty `RedditComment` object.
@@ -18,7 +16,7 @@ Default Constructor creates an empty `RedditComment` object.
 ```
 
 ## RedditComment(RedditThing RedditThing)
-{{ Constructor Description Placeholder }}
+Creates a `RedditComment` from a `RedditThing` representing a comment returned by the reddit API.
 
 ```powershell
 [RedditComment]::new([RedditThing]$RedditThing)
@@ -137,7 +135,7 @@ Static: False
 ```
 
 ## created
-A `RedditDate` containing the date the comment was created. 
+A `RedditDate` containing the date the comment was created.
 
 ```yaml
 Name: created
@@ -217,7 +215,7 @@ Static: False
 ```
 
 ## Kind
-{{ Property Description Placeholder }}
+The `RedditThingKind` of the instance. this should always be `t1`
 
 ```yaml
 Name: Kind
@@ -258,7 +256,7 @@ Static: False
 ```
 
 ## MoreObject
-{{ Property Description Placeholder }}
+If the comment had a `more` object in the replies this will hold the `RedditMore` and is used to determine if the comment has more replies than were returned by the API.
 
 ```yaml
 Name: MoreObject
@@ -299,7 +297,7 @@ Static: False
 ```
 
 ## ParentObject
-{{ Property Description Placeholder }}
+The Parent Object of the `RedditComment` this may be either the parent comment if this is a reply or the `RedditThing`, `RedditMore`, or `RedditListing` this comment was a child of.
 
 ```yaml
 Name: ParentObject
@@ -320,7 +318,7 @@ Static: False
 ```
 
 ## RedditThingKind
-{{ Property Description Placeholder }}
+The `Kind` of Reddit Thing. Should always be `t1`.
 
 ```yaml
 Name: RedditThingKind
@@ -351,7 +349,7 @@ Static: False
 ```
 
 ## report_reasons
-A string array containing report reasons supplied by users. 
+A string array containing report reasons supplied by users.
 
 ```yaml
 Name: report_reasons
@@ -463,7 +461,7 @@ Static: False
 
 # Methods
 ## _initReplies(Object Replies)
-{{ Method Description Placeholder }}
+Hidden method responsible for populating the `replies` with `RedditComment` objects from `RedditThings` supplied by the API.
 
 ```yaml
 Name: _initReplies
@@ -486,7 +484,7 @@ Definition: String GetApiEndpointUri()
 ```
 
 ## GetFullName()
-Retrieves the Reddit Fullname ID for the comment. 
+Retrieves the Reddit Fullname ID for the comment.
 
 ```yaml
 Name: GetFullName
@@ -496,15 +494,15 @@ Static: False
 Definition: String GetFullName()
 ```
 
-## HasMore()
-{{ Method Description Placeholder }}
+## HasMoreReplies()
+Returns true the the comment has more replies than are populated. I cases where the replies are too deep or scored poorly, the API will return an empty `more` indicating that there are replies that were not returned.
 
 ```yaml
 Name: HasMore
 Return Type: Boolean
 Hidden: False
 Static: False
-Definition: Boolean HasMore()
+Definition: Boolean HasMoreReplies()
 ```
 
 
@@ -528,6 +526,10 @@ Definition: String ToString()
 $result = Invoke-RedditRequest -Uri 'https://oauth.reddit.com/api/info?id=t1_dl8o3mb'
 $Comment = [RedditComment]::New($Token,$Result.ContentObject.data.children[0])
 ```
+
+# DERIVED FROM
+
+[RedditDataObject](https://psraw.readthedocs.io/en/latest/Module/about_RedditDataObject)
 
 # SEE ALSO
 
