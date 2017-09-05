@@ -97,7 +97,7 @@ The default value is `Unicode`.
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases:
+Aliases: 
 
 Required: False
 Position: Named
@@ -112,7 +112,7 @@ Specifies the path to the file where the XML representation of the `RedditApplic
 ```yaml
 Type: String
 Parameter Sets: LiteralPath
-Aliases:
+Aliases: 
 
 Required: True
 Position: Named
@@ -127,7 +127,7 @@ Specifies the path to the file where the XML representation of the `RedditApplic
 ```yaml
 Type: String
 Parameter Sets: Path
-Aliases:
+Aliases: 
 
 Required: True
 Position: Named

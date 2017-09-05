@@ -10,8 +10,6 @@ LONG DESCRIPTION
     `RedditOAuthToken` objects as the `GrantType` property. It is used by
     various functions in this module to determine the actions and endpoints
     required to request Access Tokens.
-    The `RedditOAuthGrantType` Enumerator is imported automatically when you
-    import the PSRAW module.
 
 FIELDS
 Client_Credentials
@@ -39,6 +37,7 @@ Password
     https://github.com/reddit/reddit/wiki/OAuth2#application-only-oauth
 
 SEE ALSO
+    about_RedditOAuthGrantType
     about_RedditOAuthToken
     Request-RedditOAuthToken
     https://github.com/reddit/reddit/wiki/OAuth2

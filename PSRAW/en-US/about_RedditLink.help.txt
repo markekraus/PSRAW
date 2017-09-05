@@ -5,22 +5,25 @@ SHORT DESCRIPTION
     Describes the RedditLink Class
 
 LONG DESCRIPTION
-    {{ Long Description Placeholder }}
+    Represents a Reddit Link which can be either a Self-Post or a Link posted to
+    a Subreddit.
 
 CONSTRUCTORS
 RedditLink()
-    {{ Constructor Description Placeholder }}
+    Creates an Empty `RedditLink` object.
 
     [RedditLink]::new()
 
 RedditLink(RedditThing RedditThing)
-    {{ Constructor Description Placeholder }}
+    Creates a `RedditLink` from a `RedditThing` representing a reddit Link
+    returned from the API.
 
     [RedditLink]::new([RedditThing]$RedditThing)
 
 PROPERTIES
 ApiEndpointUri
-    {{ Property Description Placeholder }}
+    The API endpoint url template used to generate the the API endpoint where
+    the Link can be retrieved.
 
     Name: ApiEndpointUri
     Type: String
@@ -28,7 +31,7 @@ ApiEndpointUri
     Static: True
 
 approved_at_utc
-    {{ Property Description Placeholder }}
+    The UTC time the link was approved by a moderator.
 
     Name: approved_at_utc
     Type: RedditDate
@@ -36,7 +39,7 @@ approved_at_utc
     Static: False
 
 approved_by
-    {{ Property Description Placeholder }}
+    The Moderator who approved the link.
 
     Name: approved_by
     Type: String
@@ -44,7 +47,7 @@ approved_by
     Static: False
 
 archived
-    {{ Property Description Placeholder }}
+    If true, the link has been archived.
 
     Name: archived
     Type: Boolean
@@ -52,7 +55,7 @@ archived
     Static: False
 
 author
-    {{ Property Description Placeholder }}
+    The Reddit username of the author of the link.
 
     Name: author
     Type: String
@@ -60,7 +63,7 @@ author
     Static: False
 
 author_flair_css_class
-    {{ Property Description Placeholder }}
+    The flair CSS class for the author
 
     Name: author_flair_css_class
     Type: String
@@ -68,7 +71,7 @@ author_flair_css_class
     Static: False
 
 author_flair_text
-    {{ Property Description Placeholder }}
+    The text for the author's flair.
 
     Name: author_flair_text
     Type: String
@@ -76,7 +79,7 @@ author_flair_text
     Static: False
 
 banned_at_utc
-    {{ Property Description Placeholder }}
+    The UTC time the link was banned by a moderator.
 
     Name: banned_at_utc
     Type: RedditDate
@@ -84,7 +87,7 @@ banned_at_utc
     Static: False
 
 banned_by
-    {{ Property Description Placeholder }}
+    The username of the moderator who banned the link.
 
     Name: banned_by
     Type: String
@@ -92,7 +95,8 @@ banned_by
     Static: False
 
 brand_safe
-    {{ Property Description Placeholder }}
+    This is true if Reddit has determined the subreddit the Link was posted in
+    is safe for advertising.
 
     Name: brand_safe
     Type: Boolean
@@ -100,7 +104,8 @@ brand_safe
     Static: False
 
 can_gild
-    {{ Property Description Placeholder }}
+    Whether or not this link can be "gilded" by giving the link author Reddit
+    Gold.
 
     Name: can_gild
     Type: Boolean
@@ -108,7 +113,7 @@ can_gild
     Static: False
 
 can_mod_post
-    {{ Property Description Placeholder }}
+    Unknown
 
     Name: can_mod_post
     Type: Boolean
@@ -116,7 +121,7 @@ can_mod_post
     Static: False
 
 clicked
-    {{ Property Description Placeholder }}
+    Whether or not the link has been clicked by the user.
 
     Name: clicked
     Type: Boolean
@@ -124,7 +129,8 @@ clicked
     Static: False
 
 contest_mode
-    {{ Property Description Placeholder }}
+    If true, the link has been set to Contest mode. 
+    https://www.reddit.com/r/bestof2012/comments/159bww/introducing_contest_mode_a_tool_for_your_voting/
 
     Name: contest_mode
     Type: Boolean
@@ -132,7 +138,7 @@ contest_mode
     Static: False
 
 created
-    {{ Property Description Placeholder }}
+    The localized time the link was created
 
     Name: created
     Type: RedditDate
@@ -140,7 +146,7 @@ created
     Static: False
 
 created_utc
-    {{ Property Description Placeholder }}
+    The UTC time the link was created
 
     Name: created_utc
     Type: RedditDate
@@ -148,7 +154,7 @@ created_utc
     Static: False
 
 distinguished
-    {{ Property Description Placeholder }}
+    Whether or not the link has been distinguished by a moderator.
 
     Name: distinguished
     Type: String
@@ -156,7 +162,7 @@ distinguished
     Static: False
 
 domain
-    {{ Property Description Placeholder }}
+    The domain of the URL the link was submitted for.
 
     Name: domain
     Type: String
@@ -164,7 +170,7 @@ domain
     Static: False
 
 downs
-    {{ Property Description Placeholder }}
+    Number of DownVotes
 
     Name: downs
     Type: Int64
@@ -172,7 +178,7 @@ downs
     Static: False
 
 edited
-    {{ Property Description Placeholder }}
+    The UNIX Time stamp the link has been edited or false
 
     Name: edited
     Type: Decimal
@@ -180,7 +186,7 @@ edited
     Static: False
 
 gilded
-    {{ Property Description Placeholder }}
+    The number of times the link has been gilded.
 
     Name: gilded
     Type: Int64
@@ -188,7 +194,7 @@ gilded
     Static: False
 
 hidden
-    {{ Property Description Placeholder }}
+    Whether or not the link has been hidden by the user.
 
     Name: hidden
     Type: Boolean
@@ -196,7 +202,7 @@ hidden
     Static: False
 
 hide_score
-    {{ Property Description Placeholder }}
+    Whether or not the score is hidden.
 
     Name: hide_score
     Type: Boolean
@@ -204,7 +210,7 @@ hide_score
     Static: False
 
 id
-    {{ Property Description Placeholder }}
+    The ID of the link submission.
 
     Name: id
     Type: String
@@ -212,7 +218,7 @@ id
     Static: False
 
 is_self
-    {{ Property Description Placeholder }}
+    Whether or not the link is a self-post.
 
     Name: is_self
     Type: Boolean
@@ -220,7 +226,7 @@ is_self
     Static: False
 
 is_video
-    {{ Property Description Placeholder }}
+    Whether or not the link is a video post.
 
     Name: is_video
     Type: Boolean
@@ -228,7 +234,7 @@ is_video
     Static: False
 
 likes
-    {{ Property Description Placeholder }}
+    Whether the user likes (upvoted) the link or not
 
     Name: likes
     Type: Boolean
@@ -236,7 +242,7 @@ likes
     Static: False
 
 link_flair_css_class
-    {{ Property Description Placeholder }}
+    The CSS for the link's flair
 
     Name: link_flair_css_class
     Type: String
@@ -244,7 +250,7 @@ link_flair_css_class
     Static: False
 
 link_flair_text
-    {{ Property Description Placeholder }}
+    The text for the link's flair.
 
     Name: link_flair_text
     Type: String
@@ -252,7 +258,7 @@ link_flair_text
     Static: False
 
 locked
-    {{ Property Description Placeholder }}
+    Whether or not the link has been locked.
 
     Name: locked
     Type: Boolean
@@ -260,7 +266,7 @@ locked
     Static: False
 
 media
-    {{ Property Description Placeholder }}
+    An object containing information about the media in media posts.
 
     Name: media
     Type: System.Management.Automation.PSObject
@@ -268,7 +274,7 @@ media
     Static: False
 
 media_embed
-    {{ Property Description Placeholder }}
+    Object containing information about the embedded media in media posts.
 
     Name: media_embed
     Type: System.Management.Automation.PSObject
@@ -276,7 +282,7 @@ media_embed
     Static: False
 
 mod_reports
-    {{ Property Description Placeholder }}
+    An array of reports made by Moderators on this link.
 
     Name: mod_reports
     Type: RedditModReport[]
@@ -284,7 +290,7 @@ mod_reports
     Static: False
 
 name
-    {{ Property Description Placeholder }}
+    The reddit Fullname of the link.
 
     Name: name
     Type: String
@@ -292,7 +298,7 @@ name
     Static: False
 
 num_comments
-    {{ Property Description Placeholder }}
+    The number of comments the link has.
 
     Name: num_comments
     Type: Int64
@@ -300,7 +306,7 @@ num_comments
     Static: False
 
 num_reports
-    {{ Property Description Placeholder }}
+    The number of reports the link has.
 
     Name: num_reports
     Type: Int64
@@ -308,7 +314,7 @@ num_reports
     Static: False
 
 over_18
-    {{ Property Description Placeholder }}
+    Whether or not the link is NSFW.
 
     Name: over_18
     Type: Boolean
@@ -316,7 +322,7 @@ over_18
     Static: False
 
 parent_whitelist_status
-    {{ Property Description Placeholder }}
+    Unknown
 
     Name: parent_whitelist_status
     Type: String
@@ -324,7 +330,7 @@ parent_whitelist_status
     Static: False
 
 ParentObject
-    {{ Property Description Placeholder }}
+    The Parent Object of this Link. It may be a listing or the API response.
 
     Name: ParentObject
     Type: System.Management.Automation.PSObject
@@ -332,7 +338,7 @@ ParentObject
     Static: False
 
 permalink
-    {{ Property Description Placeholder }}
+    The permalink to link.
 
     Name: permalink
     Type: String
@@ -340,7 +346,7 @@ permalink
     Static: False
 
 Prefix
-    {{ Property Description Placeholder }}
+    The prefix of the Reddit Thing this should always be `t3`
 
     Name: Prefix
     Type: RedditThingPrefix
@@ -348,7 +354,7 @@ Prefix
     Static: False
 
 quarantine
-    {{ Property Description Placeholder }}
+    Whether or not the link has been quarantined.
 
     Name: quarantine
     Type: Boolean
@@ -356,7 +362,7 @@ quarantine
     Static: False
 
 RedditThingKind
-    {{ Property Description Placeholder }}
+    The Kind of Reddit Thing. this should always be `t3`
 
     Name: RedditThingKind
     Type: RedditThingKind
@@ -364,7 +370,7 @@ RedditThingKind
     Static: True
 
 removal_reason
-    {{ Property Description Placeholder }}
+    The reason the link was removed by a moderator.
 
     Name: removal_reason
     Type: String
@@ -372,7 +378,7 @@ removal_reason
     Static: False
 
 report_reasons
-    {{ Property Description Placeholder }}
+    Reasons the link has been reported.
 
     Name: report_reasons
     Type: String[]
@@ -380,7 +386,7 @@ report_reasons
     Static: False
 
 saved
-    {{ Property Description Placeholder }}
+    Whether or not the user has saved the link.
 
     Name: saved
     Type: Boolean
@@ -388,7 +394,7 @@ saved
     Static: False
 
 score
-    {{ Property Description Placeholder }}
+    The score of the link
 
     Name: score
     Type: Int64
@@ -396,7 +402,7 @@ score
     Static: False
 
 secure_media
-    {{ Property Description Placeholder }}
+    An object containing information about the secure media in a media post.
 
     Name: secure_media
     Type: System.Management.Automation.PSObject
@@ -404,7 +410,8 @@ secure_media
     Static: False
 
 secure_media_embed
-    {{ Property Description Placeholder }}
+    Object containing information about the secure embedded media in a media
+    post.
 
     Name: secure_media_embed
     Type: System.Management.Automation.PSObject
@@ -412,7 +419,7 @@ secure_media_embed
     Static: False
 
 selftext
-    {{ Property Description Placeholder }}
+    The text of a self-post.
 
     Name: selftext
     Type: String
@@ -420,7 +427,7 @@ selftext
     Static: False
 
 selftext_html
-    {{ Property Description Placeholder }}
+    The HTML version of the text in a self-post.
 
     Name: selftext_html
     Type: String
@@ -428,7 +435,7 @@ selftext_html
     Static: False
 
 spoiler
-    {{ Property Description Placeholder }}
+    Whether or not the link has been marked as a spoiler.
 
     Name: spoiler
     Type: Boolean
@@ -436,7 +443,7 @@ spoiler
     Static: False
 
 stickied
-    {{ Property Description Placeholder }}
+    Whether or not a mod as stickied the post in the subreddit.
 
     Name: stickied
     Type: Boolean
@@ -444,7 +451,7 @@ stickied
     Static: False
 
 subreddit
-    {{ Property Description Placeholder }}
+    The name of the subreddit the link was posted in (without the prefix)
 
     Name: subreddit
     Type: String
@@ -452,7 +459,7 @@ subreddit
     Static: False
 
 subreddit_id
-    {{ Property Description Placeholder }}
+    The Reddit Fullname of the subreddit
 
     Name: subreddit_id
     Type: String
@@ -460,7 +467,7 @@ subreddit_id
     Static: False
 
 subreddit_name_prefixed
-    {{ Property Description Placeholder }}
+    The name of the subreddit prefixed with `r/`
 
     Name: subreddit_name_prefixed
     Type: String
@@ -468,7 +475,7 @@ subreddit_name_prefixed
     Static: False
 
 subreddit_type
-    {{ Property Description Placeholder }}
+    The type of subreddit (public, restricted, etc)
 
     Name: subreddit_type
     Type: String
@@ -476,7 +483,7 @@ subreddit_type
     Static: False
 
 suggested_sort
-    {{ Property Description Placeholder }}
+    The suggested sort order for comments made to the link.
 
     Name: suggested_sort
     Type: System.Management.Automation.PSObject
@@ -484,7 +491,7 @@ suggested_sort
     Static: False
 
 thumbnail
-    {{ Property Description Placeholder }}
+    Full url to the thumbnail for the post.
 
     Name: thumbnail
     Type: String
@@ -492,7 +499,7 @@ thumbnail
     Static: False
 
 title
-    {{ Property Description Placeholder }}
+    The title of the link post.
 
     Name: title
     Type: String
@@ -500,7 +507,7 @@ title
     Static: False
 
 ups
-    {{ Property Description Placeholder }}
+    The number of upvotes
 
     Name: ups
     Type: Int64
@@ -508,7 +515,7 @@ ups
     Static: False
 
 upvote_ratio
-    {{ Property Description Placeholder }}
+    The ratio of upvotes to all votes.
 
     Name: upvote_ratio
     Type: Double
@@ -516,7 +523,7 @@ upvote_ratio
     Static: False
 
 url
-    {{ Property Description Placeholder }}
+    The url of the link.
 
     Name: url
     Type: Uri
@@ -524,7 +531,7 @@ url
     Static: False
 
 user_reports
-    {{ Property Description Placeholder }}
+    An array of reports made by users against the link.
 
     Name: user_reports
     Type: RedditUserReport[]
@@ -532,15 +539,15 @@ user_reports
     Static: False
 
 view_count
-    {{ Property Description Placeholder }}
+    The times the link has been viewed
 
     Name: view_count
-    Type: System.Management.Automation.PSObject
+    Type: int64
     Hidden: False
     Static: False
 
 visited
-    {{ Property Description Placeholder }}
+    Whether or not the user has visited the link.
 
     Name: visited
     Type: Boolean
@@ -548,7 +555,7 @@ visited
     Static: False
 
 whitelist_status
-    {{ Property Description Placeholder }}
+    unknown
 
     Name: whitelist_status
     Type: String
@@ -557,7 +564,7 @@ whitelist_status
 
 METHODS
 GetApiEndpointUri()
-    {{ Method Description Placeholder }}
+    Returns the API endpoint for the current instance.
 
     Name: GetApiEndpointUri
     Return Type: String
@@ -566,7 +573,7 @@ GetApiEndpointUri()
     Definition: String GetApiEndpointUri()
 
 GetFullName()
-    {{ Method Description Placeholder }}
+    Returns the Reddit Fullname for the current instance.
 
     Name: GetFullName
     Return Type: String
@@ -575,7 +582,7 @@ GetFullName()
     Definition: String GetFullName()
 
 ToString()
-    {{ Method Description Placeholder }}
+    Overrides `ToString()` to return the subreddit, author, and link title.
 
     Name: ToString
     Return Type: String
@@ -583,26 +590,20 @@ ToString()
     Static: False
     Definition: String ToString()
 
-EXAMPLES
-    {{ Code or descriptive examples of how to leverage the functions described.
-    }}
-
-NOTE
-    {{ Note Placeholder - Additional information that a user needs to know.}}
-
-TROUBLESHOOTING NOTE
-    {{ Troubleshooting Placeholder - Warns users of bugs}}
-    {{ Explains behavior that is likely to change with fixes }}
+DERIVED FROM
+    RedditDataObject
 
 SEE ALSO
-    {{ See also placeholder }}
-    {{ You can also list related articles, blogs, and video URLs. }}
-
-KEYWORDS
-    {{List alternate names or titles for this topic that readers might use.}}
-    - {{ Keyword Placeholder }}
-    - {{ Keyword Placeholder }}
-    - {{ Keyword Placeholder }}
-    - {{ Keyword Placeholder }}
-
+    about_RedditLink
+    about_RedditComment
+    about_RedditMore
+    about_RedditDataObject
+    about_RedditListing
+    about_RedditModReport
+    about_RedditThing
+    about_RedditUserReport
+    Contest Mode
+    https://www.reddit.com/wiki/api
+    https://github.com/reddit/reddit/wiki/JSON
+    https://psraw.readthedocs.io/
 

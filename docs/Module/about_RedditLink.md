@@ -745,6 +745,8 @@ Definition: String ToString()
 
 [about_RedditDataObject](https://psraw.readthedocs.io/en/latest/Module/about_RedditDataObject)
 
+[about_RedditDate](https://psraw.readthedocs.io/en/latest/Module/about_RedditDate)
+
 [about_RedditListing](https://psraw.readthedocs.io/en/latest/Module/about_RedditListing)
 
 [about_RedditModReport](https://psraw.readthedocs.io/en/latest/Module/about_RedditModReport)

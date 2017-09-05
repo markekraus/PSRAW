@@ -7,8 +7,6 @@ SHORT DESCRIPTION
 LONG DESCRIPTION
     The `RedditOAuthResponse` Class encapsulates the responses from Reddit OAuth
     grant flows.
-    The `RedditOAuthResponse` class is imported automatically when you import
-    the PSRAW module.
 
 CONSTRUCTORS
 RedditOAuthResponse()
@@ -75,7 +73,7 @@ Example 1
     `Request-RedditOAuthTokenPassword`.
 
 SEE ALSO
-    RedditOAuthResponse
+    about_RedditOAuthResponse
     Request-RedditOAuthTokenClient
     Request-RedditOAuthTokenInstalled
     Request-RedditOAuthTokenPassword

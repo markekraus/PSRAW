@@ -14,17 +14,17 @@ Resolves a `RedditDataObject` from another object
 
 ### RedditAPIResponse
 ```
-Resolve-RedditDataObject [-RedditApiResponse] <RedditApiResponse> [-WhatIf] [-Confirm]
+Resolve-RedditDataObject [-RedditApiResponse] <RedditApiResponse> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### RedditThing
 ```
-Resolve-RedditDataObject [-RedditThing] <RedditThing> [-WhatIf] [-Confirm]
+Resolve-RedditDataObject [-RedditThing] <RedditThing> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### PSObject
 ```
-Resolve-RedditDataObject [-PSObject] <PSObject> [-WhatIf] [-Confirm]
+Resolve-RedditDataObject [-PSObject] <PSObject> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -65,7 +65,7 @@ A PSObject of a `Thing` returned from the Reddit API and converted from JSON.
 ```yaml
 Type: PSObject
 Parameter Sets: PSObject
-Aliases:
+Aliases: 
 
 Required: True
 Position: 0
@@ -80,7 +80,7 @@ A `RedditApiResponse` object returned from `Invoke-RedditRequest`
 ```yaml
 Type: RedditApiResponse
 Parameter Sets: RedditAPIResponse
-Aliases:
+Aliases: 
 
 Required: True
 Position: 0
@@ -95,7 +95,7 @@ An existing `RedditThing` object.
 ```yaml
 Type: RedditThing
 Parameter Sets: RedditThing
-Aliases:
+Aliases: 
 
 Required: True
 Position: 0
@@ -135,17 +135,20 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+
 ## INPUTS
 
 ### RedditApiResponse
-### RedditThing
-### System.Management.Automation.PSObject
 
+### RedditThing
+
+### System.Management.Automation.PSObject
 
 ## OUTPUTS
 
 ### RedditDataObject
-
 
 ## NOTES
 

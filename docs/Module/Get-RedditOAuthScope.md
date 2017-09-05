@@ -38,7 +38,7 @@ https://www.reddit.com/api/v1/scopes
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases:
+Aliases: 
 
 Required: False
 Position: 1

@@ -51,7 +51,7 @@ Specifies the XML files. Unlike `Path`, the value of the `LiteralPath` parameter
 ```yaml
 Type: String[]
 Parameter Sets: LiteralPath
-Aliases:
+Aliases: 
 
 Required: True
 Position: Named
@@ -66,7 +66,7 @@ Specifies the XML files.
 ```yaml
 Type: String[]
 Parameter Sets: Path
-Aliases:
+Aliases: 
 
 Required: True
 Position: Named

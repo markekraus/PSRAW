@@ -5,22 +5,24 @@ SHORT DESCRIPTION
     Describes the RedditSubmission Class
 
 LONG DESCRIPTION
-    {{ Long Description Placeholder }}
+    A `RedditSubmission` object contains the link and comments returned from a
+    Reddit submission.
 
 CONSTRUCTORS
 RedditSubmission()
-    {{ Constructor Description Placeholder }}
+    Creates an empty `RedditSubmission` object
 
     [RedditSubmission]::new()
 
 RedditSubmission(RedditApiResponse ApiResponse)
-    {{ Constructor Description Placeholder }}
+    Creates a `RedditSubmission` from a `RedditApiResponse` returned from
+    `Invoke-RedditRequest`.
 
     [RedditSubmission]::new([RedditApiResponse]$ApiResponse)
 
 PROPERTIES
 Comments
-    {{ Property Description Placeholder }}
+    An array of comments in reply to the submission.
 
     Name: Comments
     Type: RedditComment[]
@@ -28,7 +30,7 @@ Comments
     Static: False
 
 Link
-    {{ Property Description Placeholder }}
+    The link or self-post of the submission.
 
     Name: Link
     Type: RedditLink
@@ -36,26 +38,16 @@ Link
     Static: False
 
 METHODS
-EXAMPLES
-    {{ Code or descriptive examples of how to leverage the functions described.
-    }}
-
-NOTE
-    {{ Note Placeholder - Additional information that a user needs to know.}}
-
-TROUBLESHOOTING NOTE
-    {{ Troubleshooting Placeholder - Warns users of bugs}}
-    {{ Explains behavior that is likely to change with fixes }}
+DERIVED FROM
+    RedditDataObject
 
 SEE ALSO
-    {{ See also placeholder }}
-    {{ You can also list related articles, blogs, and video URLs. }}
-
-KEYWORDS
-    {{List alternate names or titles for this topic that readers might use.}}
-    - {{ Keyword Placeholder }}
-    - {{ Keyword Placeholder }}
-    - {{ Keyword Placeholder }}
-    - {{ Keyword Placeholder }}
-
+    about_RedditSubmission
+    about_RedditApiResponse
+    about_RedditComment
+    about_RedditDataObject
+    about_RedditLink
+    https://www.reddit.com/wiki/api
+    https://github.com/reddit/reddit/wiki/JSON
+    https://psraw.readthedocs.io/
 

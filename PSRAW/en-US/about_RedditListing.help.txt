@@ -5,22 +5,27 @@ SHORT DESCRIPTION
     Describes the RedditListing Class
 
 LONG DESCRIPTION
-    {{ Long Description Placeholder }}
+    Represents a `Listing` returned from the Reddit API. Listings contain
+    collections of children such as Comments, links, and Subreddits. For
+    example, when querying the top 100 links form a subreddit, a listing
+    containing the Reddit `Thing`s for those 100 links is returned by the API.
 
 CONSTRUCTORS
 RedditListing()
-    {{ Constructor Description Placeholder }}
+    Creates an empty `RedditListing` object
 
     [RedditListing]::new()
 
 RedditListing(RedditThing RedditThing)
-    {{ Constructor Description Placeholder }}
+    Creates a `RedditListing` object from a `RedditThing` containing a `Listing`
+    returned by the Reddit API.
 
     [RedditListing]::new([RedditThing]$RedditThing)
 
 PROPERTIES
 After
-    {{ Property Description Placeholder }}
+    The Reddit Fullname of the listing that follows after this page. null if
+    there is no next page.
 
     Name: After
     Type: String
@@ -28,7 +33,8 @@ After
     Static: False
 
 Before
-    {{ Property Description Placeholder }}
+    The Reddit Fullname of the listing that follows before this page. null if
+    there is no previous page.
 
     Name: Before
     Type: String
@@ -36,7 +42,7 @@ Before
     Static: False
 
 ChildKinds
-    {{ Property Description Placeholder }}
+    Array of unique `RedditThingKind` kinds for children of the listing.
 
     Name: ChildKinds
     Type: RedditThingKind[]
@@ -44,7 +50,7 @@ ChildKinds
     Static: False
 
 Children
-    {{ Property Description Placeholder }}
+    `RedditThing`s of all child objects of the `Listing`
 
     Name: Children
     Type: RedditThing[]
@@ -52,7 +58,9 @@ Children
     Static: False
 
 Items
-    {{ Property Description Placeholder }}
+    Resolved PSRAW objects of the Children of the `Listing` for example, if the
+    listing is a list of comments, the `RedditComment` objects will be available
+    under `Items`.
 
     Name: Items
     Type: RedditDataObject[]
@@ -60,7 +68,7 @@ Items
     Static: False
 
 Kind
-    {{ Property Description Placeholder }}
+    The kind. This should always be `Listing`
 
     Name: Kind
     Type: RedditThingKind
@@ -68,7 +76,11 @@ Kind
     Static: False
 
 Modhash
-    {{ Property Description Placeholder }}
+    Modhashes are not required when authenticated with OAuth and thus may not
+    appears when using PSRAW.
+    A modhash is a token that the reddit API requires to help prevent CSRF.
+    Modhashes can be obtained via the /api/me.json call or in response data of
+    listing endpoints.
 
     Name: Modhash
     Type: String
@@ -76,7 +88,8 @@ Modhash
     Static: False
 
 ParentObject
-    {{ Property Description Placeholder }}
+    This may contain the Parent Object of the listing. This could be a
+    `RedditSbmission`, `RedditComment`, `RedditApiResponse` or a `RedditThing`.
 
     Name: ParentObject
     Type: System.Management.Automation.PSObject
@@ -84,7 +97,7 @@ ParentObject
     Static: False
 
 RedditThingKind
-    {{ Property Description Placeholder }}
+    The kind. This should always be `Listing`
 
     Name: RedditThingKind
     Type: RedditThingKind
@@ -93,7 +106,7 @@ RedditThingKind
 
 METHODS
 GetComments()
-    {{ Method Description Placeholder }}
+    Returns all `RedditComment` children of the listing.
 
     Name: GetComments
     Return Type: RedditComment[]
@@ -102,7 +115,7 @@ GetComments()
     Definition: RedditComment[] GetComments()
 
 GetLinks()
-    {{ Method Description Placeholder }}
+    Returns all `RedditLink` children of the listing.
 
     Name: GetLinks
     Return Type: RedditLink[]
@@ -111,7 +124,7 @@ GetLinks()
     Definition: RedditLink[] GetLinks()
 
 GetMores()
-    {{ Method Description Placeholder }}
+    Returns all `RedditMore` children of the listing.
 
     Name: GetMores
     Return Type: RedditMore[]
@@ -119,26 +132,17 @@ GetMores()
     Static: False
     Definition: RedditMore[] GetMores()
 
-EXAMPLES
-    {{ Code or descriptive examples of how to leverage the functions described.
-    }}
-
-NOTE
-    {{ Note Placeholder - Additional information that a user needs to know.}}
-
-TROUBLESHOOTING NOTE
-    {{ Troubleshooting Placeholder - Warns users of bugs}}
-    {{ Explains behavior that is likely to change with fixes }}
+DERIVED FROM
+    RedditDataObject
 
 SEE ALSO
-    {{ See also placeholder }}
-    {{ You can also list related articles, blogs, and video URLs. }}
-
-KEYWORDS
-    {{List alternate names or titles for this topic that readers might use.}}
-    - {{ Keyword Placeholder }}
-    - {{ Keyword Placeholder }}
-    - {{ Keyword Placeholder }}
-    - {{ Keyword Placeholder }}
-
+    about_RedditListing
+    about_RedditComment
+    about_RedditDataObject
+    about_RedditLink
+    about_RedditMore
+    about_RedditThing
+    https://www.reddit.com/wiki/api
+    https://github.com/reddit/reddit/wiki/JSON
+    https://psraw.readthedocs.io/
 

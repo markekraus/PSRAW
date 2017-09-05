@@ -6,8 +6,6 @@ SHORT DESCRIPTION
 
 LONG DESCRIPTION
     This s used by `RedditThing` objects to determine their kind.
-    The `RedditThingKind` Enumerator is imported automatically when you import
-    the PSRAW module.
 
 FIELDS
 listing

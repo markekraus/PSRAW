@@ -1,16 +1,16 @@
 ---
-Module Name: psraw
+Module Name: PSRAW
 Module Guid: 92c8f916-4890-45eb-a3e7-592f5b5b3f24
-Download Help Link:
+Download Help Link: 
 Help Version: 0.0.1.0
 Locale: en-US
 ---
 
-# psraw Module
+# PSRAW Module
 ## Description
 PSRAW is a PowerShell Reddit API Wrapper Module providing full access to the Reddit API via PowerShell.
 
-## psraw Cmdlets
+## PSRAW Cmdlets
 ### [Connect-Reddit](Connect-Reddit.md)
 Authenticates to the Reddit API
 
@@ -42,10 +42,11 @@ Creates a `RedditApplication` object
 Requests a OAuth Access Token from Reddit and sets it as the session default OAuth Token
 
 ### [Resolve-RedditDataObject](Resolve-RedditDataObject.md)
-Resolves a `RedditThing` to it's PSRAW object type.
+Resolves a `RedditDataObject` from another object
 
 ### [Set-RedditDefaultOAuthToken](Set-RedditDefaultOAuthToken.md)
 Sets the session default OAuth Token
 
 ### [Update-RedditOAuthToken](Update-RedditOAuthToken.md)
 Refresh a `RedditOAuthToken`
+

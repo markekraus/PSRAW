@@ -6,8 +6,6 @@ SHORT DESCRIPTION
 
 LONG DESCRIPTION
     The `RedditComment` class houses a comment returned from the Reddit API.
-    The `RedditComment` class is imported automatically when you import the
-    PSRAW module.
 
 CONSTRUCTORS
 RedditComment()
@@ -16,7 +14,8 @@ RedditComment()
     [RedditComment]::new()
 
 RedditComment(RedditThing RedditThing)
-    {{ Constructor Description Placeholder }}
+    Creates a `RedditComment` from a `RedditThing` representing a comment
+    returned by the reddit API.
 
     [RedditComment]::new([RedditThing]$RedditThing)
 
@@ -175,7 +174,7 @@ id
     Static: False
 
 Kind
-    {{ Property Description Placeholder }}
+    The `RedditThingKind` of the instance. this should always be `t1`
 
     Name: Kind
     Type: RedditThingKind
@@ -209,7 +208,9 @@ mod_reports
     Static: False
 
 MoreObject
-    {{ Property Description Placeholder }}
+    If the comment had a `more` object in the replies this will hold the
+    `RedditMore` and is used to determine if the comment has more replies than
+    were returned by the API.
 
     Name: MoreObject
     Type: RedditDataObject
@@ -242,7 +243,9 @@ parent_id
     Static: False
 
 ParentObject
-    {{ Property Description Placeholder }}
+    The Parent Object of the `RedditComment` this may be either the parent
+    comment if this is a reply or the `RedditThing`, `RedditMore`, or
+    `RedditListing` this comment was a child of.
 
     Name: ParentObject
     Type: System.Management.Automation.PSObject
@@ -258,7 +261,7 @@ Prefix
     Static: False
 
 RedditThingKind
-    {{ Property Description Placeholder }}
+    The `Kind` of Reddit Thing. Should always be `t1`.
 
     Name: RedditThingKind
     Type: RedditThingKind
@@ -372,7 +375,8 @@ user_reports
 
 METHODS
 _initReplies(Object Replies)
-    {{ Method Description Placeholder }}
+    Hidden method responsible for populating the `replies` with `RedditComment`
+    objects from `RedditThings` supplied by the API.
 
     Name: _initReplies
     Return Type: Void
@@ -398,14 +402,16 @@ GetFullName()
     Static: False
     Definition: String GetFullName()
 
-HasMore()
-    {{ Method Description Placeholder }}
+HasMoreReplies()
+    Returns true the the comment has more replies than are populated. I cases
+    where the replies are too deep or scored poorly, the API will return an
+    empty `more` indicating that there are replies that were not returned.
 
     Name: HasMore
     Return Type: Boolean
     Hidden: False
     Static: False
-    Definition: Boolean HasMore()
+    Definition: Boolean HasMoreReplies()
 
 ToString()
     Overrides `ToString()` to return the contents of the the `Body` property.
@@ -421,8 +427,19 @@ Example 1
     $result = Invoke-RedditRequest -Uri 'https://oauth.reddit.com/api/info?id=t1_dl8o3mb'
     $Comment = [RedditComment]::New($Token,$Result.ContentObject.data.children[0])
 
+DERIVED FROM
+    RedditDataObject
+
 SEE ALSO
     about_RedditComment
+    about_RedditDataObject
+    about_RedditDate
+    about_RedditLink
+    about_RedditListing
+    about_RedditModReport
+    about_RedditMore
+    about_RedditThing
+    about_RedditUserReport
     https://www.reddit.com/wiki/api
     https://github.com/reddit/reddit/wiki/JSON
     https://psraw.readthedocs.io/

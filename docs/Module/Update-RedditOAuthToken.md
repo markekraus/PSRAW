@@ -73,7 +73,7 @@ By default, this function will ignore any `RedditOAuthToken` which is not yet ex
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
-Aliases:
+Aliases: 
 
 Required: False
 Position: Named
@@ -88,7 +88,7 @@ By default, this function does not return any data. The `-PassThru` parameter wi
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
-Aliases:
+Aliases: 
 
 Required: False
 Position: Named
@@ -103,7 +103,7 @@ If set, the updated token will be set as the session default OAuth Token
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
-Aliases:
+Aliases: 
 
 Required: False
 Position: Named
