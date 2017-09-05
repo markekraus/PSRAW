@@ -23,7 +23,7 @@ Invoke-RedditRequest [-Uri] <Uri> [[-AccessToken] <RedditOAuthToken>] [[-Method]
 
 `Invoke-RedditRequest` Requires a `RedditOAuthToken` in order to perform the authenticated API request. To create `RedditOAuthToken` see the help info for `Request-RedditOAuthToken`.
 
-`Invoke-RedditRequest` is essentially a wrapper for `Invoke-WebRequest` to ease the burden of authentication, Rate Limit monitoring, and Access Token renewal. 
+`Invoke-RedditRequest` is essentially a wrapper for `Invoke-WebRequest` to ease the burden of authentication, Rate Limit monitoring, and Access Token renewal.
 
 `Invoke-RedditRequest` returns a `RedditApiResponse` which contains the `RedditOAuthToken`, The response from the API, and a converted Content Object. The `RedditApiResponse` can then be used to create other module objects or consumed directly.
 
@@ -79,12 +79,12 @@ For automation, the creation of the `RedditApplication` and `RedditOAuthToken` a
 ## PARAMETERS
 
 ### -AccessToken
-The `RedditOAuthToken` created by `Request-RedditOAuthToken` used to make OAuth authenticated calls to Reddit's API and track API Rate Limiting. 
+The `RedditOAuthToken` created by `Request-RedditOAuthToken` used to make OAuth authenticated calls to Reddit's API and track API Rate Limiting.
 
 ```yaml
 Type: RedditOAuthToken
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: 0
@@ -103,7 +103,7 @@ When the input is a `GET` request and the body is an `IDictionary` (typically, a
 ```yaml
 Type: Object
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: 3
@@ -119,7 +119,7 @@ Specifies the content type of the web request. The default is `application/json`
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: 6
@@ -131,12 +131,12 @@ Accept wildcard characters: False
 ### -Headers
 Specifies the headers of the web request. Enter a hash table or dictionary.
 
-`UserAgent` and `Authorization` will be overwritten. 
+`UserAgent` and `Authorization` will be overwritten.
 
 ```yaml
 Type: IDictionary
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: 4
@@ -151,7 +151,7 @@ Specifies the method used for the web request. Valid values are `Default`, `Dele
 ```yaml
 Type: WebRequestMethod
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 Accepted values: Default, Get, Head, Post, Put, Delete, Trace, Options, Merge, Patch
 
 Required: False
@@ -169,7 +169,7 @@ A Domain Name System (DNS) query can take up to 15 seconds to return or time out
 ```yaml
 Type: Int32
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: 5
@@ -186,7 +186,7 @@ This parameter is required.
 ```yaml
 Type: Uri
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: True
 Position: 1

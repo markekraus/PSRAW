@@ -38,6 +38,9 @@ $Installed= [RedditApplicationType]::Installed
 ```
 
 # SEE ALSO
+
+[about_RedditApplicationType](https://psraw.readthedocs.io/en/latest/Module/about_RedditApplicationType)
+
 [about_RedditApplication](https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication)
 
 [New-RedditApplication](https://psraw.readthedocs.io/en/latest/Module/New-RedditApplication)

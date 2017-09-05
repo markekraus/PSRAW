@@ -22,6 +22,8 @@ This grant flow allows for the developer of `Script` applications to access the 
 
 # SEE ALSO
 
+[about_RedditOAuthGrantType](https://psraw.readthedocs.io/en/latest/Module/about_RedditOAuthGrantType)
+
 [about_RedditOAuthToken](https://psraw.readthedocs.io/en/latest/Module/about_RedditOAuthToken)
 
 [Request-RedditOAuthToken](https://psraw.readthedocs.io/en/latest/Module/Request-RedditOAuthToken)

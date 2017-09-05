@@ -105,7 +105,7 @@ Description of the Reddit App. This is not required or used for anything. It is 
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -120,7 +120,7 @@ A GUID to identify the application. If one is not provided, a new GUID will be g
 ```yaml
 Type: Guid
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -135,7 +135,7 @@ Use if Reddit App is registered as an Installed App.
 ```yaml
 Type: SwitchParameter
 Parameter Sets: Installed
-Aliases: 
+Aliases:
 
 Required: True
 Position: Named
@@ -165,7 +165,7 @@ Redirect URI as registered on Reddit for the App. This must match exactly as ent
 ```yaml
 Type: Uri
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: True
 Position: Named
@@ -180,7 +180,7 @@ The `-Scope` parameter has been deprecated as all grant flows supported by this 
 ```yaml
 Type: RedditOAuthScope[]
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -195,7 +195,7 @@ Use if the Reddit App is registered as a Script.
 ```yaml
 Type: SwitchParameter
 Parameter Sets: Script
-Aliases: 
+Aliases:
 
 Required: True
 Position: Named
@@ -216,7 +216,7 @@ windows:PSRAW:v0.0.0.1 (by /u/markekraus)
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -258,7 +258,7 @@ Use if the Reddit App is registered as a WebApp
 ```yaml
 Type: SwitchParameter
 Parameter Sets: WebApp
-Aliases: 
+Aliases:
 
 Required: True
 Position: Named

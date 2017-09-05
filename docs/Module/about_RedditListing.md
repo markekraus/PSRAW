@@ -169,6 +169,8 @@ Definition: RedditMore[] GetMores()
 
 [about_RedditMore](https://psraw.readthedocs.io/en/latest/Module/about_RedditMore)
 
+[about_RedditThing](https://psraw.readthedocs.io/en/latest/Module/about_RedditThing)
+
 [https://www.reddit.com/wiki/api](https://www.reddit.com/wiki/api)
 
 [https://github.com/reddit/reddit/wiki/JSON](https://github.com/reddit/reddit/wiki/JSON)

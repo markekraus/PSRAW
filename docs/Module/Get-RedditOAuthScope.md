@@ -17,7 +17,7 @@ Get-RedditOAuthScope [[-ApiEndpointUri] <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Retrieve valid OAuth scope IDs, Names, and Descriptions from Reddit. 
+Retrieve valid OAuth scope IDs, Names, and Descriptions from Reddit.
 
 ## EXAMPLES
 
@@ -38,7 +38,7 @@ https://www.reddit.com/api/v1/scopes
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: 1

@@ -710,6 +710,10 @@ Definition: String ToString()
 
 [about_RedditComment](https://psraw.readthedocs.io/en/latest/Module/about_RedditComment)
 
+[about_RedditDate](https://psraw.readthedocs.io/en/latest/Module/about_RedditDate)
+
+[about_RedditHeaderSize](https://psraw.readthedocs.io/en/latest/Module/about_RedditHeaderSize)
+
 [about_RedditLink](https://psraw.readthedocs.io/en/latest/Module/about_RedditLink)
 
 [about_RedditThing](https://psraw.readthedocs.io/en/latest/Module/about_RedditThing)
@@ -721,4 +725,3 @@ Definition: String ToString()
 [https://github.com/reddit/reddit/wiki/JSON](https://github.com/reddit/reddit/wiki/JSON)
 
 [https://psraw.readthedocs.io/](https://psraw.readthedocs.io/)
-

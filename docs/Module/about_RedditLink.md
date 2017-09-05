@@ -739,7 +739,19 @@ Definition: String ToString()
 
 [about_RedditLink](https://psraw.readthedocs.io/en/latest/Module/about_RedditLink)
 
-[about_RedditDataObject](https://psraw.readthedocs.io/en/latest/Module/Resolve-RedditDataObject)
+[about_RedditComment](https://psraw.readthedocs.io/en/latest/Module/about_RedditComment)
+
+[about_RedditMore](https://psraw.readthedocs.io/en/latest/Module/about_RedditMore)
+
+[about_RedditDataObject](https://psraw.readthedocs.io/en/latest/Module/about_RedditDataObject)
+
+[about_RedditListing](https://psraw.readthedocs.io/en/latest/Module/about_RedditListing)
+
+[about_RedditModReport](https://psraw.readthedocs.io/en/latest/Module/about_RedditModReport)
+
+[about_RedditThing](https://psraw.readthedocs.io/en/latest/Module/about_RedditThing)
+
+[about_RedditUserReport](https://psraw.readthedocs.io/en/latest/Module/about_RedditUserReport)
 
 [Contest Mode](https://www.reddit.com/r/bestof2012/comments/159bww/introducing_contest_mode_a_tool_for_your_voting/)
 

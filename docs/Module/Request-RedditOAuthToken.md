@@ -86,7 +86,7 @@ This example demonstrates how to create a `RedditApplication` with `New-RedditAp
 ```yaml
 Type: RedditApplication
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: True
 Position: 1
@@ -109,7 +109,7 @@ For more information on Reddit's OAuth implementation, see https://github.com/re
 ```yaml
 Type: SwitchParameter
 Parameter Sets: Client
-Aliases: 
+Aliases:
 
 Required: True
 Position: Named
@@ -124,7 +124,7 @@ DeviceID is an optional parameter for `Installed` token requests. This is intend
 ```yaml
 Type: String
 Parameter Sets: Installed
-Aliases: 
+Aliases:
 
 Required: False
 Position: 2
@@ -147,7 +147,7 @@ For more information see https://github.com/reddit/reddit/wiki/OAuth2#applicatio
 ```yaml
 Type: SwitchParameter
 Parameter Sets: Installed
-Aliases: 
+Aliases:
 
 Required: True
 Position: Named
@@ -162,7 +162,7 @@ By default this command does not return any data. When `-PassThru` is used, the 
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -183,7 +183,7 @@ For more information see https://github.com/reddit/reddit/wiki/OAuth2#retrieving
 ```yaml
 Type: SwitchParameter
 Parameter Sets: Script
-Aliases: 
+Aliases:
 
 Required: True
 Position: Named

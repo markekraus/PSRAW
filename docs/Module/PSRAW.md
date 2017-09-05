@@ -1,7 +1,7 @@
 ---
 Module Name: psraw
 Module Guid: 92c8f916-4890-45eb-a3e7-592f5b5b3f24
-Download Help Link: 
+Download Help Link:
 Help Version: 0.0.1.0
 Locale: en-US
 ---
@@ -41,9 +41,11 @@ Creates a `RedditApplication` object
 ### [Request-RedditOAuthToken](Request-RedditOAuthToken.md)
 Requests a OAuth Access Token from Reddit and sets it as the session default OAuth Token
 
+### [Resolve-RedditDataObject](Resolve-RedditDataObject.md)
+Resolves a `RedditThing` to it's PSRAW object type.
+
 ### [Set-RedditDefaultOAuthToken](Set-RedditDefaultOAuthToken.md)
 Sets the session default OAuth Token
 
 ### [Update-RedditOAuthToken](Update-RedditOAuthToken.md)
 Refresh a `RedditOAuthToken`
-

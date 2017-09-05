@@ -291,6 +291,8 @@ $App = [RedditApplication]@{
 
 # SEE ALSO
 
+[about_RedditApplication](https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication)
+
 [about_RedditApplicationType](https://psraw.readthedocs.io/en/latest/Module/about_RedditApplicationType)
 
 [about_RedditOAuthDuration](https://psraw.readthedocs.io/en/latest/Module/about_RedditOAuthDuration)

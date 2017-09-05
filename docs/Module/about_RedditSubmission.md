@@ -60,9 +60,9 @@ Static: False
 
 [about_RedditComment](https://psraw.readthedocs.io/en/latest/Module/about_RedditComment)
 
-[about_RedditLink](https://psraw.readthedocs.io/en/latest/Module/about_RedditLink)
-
 [about_RedditDataObject](https://psraw.readthedocs.io/en/latest/Module/about_RedditDataObject)
+
+[about_RedditLink](https://psraw.readthedocs.io/en/latest/Module/about_RedditLink)
 
 [https://www.reddit.com/wiki/api](https://www.reddit.com/wiki/api)
 

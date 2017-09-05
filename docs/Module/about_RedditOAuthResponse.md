@@ -89,7 +89,7 @@ This is an example of how the `RedditOAuthResponse` class is used in `Request-Re
 
 # SEE ALSO
 
-[RedditOAuthResponse](https://psraw.readthedocs.io/en/latest/Module/RedditOAuthResponse)
+[about_RedditOAuthResponse](https://psraw.readthedocs.io/en/latest/Module/about_RedditOAuthResponse)
 
 [Request-RedditOAuthTokenClient](https://psraw.readthedocs.io/en/latest/PrivateFunctions/Request-RedditOAuthTokenClient)
 

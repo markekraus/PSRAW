@@ -535,6 +535,22 @@ $Comment = [RedditComment]::New($Token,$Result.ContentObject.data.children[0])
 
 [about_RedditComment](https://psraw.readthedocs.io/en/latest/Module/about_RedditComment)
 
+[about_RedditDataObject](https://psraw.readthedocs.io/en/latest/Module/about_RedditDataObject)
+
+[about_RedditDate](https://psraw.readthedocs.io/en/latest/Module/about_RedditDate)
+
+[about_RedditLink](https://psraw.readthedocs.io/en/latest/Module/about_RedditLink)
+
+[about_RedditListing](https://psraw.readthedocs.io/en/latest/Module/about_RedditListing)
+
+[about_RedditModReport](https://psraw.readthedocs.io/en/latest/Module/about_RedditModReport)
+
+[about_RedditMore](https://psraw.readthedocs.io/en/latest/Module/about_RedditMore)
+
+[about_RedditThing](https://psraw.readthedocs.io/en/latest/Module/about_RedditThing)
+
+[about_RedditUserReport](https://psraw.readthedocs.io/en/latest/Module/about_RedditUserReport)
+
 [https://www.reddit.com/wiki/api](https://www.reddit.com/wiki/api)
 
 [https://github.com/reddit/reddit/wiki/JSON](https://github.com/reddit/reddit/wiki/JSON)
