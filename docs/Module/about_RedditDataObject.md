@@ -58,4 +58,3 @@ Creates an empty `RedditDataObject`
 [https://github.com/reddit/reddit/wiki/JSON](https://github.com/reddit/reddit/wiki/JSON)
 
 [https://psraw.readthedocs.io/](https://psraw.readthedocs.io/)
-

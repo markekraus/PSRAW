@@ -60,6 +60,8 @@ $RedditModReport = [RedditModReport]@('Breaks Rule 12', 'markekraus')
 
 [about_RedditComment](https://psraw.readthedocs.io/en/latest/Module/about_RedditComment)
 
+[about_RedditLink](https://psraw.readthedocs.io/en/latest/Module/about_RedditLink)
+
 [https://www.reddit.com/wiki/api](https://www.reddit.com/wiki/api)
 
 [https://psraw.readthedocs.io/](https://psraw.readthedocs.io/)

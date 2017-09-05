@@ -755,8 +755,6 @@ Definition: String ToString()
 
 [about_RedditUserReport](https://psraw.readthedocs.io/en/latest/Module/about_RedditUserReport)
 
-[Contest Mode](https://www.reddit.com/r/bestof2012/comments/159bww/introducing_contest_mode_a_tool_for_your_voting/)
-
 [https://www.reddit.com/wiki/api](https://www.reddit.com/wiki/api)
 
 [https://github.com/reddit/reddit/wiki/JSON](https://github.com/reddit/reddit/wiki/JSON)
