@@ -5,19 +5,19 @@
 Describes the RedditMore Class
 
 # LONG DESCRIPTION
-{{ Long Description Placeholder }}
+Represents a `More` objects returned from teh reddit API. A more is returned containing a list of IDs when a listing contains too many items to return all of the data for all items. This happens, for example, when a submission has too many replies. X number or replies will be returned normally and the rest will be returned as a `More`. Another instance when a `More` is returned is when a comments is too deep in the reply chain that an empty More is returned to indicate the comment has replies that can be fetched separately.
 
 
 # Constructors
 ## RedditMore()
-{{ Constructor Description Placeholder }}
+Creates an empty `RedditMore` object
 
 ```powershell
 [RedditMore]::new()
 ```
 
 ## RedditMore(RedditThing RedditThing)
-{{ Constructor Description Placeholder }}
+Creates a `RedditMore` from a `RedditThing` containing a `More` returned from the reddit API.
 
 ```powershell
 [RedditMore]::new([RedditThing]$RedditThing)
@@ -26,7 +26,7 @@ Describes the RedditMore Class
 
 # Properties
 ## Children
-{{ Property Description Placeholder }}
+IDs of the Children that were not returned
 
 ```yaml
 Name: Children
@@ -36,7 +36,7 @@ Static: False
 ```
 
 ## Count
-{{ Property Description Placeholder }}
+The number of Children
 
 ```yaml
 Name: Count
@@ -46,7 +46,7 @@ Static: False
 ```
 
 ## Id
-{{ Property Description Placeholder }}
+The `More`'s ID
 
 ```yaml
 Name: Id
@@ -56,7 +56,7 @@ Static: False
 ```
 
 ## Kind
-{{ Property Description Placeholder }}
+The kind. this should always be `More`
 
 ```yaml
 Name: Kind
@@ -66,7 +66,7 @@ Static: False
 ```
 
 ## Name
-{{ Property Description Placeholder }}
+The Reddit Fullname of the `More`
 
 ```yaml
 Name: Name
@@ -76,7 +76,7 @@ Static: False
 ```
 
 ## Parent_Id
-{{ Property Description Placeholder }}
+The Fullname of the parent that returned the more This is either a link or comment.
 
 ```yaml
 Name: Parent_Id
@@ -86,7 +86,7 @@ Static: False
 ```
 
 ## ParentObject
-{{ Property Description Placeholder }}
+This may contain the Parent object that returned the more
 
 ```yaml
 Name: ParentObject
@@ -96,7 +96,7 @@ Static: False
 ```
 
 ## RedditThingKind
-{{ Property Description Placeholder }}
+The kind. This should always be `More`
 
 ```yaml
 Name: RedditThingKind
@@ -108,32 +108,24 @@ Static: True
 
 # Methods
 
-# EXAMPLES
-{{ Code or descriptive examples of how to leverage the functions described. }}
-
-# NOTE
-{{ Note Placeholder - Additional information that a user needs to know.}}
-
-# TROUBLESHOOTING NOTE
-{{ Troubleshooting Placeholder - Warns users of bugs}}
-
-{{ Explains behavior that is likely to change with fixes }}
-
 # DERIVED FROM
 
 [RedditDataObject](https://psraw.readthedocs.io/en/latest/Module/about_RedditDataObject)
 
 # SEE ALSO
-{{ See also placeholder }}
 
-{{ You can also list related articles, blogs, and video URLs. }}
+[about_RedditMore](https://psraw.readthedocs.io/en/latest/Module/about_RedditMore)
 
-# KEYWORDS
-{{List alternate names or titles for this topic that readers might use.}}
+[about_RedditComment](https://psraw.readthedocs.io/en/latest/Module/about_RedditComment)
 
-- {{ Keyword Placeholder }}
-- {{ Keyword Placeholder }}
-- {{ Keyword Placeholder }}
-- {{ Keyword Placeholder }}
+[about_RedditDataObject](https://psraw.readthedocs.io/en/latest/Module/about_RedditDataObject)
 
+[about_RedditLink](https://psraw.readthedocs.io/en/latest/Module/about_RedditLink)
 
+[about_RedditListing](https://psraw.readthedocs.io/en/latest/Module/about_RedditListing)
+
+[https://www.reddit.com/wiki/api](https://www.reddit.com/wiki/api)
+
+[https://github.com/reddit/reddit/wiki/JSON](https://github.com/reddit/reddit/wiki/JSON)
+
+[https://psraw.readthedocs.io/](https://psraw.readthedocs.io/)
