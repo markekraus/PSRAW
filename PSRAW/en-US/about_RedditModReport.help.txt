@@ -42,6 +42,7 @@ EXAMPLES
 SEE ALSO
     about_RedditModReport
     about_RedditComment
+    about_RedditLink
     https://www.reddit.com/wiki/api
     https://psraw.readthedocs.io/
 

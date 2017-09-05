@@ -598,11 +598,11 @@ SEE ALSO
     about_RedditComment
     about_RedditMore
     about_RedditDataObject
+    about_RedditDate
     about_RedditListing
     about_RedditModReport
     about_RedditThing
     about_RedditUserReport
-    Contest Mode
     https://www.reddit.com/wiki/api
     https://github.com/reddit/reddit/wiki/JSON
     https://psraw.readthedocs.io/
