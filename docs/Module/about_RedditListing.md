@@ -5,19 +5,19 @@
 Describes the RedditListing Class
 
 # LONG DESCRIPTION
-{{ Long Description Placeholder }}
+Represents a `Listing` returned from the Reddit API. Listings contain collections of children such as Comments, links, and Subreddits. For example, when querying the top 100 links form a subreddit, a listing containing the Reddit `Thing`s for those 100 links is returned by the API.
 
 
 # Constructors
 ## RedditListing()
-{{ Constructor Description Placeholder }}
+Creates an empty `RedditListing` object
 
 ```powershell
 [RedditListing]::new()
 ```
 
 ## RedditListing(RedditThing RedditThing)
-{{ Constructor Description Placeholder }}
+Creates a `RedditListing` object from a `RedditThing` containing a `Listing` returned by the Reddit API.
 
 ```powershell
 [RedditListing]::new([RedditThing]$RedditThing)
@@ -26,7 +26,7 @@ Describes the RedditListing Class
 
 # Properties
 ## After
-{{ Property Description Placeholder }}
+The Reddit Fullname of the listing that follows after this page. null if there is no next page.
 
 ```yaml
 Name: After
@@ -36,7 +36,7 @@ Static: False
 ```
 
 ## Before
-{{ Property Description Placeholder }}
+The Reddit Fullname of the listing that follows before this page. null if there is no previous page.
 
 ```yaml
 Name: Before
@@ -46,7 +46,7 @@ Static: False
 ```
 
 ## ChildKinds
-{{ Property Description Placeholder }}
+Array of unique `RedditThingKind` kinds for children of the listing.
 
 ```yaml
 Name: ChildKinds
@@ -56,7 +56,7 @@ Static: False
 ```
 
 ## Children
-{{ Property Description Placeholder }}
+`RedditThing`s of all child objects of the `Listing`
 
 ```yaml
 Name: Children
@@ -66,7 +66,7 @@ Static: False
 ```
 
 ## Items
-{{ Property Description Placeholder }}
+Resolved PSRAW objects of the Children of the `Listing` for example, if the listing is a list of comments, the `RedditComment` objects will be available under `Items`.
 
 ```yaml
 Name: Items
@@ -76,7 +76,7 @@ Static: False
 ```
 
 ## Kind
-{{ Property Description Placeholder }}
+The kind. This should always be `Listing`
 
 ```yaml
 Name: Kind
@@ -86,7 +86,9 @@ Static: False
 ```
 
 ## Modhash
-{{ Property Description Placeholder }}
+Modhashes are not required when authenticated with OAuth and thus may not appears when using PSRAW.
+
+A modhash is a token that the reddit API requires to help prevent CSRF. Modhashes can be obtained via the /api/me.json call or in response data of listing endpoints.
 
 ```yaml
 Name: Modhash
@@ -96,7 +98,7 @@ Static: False
 ```
 
 ## ParentObject
-{{ Property Description Placeholder }}
+This may contain the Parent Object of the listing. This could be a `RedditSbmission`, `RedditComment`, `RedditApiResponse` or a `RedditThing`.
 
 ```yaml
 Name: ParentObject
@@ -106,7 +108,7 @@ Static: False
 ```
 
 ## RedditThingKind
-{{ Property Description Placeholder }}
+The kind. This should always be `Listing`
 
 ```yaml
 Name: RedditThingKind
@@ -118,7 +120,7 @@ Static: True
 
 # Methods
 ## GetComments()
-{{ Method Description Placeholder }}
+Returns all `RedditComment` children of the listing.
 
 ```yaml
 Name: GetComments
@@ -129,7 +131,7 @@ Definition: RedditComment[] GetComments()
 ```
 
 ## GetLinks()
-{{ Method Description Placeholder }}
+Returns all `RedditLink` children of the listing.
 
 ```yaml
 Name: GetLinks
@@ -140,7 +142,7 @@ Definition: RedditLink[] GetLinks()
 ```
 
 ## GetMores()
-{{ Method Description Placeholder }}
+Returns all `RedditMore` children of the listing.
 
 ```yaml
 Name: GetMores
@@ -151,23 +153,21 @@ Definition: RedditMore[] GetMores()
 ```
 
 
-# EXAMPLES
-{{ Code or descriptive examples of how to leverage the functions described. }}
-
-# NOTE
-{{ Note Placeholder - Additional information that a user needs to know.}}
-
-# TROUBLESHOOTING NOTE
-{{ Troubleshooting Placeholder - Warns users of bugs}}
-
-{{ Explains behavior that is likely to change with fixes }}
-
 # DERIVED FROM
 
-[about_RedditDataObject](https://psraw.readthedocs.io/en/latest/Module/Resolve-RedditDataObject)
+[RedditDataObject](https://psraw.readthedocs.io/en/latest/Module/about_RedditDataObject)
 
 # SEE ALSO
 
+[about_RedditListing](https://psraw.readthedocs.io/en/latest/Module/about_RedditListing)
+
+[about_RedditComment](https://psraw.readthedocs.io/en/latest/Module/about_RedditComment)
+
+[about_RedditDataObject](https://psraw.readthedocs.io/en/latest/Module/about_RedditDataObject)
+
+[about_RedditLink](https://psraw.readthedocs.io/en/latest/Module/about_RedditLink)
+
+[about_RedditMore](https://psraw.readthedocs.io/en/latest/Module/about_RedditMore)
 
 [https://www.reddit.com/wiki/api](https://www.reddit.com/wiki/api)
 
