@@ -1,6 +1,6 @@
 ---
-external help file: 
-Module Name: 
+external help file:
+Module Name:
 online version: https://psraw.readthedocs.io/en/latest/PrivateFunctions/Get-AuthorizationHeader
 schema: 2.0.0
 ---
@@ -17,7 +17,7 @@ Get-AuthorizationHeader [-Credential] <PSCredential> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Private Function that converts the provided `PSCredential` in to a rfc2617 Authorization header. Reddit's API requires `Basic` `Authorization` when requesting certain Access Token types. PowerShell does not support this method directly via `Invoke-WebRequest` or `Invoke-RestMethod`, therefore this function provides that missing functionality. This is not the same header sent when using the `Credential` parameter on either command.
+Private Function that converts the provided `PSCredential` in to a rfc2617 Authorization header. Reddit's API requires `Basic` `Authorization` when requesting certain Access Token types. PowerShell does not currently support this method directly via `Invoke-WebRequest` or `Invoke-RestMethod`, therefore this function provides that missing functionality. This is not the same header sent when using the `Credential` parameter on either command.
 
 This function is not intended for direct usage by the module consumer and is not exported by the module. Documentation is provided for developers and contributors.
 
@@ -38,7 +38,7 @@ The `PSCredential` object from which to create the Authorization header.
 ```yaml
 Type: PSCredential
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: True
 Position: 0

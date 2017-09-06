@@ -23,7 +23,7 @@ Import-RedditOAuthToken -LiteralPath <String[]> [-PassThru] [-WhatIf] [-Confirm]
 ```
 
 ## DESCRIPTION
-Allows you to import a `RedditOAuthToken` object from an XML file that was previously exported via `Export-RedditOAuthToken` sets it as the session default OAuth Token. This allows you to share the same Reddit application between multiple scripts. This function is a wrapper for `Import-Clixml`.
+Allows you to import a `RedditOAuthToken` object from an XML file that was previously exported via `Export-RedditOAuthToken` sets it as the session default OAuth Token. This allows recall OAuth Tokens from previous sessions. This function is a wrapper for `Import-Clixml`.
 
 User Password, Client Secret, Access Token, and Refresh Token stored in the `RedditOAuthToken` object are stored as secure strings and are not visible as plaintext in the export file. This also means that a `RedditOAuthToken` object exported by one user cannot be imported by another user on the same computer nor can it be imported by the same user on a different computer. It can only be imported by the same user on the same computer.
 
@@ -56,7 +56,7 @@ Specifies the XML files. Unlike `Path`, the value of the `LiteralPath` parameter
 ```yaml
 Type: String[]
 Parameter Sets: LiteralPath
-Aliases: 
+Aliases:
 
 Required: True
 Position: Named
@@ -71,7 +71,7 @@ By default this command does not return any data. When `-PassThru` is used, the 
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -86,7 +86,7 @@ Specifies the XML files.
 ```yaml
 Type: String[]
 Parameter Sets: Path
-Aliases: 
+Aliases:
 
 Required: True
 Position: Named

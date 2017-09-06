@@ -1,6 +1,6 @@
 ---
-external help file: 
-Module Name: 
+external help file:
+Module Name:
 online version: https://psraw.readthedocs.io/en/latest/PrivateFunctions/Get-HttpResponseContentType
 schema: 2.0.0
 ---
@@ -19,8 +19,7 @@ Get-HttpResponseContentType [-Response] <WebResponseObject> [<CommonParameters>]
 ## DESCRIPTION
 Retrieves the `Content-Type` header from a `WebResponseObject`.
 
-PowerShell 6.0 has switched from `System.Net.HttpWebResponse` to `System.Net.Http.HttpResponseMessage` for the underlying base object. `HttpResponseMessage` separates content related headers from response headers. This is a stop gap measure until PowerShell 6.0 is patched
-to include the `Content-Type` header in the base `Headers` dictionary.
+PowerShell 6.0 has switched from `System.Net.HttpWebResponse` to `System.Net.Http.HttpResponseMessage` for the underlying base object. `HttpResponseMessage` separates content related headers from response headers. This private function provides compatibility between 5.0, 5.1, and 6.0+.
 
 ## EXAMPLES
 
@@ -37,7 +36,7 @@ Invoke-WebRequest -Uri 'reddit.com' | Get-HttpResponseContentType
 ```yaml
 Type: WebResponseObject
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: True
 Position: 0

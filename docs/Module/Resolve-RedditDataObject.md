@@ -28,7 +28,7 @@ Resolve-RedditDataObject [-PSObject] <PSObject> [-WhatIf] [-Confirm] [<CommonPar
 ```
 
 ## DESCRIPTION
-This function is used by return the appropriate `RedditDataObject` (i.e. `RedditComment`) from various objects. This is used to raise a `RedditDataObject` up from the `RedditThing` meta-class that Reddit uses to encapsulate all objects such as comments, links, subreddits, lists, and mores. It is made public due to implementation limitations, but is not intended for public consumption. Do not call this function directly.
+This function is used to return the appropriate `RedditDataObject` (i.e. `RedditComment`) from various objects. This is used to raise a `RedditDataObject` up from the `RedditThing` meta-class that Reddit uses to encapsulate all objects such as comments, links, subreddits, lists, and mores. It is made public due to implementation limitations, but is not intended for public consumption. Do not call this function directly.
 
 ## EXAMPLES
 
@@ -65,7 +65,7 @@ A PSObject of a `Thing` returned from the Reddit API and converted from JSON.
 ```yaml
 Type: PSObject
 Parameter Sets: PSObject
-Aliases: 
+Aliases:
 
 Required: True
 Position: 0
@@ -80,7 +80,7 @@ A `RedditApiResponse` object returned from `Invoke-RedditRequest`
 ```yaml
 Type: RedditApiResponse
 Parameter Sets: RedditAPIResponse
-Aliases: 
+Aliases:
 
 Required: True
 Position: 0
@@ -95,7 +95,7 @@ An existing `RedditThing` object.
 ```yaml
 Type: RedditThing
 Parameter Sets: RedditThing
-Aliases: 
+Aliases:
 
 Required: True
 Position: 0
