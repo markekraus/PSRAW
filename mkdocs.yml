@@ -55,5 +55,5 @@ pages:
     - Request-RedditOAuthTokenPassword: PrivateFunctions/Request-RedditOAuthTokenPassword.md
     - Wait-RedditApiRateLimit: PrivateFunctions/Wait-RedditApiRateLimit.md
   - Examples:
-    - Quicker Quickstart Example for 2.0: Examples/Quickstart.md
+    - Quickstart: Examples/Quickstart.md
 

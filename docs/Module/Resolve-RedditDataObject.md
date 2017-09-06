@@ -65,7 +65,7 @@ A PSObject of a `Thing` returned from the Reddit API and converted from JSON.
 ```yaml
 Type: PSObject
 Parameter Sets: PSObject
-Aliases:
+Aliases: 
 
 Required: True
 Position: 0
@@ -80,7 +80,7 @@ A `RedditApiResponse` object returned from `Invoke-RedditRequest`
 ```yaml
 Type: RedditApiResponse
 Parameter Sets: RedditAPIResponse
-Aliases:
+Aliases: 
 
 Required: True
 Position: 0
@@ -95,7 +95,7 @@ An existing `RedditThing` object.
 ```yaml
 Type: RedditThing
 Parameter Sets: RedditThing
-Aliases:
+Aliases: 
 
 Required: True
 Position: 0

@@ -33,7 +33,7 @@ Imports a `RedditApplication` object from an XML file.
 Imports a `RedditOAuthToken` object from an XML file and sets it as the session default OAuth Token
 
 ### [Invoke-RedditRequest](Invoke-RedditRequest.md)
-Performs an authenticated APi request against the Reddit API.
+Performs an authenticated API request against the Reddit API.
 
 ### [New-RedditApplication](New-RedditApplication.md)
 Creates a `RedditApplication` object

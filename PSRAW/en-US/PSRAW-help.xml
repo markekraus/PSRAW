@@ -494,7 +494,7 @@ $Application | Export-RedditApplication</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Allows you to export a `RedditOAuthToken` object to an XML file so that you can later import the object via `Import-RedditOAuthToken`. This allows you to share the same Reddit application between multiple scripts. This function is a wrapper for `Export-Clixml`.</maml:para>
+      <maml:para>Allows you to export a `RedditOAuthToken` object to an XML file so that you can later import the object via `Import-RedditOAuthToken`. This allows you to save OAuth Tokens to use in other sessions. This function is a wrapper for `Export-Clixml`.</maml:para>
       <maml:para>User Password, Client Secret, Access Token, and Refresh Token stored in the `RedditOAuthToken` object are stored as secure strings and are not visible as plaintext in the export file. This also means that a `RedditOAuthToken` object exported by one user cannot be imported by another user on the same computer nor can it be imported by the same user on a different computer. It can only be imported by the same user on the same computer.</maml:para>
       <maml:para>The maximum depth will be set on `Export-Clixml`.</maml:para>
       <maml:para>New `RedditOAuthToken` objects can be created manually or with `Request-RedditOAuthToken`.</maml:para>
@@ -1256,7 +1256,7 @@ $Token | Export-RedditOAuthToken</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Allows you to import a `RedditOAuthToken` object from an XML file that was previously exported via `Export-RedditOAuthToken` sets it as the session default OAuth Token. This allows you to share the same Reddit application between multiple scripts. This function is a wrapper for `Import-Clixml`.</maml:para>
+      <maml:para>Allows you to import a `RedditOAuthToken` object from an XML file that was previously exported via `Export-RedditOAuthToken` sets it as the session default OAuth Token. This allows recall OAuth Tokens from previous sessions. This function is a wrapper for `Import-Clixml`.</maml:para>
       <maml:para>User Password, Client Secret, Access Token, and Refresh Token stored in the `RedditOAuthToken` object are stored as secure strings and are not visible as plaintext in the export file. This also means that a `RedditOAuthToken` object exported by one user cannot be imported by another user on the same computer nor can it be imported by the same user on a different computer. It can only be imported by the same user on the same computer.</maml:para>
       <maml:para>The maximum depth will be set on `Export-Clixml`.</maml:para>
       <maml:para>New `RedditOAuthToken` objects can be created manually or with `Request-RedditOAuthToken`.</maml:para>
@@ -1503,7 +1503,7 @@ $Token | Export-RedditOAuthToken</dev:code>
       <command:verb>Invoke</command:verb>
       <command:noun>RedditRequest</command:noun>
       <maml:description>
-        <maml:para>Performs an authenticated APi request against the Reddit API.</maml:para>
+        <maml:para>Performs an authenticated API request against the Reddit API.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
@@ -2833,7 +2833,7 @@ $Token = New-RedditApplication @Params | Request-RedditOAuthToken -Script -PassT
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>This function is used by return the appropriate `RedditDataObject` (i.e. `RedditComment`) from various objects. This is used to raise a `RedditDataObject` up from the `RedditThing` meta-class that Reddit uses to encapsulate all objects such as comments, links, subreddits, lists, and mores. It is made public due to implementation limitations, but is not intended for public consumption. Do not call this function directly.</maml:para>
+      <maml:para>This function is used to return the appropriate `RedditDataObject` (i.e. `RedditComment`) from various objects. This is used to raise a `RedditDataObject` up from the `RedditThing` meta-class that Reddit uses to encapsulate all objects such as comments, links, subreddits, lists, and mores. It is made public due to implementation limitations, but is not intended for public consumption. Do not call this function directly.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>

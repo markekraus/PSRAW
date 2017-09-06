@@ -1,6 +1,6 @@
 ---
-external help file:
-Module Name:
+external help file: 
+Module Name: 
 online version: https://psraw.readthedocs.io/en/latest/PrivateFunctions/Get-HttpResponseContentType
 schema: 2.0.0
 ---
@@ -36,7 +36,7 @@ Invoke-WebRequest -Uri 'reddit.com' | Get-HttpResponseContentType
 ```yaml
 Type: WebResponseObject
 Parameter Sets: (All)
-Aliases:
+Aliases: 
 
 Required: True
 Position: 0

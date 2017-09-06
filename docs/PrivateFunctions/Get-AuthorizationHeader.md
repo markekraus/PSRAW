@@ -1,6 +1,6 @@
 ---
-external help file:
-Module Name:
+external help file: 
+Module Name: 
 online version: https://psraw.readthedocs.io/en/latest/PrivateFunctions/Get-AuthorizationHeader
 schema: 2.0.0
 ---
@@ -38,7 +38,7 @@ The `PSCredential` object from which to create the Authorization header.
 ```yaml
 Type: PSCredential
 Parameter Sets: (All)
-Aliases:
+Aliases: 
 
 Required: True
 Position: 0

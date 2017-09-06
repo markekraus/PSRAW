@@ -56,7 +56,7 @@ Specifies the XML files. Unlike `Path`, the value of the `LiteralPath` parameter
 ```yaml
 Type: String[]
 Parameter Sets: LiteralPath
-Aliases:
+Aliases: 
 
 Required: True
 Position: Named
@@ -71,7 +71,7 @@ By default this command does not return any data. When `-PassThru` is used, the 
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
-Aliases:
+Aliases: 
 
 Required: False
 Position: Named
@@ -86,7 +86,7 @@ Specifies the XML files.
 ```yaml
 Type: String[]
 Parameter Sets: Path
-Aliases:
+Aliases: 
 
 Required: True
 Position: Named
