@@ -2,7 +2,7 @@
     about_redditsubreddit
 
 SHORT DESCRIPTION
-    Describes the RedditSubreddit Class
+    Describes the RedditSubreddit Class (experimental)
 
 LONG DESCRIPTION
     Contains information about a Reddit Subreddit.
@@ -560,6 +560,11 @@ ToString()
     Hidden: False
     Static: False
     Definition: String ToString()
+
+NOTES
+    Experimental: This is an experimental feature. Expect radical changes
+    between versions. Do not write production code against this until it has
+    been marked stable.
 
 DERIVED FROM
     RedditDataObject

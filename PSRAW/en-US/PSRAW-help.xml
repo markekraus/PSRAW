@@ -2829,7 +2829,7 @@ $Token = New-RedditApplication @Params | Request-RedditOAuthToken -Script -PassT
       <command:verb>Resolve</command:verb>
       <command:noun>RedditDataObject</command:noun>
       <maml:description>
-        <maml:para>Resolves a `RedditDataObject` from another object</maml:para>
+        <maml:para>Resolves a `RedditDataObject` from another object (experimental)</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
@@ -3048,7 +3048,7 @@ $Token = New-RedditApplication @Params | Request-RedditOAuthToken -Script -PassT
     </command:returnValues>
     <maml:alertSet>
       <maml:alert>
-        <maml:para></maml:para>
+        <maml:para>Experimental: This is an experimental feature. Expect radical changes between versions. Do not write production code against this until it has been marked stable.</maml:para>
       </maml:alert>
     </maml:alertSet>
     <command:examples>

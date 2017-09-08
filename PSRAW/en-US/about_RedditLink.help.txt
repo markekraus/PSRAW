@@ -2,7 +2,7 @@
     about_redditlink
 
 SHORT DESCRIPTION
-    Describes the RedditLink Class
+    Describes the RedditLink Class (experimental)
 
 LONG DESCRIPTION
     Represents a Reddit Link which can be either a Self-Post or a Link posted to
@@ -589,6 +589,11 @@ ToString()
     Hidden: False
     Static: False
     Definition: String ToString()
+
+NOTES
+    Experimental: This is an experimental feature. Expect radical changes
+    between versions. Do not write production code against this until it has
+    been marked stable.
 
 DERIVED FROM
     RedditDataObject

@@ -2,7 +2,7 @@
     about_redditthing
 
 SHORT DESCRIPTION
-    Describes the RedditThing Class
+    Describes the RedditThing Class (experimental)
 
 LONG DESCRIPTION
     This is a meta-class used for objects returned from the reddit API. "Reddit
@@ -99,6 +99,11 @@ Example 1
 Example 2
     $Response = Invoke-RedditRequest -Uri $Uri
     $Things = [RedditThing]::CreateFrom($Response)
+
+NOTES
+    Experimental: This is an experimental feature. Expect radical changes
+    between versions. Do not write production code against this until it has
+    been marked stable.
 
 SEE ALSO
     about_RedditThing

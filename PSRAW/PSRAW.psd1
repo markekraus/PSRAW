@@ -19,7 +19,7 @@
     RootModule             = 'PSRAW.psm1'
 	
     # Version number of this module.
-    ModuleVersion          = '2.0.0.11'
+    ModuleVersion          = '2.0.0.12'
 	
     # ID used to uniquely identify this module
     GUID                   = '92c8f916-4890-45eb-a3e7-592f5b5b3f24'

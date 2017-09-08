@@ -2,7 +2,7 @@
     about_redditlisting
 
 SHORT DESCRIPTION
-    Describes the RedditListing Class
+    Describes the RedditListing Class (experimental)
 
 LONG DESCRIPTION
     Represents a `Listing` returned from the Reddit API. Listings contain
@@ -131,6 +131,11 @@ GetMores()
     Hidden: False
     Static: False
     Definition: RedditMore[] GetMores()
+
+NOTES
+    Experimental: This is an experimental feature. Expect radical changes
+    between versions. Do not write production code against this until it has
+    been marked stable.
 
 DERIVED FROM
     RedditDataObject

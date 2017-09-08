@@ -2,7 +2,7 @@
     about_redditmore
 
 SHORT DESCRIPTION
-    Describes the RedditMore Class
+    Describes the RedditMore Class (experimental)
 
 LONG DESCRIPTION
     Represents a `More` objects returned from teh reddit API. A more is returned
@@ -93,6 +93,11 @@ RedditThingKind
     Static: True
 
 METHODS
+NOTES
+    Experimental: This is an experimental feature. Expect radical changes
+    between versions. Do not write production code against this until it has
+    been marked stable.
+
 DERIVED FROM
     RedditDataObject
 

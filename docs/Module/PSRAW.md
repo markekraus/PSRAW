@@ -1,7 +1,7 @@
 ---
 Module Name: PSRAW
 Module Guid: 92c8f916-4890-45eb-a3e7-592f5b5b3f24
-Download Help Link:
+Download Help Link: 
 Help Version: 0.0.1.0
 Locale: en-US
 ---
