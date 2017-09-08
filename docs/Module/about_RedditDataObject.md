@@ -2,7 +2,7 @@
 ## about_RedditDataObject
 
 # SHORT DESCRIPTION
-Describes the RedditDataObject Class
+Describes the RedditDataObject Class (experimental)
 
 # LONG DESCRIPTION
 Base Class for Reddit data Objects. This class is used only as a general base class and provide no functionality or features.
@@ -25,6 +25,10 @@ Creates an empty `RedditDataObject`
 ```powershell
 [RedditDataObject]::new()
 ```
+
+# NOTES
+
+Experimental: This is an experimental feature. Expect radical changes between versions. Do not write production code against this until it has been marked stable.
 
 # DERIVED CLASSES
 * [RedditComment](https://psraw.readthedocs.io/en/latest/Module/about_RedditComment)

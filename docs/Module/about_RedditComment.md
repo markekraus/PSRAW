@@ -2,7 +2,7 @@
 ## about_RedditComment
 
 # SHORT DESCRIPTION
-Describes the RedditComment Class
+Describes the RedditComment Class (experimental)
 
 # LONG DESCRIPTION
 The `RedditComment` class houses a comment returned from the Reddit API.
@@ -526,6 +526,11 @@ Definition: String ToString()
 $result = Invoke-RedditRequest -Uri 'https://oauth.reddit.com/api/info?id=t1_dl8o3mb'
 $Comment = [RedditComment]::New($Token,$Result.ContentObject.data.children[0])
 ```
+
+# NOTES
+
+Experimental: This is an experimental feature. Expect radical changes between versions. Do not write production code against this until it has been marked stable.
+
 
 # DERIVED FROM
 

@@ -2,7 +2,7 @@
 ## about_RedditSubmission
 
 # SHORT DESCRIPTION
-Describes the RedditSubmission Class
+Describes the RedditSubmission Class (experimental)
 
 # LONG DESCRIPTION
 A `RedditSubmission` object contains the link and comments returned from a Reddit submission.
@@ -47,6 +47,10 @@ Static: False
 
 
 # Methods
+
+# NOTES
+
+Experimental: This is an experimental feature. Expect radical changes between versions. Do not write production code against this until it has been marked stable.
 
 # DERIVED FROM
 

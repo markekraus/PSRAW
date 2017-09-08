@@ -2,7 +2,7 @@
 ## about_RedditMore
 
 # SHORT DESCRIPTION
-Describes the RedditMore Class
+Describes the RedditMore Class (experimental)
 
 # LONG DESCRIPTION
 Represents a `More` objects returned from teh reddit API. A more is returned containing a list of IDs when a listing contains too many items to return all of the data for all items. This happens, for example, when a submission has too many replies. X number or replies will be returned normally and the rest will be returned as a `More`. Another instance when a `More` is returned is when a comments is too deep in the reply chain that an empty More is returned to indicate the comment has replies that can be fetched separately.
@@ -107,6 +107,10 @@ Static: True
 
 
 # Methods
+
+# NOTES
+
+Experimental: This is an experimental feature. Expect radical changes between versions. Do not write production code against this until it has been marked stable.
 
 # DERIVED FROM
 

@@ -8,7 +8,7 @@ schema: 2.0.0
 # Resolve-RedditDataObject
 
 ## SYNOPSIS
-Resolves a `RedditDataObject` from another object
+Resolves a `RedditDataObject` from another object (experimental)
 
 ## SYNTAX
 
@@ -65,7 +65,7 @@ A PSObject of a `Thing` returned from the Reddit API and converted from JSON.
 ```yaml
 Type: PSObject
 Parameter Sets: PSObject
-Aliases: 
+Aliases:
 
 Required: True
 Position: 0
@@ -80,7 +80,7 @@ A `RedditApiResponse` object returned from `Invoke-RedditRequest`
 ```yaml
 Type: RedditApiResponse
 Parameter Sets: RedditAPIResponse
-Aliases: 
+Aliases:
 
 Required: True
 Position: 0
@@ -95,7 +95,7 @@ An existing `RedditThing` object.
 ```yaml
 Type: RedditThing
 Parameter Sets: RedditThing
-Aliases: 
+Aliases:
 
 Required: True
 Position: 0
@@ -151,6 +151,8 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### RedditDataObject
 
 ## NOTES
+
+Experimental: This is an experimental feature. Expect radical changes between versions. Do not write production code against this until it has been marked stable.
 
 ## RELATED LINKS
 

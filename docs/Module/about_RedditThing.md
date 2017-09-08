@@ -2,7 +2,7 @@
 ## about_RedditThing
 
 # SHORT DESCRIPTION
-Describes the RedditThing Class
+Describes the RedditThing Class (experimental)
 
 # LONG DESCRIPTION
 This is a meta-class used for objects returned from the reddit API. "Reddit Things" describe what the returned object is, such as a listing, a comment, a submission, a subreddit, etc.
@@ -121,6 +121,9 @@ $Response = Invoke-RedditRequest -Uri $Uri
 $Things = [RedditThing]::CreateFrom($Response)
 ```
 
+# NOTES
+
+Experimental: This is an experimental feature. Expect radical changes between versions. Do not write production code against this until it has been marked stable.
 
 # SEE ALSO
 

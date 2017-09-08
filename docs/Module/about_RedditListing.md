@@ -2,7 +2,7 @@
 ## about_RedditListing
 
 # SHORT DESCRIPTION
-Describes the RedditListing Class
+Describes the RedditListing Class (experimental)
 
 # LONG DESCRIPTION
 Represents a `Listing` returned from the Reddit API. Listings contain collections of children such as Comments, links, and Subreddits. For example, when querying the top 100 links form a subreddit, a listing containing the Reddit `Thing`s for those 100 links is returned by the API.
@@ -152,6 +152,9 @@ Static: False
 Definition: RedditMore[] GetMores()
 ```
 
+# NOTES
+
+Experimental: This is an experimental feature. Expect radical changes between versions. Do not write production code against this until it has been marked stable.
 
 # DERIVED FROM
 
