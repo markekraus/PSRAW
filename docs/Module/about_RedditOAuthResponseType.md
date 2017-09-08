@@ -7,8 +7,6 @@ Describes the RedditOAuthResponseType Enum
 # LONG DESCRIPTION
 The `RedditOAuthResponseType` enumerator represents the available options for authorization requests made to Reddit.
 
-The `RedditOAuthResponseType` Enumerator is imported automatically when you import the PSRAW module.
-
 # Fields
 ## Code
 Used to request OAuth Authorization Code in Code Flow Token requests
@@ -17,6 +15,8 @@ Used to request OAuth Authorization Code in Code Flow Token requests
 Used to request OAuth Access Tokens.
 
 # SEE ALSO
+
+[about_RedditOAuthResponseType](https://psraw.readthedocs.io/en/latest/Module/about_RedditOAuthResponseType)
 
 [about_RedditApplication](https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication)
 

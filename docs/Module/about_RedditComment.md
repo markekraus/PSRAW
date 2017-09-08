@@ -2,12 +2,10 @@
 ## about_RedditComment
 
 # SHORT DESCRIPTION
-Describes the RedditComment Class
+Describes the RedditComment Class (experimental)
 
 # LONG DESCRIPTION
 The `RedditComment` class houses a comment returned from the Reddit API.
-
-The `RedditComment` class is imported automatically when you import the PSRAW module.
 
 # Constructors
 ## RedditComment()
@@ -17,26 +15,15 @@ Default Constructor creates an empty `RedditComment` object.
 [RedditComment]::new()
 ```
 
-## RedditComment(RedditOAuthToken AccessToken, System.Management.Automation.PSObject Object)
-Creates a `RedditComment` object for the give `RedditOAuthToken` and `PSObject`. The Values from Properties on the `PSObject` will be used to populate the properties of the `RedditComment`.
+## RedditComment(RedditThing RedditThing)
+Creates a `RedditComment` from a `RedditThing` representing a comment returned by the reddit API.
 
 ```powershell
-[RedditComment]::new([RedditOAuthToken]$AccessToken, [System.Management.Automation.PSObject]$Object)
+[RedditComment]::new([RedditThing]$RedditThing)
 ```
 
 
 # Properties
-## AccessToken
-The Access Token used to request the comment.
-
-```yaml
-Name: AccessToken
-Type: RedditOAuthToken
-Hidden: True
-Static: False
-```
-
-
 ## ApiEndpointUri
 Static string containing a template URL to fetch information about comments.
 
@@ -148,7 +135,7 @@ Static: False
 ```
 
 ## created
-A `RedditDate` containing the date the comment was created. 
+A `RedditDate` containing the date the comment was created.
 
 ```yaml
 Name: created
@@ -227,6 +214,17 @@ Hidden: False
 Static: False
 ```
 
+## Kind
+The `RedditThingKind` of the instance. this should always be `t1`
+
+```yaml
+Name: Kind
+Type: RedditThingKind
+Hidden: False
+Static: False
+```
+
+
 ## likes
 `true` if comment is liked (upvoted) by the user, `false` if comment is disliked (downvoted), null if the user has not voted or you are not logged in.
 
@@ -256,6 +254,17 @@ Type: RedditModReport[]
 Hidden: False
 Static: False
 ```
+
+## MoreObject
+If the comment had a `more` object in the replies this will hold the `RedditMore` and is used to determine if the comment has more replies than were returned by the API.
+
+```yaml
+Name: MoreObject
+Type: RedditDataObject
+Hidden: True
+Static: False
+```
+
 
 ## name
 Fullname of comment, e.g. `t1_c3v7f8u`
@@ -287,6 +296,17 @@ Hidden: False
 Static: False
 ```
 
+## ParentObject
+The Parent Object of the `RedditComment` this may be either the parent comment if this is a reply or the `RedditThing`, `RedditMore`, or `RedditListing` this comment was a child of.
+
+```yaml
+Name: ParentObject
+Type: System.Management.Automation.PSObject
+Hidden: False
+Static: False
+```
+
+
 ## Prefix
 The Reddit "Thing" type prefix. Should always be `t1`
 
@@ -296,6 +316,17 @@ Type: RedditThingPrefix
 Hidden: False
 Static: False
 ```
+
+## RedditThingKind
+The `Kind` of Reddit Thing. Should always be `t1`.
+
+```yaml
+Name: RedditThingKind
+Type: RedditThingKind
+Hidden: False
+Static: True
+```
+
 
 ## removal_reason
 Reason provided by moderator for removal of the comment.
@@ -318,7 +349,7 @@ Static: False
 ```
 
 ## report_reasons
-A string array containing report reasons supplied by users. 
+A string array containing report reasons supplied by users.
 
 ```yaml
 Name: report_reasons
@@ -429,6 +460,18 @@ Static: False
 
 
 # Methods
+## _initReplies(Object Replies)
+Hidden method responsible for populating the `replies` with `RedditComment` objects from `RedditThings` supplied by the API.
+
+```yaml
+Name: _initReplies
+Return Type: Void
+Hidden: True
+Static: False
+Definition: hidden Void _initReplies(Object Replies)
+```
+
+
 ## GetApiEndpointUri()
 Returns the API endpoint URL for the comment.
 
@@ -441,7 +484,7 @@ Definition: String GetApiEndpointUri()
 ```
 
 ## GetFullName()
-Retrieves the Reddit Fullname ID for the comment. 
+Retrieves the Reddit Fullname ID for the comment.
 
 ```yaml
 Name: GetFullName
@@ -450,6 +493,18 @@ Hidden: False
 Static: False
 Definition: String GetFullName()
 ```
+
+## HasMoreReplies()
+Returns true the the comment has more replies than are populated. I cases where the replies are too deep or scored poorly, the API will return an empty `more` indicating that there are replies that were not returned.
+
+```yaml
+Name: HasMore
+Return Type: Boolean
+Hidden: False
+Static: False
+Definition: Boolean HasMoreReplies()
+```
+
 
 ## ToString()
 Overrides `ToString()` to return the contents of the the `Body` property.
@@ -472,9 +527,34 @@ $result = Invoke-RedditRequest -Uri 'https://oauth.reddit.com/api/info?id=t1_dl8
 $Comment = [RedditComment]::New($Token,$Result.ContentObject.data.children[0])
 ```
 
+# NOTES
+
+Experimental: This is an experimental feature. Expect radical changes between versions. Do not write production code against this until it has been marked stable.
+
+
+# DERIVED FROM
+
+[RedditDataObject](https://psraw.readthedocs.io/en/latest/Module/about_RedditDataObject)
+
 # SEE ALSO
 
 [about_RedditComment](https://psraw.readthedocs.io/en/latest/Module/about_RedditComment)
+
+[about_RedditDataObject](https://psraw.readthedocs.io/en/latest/Module/about_RedditDataObject)
+
+[about_RedditDate](https://psraw.readthedocs.io/en/latest/Module/about_RedditDate)
+
+[about_RedditLink](https://psraw.readthedocs.io/en/latest/Module/about_RedditLink)
+
+[about_RedditListing](https://psraw.readthedocs.io/en/latest/Module/about_RedditListing)
+
+[about_RedditModReport](https://psraw.readthedocs.io/en/latest/Module/about_RedditModReport)
+
+[about_RedditMore](https://psraw.readthedocs.io/en/latest/Module/about_RedditMore)
+
+[about_RedditThing](https://psraw.readthedocs.io/en/latest/Module/about_RedditThing)
+
+[about_RedditUserReport](https://psraw.readthedocs.io/en/latest/Module/about_RedditUserReport)
 
 [https://www.reddit.com/wiki/api](https://www.reddit.com/wiki/api)
 

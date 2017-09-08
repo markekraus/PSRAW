@@ -5,20 +5,17 @@
 Describes the RedditOAuthToken Class
 
 # LONG DESCRIPTION
-The `RedditOAuthToken` Class represents the OAuth Access Token used for authentication to the Reddit API. `RedditOAuthToken` objects are required by the majority of functions in this module. `Invoke-RedditRequest` uses the Access Token in `RedditOAuthToken` objects as a `bearer` Authorization header when making requests to Reddit. This way Reddit knows what level of access the application has in the API as well as under which user context the application is acting. 
+The `RedditOAuthToken` Class represents the OAuth Access Token used for authentication to the Reddit API. `RedditOAuthToken` objects are required by the majority of functions in this module. `Invoke-RedditRequest` uses the Access Token in `RedditOAuthToken` objects as a `bearer` Authorization header when making requests to Reddit. This way Reddit knows what level of access the application has in the API as well as under which user context the application is acting.
 
 Access Tokens are considering temporary secrets and are valid for 60 minutes. Some Access Tokens are also issued with Refresh Tokens. Refresh Tokens are permanent secrets and are valid until the user or application revokes them. `RedditOAuthToken` objects house the Access Token and Refresh Token as a secure strings in a `PSCredential` objects.
 
-`RedditOAuthToken` objects are returned from the `Request-RedditOAuthToken` function. They can be "renewed" using the `Update-RedditOAuthToken` function. 
+`RedditOAuthToken` objects are returned from the `Request-RedditOAuthToken` function. They can be "renewed" using the `Update-RedditOAuthToken` function.
 
 `RedditOAuthToken` objects can be imported and exported to XML files using `Import-RedditOAuthToken` and `Export-RedditOAuthToken`. Doing so provides a secure way to store the Access Token, Refresh Token, Client Secret, and Reddit user password so that it can later be imported by other scripts or in a later console session. This provides the means for automation of authenticated access to the Reddit API.
 
 The same `RedditOAuthToken` should not be used in parallel PowerShell sessions. It is important that the `RedditOAuthToken` only be used within the same session state or else the token may be updated in another session and thus invalidate the `RedditOAuthToken` in the current session causing Access Denied errors. Concurrency where the same session is available should be fine, but you will still be bound by Reddit's Rate Limiting of `60` API calls per minute. It is recommended that if you need concurrency, you request multiple Tokens on behalf of multiple users. Otherwise, you should obey the rules and guidelines for accessing the Reddit API and code responsibly.
 
 The functions in this module will automatically enforce rate limiting when the the limits for the current Access Token have been reached. this will result in the functions sleeping until the rate limit has been lifted. While it is possible to circumvent these measures, doing so may result in your application or Reddit account being banned.
-
-The `RedditOAuthToken` class is imported automatically when you import the PSRAW module.
-
 
 # Constructors
 ## RedditOAuthToken()
@@ -92,7 +89,7 @@ Static: False
 ```
 
 ## GUID
-A `Guid` used to help identify the Access Token. This is provided for convenience and is not sent to or required by the API. In situations where multiple Access Tokens may be in use, this GUID can be used to distinguish between them. This GUID will not change when a Token is updated, even for methods which require a fresh grant flow. The purpose is to identify a specific initial grant for the Access Token. 
+A `Guid` used to help identify the Access Token. This is provided for convenience and is not sent to or required by the API. In situations where multiple Access Tokens may be in use, this GUID can be used to distinguish between them. This GUID will not change when a Token is updated, even for methods which require a fresh grant flow. The purpose is to identify a specific initial grant for the Access Token.
 
 ```yaml
 Name: GUID
@@ -302,7 +299,7 @@ $Params = @{
         Authorization = 'Basic {0}' -f (
             [System.Convert]::ToBase64String(
                 [System.Text.Encoding]::ASCII.GetBytes(
-                    ('{0}:{1}' -f $Application.ClientCredential.UserName, 
+                    ('{0}:{1}' -f $Application.ClientCredential.UserName,
                     $Application.ClientCredential.GetNetworkCredential().Password)
                 )
             )
@@ -322,9 +319,11 @@ While ($Token.IsRateLimited()){
 }
 ```
 
-This example demonstrates how to sleep until the the Rate Limit period has been reset. 
+This example demonstrates how to sleep until the the Rate Limit period has been reset.
 
 # SEE ALSO
+
+[about_RedditOAuthToken](https://psraw.readthedocs.io/en/latest/Module/about_RedditOAuthToken)
 
 [about_RedditApplication](https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication)
 

@@ -6,10 +6,13 @@ SHORT DESCRIPTION
 
 LONG DESCRIPTION
     A moderator report for a comment or submission.
-    The `RedditModReport` class is imported automatically when you import the
-    PSRAW module.
 
 CONSTRUCTORS
+RedditModReport()
+    Creates an empty `RedditModReport` object.
+
+    [RedditModReport]::new()
+
 RedditModReport(Object[] InputObjects)
     Creates a `RedditModReport` from an array.
 
@@ -39,6 +42,7 @@ EXAMPLES
 SEE ALSO
     about_RedditModReport
     about_RedditComment
+    about_RedditLink
     https://www.reddit.com/wiki/api
     https://psraw.readthedocs.io/
 

@@ -1,6 +1,6 @@
 ---
 external help file: PSRAW-help.xml
-Module Name: psraw
+Module Name: PSRAW
 online version: https://psraw.readthedocs.io/en/latest/Module/Get-RedditOAuthScope
 schema: 2.0.0
 ---
@@ -17,7 +17,7 @@ Get-RedditOAuthScope [[-ApiEndpointUri] <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Retrieve valid OAuth scope IDs, Names, and Descriptions from Reddit. 
+Retrieve valid OAuth scope IDs, Names, and Descriptions from Reddit.
 
 ## EXAMPLES
 

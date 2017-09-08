@@ -2,12 +2,10 @@
     about_redditcomment
 
 SHORT DESCRIPTION
-    Describes the RedditComment Class
+    Describes the RedditComment Class (experimental)
 
 LONG DESCRIPTION
     The `RedditComment` class houses a comment returned from the Reddit API.
-    The `RedditComment` class is imported automatically when you import the
-    PSRAW module.
 
 CONSTRUCTORS
 RedditComment()
@@ -15,22 +13,13 @@ RedditComment()
 
     [RedditComment]::new()
 
-RedditComment(RedditOAuthToken AccessToken, System.Management.Automation.PSObject Object)
-    Creates a `RedditComment` object for the give `RedditOAuthToken` and
-    `PSObject`. The Values from Properties on the `PSObject` will be used to
-    populate the properties of the `RedditComment`.
+RedditComment(RedditThing RedditThing)
+    Creates a `RedditComment` from a `RedditThing` representing a comment
+    returned by the reddit API.
 
-    [RedditComment]::new([RedditOAuthToken]$AccessToken, [System.Management.Automation.PSObject]$Object)
+    [RedditComment]::new([RedditThing]$RedditThing)
 
 PROPERTIES
-AccessToken
-    The Access Token used to request the comment.
-
-    Name: AccessToken
-    Type: RedditOAuthToken
-    Hidden: True
-    Static: False
-
 ApiEndpointUri
     Static string containing a template URL to fetch information about comments.
 
@@ -184,6 +173,14 @@ id
     Hidden: False
     Static: False
 
+Kind
+    The `RedditThingKind` of the instance. this should always be `t1`
+
+    Name: Kind
+    Type: RedditThingKind
+    Hidden: False
+    Static: False
+
 likes
     `true` if comment is liked (upvoted) by the user, `false` if comment is
     disliked (downvoted), null if the user has not voted or you are not logged
@@ -208,6 +205,16 @@ mod_reports
     Name: mod_reports
     Type: RedditModReport[]
     Hidden: False
+    Static: False
+
+MoreObject
+    If the comment had a `more` object in the replies this will hold the
+    `RedditMore` and is used to determine if the comment has more replies than
+    were returned by the API.
+
+    Name: MoreObject
+    Type: RedditDataObject
+    Hidden: True
     Static: False
 
 name
@@ -235,6 +242,16 @@ parent_id
     Hidden: False
     Static: False
 
+ParentObject
+    The Parent Object of the `RedditComment` this may be either the parent
+    comment if this is a reply or the `RedditThing`, `RedditMore`, or
+    `RedditListing` this comment was a child of.
+
+    Name: ParentObject
+    Type: System.Management.Automation.PSObject
+    Hidden: False
+    Static: False
+
 Prefix
     The Reddit "Thing" type prefix. Should always be `t1`
 
@@ -242,6 +259,14 @@ Prefix
     Type: RedditThingPrefix
     Hidden: False
     Static: False
+
+RedditThingKind
+    The `Kind` of Reddit Thing. Should always be `t1`.
+
+    Name: RedditThingKind
+    Type: RedditThingKind
+    Hidden: False
+    Static: True
 
 removal_reason
     Reason provided by moderator for removal of the comment.
@@ -349,6 +374,16 @@ user_reports
     Static: False
 
 METHODS
+_initReplies(Object Replies)
+    Hidden method responsible for populating the `replies` with `RedditComment`
+    objects from `RedditThings` supplied by the API.
+
+    Name: _initReplies
+    Return Type: Void
+    Hidden: True
+    Static: False
+    Definition: hidden Void _initReplies(Object Replies)
+
 GetApiEndpointUri()
     Returns the API endpoint URL for the comment.
 
@@ -367,6 +402,17 @@ GetFullName()
     Static: False
     Definition: String GetFullName()
 
+HasMoreReplies()
+    Returns true the the comment has more replies than are populated. I cases
+    where the replies are too deep or scored poorly, the API will return an
+    empty `more` indicating that there are replies that were not returned.
+
+    Name: HasMore
+    Return Type: Boolean
+    Hidden: False
+    Static: False
+    Definition: Boolean HasMoreReplies()
+
 ToString()
     Overrides `ToString()` to return the contents of the the `Body` property.
 
@@ -381,8 +427,24 @@ Example 1
     $result = Invoke-RedditRequest -Uri 'https://oauth.reddit.com/api/info?id=t1_dl8o3mb'
     $Comment = [RedditComment]::New($Token,$Result.ContentObject.data.children[0])
 
+NOTES
+    Experimental: This is an experimental feature. Expect radical changes
+    between versions. Do not write production code against this until it has
+    been marked stable.
+
+DERIVED FROM
+    RedditDataObject
+
 SEE ALSO
     about_RedditComment
+    about_RedditDataObject
+    about_RedditDate
+    about_RedditLink
+    about_RedditListing
+    about_RedditModReport
+    about_RedditMore
+    about_RedditThing
+    about_RedditUserReport
     https://www.reddit.com/wiki/api
     https://github.com/reddit/reddit/wiki/JSON
     https://psraw.readthedocs.io/

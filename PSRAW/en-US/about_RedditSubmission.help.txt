@@ -1,0 +1,58 @@
+﻿TOPIC
+    about_redditsubmission
+
+SHORT DESCRIPTION
+    Describes the RedditSubmission Class (experimental)
+
+LONG DESCRIPTION
+    A `RedditSubmission` object contains the link and comments returned from a
+    Reddit submission.
+
+CONSTRUCTORS
+RedditSubmission()
+    Creates an empty `RedditSubmission` object
+
+    [RedditSubmission]::new()
+
+RedditSubmission(RedditApiResponse ApiResponse)
+    Creates a `RedditSubmission` from a `RedditApiResponse` returned from
+    `Invoke-RedditRequest`.
+
+    [RedditSubmission]::new([RedditApiResponse]$ApiResponse)
+
+PROPERTIES
+Comments
+    An array of comments in reply to the submission.
+
+    Name: Comments
+    Type: RedditComment[]
+    Hidden: False
+    Static: False
+
+Link
+    The link or self-post of the submission.
+
+    Name: Link
+    Type: RedditLink
+    Hidden: False
+    Static: False
+
+METHODS
+NOTES
+    Experimental: This is an experimental feature. Expect radical changes
+    between versions. Do not write production code against this until it has
+    been marked stable.
+
+DERIVED FROM
+    RedditDataObject
+
+SEE ALSO
+    about_RedditSubmission
+    about_RedditApiResponse
+    about_RedditComment
+    about_RedditDataObject
+    about_RedditLink
+    https://www.reddit.com/wiki/api
+    https://github.com/reddit/reddit/wiki/JSON
+    https://psraw.readthedocs.io/
+

@@ -7,9 +7,6 @@ Describes the RedditThingPrefix Enum
 # LONG DESCRIPTION
 An data object returned from the Reddit API will have a type prefix to identify what kind of Reddit Thing it is. This is subset of `RedditThingKind` is only used with data objects such as comments, accounts, and links and not with collection objects such as `more`s and `listing`s.
 
-The `RedditThingPrefix` Enumerator is imported automatically when you import the PSRAW module.
-
-
 # Fields
 ## t1
 Comment

@@ -1,6 +1,6 @@
 ---
 external help file: PSRAW-help.xml
-Module Name: psraw
+Module Name: PSRAW
 online version: https://psraw.readthedocs.io/en/latest/Module/Invoke-RedditRequest
 schema: 2.0.0
 ---
@@ -8,7 +8,7 @@ schema: 2.0.0
 # Invoke-RedditRequest
 
 ## SYNOPSIS
-Performs an authenticated APi request against the Reddit API.
+Performs an authenticated API request against the Reddit API.
 
 ## SYNTAX
 
@@ -23,7 +23,7 @@ Invoke-RedditRequest [-Uri] <Uri> [[-AccessToken] <RedditOAuthToken>] [[-Method]
 
 `Invoke-RedditRequest` Requires a `RedditOAuthToken` in order to perform the authenticated API request. To create `RedditOAuthToken` see the help info for `Request-RedditOAuthToken`.
 
-`Invoke-RedditRequest` is essentially a wrapper for `Invoke-WebRequest` to ease the burden of authentication, Rate Limit monitoring, and Access Token renewal. 
+`Invoke-RedditRequest` is essentially a wrapper for `Invoke-WebRequest` to ease the burden of authentication, Rate Limit monitoring, and Access Token renewal.
 
 `Invoke-RedditRequest` returns a `RedditApiResponse` which contains the `RedditOAuthToken`, The response from the API, and a converted Content Object. The `RedditApiResponse` can then be used to create other module objects or consumed directly.
 
@@ -79,7 +79,7 @@ For automation, the creation of the `RedditApplication` and `RedditOAuthToken` a
 ## PARAMETERS
 
 ### -AccessToken
-The `RedditOAuthToken` created by `Request-RedditOAuthToken` used to make OAuth authenticated calls to Reddit's API and track API Rate Limiting. 
+The `RedditOAuthToken` created by `Request-RedditOAuthToken` used to make OAuth authenticated calls to Reddit's API and track API Rate Limiting.
 
 ```yaml
 Type: RedditOAuthToken
@@ -131,7 +131,7 @@ Accept wildcard characters: False
 ### -Headers
 Specifies the headers of the web request. Enter a hash table or dictionary.
 
-`UserAgent` and `Authorization` will be overwritten. 
+`UserAgent` and `Authorization` will be overwritten.
 
 ```yaml
 Type: IDictionary

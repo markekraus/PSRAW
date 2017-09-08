@@ -7,8 +7,6 @@ Describes the RedditApiResponse Class
 # LONG DESCRIPTION
 The `RedditApiResponse` is returned by the `Invoke-RedditRequest` function. It is used to house the response from the Reddit API.
 
-The `RedditApiResponse` class is imported automatically when you import the PSRAW module.
-
 
 # Constructors
 ## RedditApiResponse()
@@ -113,6 +111,8 @@ $Result = Invoke-WebRequest @Params
 This example demonstrates using a `RedditOAuthToken` to make an authenticated web request to `https://oauth.reddit.com/api/v1/me` and creating a `RedditApiResponse` with the results. This is basically what is done within `Invoke-RedditRequest`
 
 # SEE ALSO
+
+[about_RedditApiResponse](https://psraw.readthedocs.io/en/latest/Module/about_RedditApiResponse)
 
 [about_RedditApplication](https://psraw.readthedocs.io/en/latest/Module/about_RedditApplication)
 

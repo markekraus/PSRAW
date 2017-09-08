@@ -17,7 +17,7 @@ Get-AuthorizationHeader [-Credential] <PSCredential> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Private Function that converts the provided `PSCredential` in to a rfc2617 Authorization header. Reddit's API requires `Basic` `Authorization` when requesting certain Access Token types. PowerShell does not support this method directly via `Invoke-WebRequest` or `Invoke-RestMethod`, therefore this function provides that missing functionality. This is not the same header sent when using the `Credential` parameter on either command.
+Private Function that converts the provided `PSCredential` in to a rfc2617 Authorization header. Reddit's API requires `Basic` `Authorization` when requesting certain Access Token types. PowerShell does not currently support this method directly via `Invoke-WebRequest` or `Invoke-RestMethod`, therefore this function provides that missing functionality. This is not the same header sent when using the `Credential` parameter on either command.
 
 This function is not intended for direct usage by the module consumer and is not exported by the module. Documentation is provided for developers and contributors.
 

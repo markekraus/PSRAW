@@ -1,6 +1,6 @@
 ---
 external help file: PSRAW-help.xml
-Module Name: psraw
+Module Name: PSRAW
 online version: https://psraw.readthedocs.io/en/latest/Module/Set-RedditDefaultOAuthToken
 schema: 2.0.0
 ---

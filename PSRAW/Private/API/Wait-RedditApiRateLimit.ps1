@@ -51,7 +51,13 @@ function Wait-RedditApiRateLimit {
             Write-Verbose 'Token has not exceeded ratelimit.'
             return
         }
-        $Message = 'Rate limit in effect until {0}. Sleeping.' -f $AccessToken.GetRateLimitReset()
+        $Message = 'Rate limit in effect until {0}. Sleeping. RateLimitRemaining: {1}; RateLimitRest: {2}; RateLimitUsed: {3}; LastApiCall: {4}; GUID:{5}' -f 
+            $AccessToken.GetRateLimitReset(),
+            $AccessToken.RateLimitRemaining,
+            $AccessToken.RateLimitRest,
+            $AccessToken.RateLimitUsed,
+            $AccessToken.LastApiCall,
+            $AccessToken.GUID
         Write-Warning $Message
         while (
             $AccessToken.IsRateLimited() -and 

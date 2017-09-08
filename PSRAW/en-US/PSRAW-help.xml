@@ -174,7 +174,7 @@
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Allows you to export a `RedditApplication` object to an XML file so that you can later import the object via `Import-RedditApplication`. This allows you to share the same Reddit application between multiple scripts. This function is a wrapper for `Export-Clixml`. </maml:para>
+      <maml:para>Allows you to export a `RedditApplication` object to an XML file so that you can later import the object via `Import-RedditApplication`. This allows you to share the same Reddit application between multiple scripts. This function is a wrapper for `Export-Clixml`.</maml:para>
       <maml:para>User Passwords and Client Secrets stored in the `RedditApplication` object are stored as secure strings and are not visible as plaintext in the export file. This also means that a `RedditApplication` object exported by one user cannot be imported by another user on the same computer nor can it be imported by the same user on a different computer. It can only be imported by the same user on the same computer.</maml:para>
       <maml:para>The maximum depth will be set on `Export-Clixml`.</maml:para>
       <maml:para>New `RedditApplication` objects can be created manually or with `New-RedditApplication`.</maml:para>
@@ -197,8 +197,8 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="named" aliases="none">
           <maml:name>Encoding</maml:name>
           <maml:Description>
-            <maml:para>Specifies the type of encoding for the target file. The acceptable values for this parameter are:
-- ASCII</maml:para>
+            <maml:para>Specifies the type of encoding for the target file. The acceptable values for this parameter are:</maml:para>
+            <maml:para>- ASCII</maml:para>
             <maml:para>- UTF8</maml:para>
             <maml:para>- UTF7</maml:para>
             <maml:para>- UTF32</maml:para>
@@ -268,8 +268,8 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="named" aliases="none">
           <maml:name>Encoding</maml:name>
           <maml:Description>
-            <maml:para>Specifies the type of encoding for the target file. The acceptable values for this parameter are:
-- ASCII</maml:para>
+            <maml:para>Specifies the type of encoding for the target file. The acceptable values for this parameter are:</maml:para>
+            <maml:para>- ASCII</maml:para>
             <maml:para>- UTF8</maml:para>
             <maml:para>- UTF7</maml:para>
             <maml:para>- UTF32</maml:para>
@@ -339,8 +339,8 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="named" aliases="none">
         <maml:name>Encoding</maml:name>
         <maml:Description>
-          <maml:para>Specifies the type of encoding for the target file. The acceptable values for this parameter are:
-- ASCII</maml:para>
+          <maml:para>Specifies the type of encoding for the target file. The acceptable values for this parameter are:</maml:para>
+          <maml:para>- ASCII</maml:para>
           <maml:para>- UTF8</maml:para>
           <maml:para>- UTF7</maml:para>
           <maml:para>- UTF32</maml:para>
@@ -494,7 +494,7 @@ $Application | Export-RedditApplication</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Allows you to export a `RedditOAuthToken` object to an XML file so that you can later import the object via `Import-RedditOAuthToken`. This allows you to share the same Reddit application between multiple scripts. This function is a wrapper for `Export-Clixml`. </maml:para>
+      <maml:para>Allows you to export a `RedditOAuthToken` object to an XML file so that you can later import the object via `Import-RedditOAuthToken`. This allows you to save OAuth Tokens to use in other sessions. This function is a wrapper for `Export-Clixml`.</maml:para>
       <maml:para>User Password, Client Secret, Access Token, and Refresh Token stored in the `RedditOAuthToken` object are stored as secure strings and are not visible as plaintext in the export file. This also means that a `RedditOAuthToken` object exported by one user cannot be imported by another user on the same computer nor can it be imported by the same user on a different computer. It can only be imported by the same user on the same computer.</maml:para>
       <maml:para>The maximum depth will be set on `Export-Clixml`.</maml:para>
       <maml:para>New `RedditOAuthToken` objects can be created manually or with `Request-RedditOAuthToken`.</maml:para>
@@ -517,8 +517,8 @@ $Application | Export-RedditApplication</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="named" aliases="none">
           <maml:name>Encoding</maml:name>
           <maml:Description>
-            <maml:para>Specifies the type of encoding for the target file. The acceptable values for this parameter are:
-- ASCII</maml:para>
+            <maml:para>Specifies the type of encoding for the target file. The acceptable values for this parameter are:</maml:para>
+            <maml:para>- ASCII</maml:para>
             <maml:para>- UTF8</maml:para>
             <maml:para>- UTF7</maml:para>
             <maml:para>- UTF32</maml:para>
@@ -588,8 +588,8 @@ $Application | Export-RedditApplication</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="named" aliases="none">
           <maml:name>Encoding</maml:name>
           <maml:Description>
-            <maml:para>Specifies the type of encoding for the target file. The acceptable values for this parameter are:
-- ASCII</maml:para>
+            <maml:para>Specifies the type of encoding for the target file. The acceptable values for this parameter are:</maml:para>
+            <maml:para>- ASCII</maml:para>
             <maml:para>- UTF8</maml:para>
             <maml:para>- UTF7</maml:para>
             <maml:para>- UTF32</maml:para>
@@ -659,8 +659,8 @@ $Application | Export-RedditApplication</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="named" aliases="none">
         <maml:name>Encoding</maml:name>
         <maml:Description>
-          <maml:para>Specifies the type of encoding for the target file. The acceptable values for this parameter are:
-- ASCII</maml:para>
+          <maml:para>Specifies the type of encoding for the target file. The acceptable values for this parameter are:</maml:para>
+          <maml:para>- ASCII</maml:para>
           <maml:para>- UTF8</maml:para>
           <maml:para>- UTF7</maml:para>
           <maml:para>- UTF32</maml:para>
@@ -1046,7 +1046,7 @@ $Token | Export-RedditOAuthToken</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Allows you to import a `RedditApplication` object from an XML file that was previously exported via `Export-RedditApplication`. This allows you to share the same Reddit application between multiple scripts. This function is a wrapper for `Import-Clixml`. </maml:para>
+      <maml:para>Allows you to import a `RedditApplication` object from an XML file that was previously exported via `Export-RedditApplication`. This allows you to share the same Reddit application between multiple scripts. This function is a wrapper for `Import-Clixml`.</maml:para>
       <maml:para>User Passwords and Client Secrets stored in the `RedditApplication` object are stored as secure strings and are not visible as plaintext in the export file. This also means that a `RedditApplication` object exported by one user cannot be imported by another user on the same computer nor can it be imported by the same user on a different computer. It can only be imported by the same user on the same computer.</maml:para>
       <maml:para>The maximum depth will be set on `Export-Clixml`.</maml:para>
       <maml:para>New `RedditApplication` objects can be created manually or with `New-RedditApplication`.</maml:para>
@@ -1256,7 +1256,7 @@ $Token | Export-RedditOAuthToken</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Allows you to import a `RedditOAuthToken` object from an XML file that was previously exported via `Export-RedditOAuthToken` sets it as the session default OAuth Token. This allows you to share the same Reddit application between multiple scripts. This function is a wrapper for `Import-Clixml`. </maml:para>
+      <maml:para>Allows you to import a `RedditOAuthToken` object from an XML file that was previously exported via `Export-RedditOAuthToken` sets it as the session default OAuth Token. This allows recall OAuth Tokens from previous sessions. This function is a wrapper for `Import-Clixml`.</maml:para>
       <maml:para>User Password, Client Secret, Access Token, and Refresh Token stored in the `RedditOAuthToken` object are stored as secure strings and are not visible as plaintext in the export file. This also means that a `RedditOAuthToken` object exported by one user cannot be imported by another user on the same computer nor can it be imported by the same user on a different computer. It can only be imported by the same user on the same computer.</maml:para>
       <maml:para>The maximum depth will be set on `Export-Clixml`.</maml:para>
       <maml:para>New `RedditOAuthToken` objects can be created manually or with `Request-RedditOAuthToken`.</maml:para>
@@ -1503,13 +1503,13 @@ $Token | Export-RedditOAuthToken</dev:code>
       <command:verb>Invoke</command:verb>
       <command:noun>RedditRequest</command:noun>
       <maml:description>
-        <maml:para>Performs an authenticated APi request against the Reddit API.</maml:para>
+        <maml:para>Performs an authenticated API request against the Reddit API.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
       <maml:para>`Invoke-RedditRequest` is the core function of this module. All API requests made to Reddit are done so by calls to `Invoke-RedditRequest`. It can also be used directly in order to obtain raw API responses or to access API functionality that has not yet been provided by this module's wrapper functions.</maml:para>
       <maml:para>`Invoke-RedditRequest` Requires a `RedditOAuthToken` in order to perform the authenticated API request. To create `RedditOAuthToken` see the help info for `Request-RedditOAuthToken`.</maml:para>
-      <maml:para>`Invoke-RedditRequest` is essentially a wrapper for `Invoke-WebRequest` to ease the burden of authentication, Rate Limit monitoring, and Access Token renewal. </maml:para>
+      <maml:para>`Invoke-RedditRequest` is essentially a wrapper for `Invoke-WebRequest` to ease the burden of authentication, Rate Limit monitoring, and Access Token renewal.</maml:para>
       <maml:para>`Invoke-RedditRequest` returns a `RedditApiResponse` which contains the `RedditOAuthToken`, The response from the API, and a converted Content Object. The `RedditApiResponse` can then be used to create other module objects or consumed directly.</maml:para>
       <maml:para>`irr` is an alias imported for this command.</maml:para>
     </maml:description>
@@ -2812,6 +2812,284 @@ $Token = New-RedditApplication @Params | Request-RedditOAuthToken -Script -PassT
       <maml:navigationLink>
         <maml:linkText>https://www.reddit.com/prefs/apps</maml:linkText>
         <maml:uri>https://www.reddit.com/prefs/apps</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>https://www.reddit.com/wiki/api</maml:linkText>
+        <maml:uri>https://www.reddit.com/wiki/api</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>https://psraw.readthedocs.io/</maml:linkText>
+        <maml:uri>https://psraw.readthedocs.io/</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Resolve-RedditDataObject</command:name>
+      <command:verb>Resolve</command:verb>
+      <command:noun>RedditDataObject</command:noun>
+      <maml:description>
+        <maml:para>Resolves a `RedditDataObject` from another object (experimental)</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>This function is used to return the appropriate `RedditDataObject` (i.e. `RedditComment`) from various objects. This is used to raise a `RedditDataObject` up from the `RedditThing` meta-class that Reddit uses to encapsulate all objects such as comments, links, subreddits, lists, and mores. It is made public due to implementation limitations, but is not intended for public consumption. Do not call this function directly.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Resolve-RedditDataObject</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="0" aliases="none">
+          <maml:name>PSObject</maml:name>
+          <maml:Description>
+            <maml:para>A PSObject of a `Thing` returned from the Reddit API and converted from JSON.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">PSObject</command:parameterValue>
+          <dev:type>
+            <maml:name>PSObject</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
+          <maml:name>Confirm</maml:name>
+          <maml:Description>
+            <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
+          <maml:name>WhatIf</maml:name>
+          <maml:Description>
+            <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+      <command:syntaxItem>
+        <maml:name>Resolve-RedditDataObject</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="0" aliases="none">
+          <maml:name>RedditApiResponse</maml:name>
+          <maml:Description>
+            <maml:para>A `RedditApiResponse` object returned from `Invoke-RedditRequest`</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">RedditApiResponse</command:parameterValue>
+          <dev:type>
+            <maml:name>RedditApiResponse</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
+          <maml:name>Confirm</maml:name>
+          <maml:Description>
+            <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
+          <maml:name>WhatIf</maml:name>
+          <maml:Description>
+            <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+      <command:syntaxItem>
+        <maml:name>Resolve-RedditDataObject</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="0" aliases="none">
+          <maml:name>RedditThing</maml:name>
+          <maml:Description>
+            <maml:para>An existing `RedditThing` object.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">RedditThing</command:parameterValue>
+          <dev:type>
+            <maml:name>RedditThing</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
+          <maml:name>Confirm</maml:name>
+          <maml:Description>
+            <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
+          <maml:name>WhatIf</maml:name>
+          <maml:Description>
+            <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="0" aliases="none">
+        <maml:name>PSObject</maml:name>
+        <maml:Description>
+          <maml:para>A PSObject of a `Thing` returned from the Reddit API and converted from JSON.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">PSObject</command:parameterValue>
+        <dev:type>
+          <maml:name>PSObject</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="0" aliases="none">
+        <maml:name>RedditApiResponse</maml:name>
+        <maml:Description>
+          <maml:para>A `RedditApiResponse` object returned from `Invoke-RedditRequest`</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">RedditApiResponse</command:parameterValue>
+        <dev:type>
+          <maml:name>RedditApiResponse</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="0" aliases="none">
+        <maml:name>RedditThing</maml:name>
+        <maml:Description>
+          <maml:para>An existing `RedditThing` object.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">RedditThing</command:parameterValue>
+        <dev:type>
+          <maml:name>RedditThing</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
+        <maml:name>Confirm</maml:name>
+        <maml:Description>
+          <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
+        <maml:name>WhatIf</maml:name>
+        <maml:Description>
+          <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>RedditApiResponse</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+      <command:inputType>
+        <dev:type>
+          <maml:name>RedditThing</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.Management.Automation.PSObject</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>RedditDataObject</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Experimental: This is an experimental feature. Expect radical changes between versions. Do not write production code against this until it has been marked stable.</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>Example 1</maml:title>
+        <dev:code>$Response = Invoke-RedditRequest -uri $uri
+$RedditComment = Resolve-RedditDataObject -RedditAPIResponse $Response</dev:code>
+        <dev:remarks>
+          <maml:para>Assuming `$uri` is a comment endpoint, this will convert the response from `Invoke-RedditRequest` into a `RedditComment` object.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>Example 2</maml:title>
+        <dev:code>$Response = Invoke-RedditRequest -uri $uri
+$RedditComment = Resolve-RedditDataObject -PSObject $Response.ContentObject</dev:code>
+        <dev:remarks>
+          <maml:para>Assuming `$uri` is a comment endpoint, this will convert the `ContentObject` from `Invoke-RedditRequest` into a `RedditComment` object.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>Example 2</maml:title>
+        <dev:code>$Response = Invoke-RedditRequest -uri $uri
+$RedditThing = [RedditThing]$Response.ContentObject
+$RedditComment = Resolve-RedditDataObject -RedditThing $RedditThing</dev:code>
+        <dev:remarks>
+          <maml:para>Converting a `RedditThing` into a `RedditComment`.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>https://psraw.readthedocs.io/en/latest/Module/Resolve-RedditDataObject</maml:linkText>
+        <maml:uri>https://psraw.readthedocs.io/en/latest/Module/Resolve-RedditDataObject</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>about_RedditDataObject</maml:linkText>
+        <maml:uri>https://psraw.readthedocs.io/en/latest/Module/about_RedditdataObject</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>about_RedditAPIResponse</maml:linkText>
+        <maml:uri>https://psraw.readthedocs.io/en/latest/Module/about_RedditAPIResponse</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>https://www.reddit.com/wiki/api</maml:linkText>

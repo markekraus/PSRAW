@@ -1,43 +1,38 @@
-<#	
+<#
     .NOTES
-    
+     Test must be run with Start-PSRAWPester
+
      Created with:  VSCode
      Created on:    4/30/2017 10:15 AM
-     Edited on:     5/20/2017
+     Edited on:     9/03/2017
      Created by:    Mark Kraus
-     Organization: 	
+     Organization:
      Filename:     RedditOAuthScope.Unit.Tests.ps1
-    
+
     .DESCRIPTION
         Unit Tests for RedditOAuthScope Class
 #>
-$ProjectRoot = Resolve-Path "$PSScriptRoot\..\.."
-$ModuleRoot = Split-Path (Resolve-Path "$ProjectRoot\*\*.psd1")
-$ModuleName = Split-Path $ModuleRoot -Leaf
-Remove-Module -Force $ModuleName  -ErrorAction SilentlyContinue
-Import-Module (Join-Path $ModuleRoot "$ModuleName.psd1") -force
 
-$Class = 'RedditOAuthScope'
-
-
-$TestHashes = @(
-    @{
-        Name = 'read'
-        Hash = @{
-            Scope       = 'creddits'
-            Id          = 'creddits'
-            Name        = 'Spend reddit gold creddits'
-            Description = 'Spend my reddit gold creddits on giving gold to other users.'
-        }
+Describe "[RedditOAuthScope] Tests" -Tag Unit, Build {
+    BeforeAll {
+        Initialize-PSRAWTest
+        Remove-Module $ModuleName -Force -ErrorAction SilentlyContinue
+        Import-Module -force $ModulePath
     }
-)
-
-
-Describe "[$Class] Tests" -Tag Unit, Build {
-    foreach ($TestHash in $TestHashes) {
-        It "Converts the '$($TestHash.Name)' hash" {
-            {[RedditOAuthScope]$TestHash.Hash} | should not throw
+    $TestCases = @(
+        @{
+            Name = 'read'
+            Hash = @{
+                Scope       = 'creddits'
+                Id          = 'creddits'
+                Name        = 'Spend reddit gold creddits'
+                Description = 'Spend my reddit gold creddits on giving gold to other users.'
+            }
         }
+    )
+    It "Converts the '<Name>' hash" -TestCases $TestCases {
+        param($Name, $Hash)
+        {[RedditOAuthScope]$Hash} | should not throw
     }
     It "Has a working Uber Constructor." {
         {
@@ -63,7 +58,7 @@ Describe "[$Class] Tests" -Tag Unit, Build {
         $EmptyScope.Scope | should be ''
         $EmptyScope.Name | should be ''
     }
-    It "Converts a [String] to a [$Class]" {
+    It "Converts a [String] to a [RedditOAuthScope]" {
         {[RedditOAuthScope]'read'} | should not throw
         $ReadScope = [RedditOAuthScope]'read'
         $ReadScope.Id | should be 'read'

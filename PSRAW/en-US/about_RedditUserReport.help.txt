@@ -7,10 +7,13 @@ SHORT DESCRIPTION
 LONG DESCRIPTION
     `RedditUserReport` represent reports made by a users on a link or comment.
     These will only be visible to subreddit moderators.
-    The `RedditUserReport` Class is imported automatically when you import the
-    PSRAW module.
 
 CONSTRUCTORS
+RedditUserReport()
+    Creates an empty `RedditUserReport` object.
+
+    [RedditUserReport]::new()
+
 RedditUserReport(Object[] InputObjects)
     Creates `RedditUserReport` from an object array
 
@@ -43,6 +46,7 @@ EXAMPLES
 SEE ALSO
     about_RedditUserReport
     about_RedditComment
+    about_RedditLink
     https://www.reddit.com/wiki/api
     https://psraw.readthedocs.io/
 

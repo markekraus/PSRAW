@@ -1,6 +1,6 @@
 ---
 external help file: PSRAW-help.xml
-Module Name: psraw
+Module Name: PSRAW
 online version: https://psraw.readthedocs.io/en/latest/Module/Import-RedditApplication
 schema: 2.0.0
 ---
@@ -23,7 +23,7 @@ Import-RedditApplication -LiteralPath <String[]> [-WhatIf] [-Confirm] [<CommonPa
 ```
 
 ## DESCRIPTION
-Allows you to import a `RedditApplication` object from an XML file that was previously exported via `Export-RedditApplication`. This allows you to share the same Reddit application between multiple scripts. This function is a wrapper for `Import-Clixml`. 
+Allows you to import a `RedditApplication` object from an XML file that was previously exported via `Export-RedditApplication`. This allows you to share the same Reddit application between multiple scripts. This function is a wrapper for `Import-Clixml`.
 
 User Passwords and Client Secrets stored in the `RedditApplication` object are stored as secure strings and are not visible as plaintext in the export file. This also means that a `RedditApplication` object exported by one user cannot be imported by another user on the same computer nor can it be imported by the same user on a different computer. It can only be imported by the same user on the same computer.
 

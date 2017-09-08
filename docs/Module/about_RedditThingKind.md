@@ -7,9 +7,6 @@ Describes the RedditThingKind Enum
 # LONG DESCRIPTION
 This s used by `RedditThing` objects to determine their kind.
 
-The `RedditThingKind` Enumerator is imported automatically when you import the PSRAW module.
-
-
 # Fields
 ## listing
 A listing is a list of Reddit Things
@@ -41,7 +38,7 @@ Reddit Promotion Campaign
 
 # EXAMPLES
 
-## Example 1 
+## Example 1
 
 ```powershell
 $Listing = [RedditThingKind]::listing

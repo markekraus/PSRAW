@@ -36,7 +36,7 @@ function Get-HttpResponseContentType {
             $Response.BaseResponse.Content.Headers.ContentType.MediaType
             $Response.BaseResponse.ContentType
         ) | 
-            Where-Object {$Null -ne $_ -and $_ -ne [string]::Empty} |
+            Where-Object {-not [string]::IsNullOrEmpty($_)} |
             Select-Object -First 1
     }
 }

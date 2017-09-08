@@ -2,13 +2,12 @@
     about_redditthing
 
 SHORT DESCRIPTION
-    Describes the RedditThing Class
+    Describes the RedditThing Class (experimental)
 
 LONG DESCRIPTION
     This is a meta-class used for objects returned from the reddit API. "Reddit
     Things" describe what the returned object is, such as a listing, a comment,
-    a submission, a subreddit, a user, etc. The `RedditThing` Class is imported
-    automatically when you import the PSRAW module.
+    a submission, a subreddit, etc.
 
 CONSTRUCTORS
 RedditThing()
@@ -16,18 +15,16 @@ RedditThing()
 
     [RedditThing]::new()
 
+RedditThing(System.Management.Automation.PSObject Object)
+    Creates a `RedditThing` form a `PSObject` converted from JSON Reddit API
+    response.
+
+    [RedditThing]::new([System.Management.Automation.PSObject]$Object)
+
 PROPERTIES
-AccessToken
-    The `RedditAccessToken` used to retrieve the reddit thing.
-
-    Name: AccessToken
-    Type: RedditOAuthToken
-    Hidden: False
-    Static: False
-
 Data
     The "Thing" being returned such as a listing, a comment, a submission, a
-    subreddit, a user, etc.
+    subreddit, etc.
 
     Name: Data
     Type: System.Management.Automation.PSObject
@@ -61,26 +58,56 @@ Name
     Hidden: False
     Static: False
 
-Parent
-    If A Reddit Thing was a child of something like a listing, the `Parent` may
-    contain the parent object.
+ParentObject
+    If A Reddit Thing was a child of something like a listing, the
+    `ParentObject` may contain the parent object.
 
     Name: Parent
     Type: System.Management.Automation.PSObject
     Hidden: False
     Static: False
 
+RedditData
+    A converted `RedditDataObject` of the `RedditThing`. For example, it the
+    `RedditThing` is a comment, `RedditData` will contain the converted
+    `RedditComment` object.
+
+    Name: RedditData
+    Type: RedditDataObject
+    Hidden: False
+    Static: False
+
 METHODS
+CreateFrom(RedditApiResponse Response)
+    Generates `RedditThings` from a `RedditApiResponse` returned from
+    `Invoke-RedditRequest`. A `RedditApiResponse` may contain multiple
+    `RedditThings` in the response.
+
+    Name: CreateFrom
+    Return Type: RedditThing[]
+    Hidden: False
+    Static: True
+    Definition: static RedditThing[] CreateFrom(RedditApiResponse Response)
+
 EXAMPLES
 Example 1
     [RedditThing]@{
-        AccessToken = $Token
         Kind        = 'Listing'
         Data        = $Object
     }
 
+Example 2
+    $Response = Invoke-RedditRequest -Uri $Uri
+    $Things = [RedditThing]::CreateFrom($Response)
+
+NOTES
+    Experimental: This is an experimental feature. Expect radical changes
+    between versions. Do not write production code against this until it has
+    been marked stable.
+
 SEE ALSO
     about_RedditThing
+    about_RedditApiResponse
     Invoke-RedditRequest
     https://github.com/reddit/reddit/wiki/JSON
     https://www.reddit.com/wiki/api

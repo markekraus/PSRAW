@@ -1,6 +1,6 @@
 ---
 external help file: PSRAW-help.xml
-Module Name: psraw
+Module Name: PSRAW
 online version: https://psraw.readthedocs.io/en/latest/Module/Export-RedditOAuthToken
 schema: 2.0.0
 ---
@@ -31,7 +31,7 @@ Export-RedditOAuthToken -LiteralPath <String> [-Encoding <String>] [-AccessToken
 ```
 
 ## DESCRIPTION
-Allows you to export a `RedditOAuthToken` object to an XML file so that you can later import the object via `Import-RedditOAuthToken`. This allows you to share the same Reddit application between multiple scripts. This function is a wrapper for `Export-Clixml`. 
+Allows you to export a `RedditOAuthToken` object to an XML file so that you can later import the object via `Import-RedditOAuthToken`. This allows you to save OAuth Tokens to use in other sessions. This function is a wrapper for `Export-Clixml`.
 
 User Password, Client Secret, Access Token, and Refresh Token stored in the `RedditOAuthToken` object are stored as secure strings and are not visible as plaintext in the export file. This also means that a `RedditOAuthToken` object exported by one user cannot be imported by another user on the same computer nor can it be imported by the same user on a different computer. It can only be imported by the same user on the same computer.
 
@@ -82,7 +82,7 @@ Accept wildcard characters: False
 
 ### -Encoding
 Specifies the type of encoding for the target file. The acceptable values for this parameter are:
-        
+
 - ASCII
 - UTF8
 - UTF7

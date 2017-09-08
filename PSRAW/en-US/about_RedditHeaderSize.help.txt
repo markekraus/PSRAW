@@ -1,0 +1,46 @@
+﻿TOPIC
+    about_redditheadersize
+
+SHORT DESCRIPTION
+    Describes the RedditHeaderSize Class
+
+LONG DESCRIPTION
+    Represents the size of a Subreddit Header
+
+CONSTRUCTORS
+RedditHeaderSize()
+    Creates an empty `RedditHeaderSize`
+
+    [RedditHeaderSize]::new()
+
+RedditHeaderSize(Object[] InputObjects)
+    Creates a `RedditHeaderSize` from an array where the first element is the
+    width and the second element is the height. This is how the Reddit API
+    returns the object.
+
+    [RedditHeaderSize]::new([Object[]]$InputObjects)
+
+PROPERTIES
+Height
+    The Height of the Header
+
+    Name: Height
+    Type: Int64
+    Hidden: False
+    Static: False
+
+Width
+    The Width of the Header
+
+    Name: Width
+    Type: Int64
+    Hidden: False
+    Static: False
+
+METHODS
+SEE ALSO
+    about_RedditHeaderSize
+    about_RedditSubreddit
+    https://www.reddit.com/wiki/api
+    https://psraw.readthedocs.io/
+

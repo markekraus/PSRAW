@@ -1,6 +1,6 @@
 ---
 external help file: PSRAW-help.xml
-Module Name: psraw
+Module Name: PSRAW
 online version: https://psraw.readthedocs.io/en/latest/Module/Update-RedditOAuthToken
 schema: 2.0.0
 ---
@@ -18,7 +18,7 @@ Update-RedditOAuthToken [-AccessToken <RedditOAuthToken[]>] [-Force] [-PassThru]
 ```
 
 ## DESCRIPTION
-When a `RedditOAuthToken` Token has expired, `Update-RedditOAuthToken`can be used to refresh the Access Token. Depending on the grant method used to request the `RedditOAuthToken` with `Request-RedditOAuthToken`, either a refresh will be performed or a new grant flow will be initiated. 
+When a `RedditOAuthToken` Token has expired, `Update-RedditOAuthToken`can be used to refresh the Access Token. Depending on the grant method used to request the `RedditOAuthToken` with `Request-RedditOAuthToken`, either a refresh will be performed or a new grant flow will be initiated.
 
 ## EXAMPLES
 
